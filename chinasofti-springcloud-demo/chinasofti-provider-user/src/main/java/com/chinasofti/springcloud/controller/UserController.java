@@ -37,7 +37,7 @@ public class UserController {
 
   @GetMapping("/eureka-instance")
   public String serviceUrl() {
-    InstanceInfo instance = this.eurekaClient.getNextServerFromEureka("MICROSERVICE-PROVIDER-USER", false);
+    InstanceInfo instance = this.eurekaClient.getNextServerFromEureka("CHINASOFTI-PROVIDER-USER", false);
     return instance.getHomePageUrl();
   }
 

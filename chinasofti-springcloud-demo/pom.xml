@@ -13,6 +13,9 @@
 		<module>chinasofti-provider-user</module>
 		<module>chinasofti-discovery-eureka</module>
 		<module>chinasofti-consumer-movie-ribbon</module>
+		<module>chinasofti-consumer-movie-ribbon-properties-customizing</module>
+		<module>chinasofti-consumer-movie-ribbon-without-eureka</module>
+		<module>chinasofti-consumer-movie-feign</module>
 	</modules>
 	
 	<properties>

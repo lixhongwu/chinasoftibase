@@ -11,3 +11,9 @@ eureka:
       defaultZone: http://user:password456@localhost:8761/eureka
   instance:
     prefer-ip-address: true
+ribbon:
+  eureka:
+   enabled: false
+microservice-provider-user:
+  ribbon:
+    listOfServers: localhost:7900

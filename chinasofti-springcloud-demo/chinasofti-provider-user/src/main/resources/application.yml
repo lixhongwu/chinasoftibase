@@ -11,14 +11,14 @@ spring:
     schema: classpath:schema.sql
     data: classpath:data.sql
   application:
-    name: microservice-provider-user
+    name: chinasofti-provider-user
 logging:
   level:
     root: INFO
     org.hibernate: INFO
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
-    com.itmuch: DEBUG
+    com.chinasofti: DEBUG
 eureka:
   client:
     healthcheck:

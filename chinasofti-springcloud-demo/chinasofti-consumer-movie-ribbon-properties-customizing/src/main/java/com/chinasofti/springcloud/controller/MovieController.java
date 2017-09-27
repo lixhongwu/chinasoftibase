@@ -20,6 +20,9 @@ public class MovieController {
   @GetMapping("/movie/{id}")
   public User findById(@PathVariable Long id) {
     // http://localhost:7900/simple/
+    ServiceInstance serviceInstance = this.loadBalancerClient.choose("chinasofti-provider-user");
+    System.out.println("===" + ":" + serviceInstance.getServiceId() + ":" + serviceInstance.getHost() + ":" + serviceInstance.getPort());
+
     return this.restTemplate.getForObject("http://chinasofti-provider-user/simple/" + id, User.class);
   }
 
