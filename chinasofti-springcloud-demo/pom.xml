@@ -12,7 +12,7 @@
 		<module>chinasofti-consumer-movie</module>
 		<module>chinasofti-provider-user</module>
 		<module>chinasofti-discovery-eureka</module>
-		
+
 	</modules>
 	
 	<properties>
