@@ -12,16 +12,7 @@
 		<module>chinasofti-consumer-movie</module>
 		<module>chinasofti-provider-user</module>
 		<module>chinasofti-discovery-eureka</module>
-		<module>chinasofti-discovery-eureka-ha</module>
-		<module>chinasofti-consumer-movie-ribbon</module>
-		<module>chinasofti-consumer-movie-ribbon-properties-customizing</module>
-		<module>chinasofti-consumer-movie-ribbon-without-eureka</module>
-		<module>chinasofti-consumer-movie-feign</module>
-		<module>chinasofti-consumer-movie-ribbon-with-hystrix</module>
-		<module>chinasofti-consumer-movie-ribbon-with-hystrix-propagation</module>
-		<module>chinasofti-consumer-movie-feign-customizing</module>
-		<module>chinasofti-consumer-movie-feign-customizing-without-hystrix</module>
-		<module>chinasofti-consumer-movie-feign-with-hystrix</module>
+		
 	</modules>
 	
 	<properties>
