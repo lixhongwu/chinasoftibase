@@ -13,6 +13,7 @@
 		<module>chinasofti-provider-user</module>
 		<module>chinasofti-discovery-eureka</module>
 
+		<module>chinasofti-sp-goods</module>
 	</modules>
 	
 	<properties>
