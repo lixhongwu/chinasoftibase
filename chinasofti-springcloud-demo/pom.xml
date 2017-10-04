@@ -13,6 +13,7 @@
 		<module>chinasofti-provider-user</module>
 		<module>chinasofti-discovery-eureka</module>
 
+		<module>chinasofti-getway-zuul</module>
 	</modules>
 	
 	<properties>
