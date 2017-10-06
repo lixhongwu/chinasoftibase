@@ -1,10 +1,10 @@
 spring:
   application:
-    name: chinasofti-consumer-movie
+    name: consumer-movie
 server:
   port: 7902
 user: 
-  userServicePath: http://localhost:7901/simple/
+  userServicePath: http://localhost:7901/
 eureka:
   client:
     healthcheck:

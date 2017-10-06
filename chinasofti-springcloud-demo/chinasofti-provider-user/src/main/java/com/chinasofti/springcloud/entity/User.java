@@ -1,79 +1,55 @@
 package com.chinasofti.springcloud.entity;
 
-import java.math.BigDecimal;
+import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
 public class User {
+    private Integer id;
 
-  public User(Long id, String username) {
-    super();
-    this.id = id;
-    this.username = username;
-  }
+    private String username;
 
-  public User() {
-    super();
-  }
+    private Date birthday;
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+    private String sex;
 
-  @Column
-  private String username;
+    private String address;
 
-  @Column
-  private String name;
+    public Integer getId() {
+        return id;
+    }
 
-  @Column
-  private Short age;
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-  @Column
-  private BigDecimal balance;
+    public String getUsername() {
+        return username;
+    }
 
-  public Long getId() {
-    return this.id;
-  }
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
+    }
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+    public Date getBirthday() {
+        return birthday;
+    }
 
-  public String getUsername() {
-    return this.username;
-  }
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
 
-  public void setUsername(String username) {
-    this.username = username;
-  }
+    public String getSex() {
+        return sex;
+    }
 
-  public String getName() {
-    return this.name;
-  }
+    public void setSex(String sex) {
+        this.sex = sex == null ? null : sex.trim();
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public String getAddress() {
+        return address;
+    }
 
-  public Short getAge() {
-    return this.age;
-  }
-
-  public void setAge(Short age) {
-    this.age = age;
-  }
-
-  public BigDecimal getBalance() {
-    return this.balance;
-  }
-
-  public void setBalance(BigDecimal balance) {
-    this.balance = balance;
-  }
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
+    }
 }

@@ -1,56 +1,55 @@
 package com.chinasofti.springcloud.entity;
 
-import java.math.BigDecimal;
+import java.util.Date;
 
 public class User {
-  private Long id;
+    private Integer id;
 
-  private String username;
+    private String username;
 
-  private String name;
+    private Date birthday;
 
-  private Short age;
+    private String sex;
 
-  private BigDecimal balance;
+    private String address;
 
-  public Long getId() {
-    return this.id;
-  }
+    public Integer getId() {
+        return id;
+    }
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-  public String getUsername() {
-    return this.username;
-  }
+    public String getUsername() {
+        return username;
+    }
 
-  public void setUsername(String username) {
-    this.username = username;
-  }
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
+    }
 
-  public String getName() {
-    return this.name;
-  }
+    public Date getBirthday() {
+        return birthday;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
 
-  public Short getAge() {
-    return this.age;
-  }
+    public String getSex() {
+        return sex;
+    }
 
-  public void setAge(Short age) {
-    this.age = age;
-  }
+    public void setSex(String sex) {
+        this.sex = sex == null ? null : sex.trim();
+    }
 
-  public BigDecimal getBalance() {
-    return this.balance;
-  }
+    public String getAddress() {
+        return address;
+    }
 
-  public void setBalance(BigDecimal balance) {
-    this.balance = balance;
-  }
-
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
+    }
 }
