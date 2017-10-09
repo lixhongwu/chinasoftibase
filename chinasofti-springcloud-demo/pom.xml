@@ -9,11 +9,10 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>chinasofti-consumer-movie</module>
-		<module>chinasofti-provider-user</module>
-		<module>chinasofti-discovery-eureka</module>
-
-		<module>chinasofti-getway-zuul</module>
+		<module>chinasofti-sp-user</module>
+		<module>chinasofti-sp-eureka</module>
+		<module>chinasofti-sp-zuul</module>
+		<module>chinasofti-sp-goodsinfo</module>
 	</modules>
 	
 	<properties>
