@@ -7,7 +7,7 @@
   </parent>
   <artifactId>chinasofti-sp-goodsinfo</artifactId>
   
-  <properties>
+	<properties>
 		<!--设置字符编码及java版本 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
