@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.chinasofti.springcloud.entity.SpGoodsinfo;
 import com.chinasofti.springcloud.entity.User;
@@ -30,5 +31,8 @@ public class UserController {
 
 		return this.restTemplate.getForObject(this.userServicePath + "spuser/" + id, User.class);
 	}
-
+    @RequestMapping("/user/web")
+	public ModelAndView getview() {
+		return  new ModelAndView("template");
+	}
 }

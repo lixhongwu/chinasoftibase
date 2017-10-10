@@ -1,4 +1,7 @@
 spring:
+  freemarker:
+    template-loader-path:
+    - /WEB-INF/ftl/
   application:
     name: microservice-consumer-movie
 server:
