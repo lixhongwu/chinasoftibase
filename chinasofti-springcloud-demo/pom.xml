@@ -13,6 +13,7 @@
 		<module>chinasofti-sp-eureka</module>
 		<module>chinasofti-sp-zuul</module>
 		<module>chinasofti-sp-goodsinfo</module>
+		<module>chinasofti-sp-consumer</module>
 	</modules>
 	
 	<properties>
