@@ -13,7 +13,11 @@
 		<module>chinasofti-sp-eureka</module>
 		<module>chinasofti-sp-zuul</module>
 		<module>chinasofti-sp-goodsinfo</module>
+<<<<<<< HEAD
 		<module>chinasofti-sp-config</module>
+=======
+		<module>chinasofti-sp-consumer</module>
+>>>>>>> 8b47fb605c0327fc09209e7ec2868e6e06421f3d
 	</modules>
 	
 	<properties>
