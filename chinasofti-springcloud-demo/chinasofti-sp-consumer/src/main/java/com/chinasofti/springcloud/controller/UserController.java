@@ -12,15 +12,18 @@ import com.chinasofti.springcloud.entity.SpGoodsinfo;
 import com.chinasofti.springcloud.entity.User;
 
 @RestController
-public class MovieController {
+/**
+ * user控制器
+ * 访问方式启动本地eureka服务器和服务提供者，通过ip+port加上/user/id
+ * @author husong
+ *
+ */
+public class UserController {
 	@Autowired
 	private RestTemplate restTemplate;
 
 	@Value("${user.userServicePath}")
 	private String userServicePath;
-
-	@Value("${user.goodServicepath}")
-	private String goodServicepath;
 
 	@GetMapping("/user/{id}")
 	public User findById(@PathVariable Long id) {
@@ -28,9 +31,4 @@ public class MovieController {
 		return this.restTemplate.getForObject(this.userServicePath + "spuser/" + id, User.class);
 	}
 
-	@GetMapping("/{ids}")
-	public SpGoodsinfo queryById(@PathVariable Long ids) {
-
-		return this.restTemplate.getForObject(this.goodServicepath + "goods/select/" + ids, SpGoodsinfo.class);
-	}
 }
