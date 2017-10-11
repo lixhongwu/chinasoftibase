@@ -3,7 +3,7 @@ spring:
     template-loader-path:
     - /WEB-INF/ftl/
   application:
-    name: microservice-consumer-movie
+    name: chinasofti-sp-consumer
 server:
   port: 7902
 user: 
