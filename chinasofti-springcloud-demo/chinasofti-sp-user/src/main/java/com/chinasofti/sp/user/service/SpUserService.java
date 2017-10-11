@@ -19,4 +19,9 @@ public class SpUserService {
 		
 	}
 
+	public void save(SpUser spUser) {
+		// TODO Auto-generated method stub
+		spUserMapper.insertSelective(spUser);
+	}
+
 }
