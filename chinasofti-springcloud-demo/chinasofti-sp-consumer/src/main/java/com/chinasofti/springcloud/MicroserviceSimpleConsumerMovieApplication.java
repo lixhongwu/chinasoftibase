@@ -34,7 +34,7 @@ public class MicroserviceSimpleConsumerMovieApplication {
 	public class FreemarkerConfig {
 	    @Autowired
 	    freemarker.template.Configuration configuration;
-
+	    
 	    @PostConstruct
 	    public void setSharedVariable(){
 	        configuration.setSharedVariable("block", new BlockDirective());

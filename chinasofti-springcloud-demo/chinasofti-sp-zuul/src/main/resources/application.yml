@@ -10,6 +10,6 @@ spring:
 zuul:
   routes:
     user:
-      path: user/**
-      service-id: service-ribbon
+      path: consumer/**
+      service-id: chinasofti-sp-consumer
    
