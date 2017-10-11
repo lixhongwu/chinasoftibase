@@ -42,6 +42,11 @@ public class SpUserService {
 	public int update(SpUser spUser) {
 		return spUserMapper.updateByPrimaryKeySelective(spUser);
 	}
+	
+	//更新一个用户
+	public int update2(SpUser spUser) {
+		return spUserMapper.updateByPrimaryKeySelective(spUser);
+	}
 
 
 }
