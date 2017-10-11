@@ -14,7 +14,7 @@ import com.chinasofti.sp.user.entity.SpUser;
 import com.chinasofti.sp.user.service.SpUserService;
 import com.google.gson.Gson;
 
-@RestController
+@RestController//ceshi
 @RequestMapping("spuser")
 public class SpUserController {
 	
