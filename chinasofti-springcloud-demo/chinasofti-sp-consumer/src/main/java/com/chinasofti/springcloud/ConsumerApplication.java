@@ -15,8 +15,8 @@ import cn.org.rapid_framework.freemarker.directive.ExtendsDirective;
 import cn.org.rapid_framework.freemarker.directive.OverrideDirective;
 
 @SpringBootApplication
-//@EnableEurekaClient
-public class MicroserviceSimpleConsumerMovieApplication {
+@EnableEurekaClient
+public class ConsumerApplication {
 
   @Bean
   public RestTemplate restTemplate() {
@@ -24,7 +24,7 @@ public class MicroserviceSimpleConsumerMovieApplication {
   }
 
   public static void main(String[] args) {
-    SpringApplication.run(MicroserviceSimpleConsumerMovieApplication.class, args);
+    SpringApplication.run(ConsumerApplication.class, args);
   }
   
   /*
