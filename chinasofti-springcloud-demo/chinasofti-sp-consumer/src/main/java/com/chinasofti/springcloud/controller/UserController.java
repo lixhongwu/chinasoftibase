@@ -33,6 +33,6 @@ public class UserController {
 	}
     @RequestMapping("/user/web")
 	public ModelAndView getview() {
-		return  new ModelAndView("template");
+		return  new ModelAndView("children");
 	}
 }
