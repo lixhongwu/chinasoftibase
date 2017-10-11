@@ -15,7 +15,7 @@ import cn.org.rapid_framework.freemarker.directive.ExtendsDirective;
 import cn.org.rapid_framework.freemarker.directive.OverrideDirective;
 
 @SpringBootApplication
-@EnableEurekaClient
+@EnableEurekaClient//注册中心
 public class ConsumerApplication {
 
   @Bean
