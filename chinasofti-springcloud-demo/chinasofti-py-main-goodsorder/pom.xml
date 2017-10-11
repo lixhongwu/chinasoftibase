@@ -5,7 +5,7 @@
     <artifactId>chinasofti-springcloud-demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>chinasofti-py-main-goodsorder</artifactId>
+  <artifactId>chinasofti-py-goodsorder</artifactId>
   
   <properties>
 		<!--设置字符编码及java版本 -->
