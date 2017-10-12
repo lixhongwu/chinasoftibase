@@ -5,4 +5,5 @@
 ## chinasofti-provider-user	7901	服务提供		
 ## chinasofti-sp-user	7801	        服务提供		
 ## chinasofti-sp-goods	7701			
-						
+## chinasofti-py-goodsorder     7601    服务提供
+## chinasofti-sp-sku            7401    服务提供
