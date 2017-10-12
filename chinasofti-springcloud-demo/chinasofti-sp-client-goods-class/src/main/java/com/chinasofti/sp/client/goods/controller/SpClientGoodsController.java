@@ -1,5 +1,7 @@
 package com.chinasofti.sp.client.goods.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,5 +27,15 @@ public class SpClientGoodsController {
 	@ResponseBody
 	public SpClientGoodsClass selectByPrimaryKey(@PathVariable String ids){
 		return spClientGoodsService.selectByPrimaryKey(ids);
-	}
+	}	
+	
+	//查询所有顶级分类
+	@RequestMapping("/selectAll")
+	@ResponseBody
+	public List<SpClientGoodsClass> selectAll(){
+		return spClientGoodsService.selectAll();
+	}	
+	
+	
+	
 }
