@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.sp.goods.entity.SpGoodsinfo;
-import com.chinasofti.sp.goods.entity.SpGoodsinfoExample;
 import com.chinasofti.sp.goods.service.SpGoodsService;
 
 @RequestMapping("goods")
