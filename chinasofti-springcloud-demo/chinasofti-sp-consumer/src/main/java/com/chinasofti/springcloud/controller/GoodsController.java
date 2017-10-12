@@ -46,6 +46,7 @@ public class GoodsController {
 		return  new ModelAndView("/goods/goods");
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/list")
 	@ResponseBody
 	public List<SpGoodsinfo> findAll(){
