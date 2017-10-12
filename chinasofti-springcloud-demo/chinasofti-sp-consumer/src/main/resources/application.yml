@@ -12,6 +12,7 @@ server:
 user: 
   userServicePath: http://localhost:7801/
   goodServicepath: http://localhost:7701/
+  goodsOrderServicepath: http://localhost:7601/
 goods:
   goodClassServicePath: http://localhost:8801/
 eureka:

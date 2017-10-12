@@ -1,22 +1,27 @@
-package com.chinasofti.py.goodsorder.controller;
+package com.chinasofti.springcloud.controller;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
-import com.chinasofti.py.goodsorder.entity.PyMainGoodsorder;
-import com.chinasofti.py.goodsorder.service.PyMainGoodsorderService;
+import com.chinasofti.springcloud.entity.PyMainGoodsorder;
+
 
 @RequestMapping("/goodsorder")
 @RestController
-public class PyMainGoodsorderController {
+public class GoodsOrderController {
 	
 	@Autowired
-	PyMainGoodsorderService pyGoodsService;
+	RestTemplate restTemplate;
+	
+	@Value("${user.goodsOrderServicepath}")
+	private String goodsOrderServicepath;
 	
 	/**
 	 * id查询
@@ -27,7 +32,7 @@ public class PyMainGoodsorderController {
 	@ResponseBody
 	public PyMainGoodsorder selectByPrimaryKey(@PathVariable String ids){
 		
-		return pyGoodsService.selectByPrimaryKey(ids);
+		return restTemplate.getForObject(this.goodsOrderServicepath + "goodsorder/select/" + ids, PyMainGoodsorder.class);
 		
 	}
 	
@@ -35,11 +40,12 @@ public class PyMainGoodsorderController {
 	 * 查询所有
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/list")
 	@ResponseBody
 	public List<PyMainGoodsorder> selectAll(){
 		
-		return pyGoodsService.selectAll();
+		return this.restTemplate.getForObject(this.goodsOrderServicepath + "goodsorder/list", List.class);
 	}
 	
 	
