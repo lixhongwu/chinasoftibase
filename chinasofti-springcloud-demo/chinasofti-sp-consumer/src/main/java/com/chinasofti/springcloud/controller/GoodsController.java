@@ -1,16 +1,21 @@
 package com.chinasofti.springcloud.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chinasofti.springcloud.entity.SpGoodsinfo;
 import com.chinasofti.springcloud.entity.User;
+import com.chinasofti.springcloud.utils.JsonUtils;
+import com.google.gson.Gson;
 
 @RestController
 /**
@@ -19,6 +24,7 @@ import com.chinasofti.springcloud.entity.User;
  * @author husong
  *
  */
+@RequestMapping("/goods")
 public class GoodsController {
 	@Autowired
 	private RestTemplate restTemplate;
@@ -26,10 +32,25 @@ public class GoodsController {
 	@Value("${user.goodServicepath}")
 	private String goodServicepath;
 
-	@GetMapping("/goods/{id}")
-	public User findById(@PathVariable Long id) {
-
-		return this.restTemplate.getForObject(this.goodServicepath + "goods/select/" + id, User.class);
+	@GetMapping("/select/{id}")
+	public String findById(@PathVariable Long id) {
+		
+		SpGoodsinfo spGoodsinfo = this.restTemplate.getForObject(this.goodServicepath + "goods/select/" + id, SpGoodsinfo.class);
+		
+		return JsonUtils.objectToGsonString(spGoodsinfo);
 	}
+	
+	@RequestMapping("/index")
+	public ModelAndView getview() {
+		return  new ModelAndView("/goods/goods");
+	}
+	
+	@RequestMapping("/list")
+	@ResponseBody
+	public List<SpGoodsinfo> findAll(){
+		
+		return this.restTemplate.getForObject(this.goodServicepath + "goods/list", List.class);
+	}
+	
 
 }

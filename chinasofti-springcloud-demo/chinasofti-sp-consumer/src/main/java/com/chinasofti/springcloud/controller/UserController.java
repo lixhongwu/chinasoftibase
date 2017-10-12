@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.chinasofti.springcloud.entity.SpGoodsinfo;
 import com.chinasofti.springcloud.entity.User;
 import com.google.gson.Gson;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 @RestController
 /**
@@ -33,7 +34,8 @@ public class UserController {
 
 	@Value("${user.userServicePath}")
 	private String userServicePath;
-
+	
+	@HystrixCommand(fallbackMethod="findByIdFallback")//熔断
 	@GetMapping("/user/{id}")
 	public User findById(@PathVariable Long id) {
 
@@ -61,4 +63,10 @@ public class UserController {
 		ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
 		return response;
 	}
+    //findById发生熔断返回方法
+    public User findByIdFallback(Long id) {
+		return new User();
+    	
+    }
+    
 }
