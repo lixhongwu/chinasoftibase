@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chinasofti.sp.client.goods.entity.SpClientGoodsClass;
 import com.chinasofti.sp.client.goods.service.SpClientGoodsService;
 
-@RequestMapping("clientgoods")
+@RequestMapping("goodsClass")
 @RestController
 public class SpClientGoodsController {
 	
