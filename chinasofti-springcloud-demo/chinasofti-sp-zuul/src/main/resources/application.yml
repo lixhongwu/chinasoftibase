@@ -9,7 +9,10 @@ spring:
     name: service-zuul
 zuul:
   routes:
-    user:
-      path: consumer/**
+    consumer:
+      path: /consumer/**
       service-id: chinasofti-sp-consumer
-   
+    user:
+      path: /user/**
+      service-id: sp-userservice
+  
