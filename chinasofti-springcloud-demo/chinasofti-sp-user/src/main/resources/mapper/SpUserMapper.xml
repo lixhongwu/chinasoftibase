@@ -109,6 +109,11 @@
     from sp_user
     where IDS = #{ids,jdbcType=VARCHAR}
   </select>
+   <select id="selectByAll" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from sp_user
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from sp_user
     where IDS = #{ids,jdbcType=VARCHAR}

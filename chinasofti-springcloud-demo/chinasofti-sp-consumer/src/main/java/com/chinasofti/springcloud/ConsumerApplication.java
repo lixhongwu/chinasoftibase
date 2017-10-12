@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
@@ -15,8 +16,9 @@ import cn.org.rapid_framework.freemarker.directive.ExtendsDirective;
 import cn.org.rapid_framework.freemarker.directive.OverrideDirective;
 
 @SpringBootApplication
-//@EnableEurekaClient
-public class MicroserviceSimpleConsumerMovieApplication {
+@EnableEurekaClient
+@EnableHystrix
+public class ConsumerApplication {
 
   @Bean
   public RestTemplate restTemplate() {
@@ -24,7 +26,7 @@ public class MicroserviceSimpleConsumerMovieApplication {
   }
 
   public static void main(String[] args) {
-    SpringApplication.run(MicroserviceSimpleConsumerMovieApplication.class, args);
+    SpringApplication.run(ConsumerApplication.class, args);
   }
   
   /*

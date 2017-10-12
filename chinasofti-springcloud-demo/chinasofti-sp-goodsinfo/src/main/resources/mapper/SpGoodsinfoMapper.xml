@@ -162,6 +162,11 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="findAll" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from sp_goodsinfo
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.sp.goods.entity.SpGoodsinfoExample" >
     select
     <if test="distinct" >

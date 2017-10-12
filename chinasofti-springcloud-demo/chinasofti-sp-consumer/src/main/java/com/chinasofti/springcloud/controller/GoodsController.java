@@ -13,9 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chinasofti.springcloud.entity.SpGoodsinfo;
-import com.chinasofti.springcloud.entity.User;
 import com.chinasofti.springcloud.utils.JsonUtils;
-import com.google.gson.Gson;
 
 @RestController
 /**
@@ -32,6 +30,7 @@ public class GoodsController {
 	@Value("${user.goodServicepath}")
 	private String goodServicepath;
 
+
 	@GetMapping("/select/{id}")
 	public String findById(@PathVariable Long id) {
 		
@@ -39,6 +38,8 @@ public class GoodsController {
 		
 		return JsonUtils.objectToGsonString(spGoodsinfo);
 	}
+	
+
 	
 	@RequestMapping("/index")
 	public ModelAndView getview() {

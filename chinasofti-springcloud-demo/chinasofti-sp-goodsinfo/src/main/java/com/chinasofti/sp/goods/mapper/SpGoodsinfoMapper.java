@@ -19,6 +19,8 @@ public interface SpGoodsinfoMapper {
     List<SpGoodsinfo> selectByExampleWithBLOBs(SpGoodsinfoExample example);
 
     List<SpGoodsinfo> selectByExample(SpGoodsinfoExample example);
+    
+    List<SpGoodsinfo> findAll();
 
     /**
      * 通过id查询
