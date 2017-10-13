@@ -46,6 +46,7 @@ public class GoodsController {
 	@GetMapping("/select/{id}")
 	public String goodsFindById(@PathVariable Long id) {
 		
+		
 		SpGoodsinfo spGoodsinfo = this.restTemplate.getForObject(this.goodServicepath + "goods/select/" + id, SpGoodsinfo.class);
 		
 		return JsonUtils.objectToGsonString(spGoodsinfo);

@@ -16,6 +16,8 @@
 		<module>chinasofti-sp-config</module>
 		<module>chinasofti-sp-consumer</module>
 		<module>chinasofti-py-goodsorder</module>
+		<module>chinasofti-sp-goodsclass</module>
+		<module>chinasofti-sp-goodssku</module>
 	</modules>
 	
 	<properties>

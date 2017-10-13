@@ -20,6 +20,7 @@ public class SpUserService {
 		return spUserMapper.selectByPrimaryKey(ids);
 		
 	}
+	
 	//保存一个用户信息.
 	public void save(SpUser spUser) {
 		// TODO Auto-generated method stub
@@ -43,10 +44,6 @@ public class SpUserService {
 		return spUserMapper.updateByPrimaryKeySelective(spUser);
 	}
 	
-	//更新一个用户
-		public int update3(SpUser spUser) {
-			return spUserMapper.updateByPrimaryKeySelective(spUser);
-		}
 
 
 }
