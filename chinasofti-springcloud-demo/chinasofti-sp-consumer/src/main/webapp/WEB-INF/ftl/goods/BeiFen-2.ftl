@@ -12,6 +12,40 @@
     </div>
 </div>
 
+	$.ajax({
+					url:'',
+					data:'',
+					success:function(data){
+						if(data){
+							$.messager.alert('信息提示','删除成功！','info');		
+						}
+						else
+						{
+							$.messager.alert('信息提示','删除失败！','info');		
+						}
+					}	
+				});
+
+
+
+
+
+	/**
+	* Name 添加记录
+	*/
+	function add(){
+		alert(11);
+		
+		$.ajax({
+			url:'/goods/add',
+			type:'POST',
+			data:$('#wu-form-2').serialize(),
+			success: function(data){
+				alert('succes');
+			}
+		})
+
+
 <th field="ids" width="20%">商品ID</th>
 			<th field="goodsType" width="20%">商品类型</th>
 			<th field="goodsCode" width="20%" align="right">商品编号</th>

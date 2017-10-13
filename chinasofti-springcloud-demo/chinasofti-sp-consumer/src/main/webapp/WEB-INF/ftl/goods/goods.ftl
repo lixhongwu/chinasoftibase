@@ -5,27 +5,14 @@
             <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openAdd()" plain="true">添加</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="cancel()" plain="true">取消</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-reload" onclick="reload()" plain="true">刷新</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-print" onclick="openAdd()" plain="true">打印</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-help" onclick="openEdit()" plain="true">帮助</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="remove()" plain="true">撤销</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-redo" onclick="cancel()" plain="true">重做</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-sum" onclick="reload()" plain="true">总计</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-back" onclick="reload()" plain="true">返回</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-tip" onclick="reload()" plain="true">提示</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="reload()" plain="true">保存</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-cut" onclick="reload()" plain="true">剪切</a>
         </div>
         <div class="wu-toolbar-search">
-            <label>起始时间：</label><input class="easyui-datebox" style="width:100px">
-            <label>结束时间：</label><input class="easyui-datebox" style="width:100px">
             <label>用户组：</label> 
-            <select class="easyui-combobox" panelHeight="auto" style="width:100px">
-                <option value="0">选择用户组</option>
-                <option value="1">黄钻</option>
-                <option value="2">红钻</option>
-                <option value="3">蓝钻</option>
+            <select class="easyui-combobox" panelHeight="auto" style="width:120px">
+                <option value="0">选择商品类型</option>
+                <option value="haitao">海外淘淘</option>
+                <option value="normal">国内行货</option>
             </select>
             <label>关键词：</label><input class="wu-text" style="width:100px">
             <a href="#" class="easyui-linkbutton" iconCls="icon-search">开始检索</a>
@@ -34,9 +21,9 @@
     <!-- End of toolbar
     <table id="wu-datagrid-2" class="easyui-datagrid" toolbar="#wu-toolbar-2"></table> -->
     
-    <table id="tt" class="easyui-datagrid" style="height:490px"
+    <table id="tt" class="easyui-datagrid" 
 		url="/goods/list"
-		rownumbers="true" pagination="true">
+		rownumbers="true" pagination="true" singleSelect="true">
 	<thead>
 		<tr>
 			<th field="ids" width="20%" align="center">商品ID</th>
@@ -51,23 +38,27 @@
 
 <!-- 添加表格 -->
 <div id="wu-dialog-2" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:400px; padding:10px;">
-	<form id="wu-form-2" method="post">
-        <table>
-            <tr>
-                <td width="60" align="right">姓 名:</td>
-                <td><input type="text" name="name" class="wu-text" /></td>
+	<form id="wu-form-2" method="post" action="/goods/add">
+        <table id="tt">
+        	<tr>
+                <td width="60" align="right">商品ID:</td>
+                <td><input type="text" name="ids" class="wu-text" /></td>
             </tr>
             <tr>
-                <td align="right">邮 箱:</td>
-                <td><input type="text" name="email" class="wu-text" /></td>
+                <td width="60" align="right">商品类型:</td>
+                <td><input type="text" name="goodsType" class="wu-text" /></td>
             </tr>
             <tr>
-                <td align="right">主 题:</td>
-                <td><input type="text" name="subject" class="wu-text" /></td>
+                <td align="right">商品编号:</td>
+                <td><input type="text" name="goodsCode" class="wu-text" /></td>
             </tr>
             <tr>
-                <td valign="top" align="right">内 容:</td>
-                <td><textarea name="content" rows="6" class="wu-textarea" style="width:260px"></textarea></td>
+                <td align="right">供应商id:</td>
+                <td><input type="text" name="vendorids" class="wu-text" /></td>
+            </tr>
+            <tr>
+                <td valign="top" align="right">标题:</td>
+                <td><input type="text" name="title"class="wu-text" /></td>
             </tr>
         </table>
     </form>
@@ -78,8 +69,10 @@
 	* Name 添加记录
 	*/
 	function add(){
+	
 		$('#wu-form-2').form('submit', {
-			url:'',
+			url:'/goods/add',
+			type:'POST',
 			success:function(data){
 				if(data){
 					$.messager.alert('信息提示','提交成功！','info');
@@ -91,6 +84,8 @@
 				}
 			}
 		});
+	
+		
 	}
 	
 	/**
@@ -116,20 +111,31 @@
 	* Name 删除记录
 	*/
 	function remove(){
+	
+		var items = $('#tt').datagrid('getSelections');
+		var ids = [];
+		
+		/*alert(JSON.stringify(items));*/
+		
+		
+		if(items.length < 1){
+			$.messager.alert('信息提示','请选中要删的数据');
+			return ;
+		}
+	
 		$.messager.confirm('信息提示','确定要删除该记录？', function(result){
 			if(result){
-				var items = $('#wu-datagrid-2').datagrid('getSelections');
-				var ids = [];
 				$(items).each(function(){
-					ids.push(this.productid);	
+					ids.push(this.ids);	
 				});
-				//alert(ids);return;
+				/*alert(ids);*/
 				$.ajax({
-					url:'',
-					data:'',
+					url:'/goods/delete/' + ids,
+					type:'POST',
 					success:function(data){
 						if(data){
-							$.messager.alert('信息提示','删除成功！','info');		
+							$.messager.alert('信息提示','删除成功！','info');
+							$('#tt').datagrid('reload')
 						}
 						else
 						{

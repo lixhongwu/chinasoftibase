@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chinasofti.sp.goods.entity.SpGoodsinfo;
-import com.chinasofti.sp.goods.entity.SpGoodsinfoExample;
 import com.chinasofti.sp.goods.mapper.SpGoodsinfoMapper;
 
 @Service
@@ -28,15 +27,28 @@ public class SpGoodsService {
 	
 	/**
 	 * 全部查询
-	 * @param example
 	 * @return
 	 */
-	public List<SpGoodsinfo> selectByExample(SpGoodsinfoExample example){
-		return spGoodsinfoMapper.selectByExample(example);
-	}
-	
 	public List<SpGoodsinfo> findAll() {
 		return spGoodsinfoMapper.findAll();
 	}
+	
+	/**
+	 * 添加插入(过滤空字段)
+	 * @param spGoodsinfo
+	 */
+	public void insertSelective(SpGoodsinfo spGoodsinfo){
+		spGoodsinfoMapper.insertSelective(spGoodsinfo);
+	}
+	
+	
+	/**
+	 * ID删除
+	 * @param ids
+	 */
+	public void deleteByPrimaryKey(String ids){
+		spGoodsinfoMapper.deleteByPrimaryKey(ids);
+	}
+	
 	
 }
