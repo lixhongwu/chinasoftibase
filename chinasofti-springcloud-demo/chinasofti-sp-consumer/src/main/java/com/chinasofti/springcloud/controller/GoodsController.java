@@ -135,7 +135,7 @@ public class GoodsController {
 
 		String objectToString = JsonUtils.objectToGsonString(object);
 
-		map.add("objectToString", objectToString);
+		map.add("spGoodsinfo", objectToString);
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
