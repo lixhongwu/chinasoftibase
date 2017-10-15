@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.sp.goods.entity.SpGoodsinfo;
+import com.chinasofti.sp.goods.entity.SpGoodsinfoExample;
+import com.chinasofti.sp.goods.entity.SpGoodsinfoExample.Criteria;
 import com.chinasofti.sp.goods.service.SpGoodsService;
+import com.chinasofti.sp.goods.utils.PageHelperUtil;
 import com.google.gson.Gson;
 
 @RequestMapping("goods")
@@ -34,15 +37,44 @@ public class SpGoodsController {
 		
 	}
 	
+	@RequestMapping("/select/list")
+	@ResponseBody
+	public PageHelperUtil selectByExample(@RequestParam(value = "stringPage") Integer page,
+			                              @RequestParam(value = "stringRows") Integer rows){
+		
+		
+		
+//		Integer page = Integer.parseInt(stringPage);
+//		Integer rows = Integer.parseInt(stringRows);
+		
+		return spGoodsService.selectByExample(page, rows);
+		
+	}
+	
+	
+	
 	/**
 	 * 全部查询
 	 * @return
 	 */
 	@RequestMapping("/list")
 	@ResponseBody
-	public List<SpGoodsinfo> findAll(){
+	public List<SpGoodsinfo> findAll(String spGoodsinfo){
 		
-		return spGoodsService.findAll();
+		String compare = "";
+		
+		Gson gson = new Gson();
+		SpGoodsinfo goods = gson.fromJson(spGoodsinfo, SpGoodsinfo.class);
+		
+		SpGoodsinfoExample example = new SpGoodsinfoExample();		
+		Criteria criteria = example.createCriteria();
+		
+		if ((goods.getGoodsType()) != null && !compare.equals(goods.getGoodsType())) {
+			criteria.andGoodsTypeEqualTo(goods.getGoodsType());
+			return spGoodsService.findAll(example);
+		}
+
+		return spGoodsService.findAll(example);
 		
 	}
 	
@@ -78,6 +110,22 @@ public class SpGoodsController {
 		
 	}
 	
+	
+	/**
+	 * 修改
+	 * @param spGoodsinfo
+	 * @return
+	 */
+	@RequestMapping(value = "/update",method = RequestMethod.POST)
+	public String updateByPrimaryKey(String spGoodsinfo){
+		
+		Gson gson = new Gson();
+		SpGoodsinfo goods = gson.fromJson(spGoodsinfo, SpGoodsinfo.class);
+		
+		spGoodsService.updateByPrimaryKey(goods);
+		
+		return "update";
+	}
 	
 	
 	
