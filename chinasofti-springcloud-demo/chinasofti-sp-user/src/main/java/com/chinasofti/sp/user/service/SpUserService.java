@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chinasofti.sp.user.entity.SpUser;
+import com.chinasofti.sp.user.entity.SpUserExample;
 import com.chinasofti.sp.user.mapper.SpUserMapper;
 
 @Service
@@ -15,34 +16,42 @@ public class SpUserService {
 	private SpUserMapper spUserMapper;
 	
 	//通过ids查询单个用户
-	public SpUser quetyById(String ids) {
-		
+	public SpUser selectByPrimaryKey(String ids) {
 		return spUserMapper.selectByPrimaryKey(ids);
-		
-	}
-	
-	//保存一个用户信息.
-	public void save(SpUser spUser) {
-		// TODO Auto-generated method stub
-		spUserMapper.insertSelective(spUser);
-	}
-	
-	
-	//查询所有
-	public List<SpUser> findAll() {
-		return spUserMapper.selectByExample(null);
 	}
 
-	
-	//删除一个用户
-	public int delete(String ids) {
-		return spUserMapper.deleteByPrimaryKey(ids);
+	/**
+	 * 全部查询
+	 * @return
+	 */
+	public List<SpUser> findAll(SpUserExample example) {
+		return spUserMapper.selectByExample(example);
+	}
+
+	/**
+	 * 添加插入(过滤空字段)
+	 * @param spUser
+	 */
+	public void insertSelective(SpUser spUser) {
+		spUserMapper.insertSelective(spUser);
+	}
+
+	/**
+	 * ID删除
+	 * @param ids
+	 */
+	public void deleteByPrimaryKey(String ids) {
+		spUserMapper.deleteByPrimaryKey(ids);
+	}
+
+	/**
+	 * 修改
+	 * @param spUser
+	 */
+	public void updateByPrimaryKey(SpUser spUser) {
+		spUserMapper.updateByPrimaryKey(spUser);
 	}
 	
-	//更新一个用户
-	public int update(SpUser spUser) {
-		return spUserMapper.updateByPrimaryKeySelective(spUser);
-	}
 	
 
 
