@@ -94,7 +94,7 @@
 	*/
 	function remove(){
 	
-		var items = $('#tt').datagrid('getSelections');
+		var items = $('#tt-goodsinfo').datagrid('getSelections');
 		var ids = [];
 		
 		/*alert(JSON.stringify(items));*/
@@ -117,7 +117,7 @@
 					success:function(data){
 						if(data){
 							$.messager.alert('信息提示','删除成功！','info');
-							$('#tt').datagrid('reload')
+							$('#tt-goodsinfo').datagrid('reload')
 						}
 						else
 						{
@@ -157,7 +157,7 @@
 	*/
 	function openEdit(){
 
-		var items = $('#tt').datagrid('getSelections');
+		var items = $('#tt-goodsinfo').datagrid('getSelections');
 		var ids = [];
 		
 		$(items).each(function(){
@@ -199,7 +199,7 @@
 				                				$.messager.alert('信息提示','提交成功！','info');
 				                				$('#wu-dialog-2').dialog('close');
 				                				$('#ids').attr('readonly',false);
-				                				$('#tt').datagrid('reload')
+				                				$('#tt-goodsinfo').datagrid('reload')
 				                			}
 				                		}
 				                	});
@@ -226,7 +226,7 @@
 	*查询
 	*/
 	function doSearch(){
-		$('#tt').datagrid('load',{
+		$('#tt-goodsinfo').datagrid('load',{
 			goodsType:$('#goodstype').val(),
 			title:$('#title').val()
 		});
