@@ -242,7 +242,7 @@
 	/**
 	* Name 载入数据
 	*/
-	$('#order-datagrid-2').datagrid({
+	/* $('#order-datagrid-2').datagrid({
 		url:'/goods/select/1',
 		loadFilter:pagerFilter,		
 		rownumbers:true,
@@ -261,5 +261,5 @@
 			{ field:'title',title:'标题',width:50},
 			
 		]]
-	});
+	}); */
 </script>
