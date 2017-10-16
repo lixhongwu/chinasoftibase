@@ -3,6 +3,7 @@ package com.chinasofti.sp.goods.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,20 +44,25 @@ public class SpGoodsController {
 	 */
 	@RequestMapping("/list")
 	@ResponseBody
-	public List<SpGoodsinfo> findAll(String spGoodsinfo) {
+	public List<SpGoodsinfo> findAll(String postParmainfo) {
 
 		String compare = "";
-
-		Gson gson = new Gson();
-		SpGoodsinfo goods = gson.fromJson(spGoodsinfo, SpGoodsinfo.class);
-
+		
 		SpGoodsinfoExample example = new SpGoodsinfoExample();
 		Criteria criteria = example.createCriteria();
-
-		if ((goods.getGoodsType()) != null && !compare.equals(goods.getGoodsType())) {
-			criteria.andGoodsTypeEqualTo(goods.getGoodsType());
-			return spGoodsService.findAll(example);
+		
+		if (postParmainfo != null) {
+			
+			Gson gson = new Gson();
+			SpGoodsinfo goods = gson.fromJson(postParmainfo, SpGoodsinfo.class);
+			
+			
+			if ((goods.getGoodsType()) != null && !compare.equals(goods.getGoodsType())) {
+				criteria.andGoodsTypeEqualTo(goods.getGoodsType());
+				return spGoodsService.findAll(example);
+			}
 		}
+		
 
 		return spGoodsService.findAll(example);
 
@@ -68,10 +74,10 @@ public class SpGoodsController {
 	 * @param spGoodsinfo
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String goodsAdd(String spGoodsinfo) {
+	public String goodsAdd(String postParmainfo) {
 
 		Gson gson = new Gson();
-		SpGoodsinfo goods = gson.fromJson(spGoodsinfo, SpGoodsinfo.class);
+		SpGoodsinfo goods = gson.fromJson(postParmainfo, SpGoodsinfo.class);
 
 		spGoodsService.insertSelective(goods);
 
@@ -101,15 +107,25 @@ public class SpGoodsController {
 	 * @return
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String updateByPrimaryKey(String spGoodsinfo) {
+	public String updateByPrimaryKey(String postParmainfo) {
 
 		Gson gson = new Gson();
-		SpGoodsinfo goods = gson.fromJson(spGoodsinfo, SpGoodsinfo.class);
+		SpGoodsinfo goods = gson.fromJson(postParmainfo, SpGoodsinfo.class);
 
 		spGoodsService.updateByPrimaryKey(goods);
 
 		return "update";
 	}
-
+	
+	/**
+	 * 根据分类id查询商品
+	 * @author kanmeng
+	 * @param ids
+	 * @return List<SpGoodsinfo>
+	 */
+	@GetMapping("/findByClassId/{ids}")
+	public List<SpGoodsinfo> findByClassId(@PathVariable String ids){
+		return spGoodsService.findByClassIds(ids);
+	}
 
 }

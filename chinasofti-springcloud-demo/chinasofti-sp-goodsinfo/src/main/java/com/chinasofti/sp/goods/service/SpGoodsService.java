@@ -56,5 +56,14 @@ public class SpGoodsService {
 		spGoodsinfoMapper.updateByPrimaryKey(spGoodsinfo);
 	}
 	
+	/**
+	 * 根据分类id查出商品
+	 * @author kanmeng
+	 */
+	public List<SpGoodsinfo> findByClassIds(String ids){
+		SpGoodsinfoExample spGoodsinfoExample = new SpGoodsinfoExample();
+		spGoodsinfoExample.createCriteria().andGoodsClassIdsEqualTo(ids);
+		return spGoodsinfoMapper.selectByExample(spGoodsinfoExample);
+	}
 	
 }

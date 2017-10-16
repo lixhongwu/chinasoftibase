@@ -18,6 +18,7 @@
 		<module>chinasofti-py-goodsorder</module>
 		<module>chinasofti-sp-goodsclass</module>
 		<module>chinasofti-sp-goodssku</module>
+		<module>chinasofti-sp-app</module>
 	</modules>
 	
 	<properties>
@@ -42,7 +43,12 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
+	 <dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+   		 	<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
