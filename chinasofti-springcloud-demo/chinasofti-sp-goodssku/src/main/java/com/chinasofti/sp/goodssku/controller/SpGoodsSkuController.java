@@ -3,6 +3,7 @@ package com.chinasofti.sp.goodssku.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,5 +39,17 @@ public class SpGoodsSkuController {
 		return spGoodsSkuService.findAll();
 		
 		
+	}
+	
+	/**
+	 * 根据id查出商品详情
+	 * @author kanmeng
+	 * @param id
+	 * @return
+	 */
+	@GetMapping("selectGoodsInfoById/{goodsId}")
+	public SpGoodsSkuWithBLOBs selectGoodsInfoById(@PathVariable String goodsId) {
+		return spGoodsSkuService.selectByExampleWithBLOBs(goodsId);
+
 	}
 }
