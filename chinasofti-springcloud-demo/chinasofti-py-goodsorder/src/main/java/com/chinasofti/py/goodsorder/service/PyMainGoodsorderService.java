@@ -41,4 +41,28 @@ public class PyMainGoodsorderService {
 		return pyMainGoodsorderMapper.selectByExample(example);
 	}
 	
+	/**
+	 * 添加插入(过滤空字段)
+	 * @param pyMainGoodsorder
+	 */
+	public void insertSelective(PyMainGoodsorder pyMainGoodsorder) {
+		pyMainGoodsorderMapper.insertSelective(pyMainGoodsorder);
+	}
+	
+	/**
+	 * ID删除
+	 * @param ids
+	 */
+	public void deleteByPrimaryKey(String ids) {
+		pyMainGoodsorderMapper.deleteByPrimaryKey(ids);
+	}
+
+	/**
+	 * 修改
+	 * @param pyMainGoodsorder
+	 */
+	public void updateByPrimaryKey(PyMainGoodsorder pyMainGoodsorder) {
+		pyMainGoodsorderMapper.updateByPrimaryKey(pyMainGoodsorder);
+	}
+	
 }
