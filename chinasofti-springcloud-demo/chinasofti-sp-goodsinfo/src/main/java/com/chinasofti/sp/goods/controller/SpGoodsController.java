@@ -43,20 +43,25 @@ public class SpGoodsController {
 	 */
 	@RequestMapping("/list")
 	@ResponseBody
-	public List<SpGoodsinfo> findAll(String spGoodsinfo) {
+	public List<SpGoodsinfo> findAll(String postParmainfo) {
 
 		String compare = "";
-
-		Gson gson = new Gson();
-		SpGoodsinfo goods = gson.fromJson(spGoodsinfo, SpGoodsinfo.class);
-
+		
 		SpGoodsinfoExample example = new SpGoodsinfoExample();
 		Criteria criteria = example.createCriteria();
-
-		if ((goods.getGoodsType()) != null && !compare.equals(goods.getGoodsType())) {
-			criteria.andGoodsTypeEqualTo(goods.getGoodsType());
-			return spGoodsService.findAll(example);
+		
+		if (postParmainfo != null) {
+			
+			Gson gson = new Gson();
+			SpGoodsinfo goods = gson.fromJson(postParmainfo, SpGoodsinfo.class);
+			
+			
+			if ((goods.getGoodsType()) != null && !compare.equals(goods.getGoodsType())) {
+				criteria.andGoodsTypeEqualTo(goods.getGoodsType());
+				return spGoodsService.findAll(example);
+			}
 		}
+		
 
 		return spGoodsService.findAll(example);
 
@@ -68,10 +73,10 @@ public class SpGoodsController {
 	 * @param spGoodsinfo
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String goodsAdd(String spGoodsinfo) {
+	public String goodsAdd(String postParmainfo) {
 
 		Gson gson = new Gson();
-		SpGoodsinfo goods = gson.fromJson(spGoodsinfo, SpGoodsinfo.class);
+		SpGoodsinfo goods = gson.fromJson(postParmainfo, SpGoodsinfo.class);
 
 		spGoodsService.insertSelective(goods);
 
@@ -101,10 +106,10 @@ public class SpGoodsController {
 	 * @return
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String updateByPrimaryKey(String spGoodsinfo) {
+	public String updateByPrimaryKey(String postParmainfo) {
 
 		Gson gson = new Gson();
-		SpGoodsinfo goods = gson.fromJson(spGoodsinfo, SpGoodsinfo.class);
+		SpGoodsinfo goods = gson.fromJson(postParmainfo, SpGoodsinfo.class);
 
 		spGoodsService.updateByPrimaryKey(goods);
 

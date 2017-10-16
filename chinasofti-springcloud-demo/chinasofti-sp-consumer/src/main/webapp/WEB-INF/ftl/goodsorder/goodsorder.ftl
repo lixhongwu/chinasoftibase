@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <table id="tt" class="easyui-datagrid" 
+    <table id="tt-goodsorder" class="easyui-datagrid" 
 		url="/goodsorder/list"
 		rownumbers="true" pagination="true" singleSelect="false">
 	<thead>

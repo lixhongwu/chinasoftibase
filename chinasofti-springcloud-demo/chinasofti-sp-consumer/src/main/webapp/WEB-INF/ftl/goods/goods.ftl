@@ -16,7 +16,7 @@
     </div>
     
     <!-- 数据显示datagrid -->
-    <table id="tt" class="easyui-datagrid" toolbar="#wu-toolbar-2"></table>
+    <table id="tt-goodsinfo" class="easyui-datagrid" toolbar="#wu-toolbar-2"></table>
     
     <!-- <table id="tt" class="easyui-datagrid" 
 		url="/goods/select/all"
@@ -76,7 +76,7 @@
 				if(data){
 					$.messager.alert('信息提示','提交成功！','info');
 					$('#wu-dialog-2').dialog('close');
-					$('#tt').datagrid('reload')
+					$('#tt-goodsinfo').datagrid('reload')
 				}
 				else
 				{
@@ -268,7 +268,7 @@
 	/**
 	* Name 载入数据
 	*/
-	$('#tt').datagrid({
+	$('#tt-goodsinfo').datagrid({
 		url:'/goods/list',
 		loadFilter:pagerFilter,		
 		rownumbers:true,
