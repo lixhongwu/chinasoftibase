@@ -30,7 +30,7 @@ public class SpUserService {
 
 	/**
 	 * 添加插入(过滤空字段)
-	 * @param spGoodsinfo
+	 * @param spUser
 	 */
 	public void insertSelective(SpUser spUser) {
 		spUserMapper.insertSelective(spUser);
@@ -46,7 +46,7 @@ public class SpUserService {
 
 	/**
 	 * 修改
-	 * @param spGoodsinfo
+	 * @param spUser
 	 */
 	public void updateByPrimaryKey(SpUser spUser) {
 		spUserMapper.updateByPrimaryKey(spUser);

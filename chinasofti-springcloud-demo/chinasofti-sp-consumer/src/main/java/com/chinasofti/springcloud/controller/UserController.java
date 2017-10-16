@@ -100,7 +100,7 @@ public class UserController {
 	
 	/**
 	 * 修改
-	 * @param spGoodsinfo
+	 * @param spUser
 	 * @return
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
