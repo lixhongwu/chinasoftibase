@@ -20,7 +20,8 @@
         </div>
     </div>
 
-    <table id="orderDataGrid" class="easyui-datagrid" >
+    <table id="orderDataGrid" class="easyui-datagrid" url="/goodsorder/list"
+		rownumbers="true" pagination="true" singleSelect="false">
 	<thead>
 		<tr>
 			<th field="ck" checkbox="true" width="50" sortable="true">多选框</th>
