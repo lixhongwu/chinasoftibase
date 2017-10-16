@@ -1,13 +1,13 @@
 <div class="easyui-layout" data-options="fit:true">
     <!-- Begin of toolbar -->
-    <div id="order-toolbar-2">
-        <div class="order-toolbar-button">
+    <div id="orderToolbar">
+        <div class="orderoolbarButton">
             <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openAdd()" plain="true">添加</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-print" onclick="openAdd()" plain="true">打印</a>
         </div>
-        <div class="order-toolbar-search">
+        <div class="orderToolbarSearch">
             <label>支付状态：</label> 
             <select class="easyui-combobox" panelHeight="auto" style="width:120px">
                 <option value="-1">选择支付状态</option>
@@ -20,7 +20,11 @@
         </div>
     </div>
 
+<<<<<<< HEAD
+    <table id="orderDataGrid" class="easyui-datagrid" 
+=======
     <table id="tt-goodsorder" class="easyui-datagrid" 
+>>>>>>> branch 'version1.2' of https://github.com/lixhongwu/chinasoftibase.git
 		url="/goodsorder/list"
 		rownumbers="true" pagination="true" singleSelect="false">
 	<thead>
@@ -38,28 +42,55 @@
 </div>
 
 <!-- 添加表格 -->
-<div id="order-dialog-2" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:400px; padding:10px;">
-	<form id="order-form-2" method="post" action="/goods/add">
-        <table id="tt">
+<div id="orderAddDialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:400px; padding:10px;">
+	<form id="orderAddForm" method="post">
+        <table>
         	<tr>
                 <td width="60" align="right">大订单编号:</td>
-                <td><input type="easyui-textbox" name="bigorderId" class="order-text" /></td>
+                <td><input name="bigorderId" class="easyui-textbox" /></td>
             </tr>
             <tr>
                 <td width="60" align="right">商户编号:</td>
-                <td><input type="easyui-textbox" name="vendorIds" class="order-text" /></td>
+                <td><input name="vendorIds" class="easyui-textbox" /></td>
             </tr>
             <tr>
                 <td align="right">用户编号:</td>
-                <td><input type="easyui-textbox" name="userIds" class="order-text" /></td>
+                <td><input name="userIds" class="easyui-textbox" /></td>
             </tr>
             <tr>
                 <td align="right">收件人证件号:</td>
-                <td><input type="easyui-textbox" name="contIdentityno" class="order-text" /></td>
+                <td><input name="contIdentityno" class="easyui-textbox" /></td>
             </tr>
             <tr>
-                <td valign="top" align="right">邮编:</td>
-                <td><input type="easyui-textbox" name="contPostcode"class="order-text" /></td>
+                <td align="right" align="right">邮编:</td>
+                <td><input name="contPostcode"class="easyui-textbox" /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<!-- 修改dialog -->
+<div id="orderEditDialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:400px; padding:10px;">
+	<form id="orderEditForm" method="post">
+        <table>
+        	<tr>
+                <td width="60" align="right">大订单编号:</td>
+                <td><input name="bigorderId" class="easyui-textbox" /></td>
+            </tr>
+            <tr>
+                <td width="60" align="right">商户编号:</td>
+                <td><input name="vendorIds" class="easyui-textbox" /></td>
+            </tr>
+            <tr>
+                <td align="right">用户编号:</td>
+                <td><input name="userIds" class="easyui-textbox" /></td>
+            </tr>
+            <tr>
+                <td align="right">收件人证件号:</td>
+                <td><input name="contIdentityno" class="easyui-textbox" /></td>
+            </tr>
+            <tr>
+                <td align="right" align="right">邮编:</td>
+                <td><input name="contPostcode"class="easyui-textbox" /></td>
             </tr>
         </table>
     </form>
@@ -71,13 +102,13 @@
 	*/
 	function add(){
 	
-		$('#order-form-2').form('submit', {
-			url:'/goods/add',
+		$('#orderAddForm').form('submit', {
+			url:'/goodsorder/add',
 			type:'POST',
 			success:function(data){
 				if(data){
 					$.messager.alert('信息提示','提交成功！','info');
-					$('#order-dialog-2').dialog('close');
+					$('#orderAddDialog').dialog('close');
 				}
 				else
 				{
@@ -93,12 +124,13 @@
 	* Name 修改记录
 	*/
 	function edit(){
-		$('#order-form-2').form('submit', {
-			url:'',
+		$('#orderEditForm').form('submit', {
+			url:'/goodsorder/edit',
+			type:'POST',
 			success:function(data){
 				if(data){
 					$.messager.alert('信息提示','提交成功！','info');
-					$('#order-dialog-2').dialog('close');
+					$('#orderAddDialog').dialog('close');
 				}
 				else
 				{
@@ -113,7 +145,7 @@
 	*/
 	function remove(){
 	
-		var items = $('#tt').datagrid('getSelections');
+		var items = $('#orderDataGrid').datagrid('getSelections');
 		var ids = [];
 		
 		/*alert(JSON.stringify(items));*/
@@ -136,7 +168,7 @@
 					success:function(data){
 						if(data){
 							$.messager.alert('信息提示','删除成功！','info');
-							$('#tt').datagrid('reload')
+							$('#orderDataGrid').datagrid('reload')
 						}
 						else
 						{
@@ -152,11 +184,11 @@
 	* Name 打开添加窗口
 	*/
 	function openAdd(){
-		$('#order-form-2').form('clear');
-		$('#order-dialog-2').dialog({
+		$('#orderAddForm').form('clear');
+		$('#orderAddDialog').dialog({
 			closed: false,
 			modal:true,
-            title: "添加信息",
+            title: "添加订单信息",
             buttons: [{
                 text: '确定',
                 iconCls: 'icon-ok',
@@ -165,7 +197,7 @@
                 text: '取消',
                 iconCls: 'icon-cancel',
                 handler: function () {
-                    $('#order-dialog-2').dialog('close');                    
+                    $('#orderAddDialog').dialog('close');                    
                 }
             }]
         });
@@ -175,38 +207,13 @@
 	* Name 打开修改窗口
 	*/
 	function openEdit(){
-		$('#order-form-2').form('clear');
-		var item = $('#order-datagrid-2').datagrid('getSelected');
-		//alert(item.productid);return;
-		$.ajax({
-			url:'',
-			data:'',
-			success:function(data){
-				if(data){
-					$('#order-dialog-2').dialog('close');	
-				}
-				else{
-					//绑定值
-					$('#order-form-2').form('load', data)
-				}
-			}	
-		});
-		$('#order-dialog-2').dialog({
-			closed: false,
-			modal:true,
-            title: "修改信息",
-            buttons: [{
-                text: '确定',
-                iconCls: 'icon-ok',
-                handler: edit
-            }, {
-                text: '取消',
-                iconCls: 'icon-cancel',
-                handler: function () {
-                    $('#order-dialog-2').dialog('close');                    
-                }
-            }]
-        });
+		var row = $("#orderDataGrid").datagrid('getSelected');
+		if (row) {
+			$('#orderEditDialog').dialog('open').dialog('setTitle','Edit User');
+			$('#orderEditForm').form('load',row);
+		} else {
+			$.messager.alert('信息提示','请选中要修改的数据');
+		}
 	}	
 	
 	/**
@@ -242,7 +249,7 @@
 	/**
 	* Name 载入数据
 	*/
-	/* $('#order-datagrid-2').datagrid({
+	/* $('#orderDataGrid').datagrid({
 		url:'/goods/select/1',
 		loadFilter:pagerFilter,		
 		rownumbers:true,
