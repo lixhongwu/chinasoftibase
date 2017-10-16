@@ -49,7 +49,7 @@
 	<div class="zk-main" data-options="region:'center'">
 		
 		<div id="zk-tabs" class="easyui-tabs" data-options="border:false,fit:true">  
-            <div title="首页" data-options="closable:false,iconCls:'icon-tip',cls:'pd3'"></div>
+            <div title="首页" style="background-image:url(/images/shouye1.png) " data-options="closable:false,iconCls:'icon-tip',cls:'pd3'"></div>
         </div>
 		
 		
