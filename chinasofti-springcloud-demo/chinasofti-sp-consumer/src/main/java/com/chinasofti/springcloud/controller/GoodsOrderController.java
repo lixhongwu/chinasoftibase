@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.chinasofti.springcloud.entity.PyMainGoodsorder;
 
@@ -46,6 +47,16 @@ public class GoodsOrderController {
 	public List<PyMainGoodsorder> selectAll(){
 		
 		return this.restTemplate.getForObject(this.goodsOrderServicepath + "goodsorder/list", List.class);
+	}
+	
+	
+	/**
+	 * 返回订单列表页
+	 * @return
+	 */
+	@RequestMapping("/index")
+	public ModelAndView getView() {
+		return  new ModelAndView("/goodsorder/goodsorder");
 	}
 	
 	

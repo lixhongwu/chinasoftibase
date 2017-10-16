@@ -32,7 +32,7 @@
     			<ul class="easyui-tree zk-side-tree">
                 	<li iconCls="icon-basket"><a data-icon="icon-basket" data-link="/goods/index" iframe="0">商品管理</a></li>
                 	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-3.html" iframe="0">商品分类管理</a></li>
-                	<li iconCls="icon-application-cascade"><a href="javascript:void(0)" data-icon="icon-application-cascade" data-link="temp/layout-3.html" iframe="0">订单管理</a></li>
+                	<li iconCls="icon-application-cascade"><a data-icon="icon-application-cascade" data-link="/goodsorder/index" iframe="0">订单管理</a></li>
                     <li iconCls="icon-users"><a href="javascript:void(0)" data-icon="icon-users" data-link="temp/layout-3.html" iframe="0">用户管理</a></li>
                 </ul>
             </div>
