@@ -8,12 +8,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.chinasofti.app.entity.SpGoodsinfo;
 import com.chinasofti.app.hystrix.GoosInfoFeignClientHystrix;
 
-
-@FeignClient(name = "sp-goodsService",fallback = GoosInfoFeignClientHystrix.class)
+@FeignClient(name = "sp-goodsService", url="http://localhost:7701/", fallback = GoosInfoFeignClientHystrix.class)
 public interface GoodsInfoFeignClient {
-	
+
 	// 根据分类id查询出商品
-	@RequestMapping(value="goods/findByClassId/{ids}",method=RequestMethod.GET)
+	@RequestMapping(value = "goods/findByClassId/{ids}", method = RequestMethod.GET)
 	public List<SpGoodsinfo> selectGoodsByClassId(@PathVariable("ids") String ids);
 
 }
