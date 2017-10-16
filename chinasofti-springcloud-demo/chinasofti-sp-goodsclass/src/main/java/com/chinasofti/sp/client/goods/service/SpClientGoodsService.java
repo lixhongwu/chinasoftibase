@@ -23,13 +23,14 @@ public class SpClientGoodsService {
 		return spClientGoodsClassMapper.selectByPrimaryKey(ids);
 	}
 	/**
-	 * 查询所有顶级分类
-	 * @return 
+	 * 根据pid查询分类
 	 */
-	public List<SpClientGoodsClass> selectAll() { 
+	public List<SpClientGoodsClass> selectSubClass(String pid) { 
 		SpClientGoodsClassExample spClientGoodsClassExample = new SpClientGoodsClassExample();
-		spClientGoodsClassExample.createCriteria().andPidsEqualTo("0");
+		spClientGoodsClassExample.createCriteria().andPidsEqualTo(pid);
 		return spClientGoodsClassMapper.selectByExample(spClientGoodsClassExample);
-
 	}
 }
+
+
+	

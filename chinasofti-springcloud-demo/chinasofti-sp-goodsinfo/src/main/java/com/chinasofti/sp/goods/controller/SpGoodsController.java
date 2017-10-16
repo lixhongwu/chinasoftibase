@@ -3,6 +3,7 @@ package com.chinasofti.sp.goods.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -115,6 +116,16 @@ public class SpGoodsController {
 
 		return "update";
 	}
-
+	
+	/**
+	 * 根据分类id查询商品
+	 * @author kanmeng
+	 * @param ids
+	 * @return List<SpGoodsinfo>
+	 */
+	@GetMapping("/findByClassId/{ids}")
+	public List<SpGoodsinfo> findByClassId(@PathVariable String ids){
+		return spGoodsService.findByClassIds(ids);
+	}
 
 }
