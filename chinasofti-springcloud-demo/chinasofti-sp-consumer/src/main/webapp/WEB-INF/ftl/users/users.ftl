@@ -39,23 +39,23 @@
         <table id="add">
         	<tr>
                 <td width="60" align="right">用户ID:</td>
-                <td><input type="text" id="ids" name="ids" class="wu-text" /></td>
+                <td><input type="text" id="ids" name="ids" class="user-text" /></td>
             </tr>
             <tr>
                 <td width="60" align="right">用户姓名:</td>
-                <td><input type="text" id="name" name="name" class="wu-text" /></td>
+                <td><input type="text" id="name" name="name" class="user-text" /></td>
             </tr>
             <tr>
                 <td align="right">用户手机号</td>
-                <td><input type="text" id="mobile" name="mobile" class="wu-text" /></td>
+                <td><input type="text" id="mobile" name="mobile" class="user-text" /></td>
             </tr>
             <tr>
                 <td align="right">用户昵称</td>
-                <td><input type="text" id="nickname" name="nickname" class="wu-text" /></td>
+                <td><input type="text" id="nickname" name="nickname" class="user-text" /></td>
             </tr>
             <tr>
                 <td valign="top" align="right">用户微信号</td>
-                <td><input type="text" id="openid" name="openid"class="wu-text" /></td>
+                <td><input type="text" id="openid" name="openid"class="user-text" /></td>
             </tr>
         </table>
     </form>
