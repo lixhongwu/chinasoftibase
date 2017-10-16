@@ -20,13 +20,7 @@
         </div>
     </div>
 
-<<<<<<< HEAD
-    <table id="orderDataGrid" class="easyui-datagrid" 
-=======
-    <table id="tt-goodsorder" class="easyui-datagrid" 
->>>>>>> branch 'version1.2' of https://github.com/lixhongwu/chinasoftibase.git
-		url="/goodsorder/list"
-		rownumbers="true" pagination="true" singleSelect="false">
+    <table id="orderDataGrid" class="easyui-datagrid" >
 	<thead>
 		<tr>
 			<th field="ck" checkbox="true" width="50" sortable="true">多选框</th>
