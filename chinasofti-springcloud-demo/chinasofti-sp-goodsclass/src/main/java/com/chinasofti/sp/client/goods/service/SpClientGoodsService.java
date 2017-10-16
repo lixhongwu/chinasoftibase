@@ -31,3 +31,6 @@ public class SpClientGoodsService {
 		return spClientGoodsClassMapper.selectByExample(spClientGoodsClassExample);
 	}
 }
+
+
+	

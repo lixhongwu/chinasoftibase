@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.chinasofti.py.goodsorder.entity.PyMainGoodsorder;
 import com.chinasofti.py.goodsorder.entity.PyMainGoodsorderExample;
@@ -33,6 +34,10 @@ public class PyMainGoodsorderService {
 	 */
 	public List<PyMainGoodsorder> selectAll(){
 		PyMainGoodsorderExample example = new PyMainGoodsorderExample();
+//		example.setOrderByClause("ids ASC");
+		 if (StringUtils.isEmpty(example.getOrderByClause())) {
+	            example.setOrderByClause("ids ASC");
+	        }
 		return pyMainGoodsorderMapper.selectByExample(example);
 	}
 	

@@ -30,7 +30,7 @@ public class SpClientGoodsController {
 		return spClientGoodsService.selectByPrimaryKey(ids);
 	}
 
-	// 根据pid查询分类
+	//  根据pid查询分类  
 	@RequestMapping("/selectSubClass/{ids}")
 	public List<SpClientGoodsClass> selectSubClass(@PathVariable(value = "ids") String pid) {
 		return spClientGoodsService.selectSubClass(pid);
