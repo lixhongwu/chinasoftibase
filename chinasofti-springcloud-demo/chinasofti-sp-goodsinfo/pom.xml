@@ -80,7 +80,13 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
-
+		
+		<dependency>
+        <groupId>com.github.pagehelper</groupId>
+        <artifactId>pagehelper</artifactId>
+        <version>4.1.6</version>
+		</dependency>
+		
 		<!--配置jsp jstl的支持 -->
 		<!-- <dependency>
 			<groupId>jstl</groupId>
