@@ -4,59 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class PyMainGoodsorder {
-    private String ids;
 
-    private String bigorderId;
-
-    private String vendorIds;
-
-    private String userIds;
-
-    private String contIdentityno;
-
-    private String contPostcode;
-
-    private String contAddress;
-
-    private String contMobile;
-
-    private String contPhone;
-
-    private String contProvince;
-
-    private String contCity;
-
-    private String contDistrict;
-
-    private String contStreet;
-
-    private String deliveryTime;
-
-    private String deliveryWay;
-
-    private String buyersMessage;
-
-    private String orderTime;
-
-    private String settleTime;
-
-    private String isevaluate;
-
-    private BigDecimal discount;
-
-    private BigDecimal orderTotalAmt;
-
-    private BigDecimal orderAmt;
-
-    private BigDecimal settleAmt;
-
-    private String settleStatues;
-
-    private String payStatus;
-
-    private String status;
-
-    private String approveStatus;
     private String ids;				
 
     private String bigorderId;		//大订单id

@@ -43,7 +43,7 @@ public class SpUserService {
 	public void deleteByPrimaryKey(String ids) {
 		spUserMapper.deleteByPrimaryKey(ids);
 	}
-<<<<<<< HEAD
+
 	//测试冲突
 	public List<SpUser> findAll1() {
 		return spUserMapper.selectByExample(null);
@@ -52,15 +52,13 @@ public class SpUserService {
 	//删除一个用户
 	public int delete(String ids) {
 		return spUserMapper.deleteByPrimaryKey(ids);
-=======
-
+	}
 	/**
 	 * 修改
 	 * @param spUser
 	 */
 	public void updateByPrimaryKey(SpUser spUser) {
 		spUserMapper.updateByPrimaryKey(spUser);
->>>>>>> f9d932afdbe70a26948e932dfba405eeb244734e
 	}
 	
 	

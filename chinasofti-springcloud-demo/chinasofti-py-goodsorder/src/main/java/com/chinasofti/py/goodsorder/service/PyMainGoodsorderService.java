@@ -1,11 +1,6 @@
 package com.chinasofti.py.goodsorder.service;
 
-<<<<<<< HEAD
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import com.chinasofti.py.goodsorder.entity.PyMainGoodsorder;
-=======
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +9,6 @@ import org.springframework.util.StringUtils;
 
 import com.chinasofti.py.goodsorder.entity.PyMainGoodsorder;
 import com.chinasofti.py.goodsorder.entity.PyMainGoodsorderExample;
->>>>>>> f9d932afdbe70a26948e932dfba405eeb244734e
 import com.chinasofti.py.goodsorder.mapper.PyMainGoodsorderMapper;
 
 
@@ -34,8 +28,7 @@ public class PyMainGoodsorderService {
 		
 	}
 	
-<<<<<<< HEAD
-=======
+
 	/**
 	 * 查询所有
 	 * @param example
@@ -74,5 +67,4 @@ public class PyMainGoodsorderService {
 		pyMainGoodsorderMapper.updateByPrimaryKey(pyMainGoodsorder);
 	}
 	
->>>>>>> f9d932afdbe70a26948e932dfba405eeb244734e
 }
