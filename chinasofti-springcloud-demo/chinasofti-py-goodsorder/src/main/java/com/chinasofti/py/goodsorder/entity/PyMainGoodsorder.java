@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class PyMainGoodsorder {
+<<<<<<< HEAD
     private String ids;
 
     private String bigorderId;
@@ -57,6 +58,63 @@ public class PyMainGoodsorder {
     private String status;
 
     private String approveStatus;
+=======
+    private String ids;				
+
+    private String bigorderId;		//大订单id
+
+    private String vendorIds;		//商户id
+
+    private String userIds;			//用户id
+
+    private String contIdentityno;	//收件人证件号
+
+    private String contPostcode;	//邮箱
+
+    private String contAddress;		//详细地址
+
+    private String contMobile;		//座机
+
+    private String contPhone;		//手机
+
+    private String contProvince;	//省
+
+    private String contCity;		//市
+
+    private String contDistrict;	//区
+
+    private String contStreet;		//街道
+
+    private String deliveryTime;	//派送时间
+
+    private String deliveryWay;		//配送方式
+
+    private String buyersMessage;	//留言
+
+    private String orderTime;		//下单时间
+
+    private String settleTime;		//放款成功时间
+
+    private String isevaluate;		
+
+    private BigDecimal discount;
+
+    private BigDecimal orderTotalAmt;	//商品总价
+
+    private BigDecimal orderAmt;		//实付现金
+
+    private BigDecimal settleAmt;
+
+    private String settleStatues;		//清算状态  0-未处理  1-成功 2-失败 3 清算中
+
+    private String payStatus;			//0 未支付 1 已支付  2 取消
+
+    private String status;				//订单状态：0001-待付款 0002-待发货 0003-已发货 0004-交易成功 0005-售后处理中 0006-订单关闭
+    									//0007-交易关闭 0008-交易完成  0009-退款中
+
+    private String approveStatus;		//售后状态0101-待商家确认0102-待买家寄回0103-待确认质检0104-退款中0105-退款成功
+    									//0106-退款关闭0107-换货成功0108-换货关闭
+>>>>>>> f9d932afdbe70a26948e932dfba405eeb244734e
 
     private String payway;
 

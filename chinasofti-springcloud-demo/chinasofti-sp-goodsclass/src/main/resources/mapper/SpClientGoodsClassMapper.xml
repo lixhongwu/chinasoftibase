@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.sp.client.goods.mapper.SpClientGoodsClassMapper" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.sp.client.goods.entity.SpClientGoodsClass" >
+    <id column="ids" property="ids" jdbcType="VARCHAR" />
+    <result column="pids" property="pids" jdbcType="VARCHAR" />
+    <result column="class_states" property="classStates" jdbcType="CHAR" />
+    <result column="class_name" property="className" jdbcType="VARCHAR" />
+    <result column="class_descs" property="classDescs" jdbcType="VARCHAR" />
+    <result column="class_commons" property="classCommons" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="update_by" property="updateBy" jdbcType="CHAR" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+    <result column="class_logo" property="classLogo" jdbcType="VARCHAR" />
+    <result column="isparent" property="isparent" jdbcType="VARCHAR" />
+    <result column="show_index" property="showIndex" jdbcType="VARCHAR" />
+    <result column="class_img" property="classImg" jdbcType="VARCHAR" />
+    <result column="xh_class_ids" property="xhClassIds" jdbcType="VARCHAR" />
+    <result column="xh_class_name" property="xhClassName" jdbcType="VARCHAR" />
+    <result column="delete_status" property="deleteStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ids, pids, class_states, class_name, class_descs, class_commons, create_by, create_time, 
+    update_by, update_time, class_logo, isparent, show_index, class_img, xh_class_ids, 
+    xh_class_name, delete_status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.sp.client.goods.entity.SpClientGoodsClassExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sp_client_goods_class
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sp_client_goods_class
+    where ids = #{ids,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sp_client_goods_class
+    where ids = #{ids,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chinasofti.sp.client.goods.entity.SpClientGoodsClassExample" >
+    delete from sp_client_goods_class
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chinasofti.sp.client.goods.entity.SpClientGoodsClass" >
+    insert into sp_client_goods_class (ids, pids, class_states, 
+      class_name, class_descs, class_commons, 
+      create_by, create_time, update_by, 
+      update_time, class_logo, isparent, 
+      show_index, class_img, xh_class_ids, 
+      xh_class_name, delete_status)
+    values (#{ids,jdbcType=VARCHAR}, #{pids,jdbcType=VARCHAR}, #{classStates,jdbcType=CHAR}, 
+      #{className,jdbcType=VARCHAR}, #{classDescs,jdbcType=VARCHAR}, #{classCommons,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{updateBy,jdbcType=CHAR}, 
+      #{updateTime,jdbcType=CHAR}, #{classLogo,jdbcType=VARCHAR}, #{isparent,jdbcType=VARCHAR}, 
+      #{showIndex,jdbcType=VARCHAR}, #{classImg,jdbcType=VARCHAR}, #{xhClassIds,jdbcType=VARCHAR}, 
+      #{xhClassName,jdbcType=VARCHAR}, #{deleteStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasofti.sp.client.goods.entity.SpClientGoodsClass" >
+    insert into sp_client_goods_class
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        ids,
+      </if>
+      <if test="pids != null" >
+        pids,
+      </if>
+      <if test="classStates != null" >
+        class_states,
+      </if>
+      <if test="className != null" >
+        class_name,
+      </if>
+      <if test="classDescs != null" >
+        class_descs,
+      </if>
+      <if test="classCommons != null" >
+        class_commons,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="classLogo != null" >
+        class_logo,
+      </if>
+      <if test="isparent != null" >
+        isparent,
+      </if>
+      <if test="showIndex != null" >
+        show_index,
+      </if>
+      <if test="classImg != null" >
+        class_img,
+      </if>
+      <if test="xhClassIds != null" >
+        xh_class_ids,
+      </if>
+      <if test="xhClassName != null" >
+        xh_class_name,
+      </if>
+      <if test="deleteStatus != null" >
+        delete_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        #{ids,jdbcType=VARCHAR},
+      </if>
+      <if test="pids != null" >
+        #{pids,jdbcType=VARCHAR},
+      </if>
+      <if test="classStates != null" >
+        #{classStates,jdbcType=CHAR},
+      </if>
+      <if test="className != null" >
+        #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="classDescs != null" >
+        #{classDescs,jdbcType=VARCHAR},
+      </if>
+      <if test="classCommons != null" >
+        #{classCommons,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=CHAR},
+      </if>
+      <if test="classLogo != null" >
+        #{classLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="isparent != null" >
+        #{isparent,jdbcType=VARCHAR},
+      </if>
+      <if test="showIndex != null" >
+        #{showIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="classImg != null" >
+        #{classImg,jdbcType=VARCHAR},
+      </if>
+      <if test="xhClassIds != null" >
+        #{xhClassIds,jdbcType=VARCHAR},
+      </if>
+      <if test="xhClassName != null" >
+        #{xhClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteStatus != null" >
+        #{deleteStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chinasofti.sp.client.goods.entity.SpClientGoodsClassExample" resultType="java.lang.Integer" >
+    select count(*) from sp_client_goods_class
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sp_client_goods_class
+    <set >
+      <if test="record.ids != null" >
+        ids = #{record.ids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pids != null" >
+        pids = #{record.pids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classStates != null" >
+        class_states = #{record.classStates,jdbcType=CHAR},
+      </if>
+      <if test="record.className != null" >
+        class_name = #{record.className,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classDescs != null" >
+        class_descs = #{record.classDescs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classCommons != null" >
+        class_commons = #{record.classCommons,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createBy != null" >
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateBy != null" >
+        update_by = #{record.updateBy,jdbcType=CHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=CHAR},
+      </if>
+      <if test="record.classLogo != null" >
+        class_logo = #{record.classLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isparent != null" >
+        isparent = #{record.isparent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.showIndex != null" >
+        show_index = #{record.showIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classImg != null" >
+        class_img = #{record.classImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xhClassIds != null" >
+        xh_class_ids = #{record.xhClassIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xhClassName != null" >
+        xh_class_name = #{record.xhClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deleteStatus != null" >
+        delete_status = #{record.deleteStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sp_client_goods_class
+    set ids = #{record.ids,jdbcType=VARCHAR},
+      pids = #{record.pids,jdbcType=VARCHAR},
+      class_states = #{record.classStates,jdbcType=CHAR},
+      class_name = #{record.className,jdbcType=VARCHAR},
+      class_descs = #{record.classDescs,jdbcType=VARCHAR},
+      class_commons = #{record.classCommons,jdbcType=VARCHAR},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=VARCHAR},
+      update_by = #{record.updateBy,jdbcType=CHAR},
+      update_time = #{record.updateTime,jdbcType=CHAR},
+      class_logo = #{record.classLogo,jdbcType=VARCHAR},
+      isparent = #{record.isparent,jdbcType=VARCHAR},
+      show_index = #{record.showIndex,jdbcType=VARCHAR},
+      class_img = #{record.classImg,jdbcType=VARCHAR},
+      xh_class_ids = #{record.xhClassIds,jdbcType=VARCHAR},
+      xh_class_name = #{record.xhClassName,jdbcType=VARCHAR},
+      delete_status = #{record.deleteStatus,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.sp.client.goods.entity.SpClientGoodsClass" >
+    update sp_client_goods_class
+    <set >
+      <if test="pids != null" >
+        pids = #{pids,jdbcType=VARCHAR},
+      </if>
+      <if test="classStates != null" >
+        class_states = #{classStates,jdbcType=CHAR},
+      </if>
+      <if test="className != null" >
+        class_name = #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="classDescs != null" >
+        class_descs = #{classDescs,jdbcType=VARCHAR},
+      </if>
+      <if test="classCommons != null" >
+        class_commons = #{classCommons,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=CHAR},
+      </if>
+      <if test="classLogo != null" >
+        class_logo = #{classLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="isparent != null" >
+        isparent = #{isparent,jdbcType=VARCHAR},
+      </if>
+      <if test="showIndex != null" >
+        show_index = #{showIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="classImg != null" >
+        class_img = #{classImg,jdbcType=VARCHAR},
+      </if>
+      <if test="xhClassIds != null" >
+        xh_class_ids = #{xhClassIds,jdbcType=VARCHAR},
+      </if>
+      <if test="xhClassName != null" >
+        xh_class_name = #{xhClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteStatus != null" >
+        delete_status = #{deleteStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ids = #{ids,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.sp.client.goods.entity.SpClientGoodsClass" >
+    update sp_client_goods_class
+    set pids = #{pids,jdbcType=VARCHAR},
+      class_states = #{classStates,jdbcType=CHAR},
+      class_name = #{className,jdbcType=VARCHAR},
+      class_descs = #{classDescs,jdbcType=VARCHAR},
+      class_commons = #{classCommons,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      update_by = #{updateBy,jdbcType=CHAR},
+      update_time = #{updateTime,jdbcType=CHAR},
+      class_logo = #{classLogo,jdbcType=VARCHAR},
+      isparent = #{isparent,jdbcType=VARCHAR},
+      show_index = #{showIndex,jdbcType=VARCHAR},
+      class_img = #{classImg,jdbcType=VARCHAR},
+      xh_class_ids = #{xhClassIds,jdbcType=VARCHAR},
+      xh_class_name = #{xhClassName,jdbcType=VARCHAR},
+      delete_status = #{deleteStatus,jdbcType=VARCHAR}
+    where ids = #{ids,jdbcType=VARCHAR}
+  </update>
+</mapper>

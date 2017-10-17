@@ -7,65 +7,146 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+import com.chinasofti.springcloud.entity.SpUser;
+import com.chinasofti.springcloud.utils.JsonUtils;
 
-import com.chinasofti.springcloud.entity.User;
-import com.google.gson.Gson;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+
 
 @RestController
 /**
- * user控制器
- * 访问方式启动本地eureka服务器和服务提供者，通过ip+port加上/user/id
- * @author husong
+ * 
+ * 
+ * @author 
  *
  */
+@RequestMapping("/users")
 public class UserController {
 	@Autowired
 	private RestTemplate restTemplate;
 
 	@Value("${user.userServicePath}")
 	private String userServicePath;
-	
-	@HystrixCommand(fallbackMethod="findByIdFallback")//熔断
-	@GetMapping("/user/{id}")
-	public User findById(@PathVariable Long id) {
 
-		return this.restTemplate.getForObject(this.userServicePath + "spuser/" + id, User.class);
+
+	/**
+	 * 根据ID查询
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/select/{id}")
+	public String usersFindById(@PathVariable Long id) {
+
+		SpUser spUser = this.restTemplate.getForObject(this.userServicePath + "users/select/" + id,
+				SpUser.class);
+
+		return JsonUtils.objectToGsonString(spUser);
 	}
-    @RequestMapping("/user/web")
-	public ModelAndView getview() {
-		return  new ModelAndView("children");
+
+	/**
+	 * 全部(条件)查询
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/list")
+	@ResponseBody
+	public ResponseEntity<String> findAll(SpUser spUser) {
+		
+		HttpEntity<LinkedMultiValueMap<String, String>> he = transmitObject(spUser);
+		
+		ResponseEntity<String> response = restTemplate.postForEntity(this.userServicePath + "users/list", he,
+				String.class);
+
+		return response;
+
 	}
-    
-    @PostMapping("/user/save")
-	public ResponseEntity<String> save(User user) {
-		HttpHeaders headers = new HttpHeaders();
-		String url = "http://localhost:7801/spuser/save";
-		//  请勿轻易改变此提交方式，大部分的情况下，提交方式都是表单提交
-		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-		//  封装参数，千万不要替换为Map与HashMap，否则参数无法传递
-		MultiValueMap<String, String> params= new LinkedMultiValueMap<String, String>();
-		//  将对象转为json传送出去,服务端再转换回来, 也支持中文
-		Gson gson = new Gson();
-		String json = gson.toJson(user);
-		params.add("user", json);
-		HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(params, headers);
-		//  执行HTTP请求
-		ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
+
+	/**
+	 * 用户添加
+	 * 
+	 * @param spUser
+	 * @return
+	 */
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public ResponseEntity<String> goodsAdd(SpUser spUser) {
+
+		HttpEntity<LinkedMultiValueMap<String, String>> he = transmitObject(spUser);
+
+		ResponseEntity<String> response = restTemplate.postForEntity(this.userServicePath + "users/add", he,
+				String.class);
+
 		return response;
 	}
-    //findById发生熔断返回方法
-    public User findByIdFallback(Long id) {
-		return new User();
-    	
-    }
-    
+
+	/**
+	 * 通过ID删除
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/delete/{ids}")
+	public String goodsDeleteById(@PathVariable String ids) {
+
+		return this.restTemplate.getForObject(this.userServicePath + "users/delete/" + ids, String.class);
+
+	}
+	
+	
+	/**
+	 * 修改
+	 * @param spUser
+	 * @return
+	 */
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public ResponseEntity<String> goodsUpdate(SpUser spUser) {
+
+		HttpEntity<LinkedMultiValueMap<String, String>> he = transmitObject(spUser);
+
+		ResponseEntity<String> response = restTemplate.postForEntity(this.userServicePath + "users/update", he,
+				String.class);
+
+		return response;
+
+	}
+
+	/**
+	 * 返回用户界面
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/index")
+	public ModelAndView getview() {
+		return new ModelAndView("/users/users");
+	}
+	
+	/**
+	 * 对象转集合
+	 * @param object
+	 * @return
+	 */
+	public HttpEntity<LinkedMultiValueMap<String, String>> transmitObject(Object object){
+		
+		LinkedMultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
+
+		String objectToString = JsonUtils.objectToGsonString(object);
+
+		map.add("spUser", objectToString);
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+		HttpEntity<LinkedMultiValueMap<String, String>> he = new HttpEntity<LinkedMultiValueMap<String, String>>(map,
+				headers);
+
+		return he;
+		
+	}
+	
+	
 }

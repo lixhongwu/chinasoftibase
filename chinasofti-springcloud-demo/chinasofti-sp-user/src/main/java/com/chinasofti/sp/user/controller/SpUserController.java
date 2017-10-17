@@ -5,58 +5,105 @@ package com.chinasofti.sp.user.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.sp.user.entity.SpUser;
+import com.chinasofti.sp.user.entity.SpUserExample;
+import com.chinasofti.sp.user.entity.SpUserExample.Criteria;
 import com.chinasofti.sp.user.service.SpUserService;
 import com.google.gson.Gson;
 
-@RestController//ceshi
-@RequestMapping("spuser")
+@RequestMapping("users")
+@RestController
 public class SpUserController {
-	
+
 	@Autowired
-	private SpUserService spUserService;
+	SpUserService spUserService;
+
 	/**
-	 *根据ids查询用户信息
-	 * */
-	@GetMapping("{ids}")
-	public SpUser queryById(@PathVariable String ids){
-		
-		return spUserService.quetyById(ids);
-	}
-	
-	/**
-	 * 添加用户
-	 * */
+	 * id查询
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping("/select/{ids}")
 	@ResponseBody
-	@PostMapping("/save")
-	public String insertItems(String user) {
+	public SpUser selectByPrimaryKey(@PathVariable String ids) {
+
+		return spUserService.selectByPrimaryKey(ids);
+
+	}
+
+	/**
+	 * 全部查询
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/list")
+	@ResponseBody
+	public List<SpUser> findAll(String spUser) {
+
+		String compare = "";
+
 		Gson gson = new Gson();
-		SpUser spUser = gson.fromJson(user, SpUser.class);
-		spUserService.save(spUser);
-		return "save";
+		SpUser users = gson.fromJson(spUser, SpUser.class);
+
+		SpUserExample example = new SpUserExample();
+		Criteria criteria = example.createCriteria();
+
+		if((users.getName())!=null && !compare.equals(users.getName())){
+			criteria.andNameEqualTo(users.getName());
+			return spUserService.findAll(example);
+		}
+		return spUserService.findAll(example);
 	}
 	
+	/**
+	 * 用户添加
+	 */
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String goodsAdd(String spUser) {
+		Gson gson = new Gson();
+		SpUser users = gson.fromJson(spUser, SpUser.class);
+
+		spUserService.insertSelective(users);
+
+		return "add";
+	}
 	
-	 /**
-     * 查询所有sp_user信息列表
-     */
-    @GetMapping("/allSpUsers")
-    public List<SpUser> girlList(){
-        return spUserService.findAll();
-    }
-	
-    /**
-	 * 删除一个用户信息
-	 * */
-	@GetMapping("/delete/{ids}")
-    public int deleteSpUser(@PathVariable String ids){
-		return spUserService.delete(ids);
-    }
+	/**
+	 * 通过ID删除
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping(value = "/delete/{ids}")
+	public String deleteByPrimaryKey(@PathVariable String ids) {
+
+		spUserService.deleteByPrimaryKey(ids);
+
+		return "delete";
+
+	}
+
+	/**
+	 * 修改
+	 * 
+	 * @param spUser
+	 * @return
+	 */
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String updateByPrimaryKey(String spUser) {
+
+		Gson gson = new Gson();
+		SpUser users = gson.fromJson(spUser, SpUser.class);
+
+		spUserService.updateByPrimaryKey(users);
+
+		return "update";
+	}
 }
