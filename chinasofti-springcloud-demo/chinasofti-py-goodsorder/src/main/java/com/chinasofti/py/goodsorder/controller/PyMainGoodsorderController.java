@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.py.goodsorder.entity.PyMainGoodsorder;
+import com.chinasofti.py.goodsorder.entity.PyMainGoodsorderExample;
+import com.chinasofti.py.goodsorder.entity.PyMainGoodsorderExample.Criteria;
 import com.chinasofti.py.goodsorder.service.PyMainGoodsorderService;
 import com.google.gson.Gson;
 
@@ -34,14 +36,31 @@ public class PyMainGoodsorderController {
 	}
 	
 	/**
-	 * 查询所有
+	 * 条件查询
 	 * @return
 	 */
 	@RequestMapping("/list")
 	@ResponseBody
-	public List<PyMainGoodsorder> selectAll(){
+	public List<PyMainGoodsorder> selectAll(String pyMainGoodsorder){
 		
-		return pyGoodsService.selectAll();
+		String compare = "";
+				
+		PyMainGoodsorderExample example = new PyMainGoodsorderExample();
+		
+		if (pyMainGoodsorder != null) {
+			Criteria criteria = example.createCriteria();
+			Gson gson = new Gson();
+			PyMainGoodsorder goodsorder = gson.fromJson(pyMainGoodsorder, PyMainGoodsorder.class);
+			
+			if ((goodsorder.getBigorderId()) != null && !compare.equals(goodsorder.getBigorderId())) {
+//				criteria.andBigorderIdEqualTo(goodsorder.getBigorderId());
+				criteria.andBigorderIdLike("%" +goodsorder.getBigorderId() + "%");
+				return pyGoodsService.findAll(example);
+			}
+		}
+		
+
+		return pyGoodsService.findAll(example);
 	}
 	
 	/**
