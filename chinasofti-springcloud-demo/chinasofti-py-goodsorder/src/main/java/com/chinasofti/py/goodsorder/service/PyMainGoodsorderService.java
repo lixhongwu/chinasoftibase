@@ -1,5 +1,6 @@
 package com.chinasofti.py.goodsorder.service;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class PyMainGoodsorderService {
 		
 	}
 	
+
 	/**
 	 * 查询所有
 	 * @param example

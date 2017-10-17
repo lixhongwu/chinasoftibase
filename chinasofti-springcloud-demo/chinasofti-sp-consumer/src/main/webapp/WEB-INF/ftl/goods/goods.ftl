@@ -10,8 +10,9 @@
         </div>
         <div class="wu-toolbar-search">
             <label>商品类型：</label> 
-			<input type="text" id="goodstype" name="goodstype" />
+			<input type="text" id="goodsTypeSearch" name="goodstype" />
             <a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearch()">开始检索</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-edit-clear" onclick="doClear()">清除</a>
         </div>
     </div>
     
@@ -227,13 +228,18 @@
 	*/
 	function doSearch(){
 		$('#tt-goodsinfo').datagrid('load',{
-			goodsType:$('#goodstype').val(),
+			goodsType:$('#goodsTypeSearch').val(),
 			title:$('#title').val()
 		});
 		
 	}
 	
-	
+	/*
+	*清除搜索框内容
+	*/
+	function doClear(){
+		document.getElementById("goodsTypeSearch").value="";
+	}
 	
 	/**
 	* 分页过滤器
