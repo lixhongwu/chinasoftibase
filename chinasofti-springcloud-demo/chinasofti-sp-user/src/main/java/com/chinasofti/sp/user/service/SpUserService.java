@@ -31,7 +31,10 @@ public class SpUserService {
 	public List<SpUser> findAll() {
 		return spUserMapper.selectByExample(null);
 	}
-
+	//测试冲突
+	public List<SpUser> findAll1() {
+		return spUserMapper.selectByExample(null);
+	}
 	
 	//删除一个用户
 	public int delete(String ids) {
