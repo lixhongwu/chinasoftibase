@@ -34,6 +34,7 @@
                 	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-3.html" iframe="0">商品分类管理</a></li>
                 	<li iconCls="icon-application-cascade"><a data-icon="icon-application-cascade" data-link="/goodsorder/index" iframe="0">订单管理</a></li>
                     <li iconCls="icon-users"><a data-icon="icon-users" data-link="/users/index" iframe="0">用户管理</a></li>
+                    <li iconCls="icon-params"><a data-icon="icon-params" data-link="/param/index" iframe="0">参数管理</a></li>
                 </ul>
             </div>
             
