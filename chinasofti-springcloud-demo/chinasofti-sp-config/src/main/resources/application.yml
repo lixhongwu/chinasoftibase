@@ -1,11 +1,8 @@
 server:
   port: 8080
 spring:
-<<<<<<< HEAD
   profiles:
     active: git
-=======
->>>>>>> f9d932afdbe70a26948e932dfba405eeb244734e
   cloud:
     config:
       server:
@@ -15,11 +12,6 @@ spring:
           password: 
   application:
     name: chinasofti-sp-config	# 配置文件就是用这个来做文件名的
-<<<<<<< HEAD
-  
-=======
->>>>>>> f9d932afdbe70a26948e932dfba405eeb244734e
-
 eureka:
   client:
     serviceUrl:

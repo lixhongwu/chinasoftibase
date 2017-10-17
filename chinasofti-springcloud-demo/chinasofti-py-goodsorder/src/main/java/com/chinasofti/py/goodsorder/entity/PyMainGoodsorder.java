@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class PyMainGoodsorder {
-<<<<<<< HEAD
     private String ids;
 
     private String bigorderId;
@@ -58,7 +57,6 @@ public class PyMainGoodsorder {
     private String status;
 
     private String approveStatus;
-=======
     private String ids;				
 
     private String bigorderId;		//大订单id
@@ -114,7 +112,6 @@ public class PyMainGoodsorder {
 
     private String approveStatus;		//售后状态0101-待商家确认0102-待买家寄回0103-待确认质检0104-退款中0105-退款成功
     									//0106-退款关闭0107-换货成功0108-换货关闭
->>>>>>> f9d932afdbe70a26948e932dfba405eeb244734e
 
     private String payway;
 

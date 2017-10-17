@@ -1,30 +1,20 @@
 package com.chinasofti.py.goodsorder.controller;
 
-<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-=======
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
->>>>>>> f9d932afdbe70a26948e932dfba405eeb244734e
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.py.goodsorder.entity.PyMainGoodsorder;
 import com.chinasofti.py.goodsorder.service.PyMainGoodsorderService;
-<<<<<<< HEAD
 
-@RequestMapping("goodsorder")
-=======
 import com.google.gson.Gson;
 
 @RequestMapping("/goodsorder")
->>>>>>> f9d932afdbe70a26948e932dfba405eeb244734e
 @RestController
 public class PyMainGoodsorderController {
 	
@@ -44,8 +34,6 @@ public class PyMainGoodsorderController {
 		
 	}
 	
-<<<<<<< HEAD
-=======
 	/**
 	 * 查询所有
 	 * @return
@@ -105,6 +93,5 @@ public class PyMainGoodsorderController {
 		return "update";
 	}
 	
->>>>>>> f9d932afdbe70a26948e932dfba405eeb244734e
-	
+
 }
