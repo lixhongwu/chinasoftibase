@@ -44,6 +44,15 @@ public class SpUserService {
 		spUserMapper.deleteByPrimaryKey(ids);
 	}
 
+	//测试冲突
+	public List<SpUser> findAll1() {
+		return spUserMapper.selectByExample(null);
+	}
+	
+	//删除一个用户
+	public int delete(String ids) {
+		return spUserMapper.deleteByPrimaryKey(ids);
+	}
 	/**
 	 * 修改
 	 * @param spUser

@@ -1,3 +1,4 @@
+
 spring:
   cloud:
     config:
@@ -13,4 +14,4 @@ eureka:
       defaultZone: http://user:password456@localhost:8761/eureka
   instance:
     prefer-ip-address: true
-    
+
