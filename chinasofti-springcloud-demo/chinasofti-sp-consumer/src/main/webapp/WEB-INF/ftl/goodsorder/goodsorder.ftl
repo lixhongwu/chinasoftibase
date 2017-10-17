@@ -177,7 +177,7 @@
 	*/
 	function doSearch(){
 		$('#orderDataGrid').datagrid('load',{
-			bigorderId:$('#bigorderId_input').val()
+			bigorderId:$('#bigorderId').val()
 		});
 		
 	}
@@ -185,8 +185,10 @@
 	/**
 	* 清空搜索条件
 	*/
-	function doClear(){
-		$('#bigorderId_input').val('')
+	function clearAll(){
+		$("#bigorderId").textbox('setValue');
+		$('#orderDataGrid').datagrid("load", {
+		});
 	}
 	
 	
@@ -224,12 +226,19 @@
             <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-print" onclick="openAdd()" plain="true">打印</a>
         </div>
-        <div class="orderToolbarSearch">
+        <!-- <div class="orderToolbarSearch">
             <label>大订单编号：</label>
             <input id="bigorderId_input" name="bigorderId" class="easyui-textbox" style="width:100px">
             <a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearch()">查询</a>
             <a onclick="doClear()" href="#" class="easyui-linkbutton" iconCls="icon-reload">清  空 </a> 
-        </div>
+        </div> -->
+        <div>
+			<form action="" id="orderSearchForm">
+				<span>大订单编号:</span> <input name="bigorderId" id="bigorderId" class="easyui-textbox" />
+				<a class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="doSearch()">查询</a>
+				<a class="easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="clearAll()">清空</a>
+			</form>
+		</div>
     </div>
 
     <table id="orderDataGrid" class="easyui-datagrid" url="/goodsorder/list"
