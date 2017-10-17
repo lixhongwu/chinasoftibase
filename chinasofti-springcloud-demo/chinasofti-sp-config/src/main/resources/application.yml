@@ -1,6 +1,8 @@
 server:
   port: 8080
 spring:
+  profiles:
+    active: git
   cloud:
     config:
       server:
@@ -10,6 +12,7 @@ spring:
           password: 
   application:
     name: chinasofti-sp-config	# 配置文件就是用这个来做文件名的
+  
 
 eureka:
   client:
