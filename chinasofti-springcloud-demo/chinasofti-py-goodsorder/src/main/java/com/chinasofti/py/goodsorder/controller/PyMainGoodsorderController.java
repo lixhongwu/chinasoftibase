@@ -79,7 +79,7 @@ public class PyMainGoodsorderController {
 		pyGoodsService.insertSelective(goodsorder);
 
 		return "add";
-
+		
 	}
 
 	/**

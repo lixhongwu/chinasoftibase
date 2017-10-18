@@ -54,7 +54,7 @@ public class PyMainGoodsorderService {
 	public void deleteByPrimaryKey(String ids) {
 		pyMainGoodsorderMapper.deleteByPrimaryKey(ids);
 	}
-
+	
 	/**
 	 * 修改
 	 * @param pyMainGoodsorder
