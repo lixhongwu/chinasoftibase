@@ -43,8 +43,6 @@ public class PyMainGoodsorderController {
 	@RequestMapping("/list")
 	@ResponseBody
 	public List<PyMainGoodsorder> selectAll(String pyMainGoodsorder){
-		
-		String compare = "";
 				
 		PyMainGoodsorderExample example = new PyMainGoodsorderExample();
 		
@@ -53,11 +51,15 @@ public class PyMainGoodsorderController {
 			Gson gson = new Gson();
 			PyMainGoodsorder goodsorder = gson.fromJson(pyMainGoodsorder, PyMainGoodsorder.class);
 			
-			if ((goodsorder.getBigorderId()) != null && !compare.equals(goodsorder.getBigorderId())) {
-//				criteria.andBigorderIdEqualTo(goodsorder.getBigorderId());
-				criteria.andBigorderIdLike("%" +goodsorder.getBigorderId() + "%");
-				return pyGoodsService.findAll(example);
+			if ((goodsorder.getBigorderId()) != null && !goodsorder.getBigorderId().equals("")) {
+				criteria.andBigorderIdLike("%" + goodsorder.getBigorderId() + "%");
 			}
+			
+			if ((goodsorder.getVendorIds()) != null && !goodsorder.getVendorIds().equals("")) {
+				criteria.andVendorIdsLike("%" + goodsorder.getVendorIds() + "%");
+			}
+			
+			return pyGoodsService.findAll(example);
 		}
 		
 
