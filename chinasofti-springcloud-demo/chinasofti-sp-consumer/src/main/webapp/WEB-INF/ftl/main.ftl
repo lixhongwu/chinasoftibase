@@ -35,6 +35,7 @@
                 	<li iconCls="icon-application-cascade"><a data-icon="icon-application-cascade" data-link="/goodsorder/index" iframe="0">订单管理</a></li>
                  <li iconCls="icon-users"><a data-icon="icon-users" data-link="/users/index" iframe="0">用户管理</a></li>
                  <li iconCls="icon-application-cascade"><a data-icon="icon-application-cascade" data-link="/ticket/index" iframe="0">卡券管理</a></li>     
+                    <li iconCls="icon-params"><a data-icon="icon-params" data-link="/param/index" iframe="0">参数管理</a></li>
                 </ul>
             </div>
             

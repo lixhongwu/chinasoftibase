@@ -221,8 +221,7 @@
 	*/
 	function doSearch(){
 		$('#tt-ticket').datagrid('load',{
-			goodsType:$('#goodstype').val(),
-			title:$('#title').val()
+			goodsType:$('#goodstype').val()
 		});
 		
 	}
@@ -263,7 +262,7 @@
 	* Name 载入数据
 	*/
 	$('#tt-goodsinfo').datagrid({
-		url:'/goods/list',
+		url:'/ticket/selectAll',
 		loadFilter:pagerFilter,		
 		rownumbers:true,
 		singleSelect:true,           

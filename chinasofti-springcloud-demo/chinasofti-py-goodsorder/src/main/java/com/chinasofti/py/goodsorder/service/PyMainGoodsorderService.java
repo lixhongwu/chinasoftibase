@@ -1,5 +1,6 @@
 package com.chinasofti.py.goodsorder.service;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,18 +28,39 @@ public class PyMainGoodsorderService {
 		
 	}
 	
+
 	/**
 	 * 查询所有
 	 * @param example
 	 * @return
 	 */
-	public List<PyMainGoodsorder> selectAll(){
-		PyMainGoodsorderExample example = new PyMainGoodsorderExample();
-//		example.setOrderByClause("ids ASC");
-		 if (StringUtils.isEmpty(example.getOrderByClause())) {
-	            example.setOrderByClause("ids ASC");
-	        }
+	public List<PyMainGoodsorder> findAll(PyMainGoodsorderExample example){
+		
 		return pyMainGoodsorderMapper.selectByExample(example);
+	}
+	
+	/**
+	 * 添加插入(过滤空字段)
+	 * @param pyMainGoodsorder
+	 */
+	public void insertSelective(PyMainGoodsorder pyMainGoodsorder) {
+		pyMainGoodsorderMapper.insertSelective(pyMainGoodsorder);
+	}
+	
+	/**
+	 * ID删除
+	 * @param ids
+	 */
+	public void deleteByPrimaryKey(String ids) {
+		pyMainGoodsorderMapper.deleteByPrimaryKey(ids);
+	}
+	
+	/**
+	 * 修改
+	 * @param pyMainGoodsorder
+	 */
+	public void updateByPrimaryKey(PyMainGoodsorder pyMainGoodsorder) {
+		pyMainGoodsorderMapper.updateByPrimaryKey(pyMainGoodsorder);
 	}
 	
 }

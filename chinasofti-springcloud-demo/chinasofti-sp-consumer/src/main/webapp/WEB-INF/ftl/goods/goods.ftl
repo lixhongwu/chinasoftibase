@@ -10,8 +10,9 @@
         </div>
         <div class="wu-toolbar-search">
             <label>商品类型：</label> 
-			<input type="text" id="goodstype" name="goodstype" />
+			<input type="text" id="goodsTypeSearch" name="goodstype" />
             <a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearch()">开始检索</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-edit-clear" onclick="doClear()">清除</a>
         </div>
     </div>
     
@@ -94,7 +95,7 @@
 	*/
 	function remove(){
 	
-		var items = $('#tt').datagrid('getSelections');
+		var items = $('#tt-goodsinfo').datagrid('getSelections');
 		var ids = [];
 		
 		/*alert(JSON.stringify(items));*/
@@ -117,7 +118,7 @@
 					success:function(data){
 						if(data){
 							$.messager.alert('信息提示','删除成功！','info');
-							$('#tt').datagrid('reload')
+							$('#tt-goodsinfo').datagrid('reload')
 						}
 						else
 						{
@@ -157,7 +158,7 @@
 	*/
 	function openEdit(){
 
-		var items = $('#tt').datagrid('getSelections');
+		var items = $('#tt-goodsinfo').datagrid('getSelections');
 		var ids = [];
 		
 		$(items).each(function(){
@@ -199,7 +200,7 @@
 				                				$.messager.alert('信息提示','提交成功！','info');
 				                				$('#wu-dialog-2').dialog('close');
 				                				$('#ids').attr('readonly',false);
-				                				$('#tt').datagrid('reload')
+				                				$('#tt-goodsinfo').datagrid('reload')
 				                			}
 				                		}
 				                	});
@@ -226,14 +227,19 @@
 	*查询
 	*/
 	function doSearch(){
-		$('#tt').datagrid('load',{
-			goodsType:$('#goodstype').val(),
+		$('#tt-goodsinfo').datagrid('load',{
+			goodsType:$('#goodsTypeSearch').val(),
 			title:$('#title').val()
 		});
 		
 	}
 	
-	
+	/*
+	*清除搜索框内容
+	*/
+	function doClear(){
+		document.getElementById("goodsTypeSearch").value="";
+	}
 	
 	/**
 	* 分页过滤器
