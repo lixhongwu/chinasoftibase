@@ -33,7 +33,8 @@
                 	<li iconCls="icon-basket"><a data-icon="icon-basket" data-link="/goods/index" iframe="0">商品管理</a></li>
                 	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-3.html" iframe="0">商品分类管理</a></li>
                 	<li iconCls="icon-application-cascade"><a data-icon="icon-application-cascade" data-link="/goodsorder/index" iframe="0">订单管理</a></li>
-                    <li iconCls="icon-users"><a data-icon="icon-users" data-link="/users/index" iframe="0">用户管理</a></li>
+                 <li iconCls="icon-users"><a data-icon="icon-users" data-link="/users/index" iframe="0">用户管理</a></li>
+                 <li iconCls="icon-application-cascade"><a data-icon="icon-application-cascade" data-link="/ticket/index" iframe="0">卡券管理</a></li>     
                 </ul>
             </div>
             
@@ -51,7 +52,6 @@
 		</div>
 		
 	</div>
-	
 	<!--主界面-->
 	<div class="zk-main" data-options="region:'center'">
 		
