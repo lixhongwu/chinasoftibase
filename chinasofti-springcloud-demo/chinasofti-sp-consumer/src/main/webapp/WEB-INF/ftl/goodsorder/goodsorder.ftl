@@ -186,7 +186,8 @@
 	* 清空搜索条件
 	*/
 	function doClear(){
-		$('#bigorderId_input').val('')
+		console.log($('#bigorderId_input'));
+		$('.textbox-value').val('')
 	}
 	
 	
