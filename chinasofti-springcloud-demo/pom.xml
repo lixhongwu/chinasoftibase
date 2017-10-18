@@ -19,6 +19,7 @@
 		<module>chinasofti-sp-goodsclass</module>
 		<module>chinasofti-sp-goodssku</module>
 		<module>chinasofti-sp-app</module>
+		<module>chinasofti-pt-user</module>
 	</modules>
 	
 	<properties>
