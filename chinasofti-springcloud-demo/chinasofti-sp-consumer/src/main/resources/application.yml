@@ -16,6 +16,8 @@ user:
   userLoginPath: http://localhost:8001/
 goods:
   goodClassServicePath: http://localhost:8801/
+menu:
+  menuServicePath: http://localhost:7501/
 eureka:
   client:
     healthcheck:
