@@ -34,12 +34,8 @@ public class PyMainGoodsorderService {
 	 * @param example
 	 * @return
 	 */
-	public List<PyMainGoodsorder> selectAll(){
-		PyMainGoodsorderExample example = new PyMainGoodsorderExample();
-//		example.setOrderByClause("ids ASC");
-		 if (StringUtils.isEmpty(example.getOrderByClause())) {
-	            example.setOrderByClause("ids ASC");
-	        }
+	public List<PyMainGoodsorder> findAll(PyMainGoodsorderExample example){
+		
 		return pyMainGoodsorderMapper.selectByExample(example);
 	}
 	
@@ -58,7 +54,7 @@ public class PyMainGoodsorderService {
 	public void deleteByPrimaryKey(String ids) {
 		pyMainGoodsorderMapper.deleteByPrimaryKey(ids);
 	}
-
+	
 	/**
 	 * 修改
 	 * @param pyMainGoodsorder

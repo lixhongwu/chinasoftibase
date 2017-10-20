@@ -8,6 +8,9 @@ public class SpGoodsSkuWithBLOBs extends SpGoodsSku {
     private String files;
 
     private String inventorys;
+    
+   
+     
 
     public String getContents() {
         return contents;
@@ -40,4 +43,5 @@ public class SpGoodsSkuWithBLOBs extends SpGoodsSku {
     public void setInventorys(String inventorys) {
         this.inventorys = inventorys == null ? null : inventorys.trim();
     }
+    
 }

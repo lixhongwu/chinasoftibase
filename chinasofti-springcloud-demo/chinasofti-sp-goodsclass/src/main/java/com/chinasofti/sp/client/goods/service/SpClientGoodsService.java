@@ -28,6 +28,7 @@ public class SpClientGoodsService {
 	public List<SpClientGoodsClass> selectSubClass(String pid) { 
 		SpClientGoodsClassExample spClientGoodsClassExample = new SpClientGoodsClassExample();
 		spClientGoodsClassExample.createCriteria().andPidsEqualTo(pid);
+		spClientGoodsClassExample.setOrderByClause("ids ASC");
 		return spClientGoodsClassMapper.selectByExample(spClientGoodsClassExample);
 	}
 }

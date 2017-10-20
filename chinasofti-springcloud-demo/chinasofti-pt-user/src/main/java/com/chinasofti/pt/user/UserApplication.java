@@ -1,4 +1,4 @@
-package com.chinasofti.sp.client.goods;
+package com.chinasofti.pt.user;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -7,12 +7,11 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@MapperScan("com.chinasofti.sp.client.goods.mapper")
-public class PsClientGoodsApplication {
-	
-	public static void main(String[] args) {
-		
-		SpringApplication.run(PsClientGoodsApplication.class, args);
-	}
+@MapperScan("com.chinasofti.pt.user.mapper")
+public class UserApplication {
 
+	public static void main(String[] args) {
+		SpringApplication.run(UserApplication.class, args);
+	}
+	
 }

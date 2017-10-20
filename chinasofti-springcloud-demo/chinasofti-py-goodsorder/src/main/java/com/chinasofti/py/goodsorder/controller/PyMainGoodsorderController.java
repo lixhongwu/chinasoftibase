@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.py.goodsorder.entity.PyMainGoodsorder;
+import com.chinasofti.py.goodsorder.entity.PyMainGoodsorderExample;
+import com.chinasofti.py.goodsorder.entity.PyMainGoodsorderExample.Criteria;
 import com.chinasofti.py.goodsorder.service.PyMainGoodsorderService;
 
 import com.google.gson.Gson;
@@ -35,14 +37,33 @@ public class PyMainGoodsorderController {
 	}
 	
 	/**
-	 * 查询所有
+	 * 条件查询
 	 * @return
 	 */
 	@RequestMapping("/list")
 	@ResponseBody
-	public List<PyMainGoodsorder> selectAll(){
+	public List<PyMainGoodsorder> selectAll(String pyMainGoodsorder){
+				
+		PyMainGoodsorderExample example = new PyMainGoodsorderExample();
 		
-		return pyGoodsService.selectAll();
+		if (pyMainGoodsorder != null) {
+			Criteria criteria = example.createCriteria();
+			Gson gson = new Gson();
+			PyMainGoodsorder goodsorder = gson.fromJson(pyMainGoodsorder, PyMainGoodsorder.class);
+			
+			if ((goodsorder.getBigorderId()) != null && !goodsorder.getBigorderId().equals("")) {
+				criteria.andBigorderIdLike("%" + goodsorder.getBigorderId() + "%");
+			}
+			
+			if ((goodsorder.getVendorIds()) != null && !goodsorder.getVendorIds().equals("")) {
+				criteria.andVendorIdsLike("%" + goodsorder.getVendorIds() + "%");
+			}
+			
+			return pyGoodsService.findAll(example);
+		}
+		
+
+		return pyGoodsService.findAll(example);
 	}
 	
 	/**
@@ -58,7 +79,7 @@ public class PyMainGoodsorderController {
 		pyGoodsService.insertSelective(goodsorder);
 
 		return "add";
-
+		
 	}
 
 	/**

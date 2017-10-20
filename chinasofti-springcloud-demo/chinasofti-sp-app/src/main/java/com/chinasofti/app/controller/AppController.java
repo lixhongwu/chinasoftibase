@@ -46,7 +46,7 @@ public class AppController {
 
 	// 根据商品id查出详情
 	@GetMapping("selectGoodsInfo")
-	public SpGoodsSkuWithBLOBs selectGoodsInfo(@RequestParam String goodsId, HttpServletResponse response) {
+	public SpGoodsSkuWithBLOBs selectGoodsInfo(@RequestParam("goodsCode") String goodsId, HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "*");
         return goodsSkuFeignClient.selectGoodsInfo(goodsId);
 	}
