@@ -21,6 +21,7 @@
 		<module>chinasofti-sp-app</module>
 		<module>chinasofti-py-ticket</module>
 		<module>chinasofti-pt-user</module>
+		<module>chinasofti-cms-menu</module>
 	</modules>
 	
 	<properties>
