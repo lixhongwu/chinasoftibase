@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chinasofti.sp.user.entity.SpUser;
-import com.chinasofti.sp.user.entity.SpUserExample;
-import com.chinasofti.sp.user.entity.SpUserExample.Criteria;
+import com.chinasofti.common.spuser.entity.SpUser;
+import com.chinasofti.common.spuser.entity.SpUserExample;
+import com.chinasofti.common.spuser.entity.SpUserExample.Criteria;
+import com.chinasofti.common.spuser.entity.SpUserWithBLOBS;
 import com.chinasofti.sp.user.service.SpUserService;
 import com.google.gson.Gson;
 
@@ -32,8 +33,8 @@ public class SpUserController {
 	 */
 	@RequestMapping("/select/{ids}")
 	@ResponseBody
-	public SpUser selectByPrimaryKey(@PathVariable String ids) {
-
+	public SpUserWithBLOBS selectByPrimaryKey(@PathVariable String ids) {
+		
 		return spUserService.selectByPrimaryKey(ids);
 
 	}
@@ -45,12 +46,12 @@ public class SpUserController {
 	 */
 	@RequestMapping("/list")
 	@ResponseBody
-	public List<SpUser> findAll(String spUser) {
+	public List<SpUserWithBLOBS> findAll(String spUser) {
 
 		String compare = "";
 
 		Gson gson = new Gson();
-		SpUser users = gson.fromJson(spUser, SpUser.class);
+		SpUserWithBLOBS users = gson.fromJson(spUser, SpUserWithBLOBS.class);
 
 		SpUserExample example = new SpUserExample();
 		Criteria criteria = example.createCriteria();
@@ -68,7 +69,7 @@ public class SpUserController {
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String goodsAdd(String spUser) {
 		Gson gson = new Gson();
-		SpUser users = gson.fromJson(spUser, SpUser.class);
+		SpUserWithBLOBS users = gson.fromJson(spUser, SpUserWithBLOBS.class);
 
 		spUserService.insertSelective(users);
 

@@ -1,9 +1,12 @@
 package com.chinasofti.sp.user.mapper;
 
-import com.chinasofti.sp.user.entity.SpUser;
-import com.chinasofti.sp.user.entity.SpUserExample;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import com.chinasofti.common.spuser.entity.SpUser;
+import com.chinasofti.common.spuser.entity.SpUserExample;
+import com.chinasofti.common.spuser.entity.SpUserWithBLOBS;
 
 public interface SpUserMapper {
     int countByExample(SpUserExample example);
@@ -12,19 +15,19 @@ public interface SpUserMapper {
 
     int deleteByPrimaryKey(String ids);
 
-    int insert(SpUser record);
+    int insert(SpUserWithBLOBS record);
 
-    int insertSelective(SpUser record);
+    int insertSelective(SpUserWithBLOBS record);
 
-    List<SpUser> selectByExample(SpUserExample example);
+    List<SpUserWithBLOBS> selectByExample(SpUserExample example);
 
-    SpUser selectByPrimaryKey(String ids);
+    SpUserWithBLOBS selectByPrimaryKey(String ids);
 
-    int updateByExampleSelective(@Param("record") SpUser record, @Param("example") SpUserExample example);
+    int updateByExampleSelective(@Param("record") SpUserWithBLOBS record, @Param("example") SpUserExample example);
 
     int updateByExample(@Param("record") SpUser record, @Param("example") SpUserExample example);
 
-    int updateByPrimaryKeySelective(SpUser record);
+    int updateByPrimaryKeySelective(SpUserWithBLOBS record);
 
     int updateByPrimaryKey(SpUser record);
 }

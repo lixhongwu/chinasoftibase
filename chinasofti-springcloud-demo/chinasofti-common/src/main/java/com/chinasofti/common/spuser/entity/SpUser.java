@@ -1,4 +1,4 @@
-package com.chinasofti.sp.user.entity;
+package com.chinasofti.common.spuser.entity;
 
 public class SpUser {
     private String ids;
