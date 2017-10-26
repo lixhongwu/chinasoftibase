@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.chinasofti.common.spuser.entity.SpUser;
 import com.chinasofti.common.spuser.entity.SpUserExample;
-import com.chinasofti.common.spuser.entity.SpUserWithBLOBS;
 import com.chinasofti.sp.user.mapper.SpUserMapper;
 
 @Service
@@ -17,7 +16,7 @@ public class SpUserService {
 	private SpUserMapper spUserMapper;
 	
 	//通过ids查询单个用户
-	public SpUserWithBLOBS selectByPrimaryKey(String ids) {
+	public SpUser selectByPrimaryKey(String ids) {
 		return spUserMapper.selectByPrimaryKey(ids);
 	}
 
@@ -25,7 +24,7 @@ public class SpUserService {
 	 * 全部查询
 	 * @return
 	 */
-	public List<SpUserWithBLOBS> findAll(SpUserExample example) {
+	public List<SpUserExample> findAll(SpUserExample example) {
 		return spUserMapper.selectByExample(example);
 	}
 
@@ -33,7 +32,7 @@ public class SpUserService {
 	 * 添加插入(过滤空字段)
 	 * @param spUser
 	 */
-	public void insertSelective(SpUserWithBLOBS spUser) {
+	public void insertSelective(SpUser spUser) {
 		spUserMapper.insertSelective(spUser);
 	}
 
@@ -46,7 +45,7 @@ public class SpUserService {
 	}
 
 	//测试冲突
-	public List<SpUserWithBLOBS> findAll1() {
+	public List<SpUserExample> findAll1() {
 		return spUserMapper.selectByExample(null);
 	}
 	
