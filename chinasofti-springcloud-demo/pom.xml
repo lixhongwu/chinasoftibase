@@ -17,11 +17,12 @@
 		<module>chinasofti-sp-consumer</module>
 		<module>chinasofti-py-goodsorder</module>
 		<module>chinasofti-sp-goodsclass</module>
-		<module>chinasofti-sp-goodssku</module>
 		<module>chinasofti-sp-app</module>
 		<module>chinasofti-py-ticket</module>
 		<module>chinasofti-pt-user</module>
 		<module>chinasofti-cms-menu</module>
+		<module>chinasofti-common</module>
+		<module>chinasofti-sp-goods</module>
 	</modules>
 	
 	<properties>
