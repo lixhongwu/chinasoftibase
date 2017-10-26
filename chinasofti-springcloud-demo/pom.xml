@@ -12,11 +12,9 @@
 		<module>chinasofti-sp-user</module>
 		<module>chinasofti-sp-eureka</module>
 		<module>chinasofti-sp-zuul</module>
-		<module>chinasofti-sp-goodsinfo</module>
 		<module>chinasofti-sp-config</module>
 		<module>chinasofti-sp-consumer</module>
 		<module>chinasofti-py-goodsorder</module>
-		<module>chinasofti-sp-goodsclass</module>
 		<module>chinasofti-sp-app</module>
 		<module>chinasofti-py-ticket</module>
 		<module>chinasofti-pt-user</module>
