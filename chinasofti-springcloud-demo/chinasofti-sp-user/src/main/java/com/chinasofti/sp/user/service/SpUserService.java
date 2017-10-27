@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.chinasofti.sp.user.entity.SpUser;
-import com.chinasofti.sp.user.entity.SpUserExample;
+import com.chinasofti.common.spuser.entity.SpUser;
+import com.chinasofti.common.spuser.entity.SpUserExample;
 import com.chinasofti.sp.user.mapper.SpUserMapper;
 
 @Service
@@ -24,7 +24,7 @@ public class SpUserService {
 	 * 全部查询
 	 * @return
 	 */
-	public List<SpUser> findAll(SpUserExample example) {
+	public List<SpUserExample> findAll(SpUserExample example) {
 		return spUserMapper.selectByExample(example);
 	}
 
@@ -45,7 +45,7 @@ public class SpUserService {
 	}
 
 	//测试冲突
-	public List<SpUser> findAll1() {
+	public List<SpUserExample> findAll1() {
 		return spUserMapper.selectByExample(null);
 	}
 	

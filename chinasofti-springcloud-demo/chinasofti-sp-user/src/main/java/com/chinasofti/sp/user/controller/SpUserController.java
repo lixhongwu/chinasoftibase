@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chinasofti.sp.user.entity.SpUser;
-import com.chinasofti.sp.user.entity.SpUserExample;
-import com.chinasofti.sp.user.entity.SpUserExample.Criteria;
+import com.chinasofti.common.spuser.entity.SpUser;
+import com.chinasofti.common.spuser.entity.SpUserExample;
+import com.chinasofti.common.spuser.entity.SpUserExample.Criteria;
 import com.chinasofti.sp.user.service.SpUserService;
 import com.google.gson.Gson;
 
@@ -33,7 +33,7 @@ public class SpUserController {
 	@RequestMapping("/select/{ids}")
 	@ResponseBody
 	public SpUser selectByPrimaryKey(@PathVariable String ids) {
-
+		
 		return spUserService.selectByPrimaryKey(ids);
 
 	}
@@ -45,7 +45,7 @@ public class SpUserController {
 	 */
 	@RequestMapping("/list")
 	@ResponseBody
-	public List<SpUser> findAll(String spUser) {
+	public List<SpUserExample> findAll(String spUser) {
 
 		String compare = "";
 

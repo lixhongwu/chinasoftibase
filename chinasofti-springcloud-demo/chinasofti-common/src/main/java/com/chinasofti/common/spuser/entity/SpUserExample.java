@@ -1,4 +1,4 @@
-package com.chinasofti.sp.user.entity;
+package com.chinasofti.common.spuser.entity;
 
 import java.util.ArrayList;
 import java.util.List;
