@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:batch="http://www.springframework.org/schema/batch"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd">
+    <!-- Import our beans -->
+    <import resource="classpath:/batch_public.xml"/>
+    <job id="DTDJOB" xmlns="http://www.springframework.org/schema/batch">
+        <step id="importFileStep"><!--next="archiveFileStep"-->
+            <tasklet>
+                <chunk reader="jdbcItemReader" processor="DTD_productProcessor" writer="DTD_productWriter"
+                       commit-interval="1000"/>
+            </tasklet>
+        </step>
+
+    </job>
+    <!--基于游标方式从数据库读取数据-->
+    <bean id="jdbcItemReader"
+          class="org.springframework.batch.item.database.JdbcCursorItemReader"
+          scope="step">
+        <!--此处dataSource是链接到 源 数据库-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--需要执行的sql，可以动态传入，写死是: select id,name,description,quantity from product where id &lt; ?-->
+        <property name="sql" value="#{jobParameters['sql']}"/>
+        <property name="rowMapper">
+            <bean class="org.springframework.jdbc.core.BeanPropertyRowMapper">
+                <!--根据字段查询到的列，映射成为那个实体类-->
+                <property name="mappedClass" value="com.batch.demo.DTD.Product"/>
+            </bean>
+        </property>
+        <!--sql中参数配置器 如果sql中没有需要传入的参数，则不需要引入preparedStatementSetter
+        <property name="preparedStatementSetter" ref="paramStatementSetter"/>-->
+    </bean>
+    <bean id="paramStatementSetter"
+          class="org.springframework.batch.core.resource.ListPreparedStatementSetter"
+          scope="step">
+        <property name="parameters">
+            <!--sql中参数列表-->
+            <list>
+                <value>#{jobParameters['id']}</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 目标数据源配置  新库 -->
+    <bean id="newdataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url"
+                  value="jdbc:mysql://localhost/newbatch?UseUnicode=true&amp;characterEncoding=UTF-8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123"/>
+    </bean>
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="newdataSource"/>
+    </bean>
+    <!--JDBCTemplates配置，注意是newjdbcTemplate，自动装载的时候也是这个-->
+    <bean id="newjdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="newdataSource"/>
+    </bean>
+
+</beans>

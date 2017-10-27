@@ -1,9 +1,12 @@
 package com.chinasofti.sp.user.mapper;
 
-import com.chinasofti.sp.user.entity.SpUser;
-import com.chinasofti.sp.user.entity.SpUserExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
+
+import com.chinasofti.common.sp.entity.SpUser;
+import com.chinasofti.common.sp.entity.SpUserExample;
 
 public interface SpUserMapper {
     int countByExample(SpUserExample example);
@@ -16,7 +19,7 @@ public interface SpUserMapper {
 
     int insertSelective(SpUser record);
 
-    List<SpUser> selectByExample(SpUserExample example);
+    List<SpUserExample> selectByExample(SpUserExample example);
 
     SpUser selectByPrimaryKey(String ids);
 
