@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chinasofti.ticket.entity.PyTicketBase;
+import com.chinasofti.common.sp.entity.PyTicketBase;
 import com.chinasofti.ticket.service.TicketService;
 
 @RestController

@@ -1,4 +1,4 @@
-package com.chinasofti.py.goodsorder.entity;
+package com.chinasofti.common.sp.entity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

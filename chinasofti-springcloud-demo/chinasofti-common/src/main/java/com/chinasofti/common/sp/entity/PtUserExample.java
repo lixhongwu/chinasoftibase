@@ -1,4 +1,4 @@
-package com.chinasofti.pt.user.entity;
+package com.chinasofti.common.sp.entity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

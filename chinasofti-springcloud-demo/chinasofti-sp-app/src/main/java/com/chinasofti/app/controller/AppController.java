@@ -4,17 +4,19 @@ package com.chinasofti.app.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.chinasofti.app.api.GoodsClassFeignClient;
 import com.chinasofti.app.api.GoodsInfoFeignClient;
 import com.chinasofti.app.api.GoodsSkuFeignClient;
-import com.chinasofti.app.entity.SpClientGoodsClass;
-import com.chinasofti.app.entity.SpGoodsSkuWithBLOBs;
-import com.chinasofti.app.entity.SpGoodsinfo;
+import com.chinasofti.common.sp.entity.SpClientGoodsClass;
+import com.chinasofti.common.sp.entity.SpGoodsSkuWithBLOBs;
+import com.chinasofti.common.sp.entity.SpGoodsinfo;
 
 @RestController
 @RequestMapping("/chinasofti.com")

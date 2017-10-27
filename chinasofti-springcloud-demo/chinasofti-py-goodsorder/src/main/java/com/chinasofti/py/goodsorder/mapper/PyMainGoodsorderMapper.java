@@ -1,10 +1,11 @@
 package com.chinasofti.py.goodsorder.mapper;
 
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
-import com.chinasofti.py.goodsorder.entity.PyMainGoodsorder;
-import com.chinasofti.py.goodsorder.entity.PyMainGoodsorderExample;
+import com.chinasofti.common.sp.entity.PyMainGoodsorder;
+import com.chinasofti.common.sp.entity.PyMainGoodsorderExample;
 
 public interface PyMainGoodsorderMapper {
     int countByExample(PyMainGoodsorderExample example);
