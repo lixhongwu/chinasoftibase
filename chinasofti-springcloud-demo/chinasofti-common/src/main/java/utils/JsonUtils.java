@@ -1,4 +1,4 @@
-package com.chinasofti.springcloud.utils;
+package utils;
 
 import com.google.gson.Gson;
 

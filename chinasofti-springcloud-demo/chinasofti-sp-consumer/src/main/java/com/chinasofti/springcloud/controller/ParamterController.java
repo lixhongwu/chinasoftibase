@@ -16,7 +16,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chinasofti.common.sp.entity.SpParameterManage;
-import com.chinasofti.springcloud.utils.JsonUtils;
+
+import utils.JsonUtils;
 
 /**
  * param控制器 访问方式启动本地eureka服务器和服务提供者，通过ip+port加上/param后面跟对应方法的参数

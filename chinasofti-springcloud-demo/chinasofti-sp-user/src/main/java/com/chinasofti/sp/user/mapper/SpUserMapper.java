@@ -2,10 +2,11 @@ package com.chinasofti.sp.user.mapper;
 
 
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
-import com.chinasofti.common.spuser.entity.SpUser;
-import com.chinasofti.common.spuser.entity.SpUserExample;
+import com.chinasofti.common.sp.entity.SpUser;
+import com.chinasofti.common.sp.entity.SpUserExample;
 
 public interface SpUserMapper {
     int countByExample(SpUserExample example);
