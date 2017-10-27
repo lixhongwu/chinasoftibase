@@ -1,4 +1,4 @@
-package com.chinasofti.springcloud.entity;
+package com.chinasofti.common.sp.entity;
 
 public class SpUser{	
 	private String ids;

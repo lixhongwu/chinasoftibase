@@ -5,7 +5,8 @@ import java.util.List;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.chinasofti.springcloud.entity.PyTicketBase;
+
+import com.chinasofti.common.sp.entity.PyTicketBase;
 import com.chinasofti.springcloud.hystrix.TicketFeignClientHystrix;
 
 @FeignClient(name = "chinasofti-py-ticket",fallback=TicketFeignClientHystrix.class)

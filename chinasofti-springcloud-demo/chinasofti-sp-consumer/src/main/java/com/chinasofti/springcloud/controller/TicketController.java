@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.chinasofti.springcloud.entity.PyTicketBase;
+import com.chinasofti.common.sp.entity.PyTicketBase;
 import com.chinasofti.springcloud.feign.TicketFeignClient;
 
 @RestController

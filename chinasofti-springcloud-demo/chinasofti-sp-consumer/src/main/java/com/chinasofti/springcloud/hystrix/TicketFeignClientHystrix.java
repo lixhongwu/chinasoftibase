@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.chinasofti.springcloud.entity.PyTicketBase;
+import com.chinasofti.common.sp.entity.PyTicketBase;
 import com.chinasofti.springcloud.feign.TicketFeignClient;
 
 @Component
