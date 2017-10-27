@@ -1,9 +1,10 @@
-package com.chinasofti.springcloud.entity;
+package com.chinasofti.common.sp.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 public class PyMainGoodsorder {
+
     private String ids;				
 
     private String bigorderId;		//大订单id

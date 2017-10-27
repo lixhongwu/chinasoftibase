@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chinasofti.py.goodsorder.entity.PyMainGoodsorder;
-import com.chinasofti.py.goodsorder.entity.PyMainGoodsorderExample;
-import com.chinasofti.py.goodsorder.entity.PyMainGoodsorderExample.Criteria;
+import com.chinasofti.common.sp.entity.PyMainGoodsorder;
+import com.chinasofti.common.sp.entity.PyMainGoodsorderExample;
+import com.chinasofti.common.sp.entity.PyMainGoodsorderExample.Criteria;
 import com.chinasofti.py.goodsorder.service.PyMainGoodsorderService;
 
 import com.google.gson.Gson;
