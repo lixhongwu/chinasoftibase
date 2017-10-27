@@ -1,4 +1,4 @@
-package com.chinasofti.ticket.entity;
+package com.chinasofti.common.py.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
