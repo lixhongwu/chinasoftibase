@@ -17,8 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chinasofti.common.sp.entity.PyMainGoodsorder;
-
-import utils.JsonUtils;
+import com.chinasofti.common.utils.JsonUtils;
 
 
 @RequestMapping("/goodsorder")

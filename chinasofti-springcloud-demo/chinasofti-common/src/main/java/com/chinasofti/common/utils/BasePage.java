@@ -1,4 +1,4 @@
-package utils;
+package com.chinasofti.common.utils;
 
 import java.util.List;
 
