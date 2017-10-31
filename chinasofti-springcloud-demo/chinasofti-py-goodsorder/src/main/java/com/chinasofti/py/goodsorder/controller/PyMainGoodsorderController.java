@@ -42,21 +42,19 @@ public class PyMainGoodsorderController {
 	 */
 	@RequestMapping("/list")
 	@ResponseBody
-	public List<PyMainGoodsorder> selectAll(String pyMainGoodsorder){
+	public List<PyMainGoodsorder> selectAll(PyMainGoodsorder pyMainGoodsorder){
 				
 		PyMainGoodsorderExample example = new PyMainGoodsorderExample();
 		
 		if (pyMainGoodsorder != null) {
 			Criteria criteria = example.createCriteria();
-			Gson gson = new Gson();
-			PyMainGoodsorder goodsorder = gson.fromJson(pyMainGoodsorder, PyMainGoodsorder.class);
 			
-			if ((goodsorder.getBigorderId()) != null && !goodsorder.getBigorderId().equals("")) {
-				criteria.andBigorderIdLike("%" + goodsorder.getBigorderId() + "%");
+			if ((pyMainGoodsorder.getBigorderId()) != null && !pyMainGoodsorder.getBigorderId().equals("")) {
+				criteria.andBigorderIdLike("%" + pyMainGoodsorder.getBigorderId() + "%");
 			}
 			
-			if ((goodsorder.getVendorIds()) != null && !goodsorder.getVendorIds().equals("")) {
-				criteria.andVendorIdsLike("%" + goodsorder.getVendorIds() + "%");
+			if ((pyMainGoodsorder.getVendorIds()) != null && !pyMainGoodsorder.getVendorIds().equals("")) {
+				criteria.andVendorIdsLike("%" + pyMainGoodsorder.getVendorIds() + "%");
 			}
 			
 			return pyGoodsService.findAll(example);

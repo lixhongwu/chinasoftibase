@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.chinasofti.common.sp.entity.PyMainGoodsorder;
 import com.chinasofti.springcloud.hystrix.OrderFeignClientHystrix;
 
-@FeignClient(name = "py-goodsorderservice",fallback=OrderFeignClientHystrix.class)
+@FeignClient(name = "py-goodsorderService",fallback=OrderFeignClientHystrix.class)
 public interface OrderFeignClient {
 	
 	/**
@@ -18,14 +18,14 @@ public interface OrderFeignClient {
 	 * @param ids
 	 * @return
 	 */
-	@RequestMapping("/select/{ids}")
-	public PyMainGoodsorder selectByPrimaryKey(@PathVariable String ids);
+	@RequestMapping("/goodsorder/select/{ids}")
+	public PyMainGoodsorder selectByPrimaryKey(@PathVariable("ids") String ids);
 	
 	/**
 	 * 查询所有
 	 * @return
 	 */
-	@RequestMapping("/list")
+	@RequestMapping("/goodsorder/list")
 	public List<PyMainGoodsorder> selectAll(PyMainGoodsorder pyMainGoodsorder);
 	
 	
@@ -34,7 +34,7 @@ public interface OrderFeignClient {
 	 * @param pyMainGoodsorder
 	 * @return
 	 */
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/goodsorder/add", method = RequestMethod.POST)
 	public int goodsAdd(PyMainGoodsorder pyMainGoodsorder); 
 
 	/**
@@ -42,8 +42,8 @@ public interface OrderFeignClient {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/delete/{ids}")
-	public int goodsDeleteById(@PathVariable String ids);
+	@RequestMapping(value = "/goodsorder/delete/{ids}")
+	public int goodsDeleteById(@PathVariable("ids") String ids);
 	
 	
 	/**
@@ -51,7 +51,7 @@ public interface OrderFeignClient {
 	 * @param pyMainGoodsorder
 	 * @return
 	 */
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@RequestMapping(value = "/goodsorder/update", method = RequestMethod.POST)
 	public int goodsUpdate(PyMainGoodsorder pyMainGoodsorder);
 	
 }
