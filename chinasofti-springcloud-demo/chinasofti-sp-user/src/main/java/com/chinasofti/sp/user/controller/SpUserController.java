@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chinasofti.common.spuser.entity.SpUser;
-import com.chinasofti.common.spuser.entity.SpUserExample;
-import com.chinasofti.common.spuser.entity.SpUserExample.Criteria;
+import com.chinasofti.common.sp.entity.SpUser;
+import com.chinasofti.common.sp.entity.SpUserExample;
+import com.chinasofti.common.sp.entity.SpUserExample.Criteria;
 import com.chinasofti.sp.user.service.SpUserService;
 import com.google.gson.Gson;
 

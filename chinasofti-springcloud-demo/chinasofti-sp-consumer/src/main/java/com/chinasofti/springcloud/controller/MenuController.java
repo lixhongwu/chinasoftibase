@@ -34,11 +34,11 @@ public class MenuController {
 	/**
 	 * 全部(条件)查询
 	 * 
-	 * @return
+	 * @return 
 	 */
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value="/list")
-	@ApiOperation(value="获取测试数据", notes="测试接口详细描述……")
+	@ApiOperation(value="获取测试数据", notes="测试接口详细描述…�??")
 	public String findAll() {
 
 		@SuppressWarnings("unchecked")

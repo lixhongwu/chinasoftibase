@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.chinasofti.sp.user.mapper.SpUserMapper" >
-  <resultMap id="BaseResultMap" type="com.chinasofti.common.spuser.entity.SpUser" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.common.sp.entity.SpUser" >
     <id column="IDS" property="ids" jdbcType="VARCHAR" />
     <result column="NAME" property="name" jdbcType="VARCHAR" />
     <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
@@ -89,7 +89,7 @@
     REGISTERDATE, OPERATOR, OPERATORDATE, HEADIMGURL, PROVINCE, CITY, COUNTRY, GROUP_IDS, 
     URLTOKEN, APPID, CHANGZHUDI, BIRTHDAY
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.common.spuser.entity.SpUserExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.common.sp.entity.SpUserExample" >
     select
     <if test="distinct" >
       distinct
@@ -118,13 +118,13 @@
     delete from sp_user
     where IDS = #{ids,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.chinasofti.common.spuser.entity.SpUserExample" >
+  <delete id="deleteByExample" parameterType="com.chinasofti.common.sp.entity.SpUserExample" >
     delete from sp_user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.chinasofti.common.spuser.entity.SpUser" >
+  <insert id="insert" parameterType="com.chinasofti.common.sp.entity.SpUser" >
     insert into sp_user (IDS, NAME, MOBILE, 
       NICKNAME, OPENID, SEX, 
       PASSWORD, EMAIL, REMARK1, 
@@ -142,7 +142,7 @@
       #{groupIds,jdbcType=VARCHAR}, #{urltoken,jdbcType=VARCHAR}, #{appid,jdbcType=VARCHAR}, 
       #{changzhudi,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.chinasofti.common.spuser.entity.SpUser" >
+  <insert id="insertSelective" parameterType="com.chinasofti.common.sp.entity.SpUser" >
     insert into sp_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="ids != null" >
@@ -287,7 +287,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.chinasofti.common.spuser.entity.SpUserExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.chinasofti.common.sp.entity.SpUserExample" resultType="java.lang.Integer" >
     select count(*) from sp_user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -399,7 +399,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.common.spuser.entity.SpUser" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.common.sp.entity.SpUser" >
     update sp_user
     <set >
       <if test="name != null" >
@@ -471,7 +471,7 @@
     </set>
     where IDS = #{ids,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.chinasofti.common.spuser.entity.SpUser" >
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.common.sp.entity.SpUser" >
     update sp_user
     set NAME = #{name,jdbcType=VARCHAR},
       MOBILE = #{mobile,jdbcType=VARCHAR},

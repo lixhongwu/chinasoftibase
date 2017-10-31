@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.chinasofti.common.spuser.entity.SpUser;
-import com.chinasofti.common.spuser.entity.SpUserExample;
+import com.chinasofti.common.sp.entity.SpUser;
+import com.chinasofti.common.sp.entity.SpUserExample;
 import com.chinasofti.sp.user.mapper.SpUserMapper;
 
 @Service

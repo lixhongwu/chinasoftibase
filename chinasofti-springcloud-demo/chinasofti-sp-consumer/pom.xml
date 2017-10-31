@@ -65,5 +65,10 @@
 			<artifactId>springfox-swagger2</artifactId>
 			<version>2.5.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.chinasofti.springcloud</groupId>
+			<artifactId>chinasofti-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>

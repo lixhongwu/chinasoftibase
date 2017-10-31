@@ -5,10 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
-import com.chinasofti.py.goodsorder.entity.PyMainGoodsorder;
-import com.chinasofti.py.goodsorder.entity.PyMainGoodsorderExample;
+import com.chinasofti.common.sp.entity.PyMainGoodsorder;
+import com.chinasofti.common.sp.entity.PyMainGoodsorderExample;
 import com.chinasofti.py.goodsorder.mapper.PyMainGoodsorderMapper;
 
 

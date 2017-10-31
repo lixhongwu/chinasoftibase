@@ -9,30 +9,20 @@
   <name>商品服务</name>
   
   
-  <!-- 指定maven编译方式为jdk1.7版本 -->
-	<profiles>
-		<profile>
-			<id>jdk-1.7</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-				<jdk>1.7</jdk>
-			</activation>
-			<properties>
-				<maven.compiler.source>1.7</maven.compiler.source>
-				<maven.compiler.target>1.7</maven.compiler.target>
-				<maven.compiler.compilerVersion>1.7</maven.compiler.compilerVersion>
-			</properties>
-		</profile>
-	</profiles>
-
+  <properties>
+		<!--设置字符编码及java版本 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.7</java.version>
+	</properties>
 	<!-- 这个是springboot必要选项 里面包含了大量的默认配置 -->
-
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+	
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
@@ -58,13 +48,13 @@
 			<groupId>commons-pool</groupId>
 			<artifactId>commons-pool</artifactId>
 		</dependency>
-
+	
 		<!-- jedis依赖 -->
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
 		</dependency>
-
+	
 		<!--eureka依赖 -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -75,8 +65,8 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
-		<!-- spring-boot-starter-actuator 管理工具/web 查看堆栈，动态刷新配置 -->
+
+	<!-- spring-boot-starter-actuator 管理工具/web 查看堆栈，动态刷新配置 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -85,43 +75,7 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-		</dependency>
-		<!-- spring-boot-starter-actuator 管理工具/web 查看堆栈，动态刷新配置 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-config</artifactId>
-		</dependency>
-		
-		<dependency>
-        <groupId>com.github.pagehelper</groupId>
-        <artifactId>pagehelper</artifactId>
-        <version>4.1.6</version>
-		</dependency>
-		
-		<!--配置jsp jstl的支持 -->
-		<!-- <dependency>
-			<groupId>jstl</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>taglibs</groupId>
-			<artifactId>standard</artifactId>
-			<version>1.1.2</version>
-		</dependency>
-		对jsp的支持
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-		</dependency> -->
+
 
 		<dependency>
 			<groupId>com.chinasofti.springcloud</groupId>
@@ -146,7 +100,7 @@
 				</configuration>
 			</plugin>
 			<!-- java编译插件 -->
-			<plugin>
+			 <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
@@ -154,9 +108,8 @@
 					<target>1.7</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
-			</plugin>
+			</plugin> 
 		</plugins>
 	</build>
-	
 	
 </project>

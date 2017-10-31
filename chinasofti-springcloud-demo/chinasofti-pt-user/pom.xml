@@ -94,6 +94,11 @@
         <version>4.1.6</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.chinasofti.springcloud</groupId>
+			<artifactId>chinasofti-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}</finalName>
