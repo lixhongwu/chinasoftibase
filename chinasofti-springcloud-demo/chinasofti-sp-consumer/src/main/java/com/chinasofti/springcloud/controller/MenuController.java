@@ -7,10 +7,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.chinasofti.springcloud.feign.MenuFeignClient;
 import com.chinasofti.springcloud.utils.JsonUtils;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * 菜单管理消费端controller
@@ -20,13 +25,11 @@ import com.chinasofti.springcloud.utils.JsonUtils;
  */
 @RestController
 @RequestMapping("/cms")
+@Api("web测试api")
 public class MenuController {
 
 	@Autowired
-	private RestTemplate restTemplate;
-
-	@Value("${menu.menuServicePath}")
-	private String menuServicePath;
+	private MenuFeignClient menuFeignClient;
 
 	/**
 	 * 全部(条件)查询
@@ -34,12 +37,13 @@ public class MenuController {
 	 * @return
 	 */
 	@SuppressWarnings("rawtypes")
-	@RequestMapping("/list")
+	@RequestMapping(value="/list")
+	@ApiOperation(value="获取测试数据", notes="测试接口详细描述……")
 	public String findAll() {
 
 		@SuppressWarnings("unchecked")
-		List<LinkedHashMap> list = this.restTemplate.getForObject(this.menuServicePath + "cmsmenu/list", List.class);
-		
+//		List<LinkedHashMap> list = this.restTemplate.getForObject(this.menuServicePath + "cmsmenu/list", List.class);
+		List<LinkedHashMap> list =menuFeignClient.findAll();
 		//树json转换
 		List<LinkedHashMap> tempList2 = converToTreeJson(list);
 		return JsonUtils.objectToGsonString(tempList2);
