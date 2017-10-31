@@ -25,7 +25,7 @@ public interface OrderFeignClient {
 	 * 查询所有
 	 * @return
 	 */
-	@RequestMapping("/goodsorder/list")
+	@RequestMapping(value="/goodsorder/list", method = RequestMethod.POST)
 	public List<PyMainGoodsorder> selectAll(PyMainGoodsorder pyMainGoodsorder);
 	
 	

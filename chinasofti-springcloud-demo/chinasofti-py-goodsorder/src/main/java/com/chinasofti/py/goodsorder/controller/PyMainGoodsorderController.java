@@ -40,7 +40,7 @@ public class PyMainGoodsorderController {
 	 * 条件查询
 	 * @return
 	 */
-	@RequestMapping("/list")
+	@RequestMapping(value="/list", method = RequestMethod.POST)
 	@ResponseBody
 	public List<PyMainGoodsorder> selectAll(PyMainGoodsorder pyMainGoodsorder){
 				
@@ -69,12 +69,9 @@ public class PyMainGoodsorderController {
 	 * @param pyMainGoodsorder
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String goodsAdd(String pyMainGoodsorder) {
+	public String goodsAdd(PyMainGoodsorder pyMainGoodsorder) {
 
-		Gson gson = new Gson();
-		PyMainGoodsorder goodsorder = gson.fromJson(pyMainGoodsorder, PyMainGoodsorder.class);
-
-		pyGoodsService.insertSelective(goodsorder);
+		pyGoodsService.insertSelective(pyMainGoodsorder);
 
 		return "add";
 		
@@ -102,12 +99,9 @@ public class PyMainGoodsorderController {
 	 * @return
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String updateByPrimaryKey(String pyMainGoodsorder) {
+	public String updateByPrimaryKey(PyMainGoodsorder pyMainGoodsorder) {
 
-		Gson gson = new Gson();
-		PyMainGoodsorder goodsorder = gson.fromJson(pyMainGoodsorder, PyMainGoodsorder.class);
-
-		pyGoodsService.updateByPrimaryKey(goodsorder);
+		pyGoodsService.updateByPrimaryKey(pyMainGoodsorder);
 
 		return "update";
 	}

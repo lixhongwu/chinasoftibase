@@ -49,7 +49,7 @@ public class GoodsOrderController {
 	 * 查询所有
 	 * @return
 	 */
-	@RequestMapping("/list")
+	@RequestMapping(value="/list", method = RequestMethod.POST)
 	@ResponseBody
 	public List<PyMainGoodsorder> selectAll(PyMainGoodsorder pyMainGoodsorder){
 		
