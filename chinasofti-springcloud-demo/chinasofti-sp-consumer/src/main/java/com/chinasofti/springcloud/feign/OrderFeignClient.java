@@ -20,7 +20,7 @@ public interface OrderFeignClient {
 	 */
 	@RequestMapping("/goodsorder/select/{ids}")
 	public PyMainGoodsorder selectByPrimaryKey(@PathVariable("ids") String ids);
-	
+	 
 	/**
 	 * 查询所有
 	 * @return

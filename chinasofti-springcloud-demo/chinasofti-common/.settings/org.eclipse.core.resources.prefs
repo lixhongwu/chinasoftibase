@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8
+=======
+eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding/<project>=UTF-8
+>>>>>>> branch 'version1.2' of https://github.com/lixhongwu/chinasoftibase.git
