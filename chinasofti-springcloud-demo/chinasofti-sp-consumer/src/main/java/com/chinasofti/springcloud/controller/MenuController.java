@@ -5,11 +5,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import com.chinasofti.springcloud.feign.MenuFeignClient;
 import com.chinasofti.springcloud.utils.JsonUtils;
@@ -38,7 +35,7 @@ public class MenuController {
 	 */
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value="/list")
-	@ApiOperation(value="获取测试数据", notes="测试接口详细描述…�??")
+	@ApiOperation(value="获取测试数据", notes="测试接口详细描述…�??")
 	public String findAll() {
 
 		@SuppressWarnings("unchecked")
