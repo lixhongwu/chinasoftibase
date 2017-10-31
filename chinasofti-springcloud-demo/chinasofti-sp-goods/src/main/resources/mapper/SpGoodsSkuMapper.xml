@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.sp.goods.mapper.SpGoodsSkuMapper" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.common.sp.entity.SpGoodsSku" >
+    <id column="IDS" property="ids" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="sku_code" property="skuCode" jdbcType="VARCHAR" />
+    <result column="sku_sale_Price" property="skuSalePrice" jdbcType="DECIMAL" />
+    <result column="sku_market_price" property="skuMarketPrice" jdbcType="DECIMAL" />
+    <result column="sku_cost_price" property="skuCostPrice" jdbcType="DECIMAL" />
+    <result column="sku_option_ids" property="skuOptionIds" jdbcType="VARCHAR" />
+    <result column="sku_option_names" property="skuOptionNames" jdbcType="VARCHAR" />
+    <result column="sku_stock" property="skuStock" jdbcType="INTEGER" />
+    <result column="sku_sales" property="skuSales" jdbcType="INTEGER" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="modify_user" property="modifyUser" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="VARCHAR" />
+    <result column="delete_status" property="deleteStatus" jdbcType="VARCHAR" />
+    <result column="CREATER" property="creater" jdbcType="VARCHAR" />
+    <result column="MODIFIER" property="modifier" jdbcType="VARCHAR" />
+    <result column="MYSKU_CODE" property="myskuCode" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.chinasofti.common.sp.entity.SpGoodsSkuWithBLOBs" extends="BaseResultMap" >
+    <result column="CONTENTS" property="contents" jdbcType="LONGVARCHAR" />
+    <result column="PARAMS" property="params" jdbcType="LONGVARCHAR" />
+    <result column="FILES" property="files" jdbcType="LONGVARCHAR" />
+    <result column="INVENTORYS" property="inventorys" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    IDS, goods_id, sku_code, sku_sale_Price, sku_market_price, sku_cost_price, sku_option_ids, 
+    sku_option_names, sku_stock, sku_sales, create_user, create_time, modify_user, modify_time, 
+    delete_status, CREATER, MODIFIER, MYSKU_CODE, TITLE
+  </sql>
+  <sql id="Blob_Column_List" >
+    CONTENTS, PARAMS, FILES, INVENTORYS
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.chinasofti.common.sp.entity.SpGoodsSkuExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sp_goods_sku
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.common.sp.entity.SpGoodsSkuExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sp_goods_sku
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sp_goods_sku
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sp_goods_sku
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chinasofti.common.sp.entity.SpGoodsSkuExample" >
+    delete from sp_goods_sku
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chinasofti.common.sp.entity.SpGoodsSkuWithBLOBs" >
+    insert into sp_goods_sku (IDS, goods_id, sku_code, 
+      sku_sale_Price, sku_market_price, sku_cost_price, 
+      sku_option_ids, sku_option_names, sku_stock, 
+      sku_sales, create_user, create_time, 
+      modify_user, modify_time, delete_status, 
+      CREATER, MODIFIER, MYSKU_CODE, 
+      TITLE, CONTENTS, PARAMS, 
+      FILES, INVENTORYS)
+    values (#{ids,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, #{skuCode,jdbcType=VARCHAR}, 
+      #{skuSalePrice,jdbcType=DECIMAL}, #{skuMarketPrice,jdbcType=DECIMAL}, #{skuCostPrice,jdbcType=DECIMAL}, 
+      #{skuOptionIds,jdbcType=VARCHAR}, #{skuOptionNames,jdbcType=VARCHAR}, #{skuStock,jdbcType=INTEGER}, 
+      #{skuSales,jdbcType=INTEGER}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{modifyUser,jdbcType=VARCHAR}, #{modifyTime,jdbcType=VARCHAR}, #{deleteStatus,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{modifier,jdbcType=VARCHAR}, #{myskuCode,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{contents,jdbcType=LONGVARCHAR}, #{params,jdbcType=LONGVARCHAR}, 
+      #{files,jdbcType=LONGVARCHAR}, #{inventorys,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasofti.common.sp.entity.SpGoodsSkuWithBLOBs" >
+    insert into sp_goods_sku
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        IDS,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="skuCode != null" >
+        sku_code,
+      </if>
+      <if test="skuSalePrice != null" >
+        sku_sale_Price,
+      </if>
+      <if test="skuMarketPrice != null" >
+        sku_market_price,
+      </if>
+      <if test="skuCostPrice != null" >
+        sku_cost_price,
+      </if>
+      <if test="skuOptionIds != null" >
+        sku_option_ids,
+      </if>
+      <if test="skuOptionNames != null" >
+        sku_option_names,
+      </if>
+      <if test="skuStock != null" >
+        sku_stock,
+      </if>
+      <if test="skuSales != null" >
+        sku_sales,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyUser != null" >
+        modify_user,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="deleteStatus != null" >
+        delete_status,
+      </if>
+      <if test="creater != null" >
+        CREATER,
+      </if>
+      <if test="modifier != null" >
+        MODIFIER,
+      </if>
+      <if test="myskuCode != null" >
+        MYSKU_CODE,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="contents != null" >
+        CONTENTS,
+      </if>
+      <if test="params != null" >
+        PARAMS,
+      </if>
+      <if test="files != null" >
+        FILES,
+      </if>
+      <if test="inventorys != null" >
+        INVENTORYS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        #{ids,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="skuCode != null" >
+        #{skuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="skuSalePrice != null" >
+        #{skuSalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="skuMarketPrice != null" >
+        #{skuMarketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="skuCostPrice != null" >
+        #{skuCostPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="skuOptionIds != null" >
+        #{skuOptionIds,jdbcType=VARCHAR},
+      </if>
+      <if test="skuOptionNames != null" >
+        #{skuOptionNames,jdbcType=VARCHAR},
+      </if>
+      <if test="skuStock != null" >
+        #{skuStock,jdbcType=INTEGER},
+      </if>
+      <if test="skuSales != null" >
+        #{skuSales,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteStatus != null" >
+        #{deleteStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="myskuCode != null" >
+        #{myskuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="contents != null" >
+        #{contents,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="params != null" >
+        #{params,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="files != null" >
+        #{files,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="inventorys != null" >
+        #{inventorys,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chinasofti.common.sp.entity.SpGoodsSkuExample" resultType="java.lang.Integer" >
+    select count(*) from sp_goods_sku
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sp_goods_sku
+    <set >
+      <if test="record.ids != null" >
+        IDS = #{record.ids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsId != null" >
+        goods_id = #{record.goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skuCode != null" >
+        sku_code = #{record.skuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skuSalePrice != null" >
+        sku_sale_Price = #{record.skuSalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.skuMarketPrice != null" >
+        sku_market_price = #{record.skuMarketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.skuCostPrice != null" >
+        sku_cost_price = #{record.skuCostPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.skuOptionIds != null" >
+        sku_option_ids = #{record.skuOptionIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skuOptionNames != null" >
+        sku_option_names = #{record.skuOptionNames,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skuStock != null" >
+        sku_stock = #{record.skuStock,jdbcType=INTEGER},
+      </if>
+      <if test="record.skuSales != null" >
+        sku_sales = #{record.skuSales,jdbcType=INTEGER},
+      </if>
+      <if test="record.createUser != null" >
+        create_user = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifyUser != null" >
+        modify_user = #{record.modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifyTime != null" >
+        modify_time = #{record.modifyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deleteStatus != null" >
+        delete_status = #{record.deleteStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        CREATER = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifier != null" >
+        MODIFIER = #{record.modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.myskuCode != null" >
+        MYSKU_CODE = #{record.myskuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        TITLE = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contents != null" >
+        CONTENTS = #{record.contents,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.params != null" >
+        PARAMS = #{record.params,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.files != null" >
+        FILES = #{record.files,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.inventorys != null" >
+        INVENTORYS = #{record.inventorys,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update sp_goods_sku
+    set IDS = #{record.ids,jdbcType=VARCHAR},
+      goods_id = #{record.goodsId,jdbcType=VARCHAR},
+      sku_code = #{record.skuCode,jdbcType=VARCHAR},
+      sku_sale_Price = #{record.skuSalePrice,jdbcType=DECIMAL},
+      sku_market_price = #{record.skuMarketPrice,jdbcType=DECIMAL},
+      sku_cost_price = #{record.skuCostPrice,jdbcType=DECIMAL},
+      sku_option_ids = #{record.skuOptionIds,jdbcType=VARCHAR},
+      sku_option_names = #{record.skuOptionNames,jdbcType=VARCHAR},
+      sku_stock = #{record.skuStock,jdbcType=INTEGER},
+      sku_sales = #{record.skuSales,jdbcType=INTEGER},
+      create_user = #{record.createUser,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=VARCHAR},
+      modify_user = #{record.modifyUser,jdbcType=VARCHAR},
+      modify_time = #{record.modifyTime,jdbcType=VARCHAR},
+      delete_status = #{record.deleteStatus,jdbcType=VARCHAR},
+      CREATER = #{record.creater,jdbcType=VARCHAR},
+      MODIFIER = #{record.modifier,jdbcType=VARCHAR},
+      MYSKU_CODE = #{record.myskuCode,jdbcType=VARCHAR},
+      TITLE = #{record.title,jdbcType=VARCHAR},
+      CONTENTS = #{record.contents,jdbcType=LONGVARCHAR},
+      PARAMS = #{record.params,jdbcType=LONGVARCHAR},
+      FILES = #{record.files,jdbcType=LONGVARCHAR},
+      INVENTORYS = #{record.inventorys,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sp_goods_sku
+    set IDS = #{record.ids,jdbcType=VARCHAR},
+      goods_id = #{record.goodsId,jdbcType=VARCHAR},
+      sku_code = #{record.skuCode,jdbcType=VARCHAR},
+      sku_sale_Price = #{record.skuSalePrice,jdbcType=DECIMAL},
+      sku_market_price = #{record.skuMarketPrice,jdbcType=DECIMAL},
+      sku_cost_price = #{record.skuCostPrice,jdbcType=DECIMAL},
+      sku_option_ids = #{record.skuOptionIds,jdbcType=VARCHAR},
+      sku_option_names = #{record.skuOptionNames,jdbcType=VARCHAR},
+      sku_stock = #{record.skuStock,jdbcType=INTEGER},
+      sku_sales = #{record.skuSales,jdbcType=INTEGER},
+      create_user = #{record.createUser,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=VARCHAR},
+      modify_user = #{record.modifyUser,jdbcType=VARCHAR},
+      modify_time = #{record.modifyTime,jdbcType=VARCHAR},
+      delete_status = #{record.deleteStatus,jdbcType=VARCHAR},
+      CREATER = #{record.creater,jdbcType=VARCHAR},
+      MODIFIER = #{record.modifier,jdbcType=VARCHAR},
+      MYSKU_CODE = #{record.myskuCode,jdbcType=VARCHAR},
+      TITLE = #{record.title,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.common.sp.entity.SpGoodsSkuWithBLOBs" >
+    update sp_goods_sku
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="skuCode != null" >
+        sku_code = #{skuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="skuSalePrice != null" >
+        sku_sale_Price = #{skuSalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="skuMarketPrice != null" >
+        sku_market_price = #{skuMarketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="skuCostPrice != null" >
+        sku_cost_price = #{skuCostPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="skuOptionIds != null" >
+        sku_option_ids = #{skuOptionIds,jdbcType=VARCHAR},
+      </if>
+      <if test="skuOptionNames != null" >
+        sku_option_names = #{skuOptionNames,jdbcType=VARCHAR},
+      </if>
+      <if test="skuStock != null" >
+        sku_stock = #{skuStock,jdbcType=INTEGER},
+      </if>
+      <if test="skuSales != null" >
+        sku_sales = #{skuSales,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        modify_user = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteStatus != null" >
+        delete_status = #{deleteStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        CREATER = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null" >
+        MODIFIER = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="myskuCode != null" >
+        MYSKU_CODE = #{myskuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="contents != null" >
+        CONTENTS = #{contents,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="params != null" >
+        PARAMS = #{params,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="files != null" >
+        FILES = #{files,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="inventorys != null" >
+        INVENTORYS = #{inventorys,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.chinasofti.common.sp.entity.SpGoodsSkuWithBLOBs" >
+    update sp_goods_sku
+    set goods_id = #{goodsId,jdbcType=VARCHAR},
+      sku_code = #{skuCode,jdbcType=VARCHAR},
+      sku_sale_Price = #{skuSalePrice,jdbcType=DECIMAL},
+      sku_market_price = #{skuMarketPrice,jdbcType=DECIMAL},
+      sku_cost_price = #{skuCostPrice,jdbcType=DECIMAL},
+      sku_option_ids = #{skuOptionIds,jdbcType=VARCHAR},
+      sku_option_names = #{skuOptionNames,jdbcType=VARCHAR},
+      sku_stock = #{skuStock,jdbcType=INTEGER},
+      sku_sales = #{skuSales,jdbcType=INTEGER},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      modify_user = #{modifyUser,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=VARCHAR},
+      delete_status = #{deleteStatus,jdbcType=VARCHAR},
+      CREATER = #{creater,jdbcType=VARCHAR},
+      MODIFIER = #{modifier,jdbcType=VARCHAR},
+      MYSKU_CODE = #{myskuCode,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      CONTENTS = #{contents,jdbcType=LONGVARCHAR},
+      PARAMS = #{params,jdbcType=LONGVARCHAR},
+      FILES = #{files,jdbcType=LONGVARCHAR},
+      INVENTORYS = #{inventorys,jdbcType=LONGVARCHAR}
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.common.sp.entity.SpGoodsSku" >
+    update sp_goods_sku
+    set goods_id = #{goodsId,jdbcType=VARCHAR},
+      sku_code = #{skuCode,jdbcType=VARCHAR},
+      sku_sale_Price = #{skuSalePrice,jdbcType=DECIMAL},
+      sku_market_price = #{skuMarketPrice,jdbcType=DECIMAL},
+      sku_cost_price = #{skuCostPrice,jdbcType=DECIMAL},
+      sku_option_ids = #{skuOptionIds,jdbcType=VARCHAR},
+      sku_option_names = #{skuOptionNames,jdbcType=VARCHAR},
+      sku_stock = #{skuStock,jdbcType=INTEGER},
+      sku_sales = #{skuSales,jdbcType=INTEGER},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      modify_user = #{modifyUser,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=VARCHAR},
+      delete_status = #{deleteStatus,jdbcType=VARCHAR},
+      CREATER = #{creater,jdbcType=VARCHAR},
+      MODIFIER = #{modifier,jdbcType=VARCHAR},
+      MYSKU_CODE = #{myskuCode,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR}
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+</mapper>

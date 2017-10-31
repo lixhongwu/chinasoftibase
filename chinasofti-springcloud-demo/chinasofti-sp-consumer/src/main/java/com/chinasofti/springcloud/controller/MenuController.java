@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.chinasofti.springcloud.utils.JsonUtils;
+import com.chinasofti.common.utils.JsonUtils;
 
 /**
  * 菜单管理消费端controller

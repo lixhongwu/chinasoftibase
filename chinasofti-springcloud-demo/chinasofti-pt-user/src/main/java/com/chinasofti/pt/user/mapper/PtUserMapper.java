@@ -1,9 +1,11 @@
 package com.chinasofti.pt.user.mapper;
 
-import com.chinasofti.pt.user.entity.PtUser;
-import com.chinasofti.pt.user.entity.PtUserExample;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
+
+import com.chinasofti.common.sp.entity.PtUser;
+import com.chinasofti.common.sp.entity.PtUserExample;
 
 public interface PtUserMapper {
     int countByExample(PtUserExample example);

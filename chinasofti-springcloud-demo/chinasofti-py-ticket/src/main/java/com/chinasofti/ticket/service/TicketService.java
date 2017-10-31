@@ -4,8 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.chinasofti.ticket.entity.PyTicketBase;
-import com.chinasofti.ticket.entity.PyTicketBaseExample;
+
+import com.chinasofti.common.py.entity.PyTicketBase;
+import com.chinasofti.common.py.entity.PyTicketBaseExample;
 import com.chinasofti.ticket.mapper.PyTicketBaseMapper;
 
 @Service
