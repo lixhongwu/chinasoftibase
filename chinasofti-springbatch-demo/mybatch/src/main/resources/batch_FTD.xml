@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:batch="http://www.springframework.org/schema/batch"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd">
+    <!-- Import our beans -->
+    <import resource="classpath:/batch_public.xml"/>
+    <job id="FTDJOB" xmlns="http://www.springframework.org/schema/batch">
+        <step id="importFileStep"><!--next="archiveFileStep"-->
+            <tasklet>
+                <chunk reader="FTD_productReader" processor="FTD_productProcessor" writer="FTD_productWriter"
+                       commit-interval="1000"/>
+            </tasklet>
+        </step>
+        <!--<step id="archiveFileStep">-->
+        <!--<tasklet ref="archiveFileTasklet" />-->
+        <!--</step>-->
+    </job>
+    <!-- 读取文件配置 -->
+    <bean id="FTD_productReader" class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
+        <!--这里输入文件是使用动态传入的方式，注释掉的是写死的方式，二者选择其一即可-->
+        <!-- <property name="resource" value="file:./sample.csv" /> -->
+        <property name="resource" value="file:#{jobParameters['inputFile']}"/>
+        <!--跳过的行数 -->
+        <property name="linesToSkip" value="1"/>
+        <!--如何把一行数据映射成为一个模型 -->
+        <property name="lineMapper">
+            <bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+                <!-- The lineTokenizer divides individual lines up into units of work -->
+                <property name="lineTokenizer">
+                    <bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+                        <!--为读取一行数据分配名称，如有多个，则此处多个值 -->
+                        <property name="names" value="id,name,description,quantity"/>
+                    </bean>
+                </property>
+                <!-- 根据上面的字段如何映射成为模型，注意java 类中的read("XXX")属性 -->
+                <property name="fieldSetMapper">
+                    <bean class="com.batch.demo.FTD.ProductFieldSetMapper"/>
+                </property>
+            </bean>
+        </property>
+    </bean>
+</beans>

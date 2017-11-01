@@ -1,20 +1,20 @@
 package com.chinasofti.py.goodsorder.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chinasofti.py.goodsorder.entity.PyMainGoodsorder;
-import com.chinasofti.py.goodsorder.entity.PyMainGoodsorderExample;
-import com.chinasofti.py.goodsorder.entity.PyMainGoodsorderExample.Criteria;
+import com.chinasofti.common.sp.entity.PyMainGoodsorder;
+import com.chinasofti.common.sp.entity.PyMainGoodsorderExample;
+import com.chinasofti.common.sp.entity.PyMainGoodsorderExample.Criteria;
 import com.chinasofti.py.goodsorder.service.PyMainGoodsorderService;
 
-import com.google.gson.Gson;
 
 @RequestMapping("/goodsorder")
 @RestController
@@ -40,23 +40,21 @@ public class PyMainGoodsorderController {
 	 * 条件查询
 	 * @return
 	 */
-	@RequestMapping("/list")
+	@RequestMapping(value="/list", method = RequestMethod.POST)
 	@ResponseBody
-	public List<PyMainGoodsorder> selectAll(String pyMainGoodsorder){
+	public List<PyMainGoodsorder> selectAll(@RequestBody(required = false) PyMainGoodsorder pyMainGoodsorder){
 				
 		PyMainGoodsorderExample example = new PyMainGoodsorderExample();
 		
 		if (pyMainGoodsorder != null) {
 			Criteria criteria = example.createCriteria();
-			Gson gson = new Gson();
-			PyMainGoodsorder goodsorder = gson.fromJson(pyMainGoodsorder, PyMainGoodsorder.class);
 			
-			if ((goodsorder.getBigorderId()) != null && !goodsorder.getBigorderId().equals("")) {
-				criteria.andBigorderIdLike("%" + goodsorder.getBigorderId() + "%");
+			if ((pyMainGoodsorder.getBigorderId()) != null && !pyMainGoodsorder.getBigorderId().equals("")) {
+				criteria.andBigorderIdLike("%" + pyMainGoodsorder.getBigorderId() + "%");
 			}
 			
-			if ((goodsorder.getVendorIds()) != null && !goodsorder.getVendorIds().equals("")) {
-				criteria.andVendorIdsLike("%" + goodsorder.getVendorIds() + "%");
+			if ((pyMainGoodsorder.getVendorIds()) != null && !pyMainGoodsorder.getVendorIds().equals("")) {
+				criteria.andVendorIdsLike("%" + pyMainGoodsorder.getVendorIds() + "%");
 			}
 			
 			return pyGoodsService.findAll(example);
@@ -71,12 +69,10 @@ public class PyMainGoodsorderController {
 	 * @param pyMainGoodsorder
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String goodsAdd(String pyMainGoodsorder) {
+	@ResponseBody
+	public String goodsAdd(@RequestBody(required = false) PyMainGoodsorder pyMainGoodsorder) {
 
-		Gson gson = new Gson();
-		PyMainGoodsorder goodsorder = gson.fromJson(pyMainGoodsorder, PyMainGoodsorder.class);
-
-		pyGoodsService.insertSelective(goodsorder);
+		pyGoodsService.insertSelective(pyMainGoodsorder);
 
 		return "add";
 		
@@ -104,12 +100,9 @@ public class PyMainGoodsorderController {
 	 * @return
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String updateByPrimaryKey(String pyMainGoodsorder) {
+	public String updateByPrimaryKey(@RequestBody(required = false) PyMainGoodsorder pyMainGoodsorder) {
 
-		Gson gson = new Gson();
-		PyMainGoodsorder goodsorder = gson.fromJson(pyMainGoodsorder, PyMainGoodsorder.class);
-
-		pyGoodsService.updateByPrimaryKey(goodsorder);
+		pyGoodsService.updateByPrimaryKey(pyMainGoodsorder);
 
 		return "update";
 	}

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:batch="http://www.springframework.org/schema/batch"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd">
+       <import resource="classpath:/batch_public.xml"/>   
+       <batch:job id="DTFJOB" xmlns="http://www.springframework.org/schema/batch">
+       		<batch:step id="importFileStep">
+       			<batch:tasklet>
+       				<batch:chunk reader="DTF_productRead" processor="DTF_productProcessor" writer="DTF_productWriter" commit-interval="1000"/>
+       			</batch:tasklet>
+       		</batch:step>
+       </batch:job>
+       <!-- 基于游标方式从数据库读取数据 -->       
+       <bean id="DTF_productRead" class="org.springframework.batch.item.database.JdbcCursorItemReader" scope="step">
+			<!-- 此处datasource是连接到源数据库 -->
+			<property name="dataSource" ref="dataSource"/>
+			<!-- 需要执行sql 可以动态传入 写死是 select id,name,description,quantity from product where id &lt -->
+			<property name="sql" value="#{jobParameters['sql']}"/>
+			<property name="rowMapper">
+				<bean class="org.springframework.jdbc.core.BeanPropertyRowMapper">
+					<!-- 根据字段查询到的列  映射成为那个实体类 -->
+					<property name="mappedClass" value="com.batch.demo.DTF.Product"/>
+				</bean>
+			</property>
+			<!-- sql中参数配置器  如果sql中没有需要传入的参数 则不需要引入preparestatementsetter -->
+			<!-- <property name="prepareStatementSetter" ref="paramStatementSetter"/> -->
+       </bean>
+       <bean id="paramStatementSetter" class="org.springframework.batch.core.resource.ListPreparedStatementSetter" scope="step">
+       		<property name="parameters">
+       			<!-- sql中参数列表 -->
+       			<list>
+       				<value>#{jobParameters['id']}</value>
+       			</list>
+       		</property>
+       </bean>
+       <!-- 写文件 -->
+       <bean id="DTF_productWriter" class="org.springframework.batch.item.file.FlatFileItemWriter" scope="step">
+       		<!-- 输出文件路径和名称 也可以执行的时候传入 -->
+       		<property name="resource" value="file:src/outputFile.txt"/>
+       		<property name="lineAggregator">
+       			<bean class="org.springframework.batch.item.file.transform.DelimitedLineAggregator">
+       				<!-- delimiter标示输出的字段以什么来分割 -->
+       				<property name="delimiter" value=","></property>
+       				<!-- fieldExtractor 将pojo对象组装成由pojo对象的字段组成的一个字符串 同样 flatfileitemwriter写一条记录也有以下四步
+       					1.processor传递过来一个对象给lineAggregator 2.lineAggregator将这个对象转化成一个数组 
+       					3.再由lineAggregator的属性fieldExtrator将数组转化成按照delimiter分割的一个字符串 
+       					4.将这个字符串输出
+       				-->
+       				<property name="fieldExtractor">
+       					<bean class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
+       						<property name="names" value="id,name,description,quantity"/>
+       					</bean>
+       				</property>
+       			</bean>
+       		</property>
+       </bean>
+</beans>

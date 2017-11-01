@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.chinasofti.pt.user.entity.PtUser;
-import com.chinasofti.pt.user.entity.PtUserExample;
-import com.chinasofti.pt.user.entity.PtUserExample.Criteria;
+import com.chinasofti.common.sp.entity.PtUser;
+import com.chinasofti.common.sp.entity.PtUserExample;
+import com.chinasofti.common.sp.entity.PtUserExample.Criteria;
 import com.chinasofti.pt.user.mapper.PtUserMapper;
 
 @Service

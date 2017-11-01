@@ -248,7 +248,7 @@
             </tr>
             <tr>
                 <td>详细地址:</td>
-                <td><input name="contPostcode"class="easyui-textbox" /></td>
+                <td><input name="contAddress"class="easyui-textbox" /></td>
             </tr>
             <tr>
                 <td>支付状态:</td>
@@ -291,7 +291,7 @@
             </tr>
             <tr>
                 <td>详细地址:</td>
-                <td><input name="contPostcode"class="easyui-textbox" /></td>
+                <td><input name="contAddress"class="easyui-textbox" /></td>
             </tr>
             <tr>
                 <td>支付状态:</td>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:batch="http://www.springframework.org/schema/batch"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd">
+       <!-- 导入公共配置 -->   
+       <import resource="classpath:/batch_public.xml"/>
+       <batch:job id="FTFJOB" xmlns="http://www.springframework.org/schema/batch">
+       		<batch:step id="importFileStep">
+       			<batch:tasklet>
+       				<batch:chunk reader="productReader" processor="FTF_productProcessor" writer="FTF_productWriter" commit-interval="100"/>
+       			</batch:tasklet>
+       		</batch:step>
+       		<!--<step id="archiveFileStep">-->
+       		<!--<tasklet ref="archiveFileTasklet" />-->
+        	<!--</step>-->
+       </batch:job>
+       <!-- 读取文件配置 -->     
+       <bean id="productReader" class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
+       		<!-- 这里输入文件是使用动态传入的方式 注释掉的是写死的方式 二者选择其一即可 -->
+       		<!-- <property name="resource" value="file:./sample.csv" /> -->
+       		<property name="resource" value="file:#{jobParameters['inputFile']}"/>
+       		<!-- 跳过的行数 -->
+       		<property name="linesToSkip" value="1"/>
+       		<!-- 如何把一行数据映射成为一个模型 -->
+       		<property name="lineMapper">
+       			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+       				<property name="lineTokenizer">
+       					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+       						<!-- 为读取一行数据分配名称 如有多个 则此处有多个值 -->
+       						<property name="names" value="id,name,description,quantity"/>
+       					</bean>
+       				</property>
+       				<!-- 根据上面的字段如何映射成模型 注意java 类中的read("XXX")属性 -->
+       				<property name="fieldSetMapper">
+       					<bean class="com.batch.demo.FTF.ProductFieldSetMapper"/>
+       				</property>
+       			</bean>
+       		</property>
+       </bean>       
+       <!-- 写文件 -->
+       <bean id="FTF_productWriter" class="org.springframework.batch.item.file.FlatFileItemWriter" scope="step">
+       		<!-- 输出文件路径和名称 当前 没有这个文件 所以是红色 -->
+       		<property name="resource" value="file:src/outputFile.txt"/>
+       		<property name="lineAggregator">
+       			<bean class="org.springframework.batch.item.file.transform.DelimitedLineAggregator">
+       				<property name="delimiter" value=","></property>
+       				<!--fieldExtractor 将Pojo对象组装成由Pojo对象的字段组成的一个字符串。同样FlatFileItemWriter写一条记录也有以下四步完成：
+		                1，Processor传递过来一个对象给lineAggregator；2，lineAggregator将其这个对象转化成一个数组；
+		                3，再由lineAggregator的属性fieldExtractor将数组转化成按照delimiter分割一个字符串；4，将这个字符串输出。-->
+               		 <property name="fieldExtractor">
+                    	<bean class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
+                       		 <property name="names" value="id,name,description,quantity"/>
+                    	</bean>
+               		 </property>
+       			</bean>
+       		</property>
+       </bean>
+</beans>

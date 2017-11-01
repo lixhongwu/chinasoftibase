@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.chinasofti.app.api.GoodsClassFeignClient;
-import com.chinasofti.app.entity.SpClientGoodsClass;
+import com.chinasofti.common.sp.entity.SpClientGoodsClass;
 
 @Component
 public class GoosClassFeignClientHystrix implements GoodsClassFeignClient{
