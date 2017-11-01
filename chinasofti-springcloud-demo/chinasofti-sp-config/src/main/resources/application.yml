@@ -8,8 +8,7 @@ spring:
       server:
         git:
           uri: https://github.com/xiaokunxiong/project1	#先 在github上创建一个对应的project
-          username: 
-          password: 
+         # search-paths: chinasofti-citiccard/${spring.application.name}
   application:
     name: chinasofti-sp-config	# 配置文件就是用这个来做文件名的
 eureka:
