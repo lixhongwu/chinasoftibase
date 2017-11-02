@@ -1,0 +1,15 @@
+security:
+  basic:
+    enabled: true
+  user:
+    name: user
+    password: weixin
+server:
+  port: 8761
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://user:weixin@localhost:8761/eureka

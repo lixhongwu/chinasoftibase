@@ -4,7 +4,7 @@
   <artifactId>chinasofti-wxmgr</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>微信内管集合工程</name>
+  <name>公众号内管集合工程</name>
 <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
