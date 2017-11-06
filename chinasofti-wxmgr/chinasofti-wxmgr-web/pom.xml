@@ -61,7 +61,16 @@
 			<artifactId>springfox-swagger2</artifactId>
 			<version>2.5.0</version>
 		</dependency>
-
+		<!-- spring-boot-starter-actuator 管理工具/web 查看堆栈，动态刷新配置 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		
 		<dependency>
 			<groupId>com.chinasofti</groupId>
 			<artifactId>chinasofti-wxmgr-common</artifactId>
