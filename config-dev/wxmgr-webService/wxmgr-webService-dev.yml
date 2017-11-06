@@ -3,12 +3,11 @@ spring:
     static-locations:
     - /static/
   freemarker:
-    template-loader-path:
-    - /WEB-INF/ftl/
+    template-loader-path: classpath:/templates/
   application:
-    name: chinasofti-wxmgr-web
+    name: chinasofti-wxmgr-webService
 server:
-  port: 7701
+  port: 7902
 eureka:
   client:
     healthcheck:
@@ -19,4 +18,10 @@ eureka:
     prefer-ip-address: true
 feign:
    hystrix:
-      enabled: false   
+      command:
+        default:
+          execution:
+            isolation:
+              thread:
+                timeoutInMillseconds: 10000
+enabled: false 
