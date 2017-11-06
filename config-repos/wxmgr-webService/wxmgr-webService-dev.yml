@@ -1,0 +1,27 @@
+spring:
+  resources:
+    static-locations:
+    - /static/
+  freemarker:
+    template-loader-path: classpath:/templates/
+  application:
+    name: chinasofti-wxmgr-webService
+server:
+  port: 7902
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: http://user:weixin@localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+feign:
+   hystrix:
+      command:
+        default:
+          execution:
+            isolation:
+              thread:
+                timeoutInMillseconds: 10000
+enabled: false 
