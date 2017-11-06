@@ -9,7 +9,7 @@ spring:
         git:
           uri: https://github.com/lixhongwu/chinasoftibase.git	#先 在github上创建一个对应的project
           #search-paths: config-repos/py-goodsorderService,config-repos/sp-goodsService 写上单个的文件.
-          search-paths: config-repos/**
+          search-paths: config-dev/**
   application:
     name: chinasofti-wxmgr-config   # 配置文件就是用这个来做文件名的
 eureka:
