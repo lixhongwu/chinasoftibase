@@ -11,7 +11,7 @@ spring:
           #search-paths: config-repos/py-goodsorderService,config-repos/sp-goodsService 写上单个的文件.
           search-paths: config-dev/**
   application:
-    name: chinasofti-wxmgr-config   # 配置文件就是用这个来做文件名的
+    name: chinasofti-wxmgr-config    #配置文件就是用这个来做文件名的
 eureka:
   client:
     serviceUrl:

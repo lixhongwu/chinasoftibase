@@ -3,16 +3,16 @@
     	<!-- Begin of toolbar -->
         <div id="wu-toolbar">
             <div class="wu-toolbar-button">
-                <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openAdd()" plain="true">添加</a>
+                <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openAdd()" plain="true">添加分组</a>
                 <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
                 <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
                 <a href="#" class="easyui-linkbutton" iconCls="icon-reload" onclick="reload()" plain="true">刷新</a>
             </div>
-            <div class="wu-toolbar-search">
-                <label>菜单名称：</label><input class="wu-text" style="width:100px">
+           <!-- 不用搜索  <div class="wu-toolbar-search">
+                <label>分组名称：</label><input class="wu-text" style="width:100px">
                 <label>关键词：</label><input class="wu-text" style="width:100px">
                 <a href="#" class="easyui-linkbutton" iconCls="icon-search">开始检索</a>
-            </div>
+            </div> -->
         </div>
         <!-- End of toolbar -->
         <table id="wu-datagrid" toolbar="#wu-toolbar"></table>
@@ -23,20 +23,16 @@
 	<form id="wu-form" method="post">
         <table>
             <tr>
-                <td width="60" align="right">类  型:</td>
-                <td><input type="text" name="type" class="wu-text" /></td>
+                <td width="60" align="right">菜单组名:</td>
+                <td><input type="text" name="gname" class="wu-text"  /></td>
             </tr>
             <tr>
-                <td align="right">名  称:</td>
-                <td><input type="text" name="name" class="wu-text" /></td>
+                <td align="right">排 序:</td>
+                <td><input type="text" name="orders" class="wu-text" /></td>
             </tr>
             <tr>
-                <td align="right">路  径:</td>
-                <td><input type="text" name="url" class="wu-text" /></td>
-            </tr>
-            <tr>
-                <td valign="top" align="right">内 容:</td>
-                <td><textarea name="content" rows="6" class="wu-textarea" style="width:260px"></textarea></td>
+                <td valign="top" align="right">描 述:</td>
+                <td><textarea name="description" rows="6" class="wu-textarea" style="width:260px"></textarea></td>
             </tr>
         </table>
     </form>
@@ -128,7 +124,7 @@
 		$('#wu-dialog').dialog({
 			closed: false,
 			modal:true,
-            title: "添加信息",
+            title: "添加新的菜单分组",
             buttons: [{
                 text: '确定',
                 iconCls: 'icon-ok',
@@ -226,15 +222,10 @@
 		fit:true,
 		columns:[[
 			{ checkbox:true},
-			{ field:'button',title:'button',width:100,sortable:true},
-			{ field:'sub_button',title:'sub_button',width:180,sortable:true},
-			{ field:'type',title:'type',width:100},
-			{ field:'name',title:'name',width:100},
-			{ field:'key',title:'key',width:100},
-			{ field:'url',title:'url',width:100},
-			{ field:'media_id',title:'media_id',width:100},
-			{ field:'appid',title:'appid',width:100},
-			{ field:'pagepath',title:'pagepath',width:100}
+			{ field:'gname',title:'菜单组名',width:150,sortable:true},
+			{ field:'status',title:'是否为微信当前菜单',width:80,sortable:true},
+			{ field:'order',title:'排序',width:50},
+			
 		]]
 	});
 </script>

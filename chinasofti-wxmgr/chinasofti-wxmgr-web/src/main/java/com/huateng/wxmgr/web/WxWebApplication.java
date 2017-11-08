@@ -1,4 +1,4 @@
-package com.huateng.wxmgr;
+package com.huateng.wxmgr.web;
 
 import javax.annotation.PostConstruct;
 
@@ -17,7 +17,7 @@ import cn.org.rapid_framework.freemarker.directive.OverrideDirective;
 
 @SpringBootApplication
 @EnableEurekaClient
-public class WXWebApplication {
+public class WxWebApplication {
 
 	@Bean
 	@LoadBalanced
@@ -26,7 +26,7 @@ public class WXWebApplication {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(WXWebApplication.class, args);
+		SpringApplication.run(WxWebApplication.class, args);
 	}
 
 	/*

@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.wxmgr.menu.mapper.WxMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.huateng.wxmgr.common.entity.WxMenu" >
+    <result column="IDS" property="ids" jdbcType="VARCHAR" />
+    <result column="URLTOKEN" property="urltoken" jdbcType="VARCHAR" />
+    <result column="APPID" property="appid" jdbcType="VARCHAR" />
+    <result column="LEVEL_" property="level" jdbcType="DECIMAL" />
+    <result column="PID" property="pid" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="KEYWORD" property="keyword" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="IS_SHOW" property="isShow" jdbcType="DECIMAL" />
+    <result column="SORT" property="sort" jdbcType="DECIMAL" />
+    <result column="GID" property="gid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    IDS, URLTOKEN, APPID, LEVEL_, PID, TITLE, KEYWORD, URL, IS_SHOW, SORT, GID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.huateng.wxmgr.common.entity.WxMenuExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wx_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.huateng.wxmgr.common.entity.WxMenuExample" >
+    delete from wx_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.huateng.wxmgr.common.entity.WxMenu" >
+    insert into wx_menu (IDS, URLTOKEN, APPID, 
+      LEVEL_, PID, TITLE, 
+      KEYWORD, URL, IS_SHOW, 
+      SORT, GID)
+    values (#{ids,jdbcType=VARCHAR}, #{urltoken,jdbcType=VARCHAR}, #{appid,jdbcType=VARCHAR}, 
+      #{level,jdbcType=DECIMAL}, #{pid,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{keyword,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{isShow,jdbcType=DECIMAL}, 
+      #{sort,jdbcType=DECIMAL}, #{gid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.huateng.wxmgr.common.entity.WxMenu" >
+    insert into wx_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        IDS,
+      </if>
+      <if test="urltoken != null" >
+        URLTOKEN,
+      </if>
+      <if test="appid != null" >
+        APPID,
+      </if>
+      <if test="level != null" >
+        LEVEL_,
+      </if>
+      <if test="pid != null" >
+        PID,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="keyword != null" >
+        KEYWORD,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="isShow != null" >
+        IS_SHOW,
+      </if>
+      <if test="sort != null" >
+        SORT,
+      </if>
+      <if test="gid != null" >
+        GID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        #{ids,jdbcType=VARCHAR},
+      </if>
+      <if test="urltoken != null" >
+        #{urltoken,jdbcType=VARCHAR},
+      </if>
+      <if test="appid != null" >
+        #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=DECIMAL},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword != null" >
+        #{keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null" >
+        #{isShow,jdbcType=DECIMAL},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=DECIMAL},
+      </if>
+      <if test="gid != null" >
+        #{gid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.huateng.wxmgr.common.entity.WxMenuExample" resultType="java.lang.Integer" >
+    select count(*) from wx_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wx_menu
+    <set >
+      <if test="record.ids != null" >
+        IDS = #{record.ids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.urltoken != null" >
+        URLTOKEN = #{record.urltoken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appid != null" >
+        APPID = #{record.appid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.level != null" >
+        LEVEL_ = #{record.level,jdbcType=DECIMAL},
+      </if>
+      <if test="record.pid != null" >
+        PID = #{record.pid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        TITLE = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keyword != null" >
+        KEYWORD = #{record.keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null" >
+        URL = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isShow != null" >
+        IS_SHOW = #{record.isShow,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sort != null" >
+        SORT = #{record.sort,jdbcType=DECIMAL},
+      </if>
+      <if test="record.gid != null" >
+        GID = #{record.gid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wx_menu
+    set IDS = #{record.ids,jdbcType=VARCHAR},
+      URLTOKEN = #{record.urltoken,jdbcType=VARCHAR},
+      APPID = #{record.appid,jdbcType=VARCHAR},
+      LEVEL_ = #{record.level,jdbcType=DECIMAL},
+      PID = #{record.pid,jdbcType=VARCHAR},
+      TITLE = #{record.title,jdbcType=VARCHAR},
+      KEYWORD = #{record.keyword,jdbcType=VARCHAR},
+      URL = #{record.url,jdbcType=VARCHAR},
+      IS_SHOW = #{record.isShow,jdbcType=DECIMAL},
+      SORT = #{record.sort,jdbcType=DECIMAL},
+      GID = #{record.gid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
