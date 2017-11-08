@@ -6,6 +6,7 @@
 
 package com.chinasofti.weixin.sdk.api;
 
+import com.chinasofti.weixin.sdk.kit.HttpKit;
 
 /**
  * menu api

@@ -6,6 +6,8 @@
 
 package com.jfinal.weixin.sdk.api;
 
+import com.chinasofti.weixin.sdk.api.AccessTokenApi;
+import com.chinasofti.weixin.sdk.api.ApiResult;
 import com.jfinal.kit.HttpKit;
 
 /**

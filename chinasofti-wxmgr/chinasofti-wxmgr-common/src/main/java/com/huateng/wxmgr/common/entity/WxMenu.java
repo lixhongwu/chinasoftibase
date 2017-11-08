@@ -1,82 +1,82 @@
 package com.huateng.wxmgr.common.entity;
 
 public class WxMenu {
-    private String ids;
+    private String id;
 
-    private String urltoken;
+    private String menukey;
 
-    private String appid;
+    private String msgtype;
 
-    private Long level;
+    private String name;
 
-    private String pid;
+    private String orders;
 
-    private String title;
+    private String templateid;
 
-    private String keyword;
+    private String type;
 
     private String url;
 
-    private Long isShow;
+    private String parentid;
 
-    private Long sort;
+    private String accountid;
 
-    private String gid;
+    private Integer groupid;
 
-    public String getIds() {
-        return ids;
+    public String getId() {
+        return id;
     }
 
-    public void setIds(String ids) {
-        this.ids = ids == null ? null : ids.trim();
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
-    public String getUrltoken() {
-        return urltoken;
+    public String getMenukey() {
+        return menukey;
     }
 
-    public void setUrltoken(String urltoken) {
-        this.urltoken = urltoken == null ? null : urltoken.trim();
+    public void setMenukey(String menukey) {
+        this.menukey = menukey == null ? null : menukey.trim();
     }
 
-    public String getAppid() {
-        return appid;
+    public String getMsgtype() {
+        return msgtype;
     }
 
-    public void setAppid(String appid) {
-        this.appid = appid == null ? null : appid.trim();
+    public void setMsgtype(String msgtype) {
+        this.msgtype = msgtype == null ? null : msgtype.trim();
     }
 
-    public Long getLevel() {
-        return level;
+    public String getName() {
+        return name;
     }
 
-    public void setLevel(Long level) {
-        this.level = level;
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
-    public String getPid() {
-        return pid;
+    public String getOrders() {
+        return orders;
     }
 
-    public void setPid(String pid) {
-        this.pid = pid == null ? null : pid.trim();
+    public void setOrders(String orders) {
+        this.orders = orders == null ? null : orders.trim();
     }
 
-    public String getTitle() {
-        return title;
+    public String getTemplateid() {
+        return templateid;
     }
 
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
+    public void setTemplateid(String templateid) {
+        this.templateid = templateid == null ? null : templateid.trim();
     }
 
-    public String getKeyword() {
-        return keyword;
+    public String getType() {
+        return type;
     }
 
-    public void setKeyword(String keyword) {
-        this.keyword = keyword == null ? null : keyword.trim();
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
     }
 
     public String getUrl() {
@@ -87,27 +87,27 @@ public class WxMenu {
         this.url = url == null ? null : url.trim();
     }
 
-    public Long getIsShow() {
-        return isShow;
+    public String getParentid() {
+        return parentid;
     }
 
-    public void setIsShow(Long isShow) {
-        this.isShow = isShow;
+    public void setParentid(String parentid) {
+        this.parentid = parentid == null ? null : parentid.trim();
     }
 
-    public Long getSort() {
-        return sort;
+    public String getAccountid() {
+        return accountid;
     }
 
-    public void setSort(Long sort) {
-        this.sort = sort;
+    public void setAccountid(String accountid) {
+        this.accountid = accountid == null ? null : accountid.trim();
     }
 
-    public String getGid() {
-        return gid;
+    public Integer getGroupid() {
+        return groupid;
     }
 
-    public void setGid(String gid) {
-        this.gid = gid == null ? null : gid.trim();
+    public void setGroupid(Integer groupid) {
+        this.groupid = groupid;
     }
 }
