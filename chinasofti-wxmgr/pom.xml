@@ -52,5 +52,6 @@
 		<module>chinasofti-wxmgr-web</module>
 		<module>chinasofti-wxmgr-eureka</module>
 		<module>chinasofti-wxmgr-config</module>
+		<module>chinasofti-wxapi</module>
 	</modules>
 </project>
