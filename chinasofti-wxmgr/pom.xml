@@ -70,5 +70,6 @@
 		<module>chinasofti-wxmgr-eureka</module>
 		<module>chinasofti-wxmgr-config</module>
 		<module>chinasofti-wxmgr-menu</module>
+		<module>chinasofti-wxapi</module>
 	</modules>
 </project>
