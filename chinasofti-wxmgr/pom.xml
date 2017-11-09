@@ -71,5 +71,6 @@
 		<module>chinasofti-wxmgr-config</module>
 		<module>chinasofti-wxmgr-menu</module>
 		<module>chinasofti-wxapi</module>
+		<module>chinasofti-wxmgr-user</module>
 	</modules>
 </project>
