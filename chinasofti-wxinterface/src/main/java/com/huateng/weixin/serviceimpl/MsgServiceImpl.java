@@ -1,5 +1,15 @@
 package com.huateng.weixin.serviceimpl;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,12 +21,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.huateng.weixin.msgrsp.Article;
 import com.huateng.weixin.msgrsp.NewsMessageRsp;
 import com.huateng.weixin.msgrsp.TextMessageRsp;
 import com.huateng.weixin.service.MsgService;
 import com.huateng.weixin.util.MessageUtil;
+import com.huateng.weixin.util.RedisTokenHelper;
 
 /**
  * 核心服务类
@@ -150,7 +162,7 @@ public class MsgServiceImpl implements MsgService {
 					}
 
 					default: {
-						respContent = "（这是里面的）很抱歉，现在小8暂时无法提供此功能给您使用。\n\n回复“1”显示帮助信息";
+						respContent = "非服务时间，客服机器人暂时无法提供此功能给您使用。\n\n回复“1”显示帮助信息";
 						textMessage.setContent(respContent);
 						// 将文本消息对象转换成xml字符串
 						respMessage = MessageUtil.textMessageToXml(textMessage);
@@ -186,42 +198,39 @@ public class MsgServiceImpl implements MsgService {
 				textMessage.setContent(respContent);
 				// 将文本消息对象转换成xml字符串
 				respMessage = MessageUtil.textMessageToXml(textMessage);
+			} else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) {
+				// 事件类型
+				String eventType = requestMap.get("Event");
+
+				if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
+					// 关注
+					respContent = "感谢您关注偶,这里会给您提供最新的公司资讯和公告！\n";
+					StringBuffer contentMsg = new StringBuffer();
+					contentMsg.append("您还可以回复下列数字，体验相应服务").append("\n\n");
+					contentMsg.append("1  服务帮助").append("\n");
+					contentMsg.append("11 单图文").append("\n");
+					contentMsg.append("12 我是多图文").append("\n");
+					respContent = respContent + contentMsg.toString();
+
+				} else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
+					// 取消关注,用户接受不到我们发送的消息了，可以在这里记录用户取消关注的日志信息
+					SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
+					String canceldate = df.format(new Date());
+					log.info("该用户在" + canceldate + "时取消关注了微信公众号");
+				} else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) {
+					// 事件KEY值，与创建自定义菜单时指定的KEY值对应
+					String eventKey = requestMap.get("EventKey");
+					// 自定义菜单点击事件
+					if (eventKey.equals("14")) {
+						respContent = "天气预报菜单项被点击！";
+					} else if (eventKey.equals("15")) {
+						respContent = "公交查询菜单项被点击！";
 					}
-			else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) {  
-                // 事件类型  
-                String eventType = requestMap.get("Event");  
-  
-                if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {  
-                    // 关注  
-                    respContent = "感谢您关注偶,这里会给您提供最新的公司资讯和公告！\n";  
-                    StringBuffer contentMsg = new StringBuffer();  
-                    contentMsg.append("您还可以回复下列数字，体验相应服务").append("\n\n");  
-                    contentMsg.append("1  服务帮助").append("\n");  
-                    contentMsg.append("11 单图文").append("\n");  
-                    contentMsg.append("12 我是多图文").append("\n");  
-                    respContent = respContent+contentMsg.toString();  
-                      
-                } else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {  
-                    // 取消关注,用户接受不到我们发送的消息了，可以在这里记录用户取消关注的日志信息  
-                	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-                	String canceldate=df.format(new Date());        
-                          log.info("该用户在"+canceldate+"时取消关注了微信公众号");
-                }  else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) {  
-  
-                    // 事件KEY值，与创建自定义菜单时指定的KEY值对应  
-                    String eventKey = requestMap.get("EventKey");  
-  
-                    // 自定义菜单点击事件  
-                    if (eventKey.equals("14")) {  
-                        respContent = "天气预报菜单项被点击！";  
-                    } else if (eventKey.equals("15")) {  
-                        respContent = "公交查询菜单项被点击！";  
-                    }  
-                }  
-                textMessage.setContent(respContent);  
-                respMessage = MessageUtil.textMessageToXml(textMessage);  
-  
-            }  
+				}
+				textMessage.setContent(respContent);
+				respMessage = MessageUtil.textMessageToXml(textMessage);
+
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -247,4 +256,120 @@ public class MsgServiceImpl implements MsgService {
 		}
 		return result;
 	}
+
+//	 @Override
+//	 public String addTemporarySource(CommonsMultipartFile picFile,HttpServletRequest request) {
+//	 // TODO Auto-generated method stub
+//	             File file = new File(request.getSession().getServletContext().getRealPath(File.separator+"weChatPic"));
+//	              if (!file.exists())
+//	                    file.mkdirs();
+//	            File file1 = new File(request.getSession().getServletContext().getRealPath(File.separator+"weChatPic"+File.separator+System.currentTimeMillis()+picFile.getFileItem().getName()));
+//	             try {
+//	                   picFile.getFileItem().write(file1);
+//	             } catch (Exception e) {
+//	           }
+//	               String result = null;
+//	         try {
+//	             result = addMaterialEverInter(file1,"image");
+//	            } catch (Exception e) {
+//	
+//	                e.printStackTrace();
+//	              }
+//	                   System.out.println(result);
+//	                   return result;
+//	 }
+//	
+	
+	/**
+	 * 新增永久素材
+	 * @param file
+	 * @param type
+	 * @return
+	 * @throws Exception
+	 */
+	public static String addMaterialEverInter(File file, String type) throws Exception {
+		String accessToken = "";
+		try {
+			accessToken = RedisTokenHelper.getJedis().get("access_token");
+			if (type.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) {
+				type = "image";
+			} else if (type.equals(MessageUtil.REQ_MESSAGE_TYPE_VOICE)) {
+				type = "voice";
+			} else if (type.equals(MessageUtil.REQ_MESSAGE_TYPE_VIDEO)) {
+				type = "video";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		;
+		// 上传素材 https://api.weixin.qq.com/cgi-bin/media/upload?
+		// https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=ACCESS_TOKEN
+		String path = "https://api.weixin.qq.com/cgi-bin/material/add_material?access_token=" + accessToken + "&type="
+				+ type;
+		String result = null;
+		URL realUrl = new URL(path);
+
+		URLConnection con = realUrl.openConnection();
+		con.setDoInput(true);
+		con.setDoOutput(true);
+		con.setUseCaches(false); // post方式不能使用缓存
+		// 设置请求头信息
+		con.setRequestProperty("Connection", "Keep-Alive");
+		con.setRequestProperty("Charset", "UTF-8");
+		// 设置边界
+		String BOUNDARY = "----------" + System.currentTimeMillis();
+		con.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);
+
+		// 请求正文信息
+		// 第一部分：
+		StringBuilder sb = new StringBuilder();
+		sb.append("--"); // 必须多两道线
+		sb.append(BOUNDARY);
+		sb.append("\r\n");
+		sb.append("Content-Disposition: form-data;name=\"media\";filelength=\"" + file.length() + "\";filename=\""
+				+ file.getName() + "\"\r\n");
+		sb.append("Content-Type:application/octet-stream\r\n\r\n");
+		byte[] head = sb.toString().getBytes("utf-8");
+		// 获得输出流
+		OutputStream out = new DataOutputStream(con.getOutputStream());
+		// 输出表头
+		out.write(head);
+		// 文件正文部分
+		// 把文件已流文件的方式 推入到url中
+		DataInputStream in = new DataInputStream(new FileInputStream(file));
+		int bytes = 0;
+		byte[] bufferOut = new byte[1024];
+		while ((bytes = in.read(bufferOut)) != -1) {
+			out.write(bufferOut, 0, bytes);
+		}
+		in.close();
+		// 结尾部分
+		byte[] foot = ("\r\n--" + BOUNDARY + "--\r\n").getBytes("utf-8");// 定义最后数据分隔线
+		out.write(foot);
+		out.flush();
+		out.close();
+		StringBuffer buffer = new StringBuffer();
+		BufferedReader reader = null;
+		try {
+			// 定义BufferedReader输入流来读取URL的响应
+			reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				buffer.append(line);
+			}
+			if (result == null) {
+				result = buffer.toString();
+			}
+		} catch (IOException e) {
+			System.out.println("发送POST请求出现异常！" + e);
+			e.printStackTrace();
+			throw new IOException("数据读取异常");
+		} finally {
+			if (reader != null) {
+				reader.close();
+			}
+		}
+		return result.toString();
+	}
+
 }
