@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  */
 
-package com.jfinal.weixin.sdk.api;
+package com.chinasofti.weixin.sdk.api;
 
+import com.chinasofti.weixin.sdk.kit.ParaMap;
 import com.jfinal.kit.HttpKit;
-import com.jfinal.weixin.sdk.kit.ParaMap;
 
 /**
  * 用户管理 API

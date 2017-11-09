@@ -4,15 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  */
 
-package com.jfinal.weixin.sdk.api;
-
-import java.util.HashMap;
-import java.util.Map;
+package com.chinasofti.weixin.sdk.api;
 
 import com.jfinal.kit.HttpKit;
-import com.jfinal.kit.JsonKit;
-import com.jfinal.weixin.sdk.kit.ParaMap;
-import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
 
 /**
  * 多客服功能</br>

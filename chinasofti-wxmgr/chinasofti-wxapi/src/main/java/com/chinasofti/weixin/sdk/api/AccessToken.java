@@ -3,9 +3,8 @@ package com.chinasofti.weixin.sdk.api;
 
 import java.util.Map;
 
+import com.chinasofti.weixin.sdk.kit.StrKit;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.huateng.weixin.model.WxAccessToken;
-import com.huateng.weixin.service.WxAccessTokenService;
 
 /**
  * 封装 access_token

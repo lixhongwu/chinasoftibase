@@ -7,6 +7,7 @@
                 <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
                 <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
                 <a href="#" class="easyui-linkbutton" iconCls="icon-reload" onclick="reload()" plain="true">刷新</a>
+                <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="submitmenu()" plain="true">更新菜单到微信服务器</a>
             </div>
            <!-- 不用搜索  <div class="wu-toolbar-search">
                 <label>分组名称：</label><input class="wu-text" style="width:100px">
@@ -39,6 +40,9 @@
 </div>
 <!-- End of easyui-dialog -->
 <script type="text/javascript">
+	
+	
+
 	/**
 	* Name 载入菜单树
 	*/
@@ -48,6 +52,10 @@
 			alert(node.text);
 		}
 	});
+	
+	function submitmenu(){
+		
+	}
 
 	/**
 	* Name 添加记录

@@ -10,7 +10,7 @@ public interface WxMenuMapper {
 
     int deleteByExample(WxMenuExample example);
 
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(String ids);
 
     int insert(WxMenu record);
 
@@ -18,7 +18,7 @@ public interface WxMenuMapper {
 
     List<WxMenu> selectByExample(WxMenuExample example);
 
-    WxMenu selectByPrimaryKey(String id);
+    WxMenu selectByPrimaryKey(String ids);
 
     int updateByExampleSelective(@Param("record") WxMenu record, @Param("example") WxMenuExample example);
 

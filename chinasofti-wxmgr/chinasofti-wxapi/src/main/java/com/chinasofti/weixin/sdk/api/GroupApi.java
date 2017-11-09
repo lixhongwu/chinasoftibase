@@ -1,8 +1,8 @@
-package com.jfinal.weixin.sdk.api;
+package com.chinasofti.weixin.sdk.api;
 
+import com.chinasofti.weixin.sdk.kit.ParaMap;
 import com.jfinal.kit.HttpKit;
 import com.jfinal.kit.JsonKit;
-import com.jfinal.weixin.sdk.kit.ParaMap;
 
 /**
  * 用户分组管理

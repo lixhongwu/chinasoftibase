@@ -4,14 +4,12 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  */
 
-package com.jfinal.weixin.sdk.api;
+package com.chinasofti.weixin.sdk.api;
 
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfinal.kit.StrKit;
-import com.huateng.weixin.model.WxAccessToken;
-import com.huateng.weixin.service.WxAccessTokenService;
 
 /**
  * @author wanglvwei 封装 access_token

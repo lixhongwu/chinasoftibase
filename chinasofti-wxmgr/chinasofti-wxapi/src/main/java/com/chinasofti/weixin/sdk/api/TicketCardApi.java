@@ -1,4 +1,4 @@
-package com.jfinal.weixin.sdk.api;
+package com.chinasofti.weixin.sdk.api;
 
 import com.jfinal.kit.HttpKit;
 

@@ -4,7 +4,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  */
 
-package com.jfinal.weixin.sdk.api;
+package com.chinasofti.weixin.sdk.api;
 
 import com.jfinal.kit.HttpKit;
 

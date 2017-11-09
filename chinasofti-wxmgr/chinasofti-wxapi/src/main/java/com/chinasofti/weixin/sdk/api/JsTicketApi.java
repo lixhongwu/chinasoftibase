@@ -4,14 +4,12 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  */
 
-package com.jfinal.weixin.sdk.api;
+package com.chinasofti.weixin.sdk.api;
 
 import java.util.Map;
 
+import com.chinasofti.weixin.sdk.kit.ParaMap;
 import com.jfinal.kit.HttpKit;
-import com.jfinal.weixin.sdk.kit.ParaMap;
-import com.huateng.weixin.model.WxAccessToken;
-import com.huateng.weixin.service.WxAccessTokenService;
 
 /**
  * 认证并获取 页面卡券api_ticket API

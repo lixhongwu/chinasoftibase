@@ -1,24 +1,18 @@
-package com.jfinal.weixin.sdk.kit;
+package com.chinasofti.weixin.sdk.kit;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import little.ant.platform.common.constants.SysMsgStatusEnum;
-import little.ant.platform.tools.CommonHelper;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.huateng.mgr.model.SysMessage;
-import com.huateng.mgr.service.SysMessageService;
-import com.huateng.weixin.service.ApiConfigService;
+import com.chinasofti.weixin.sdk.api.ApiConfig;
+import com.chinasofti.weixin.sdk.api.ApiConfigKit;
+import com.chinasofti.weixin.sdk.api.ApiResult;
+import com.chinasofti.weixin.sdk.api.TemplateMsgApi;
+import com.chinasofti.weixin.sdk.pojo.Template;
 import com.jfinal.kit.JsonKit;
-import com.jfinal.weixin.sdk.api.ApiConfig;
-import com.jfinal.weixin.sdk.api.ApiConfigKit;
-import com.jfinal.weixin.sdk.api.ApiResult;
-import com.jfinal.weixin.sdk.api.TemplateMsgApi;
-import com.jfinal.weixin.sdk.pojo.Template;
 
 /**
  * 

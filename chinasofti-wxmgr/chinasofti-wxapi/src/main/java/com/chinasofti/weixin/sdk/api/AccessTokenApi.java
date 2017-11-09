@@ -9,14 +9,13 @@ package com.chinasofti.weixin.sdk.api;
 import java.io.IOException;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import com.chinasofti.weixin.sdk.kit.ParaMap;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.jfinal.kit.HttpKit;
-import com.jfinal.weixin.sdk.kit.ParaMap;
-import com.huateng.weixin.model.WxAccessToken;
-import com.huateng.weixin.service.WxAccessTokenService;
 
 /**
  * 认证并获取 access_token API

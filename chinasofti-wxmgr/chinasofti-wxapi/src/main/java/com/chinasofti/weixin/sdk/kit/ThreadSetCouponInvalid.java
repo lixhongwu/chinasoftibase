@@ -1,4 +1,4 @@
-package com.jfinal.weixin.sdk.kit;
+package com.chinasofti.weixin.sdk.kit;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,15 +6,11 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.huateng.mgr.model.YxCouponCode;
-import com.huateng.mgr.model.YxPrizePickupRecord;
-import com.huateng.mgr.service.YxPrizePickupRecordService;
-import com.huateng.weixin.service.ApiConfigService;
+import com.chinasofti.weixin.sdk.api.ApiConfig;
+import com.chinasofti.weixin.sdk.api.ApiConfigKit;
+import com.chinasofti.weixin.sdk.api.ApiResult;
+import com.chinasofti.weixin.sdk.api.TicketCardApi;
 import com.jfinal.kit.JsonKit;
-import com.jfinal.weixin.sdk.api.ApiConfig;
-import com.jfinal.weixin.sdk.api.ApiConfigKit;
-import com.jfinal.weixin.sdk.api.ApiResult;
-import com.jfinal.weixin.sdk.api.TicketCardApi;
 
 /**
  * @ClassName: ThreadSetCouponInvalid

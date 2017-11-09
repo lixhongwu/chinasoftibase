@@ -6,7 +6,7 @@
 
 // ------------------------------------------------------------------------
 
-package com.jfinal.weixin.sdk.encrypt;
+package com.chinasofti.weixin.sdk.encrypt;
 
 import java.io.StringReader;
 

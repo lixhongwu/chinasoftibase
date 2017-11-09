@@ -1,17 +1,15 @@
 /**
  * 
  */
-package com.jfinal.kit;
+package com.chinasofti.weixin.sdk.kit;
 
 import java.util.Set;
 
-import org.apache.logging.log4j.LogManager;import org.apache.logging.log4j.Logger;
-import com.jfinal.plugin.ehcache.ECacheKit;
-import com.jfinal.plugin.redis.Redis;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.PropertiesPlugin;
 
-import little.ant.platform.common.BusinessException;
-import little.ant.platform.common.DictKeys;
-import little.ant.platform.plugin.PropertiesPlugin;
+import com.jfinal.plugin.redis.Redis;
 
 /**
  * @author it-wb-n2-068

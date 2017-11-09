@@ -1,4 +1,4 @@
-package com.jfinal.weixin.sdk.encrypt;
+package com.chinasofti.weixin.sdk.encrypt;
 
 /*import static org.junit.Assert.*;*/
 

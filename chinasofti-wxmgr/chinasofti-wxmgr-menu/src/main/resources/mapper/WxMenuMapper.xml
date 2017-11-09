@@ -2,17 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.chinasofti.wxmgr.menu.mapper.WxMenuMapper" >
   <resultMap id="BaseResultMap" type="com.huateng.wxmgr.common.entity.WxMenu" >
-    <id column="ID" property="id" jdbcType="VARCHAR" />
-    <result column="menukey" property="menukey" jdbcType="VARCHAR" />
-    <result column="msgtype" property="msgtype" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="orders" property="orders" jdbcType="VARCHAR" />
-    <result column="templateid" property="templateid" jdbcType="VARCHAR" />
-    <result column="type" property="type" jdbcType="VARCHAR" />
+    <id column="ids" property="ids" jdbcType="VARCHAR" />
+    <result column="urltoken" property="urltoken" jdbcType="VARCHAR" />
+    <result column="appid" property="appid" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="TINYINT" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="keyword" property="keyword" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
-    <result column="parentid" property="parentid" jdbcType="VARCHAR" />
-    <result column="accountid" property="accountid" jdbcType="VARCHAR" />
-    <result column="groupID" property="groupid" jdbcType="INTEGER" />
+    <result column="is_show" property="isShow" jdbcType="TINYINT" />
+    <result column="sort" property="sort" jdbcType="TINYINT" />
+    <result column="gid" property="gid" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -73,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    ID, menukey, msgtype, name, orders, templateid, type, url, parentid, accountid, groupID
+    ids, urltoken, appid, level, pid, title, keyword, url, is_show, sort, gid
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.huateng.wxmgr.common.entity.WxMenuExample" >
     select
@@ -93,11 +93,11 @@
     select 
     <include refid="Base_Column_List" />
     from wx_menu
-    where ID = #{id,jdbcType=VARCHAR}
+    where ids = #{ids,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from wx_menu
-    where ID = #{id,jdbcType=VARCHAR}
+    where ids = #{ids,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.huateng.wxmgr.common.entity.WxMenuExample" >
     delete from wx_menu
@@ -106,85 +106,85 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.huateng.wxmgr.common.entity.WxMenu" >
-    insert into wx_menu (ID, menukey, msgtype, 
-      name, orders, templateid, 
-      type, url, parentid, 
-      accountid, groupID)
-    values (#{id,jdbcType=VARCHAR}, #{menukey,jdbcType=VARCHAR}, #{msgtype,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR}, #{orders,jdbcType=VARCHAR}, #{templateid,jdbcType=VARCHAR}, 
-      #{type,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{parentid,jdbcType=VARCHAR}, 
-      #{accountid,jdbcType=VARCHAR}, #{groupid,jdbcType=INTEGER})
+    insert into wx_menu (ids, urltoken, appid, 
+      level, pid, title, 
+      keyword, url, is_show, 
+      sort, gid)
+    values (#{ids,jdbcType=VARCHAR}, #{urltoken,jdbcType=VARCHAR}, #{appid,jdbcType=VARCHAR}, 
+      #{level,jdbcType=TINYINT}, #{pid,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{keyword,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{isShow,jdbcType=TINYINT}, 
+      #{sort,jdbcType=TINYINT}, #{gid,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.huateng.wxmgr.common.entity.WxMenu" >
     insert into wx_menu
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        ID,
+      <if test="ids != null" >
+        ids,
       </if>
-      <if test="menukey != null" >
-        menukey,
+      <if test="urltoken != null" >
+        urltoken,
       </if>
-      <if test="msgtype != null" >
-        msgtype,
+      <if test="appid != null" >
+        appid,
       </if>
-      <if test="name != null" >
-        name,
+      <if test="level != null" >
+        level,
       </if>
-      <if test="orders != null" >
-        orders,
+      <if test="pid != null" >
+        pid,
       </if>
-      <if test="templateid != null" >
-        templateid,
+      <if test="title != null" >
+        title,
       </if>
-      <if test="type != null" >
-        type,
+      <if test="keyword != null" >
+        keyword,
       </if>
       <if test="url != null" >
         url,
       </if>
-      <if test="parentid != null" >
-        parentid,
+      <if test="isShow != null" >
+        is_show,
       </if>
-      <if test="accountid != null" >
-        accountid,
+      <if test="sort != null" >
+        sort,
       </if>
-      <if test="groupid != null" >
-        groupID,
+      <if test="gid != null" >
+        gid,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
+      <if test="ids != null" >
+        #{ids,jdbcType=VARCHAR},
       </if>
-      <if test="menukey != null" >
-        #{menukey,jdbcType=VARCHAR},
+      <if test="urltoken != null" >
+        #{urltoken,jdbcType=VARCHAR},
       </if>
-      <if test="msgtype != null" >
-        #{msgtype,jdbcType=VARCHAR},
+      <if test="appid != null" >
+        #{appid,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
+      <if test="level != null" >
+        #{level,jdbcType=TINYINT},
       </if>
-      <if test="orders != null" >
-        #{orders,jdbcType=VARCHAR},
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
       </if>
-      <if test="templateid != null" >
-        #{templateid,jdbcType=VARCHAR},
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
       </if>
-      <if test="type != null" >
-        #{type,jdbcType=VARCHAR},
+      <if test="keyword != null" >
+        #{keyword,jdbcType=VARCHAR},
       </if>
       <if test="url != null" >
         #{url,jdbcType=VARCHAR},
       </if>
-      <if test="parentid != null" >
-        #{parentid,jdbcType=VARCHAR},
+      <if test="isShow != null" >
+        #{isShow,jdbcType=TINYINT},
       </if>
-      <if test="accountid != null" >
-        #{accountid,jdbcType=VARCHAR},
+      <if test="sort != null" >
+        #{sort,jdbcType=TINYINT},
       </if>
-      <if test="groupid != null" >
-        #{groupid,jdbcType=INTEGER},
+      <if test="gid != null" >
+        #{gid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -197,38 +197,38 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update wx_menu
     <set >
-      <if test="record.id != null" >
-        ID = #{record.id,jdbcType=VARCHAR},
+      <if test="record.ids != null" >
+        ids = #{record.ids,jdbcType=VARCHAR},
       </if>
-      <if test="record.menukey != null" >
-        menukey = #{record.menukey,jdbcType=VARCHAR},
+      <if test="record.urltoken != null" >
+        urltoken = #{record.urltoken,jdbcType=VARCHAR},
       </if>
-      <if test="record.msgtype != null" >
-        msgtype = #{record.msgtype,jdbcType=VARCHAR},
+      <if test="record.appid != null" >
+        appid = #{record.appid,jdbcType=VARCHAR},
       </if>
-      <if test="record.name != null" >
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=TINYINT},
       </if>
-      <if test="record.orders != null" >
-        orders = #{record.orders,jdbcType=VARCHAR},
+      <if test="record.pid != null" >
+        pid = #{record.pid,jdbcType=VARCHAR},
       </if>
-      <if test="record.templateid != null" >
-        templateid = #{record.templateid,jdbcType=VARCHAR},
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
       </if>
-      <if test="record.type != null" >
-        type = #{record.type,jdbcType=VARCHAR},
+      <if test="record.keyword != null" >
+        keyword = #{record.keyword,jdbcType=VARCHAR},
       </if>
       <if test="record.url != null" >
         url = #{record.url,jdbcType=VARCHAR},
       </if>
-      <if test="record.parentid != null" >
-        parentid = #{record.parentid,jdbcType=VARCHAR},
+      <if test="record.isShow != null" >
+        is_show = #{record.isShow,jdbcType=TINYINT},
       </if>
-      <if test="record.accountid != null" >
-        accountid = #{record.accountid,jdbcType=VARCHAR},
+      <if test="record.sort != null" >
+        sort = #{record.sort,jdbcType=TINYINT},
       </if>
-      <if test="record.groupid != null" >
-        groupID = #{record.groupid,jdbcType=INTEGER},
+      <if test="record.gid != null" >
+        gid = #{record.gid,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -237,17 +237,17 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update wx_menu
-    set ID = #{record.id,jdbcType=VARCHAR},
-      menukey = #{record.menukey,jdbcType=VARCHAR},
-      msgtype = #{record.msgtype,jdbcType=VARCHAR},
-      name = #{record.name,jdbcType=VARCHAR},
-      orders = #{record.orders,jdbcType=VARCHAR},
-      templateid = #{record.templateid,jdbcType=VARCHAR},
-      type = #{record.type,jdbcType=VARCHAR},
+    set ids = #{record.ids,jdbcType=VARCHAR},
+      urltoken = #{record.urltoken,jdbcType=VARCHAR},
+      appid = #{record.appid,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=TINYINT},
+      pid = #{record.pid,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      keyword = #{record.keyword,jdbcType=VARCHAR},
       url = #{record.url,jdbcType=VARCHAR},
-      parentid = #{record.parentid,jdbcType=VARCHAR},
-      accountid = #{record.accountid,jdbcType=VARCHAR},
-      groupID = #{record.groupid,jdbcType=INTEGER}
+      is_show = #{record.isShow,jdbcType=TINYINT},
+      sort = #{record.sort,jdbcType=TINYINT},
+      gid = #{record.gid,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -255,51 +255,51 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.huateng.wxmgr.common.entity.WxMenu" >
     update wx_menu
     <set >
-      <if test="menukey != null" >
-        menukey = #{menukey,jdbcType=VARCHAR},
+      <if test="urltoken != null" >
+        urltoken = #{urltoken,jdbcType=VARCHAR},
       </if>
-      <if test="msgtype != null" >
-        msgtype = #{msgtype,jdbcType=VARCHAR},
+      <if test="appid != null" >
+        appid = #{appid,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
+      <if test="level != null" >
+        level = #{level,jdbcType=TINYINT},
       </if>
-      <if test="orders != null" >
-        orders = #{orders,jdbcType=VARCHAR},
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
       </if>
-      <if test="templateid != null" >
-        templateid = #{templateid,jdbcType=VARCHAR},
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="type != null" >
-        type = #{type,jdbcType=VARCHAR},
+      <if test="keyword != null" >
+        keyword = #{keyword,jdbcType=VARCHAR},
       </if>
       <if test="url != null" >
         url = #{url,jdbcType=VARCHAR},
       </if>
-      <if test="parentid != null" >
-        parentid = #{parentid,jdbcType=VARCHAR},
+      <if test="isShow != null" >
+        is_show = #{isShow,jdbcType=TINYINT},
       </if>
-      <if test="accountid != null" >
-        accountid = #{accountid,jdbcType=VARCHAR},
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=TINYINT},
       </if>
-      <if test="groupid != null" >
-        groupID = #{groupid,jdbcType=INTEGER},
+      <if test="gid != null" >
+        gid = #{gid,jdbcType=VARCHAR},
       </if>
     </set>
-    where ID = #{id,jdbcType=VARCHAR}
+    where ids = #{ids,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.huateng.wxmgr.common.entity.WxMenu" >
     update wx_menu
-    set menukey = #{menukey,jdbcType=VARCHAR},
-      msgtype = #{msgtype,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      orders = #{orders,jdbcType=VARCHAR},
-      templateid = #{templateid,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
+    set urltoken = #{urltoken,jdbcType=VARCHAR},
+      appid = #{appid,jdbcType=VARCHAR},
+      level = #{level,jdbcType=TINYINT},
+      pid = #{pid,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      keyword = #{keyword,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
-      parentid = #{parentid,jdbcType=VARCHAR},
-      accountid = #{accountid,jdbcType=VARCHAR},
-      groupID = #{groupid,jdbcType=INTEGER}
-    where ID = #{id,jdbcType=VARCHAR}
+      is_show = #{isShow,jdbcType=TINYINT},
+      sort = #{sort,jdbcType=TINYINT},
+      gid = #{gid,jdbcType=VARCHAR}
+    where ids = #{ids,jdbcType=VARCHAR}
   </update>
 </mapper>

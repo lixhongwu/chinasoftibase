@@ -1,4 +1,4 @@
-package com.jfinal.weixin.sdk.api;
+package com.chinasofti.weixin.sdk.api;
 
 /**
  * 将 ApiConfig 绑定到 ThreadLocal 的工具类，以方便在当前线程的各个地方获取 ApiConfig 对象： 1：如果控制器继承自

@@ -4,7 +4,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  */
 
-package com.jfinal.weixin.sdk.msg;
+package com.chinasofti.weixin.sdk.msg;
 
 import java.io.StringWriter;
 import java.util.HashMap;

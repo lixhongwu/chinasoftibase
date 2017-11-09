@@ -4,12 +4,12 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  */
 
-package com.jfinal.weixin.sdk.kit;
+package com.chinasofti.weixin.sdk.kit;
 
 import java.util.Arrays;
+
+import com.chinasofti.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.core.Controller;
-import com.jfinal.kit.EncryptionKit;
-import com.jfinal.weixin.sdk.api.ApiConfigKit;
 
 /**
  * 测试用的账号：

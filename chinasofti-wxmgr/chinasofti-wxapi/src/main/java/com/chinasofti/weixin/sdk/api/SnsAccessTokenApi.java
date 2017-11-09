@@ -4,16 +4,16 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  */
 
-package com.jfinal.weixin.sdk.api;
-
-import com.jfinal.kit.HttpKit;
-import com.jfinal.weixin.sdk.kit.ParaMap;
+package com.chinasofti.weixin.sdk.api;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.chinasofti.weixin.sdk.kit.ParaMap;
+import com.jfinal.kit.HttpKit;
 
 /**
  * 网页授权获取 access_token API

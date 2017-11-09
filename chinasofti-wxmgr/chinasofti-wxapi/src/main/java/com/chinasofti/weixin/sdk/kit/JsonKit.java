@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jfinal.kit;
+package com.chinasofti.weixin.sdk.kit;
 
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;

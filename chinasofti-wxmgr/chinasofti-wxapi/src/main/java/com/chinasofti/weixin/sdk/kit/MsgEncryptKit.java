@@ -1,15 +1,18 @@
-package com.jfinal.weixin.sdk.kit;
+package com.chinasofti.weixin.sdk.kit;
 
 import java.io.StringReader;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-import com.jfinal.weixin.sdk.api.ApiConfig;
-import com.jfinal.weixin.sdk.api.ApiConfigKit;
-import com.jfinal.weixin.sdk.encrypt.WXBizMsgCrypt;
+
+import com.chinasofti.weixin.sdk.api.ApiConfig;
+import com.chinasofti.weixin.sdk.api.ApiConfigKit;
+import com.chinasofti.weixin.sdk.encrypt.WXBizMsgCrypt;
 
 /**
  * 对微信平台官方给出的加密解析代码进行再次封装

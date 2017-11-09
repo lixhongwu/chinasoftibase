@@ -1,4 +1,4 @@
-package com.jfinal.weixin.sdk.kit;
+package com.chinasofti.weixin.sdk.kit;
 
 import java.util.HashMap;
 import java.util.Map;

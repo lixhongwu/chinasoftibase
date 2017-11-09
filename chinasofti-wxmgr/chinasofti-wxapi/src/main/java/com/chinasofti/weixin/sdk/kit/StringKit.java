@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jfinal.kit;
+package com.chinasofti.weixin.sdk.kit;
 
 /**
  * StringKit. This class is Deprecated, useing StrKit instead of StringKit

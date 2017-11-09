@@ -8,10 +8,8 @@ package com.chinasofti.weixin.sdk.api;
 
 import java.util.Map;
 
+import com.chinasofti.weixin.sdk.kit.ParaMap;
 import com.jfinal.kit.HttpKit;
-import com.jfinal.weixin.sdk.kit.ParaMap;
-import com.huateng.weixin.model.WxAccessToken;
-import com.huateng.weixin.service.WxAccessTokenService;
 
 /**
  * 认证并获取 页面jstiket API

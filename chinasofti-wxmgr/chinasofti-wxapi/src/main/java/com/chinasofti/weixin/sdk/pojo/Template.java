@@ -1,4 +1,4 @@
-package com.jfinal.weixin.sdk.pojo;
+package com.chinasofti.weixin.sdk.pojo;
 
 import java.util.HashMap;
 import java.util.Map;
