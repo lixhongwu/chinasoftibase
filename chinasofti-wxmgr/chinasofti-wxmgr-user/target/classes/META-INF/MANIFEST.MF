@@ -1,11 +1,11 @@
 Manifest-Version: 1.0
+Implementation-Vendor: Pivotal Software, Inc.
 Implementation-Title: chinasofti-wxmgr-user
 Implementation-Version: 0.0.1
-Built-By: ghost
 Implementation-Vendor-Id: com.chinasofti
-Build-Jdk: 1.8.0_144
+Build-Jdk: 1.7.0_80
+Built-By: chen
+Created-By: Maven Integration for Eclipse
 Implementation-URL: http://projects.spring.io/spring-boot/chinasofti-w
  xmgr/chinasofti-wxmgr-user/
-Created-By: Maven Integration for Eclipse
-Implementation-Vendor: Pivotal Software, Inc.
 
