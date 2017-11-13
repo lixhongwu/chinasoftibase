@@ -25,15 +25,15 @@
         <table>
             <tr>
                 <td width="60" align="right">菜单组名:</td>
-                <td><input type="text" name="gname" class="wu-text"  /></td>
+                <td><input type="text" name="title" class="wu-text"  /></td>
             </tr>
             <tr>
                 <td align="right">排 序:</td>
-                <td><input type="text" name="orders" class="wu-text" /></td>
+                <td><input type="text" name="sort" class="wu-text" /></td>
             </tr>
             <tr>
                 <td valign="top" align="right">描 述:</td>
-                <td><textarea name="description" rows="6" class="wu-textarea" style="width:260px"></textarea></td>
+                <td><textarea name="appid" rows="6" class="wu-textarea" style="width:260px"></textarea></td>
             </tr>
         </table>
     </form>
@@ -219,7 +219,7 @@
 	* Name 载入数据
 	*/
 	$('#wu-datagrid').datagrid({
-		url:'temp/datagrid.php',
+		url:'/wxmenu/grouplist',
 		loadFilter:pagerFilter,		
 		rownumbers:true,
 		singleSelect:false,
