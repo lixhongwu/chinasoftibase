@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.wxmgr.menu.service.WxMenuService;
 import com.huateng.wxmgr.common.entity.WxMenu;
-import com.jfinal.kit.JsonKit;
 /**
  * 
  * @ClassName: WxMenuController.java
