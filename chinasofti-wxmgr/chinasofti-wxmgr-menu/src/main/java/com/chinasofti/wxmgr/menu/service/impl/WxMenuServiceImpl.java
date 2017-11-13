@@ -80,10 +80,11 @@ public class WxMenuServiceImpl implements WxMenuservice {
 	 * @return
 	 */
 	public JSONObject findGroupByPage(WxMenu wxMenu) {
+		
 		WxMenuExample example = new WxMenuExample();
 		example.createCriteria().andLevelEqualTo((byte) 0);
 
-		PageHelper.startPage(wxMenu.getPageNumber(), wxMenu.getPageSize());
+		PageHelper.startPage(wxMenu.getPage(), wxMenu.getRows());
 		List<WxMenu> list = wxMenuMapper.selectByExample(example);
 		
 		JSONObject json = new JSONObject();

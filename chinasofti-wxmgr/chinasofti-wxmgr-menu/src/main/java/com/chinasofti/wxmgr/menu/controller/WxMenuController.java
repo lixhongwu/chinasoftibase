@@ -61,7 +61,9 @@ public class WxMenuController {
 	@RequestMapping(value="/grouplist", method =RequestMethod.POST)
 	public JSONObject findGroupByPage(@RequestBody(required =false)WxMenu wxMenu){
 		
-		return wxMenuService.findGroupByPage(wxMenu);
+		 
+				JSONObject object = wxMenuService.findGroupByPage(wxMenu);
+				return object;
 		
 	}
 
@@ -173,6 +175,7 @@ public class WxMenuController {
 		menuMap.put("button", listOne);
 		JSONObject json = JSONObject.fromObject(menuMap);
 		String accessToken = accessTokenService.getAccessToken();
+		System.out.println("accessToken"+accessToken);
 		if (StringUtils.isEmpty(accessToken)) {
 			logger.error("获取AccessToken出现异常!");
 			return "获取AccessToken异常，请求失败!";
