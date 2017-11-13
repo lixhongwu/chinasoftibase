@@ -69,6 +69,10 @@ public class MessageUtil {
     public static final String REQ_MESSAGE_TYPE_VOICE = "voice";
 
     /**
+     * 请求消息类型：视频
+     */
+    public static final String REQ_MESSAGE_TYPE_VIDEO = "video";
+    /**
      * 请求消息类型：推送
      */
     public static final String REQ_MESSAGE_TYPE_EVENT = "event";
@@ -100,6 +104,7 @@ public class MessageUtil {
      * 事件类型：transfer_customer_service(把消息推送给客服)
      */
     public static final String EVENT_TYPE_TRANSFER_CUSTOMER_SERVICE = "transfer_customer_service";
+    
     
     /**
      * 解析xml
