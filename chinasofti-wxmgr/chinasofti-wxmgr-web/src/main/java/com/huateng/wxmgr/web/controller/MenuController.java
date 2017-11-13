@@ -29,9 +29,9 @@ public class MenuController {
 	}
 
 	@RequestMapping(value = "/grouplist", method = RequestMethod.POST)
-	public String findGroupByPage(@RequestBody(required = false) WxMenu wxMenu) {
-		return menufeign.findGroupByPage(wxMenu).toString();
-
+	public String findGroupByPage(@RequestBody(required=false) WxMenu wxMenu) {
+		 String json = menufeign.findGroupByPage(wxMenu).toString();
+		 return json;
 	}
 
 }

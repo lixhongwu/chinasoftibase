@@ -7,10 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.huateng.wxmgr.common.entity.WxMenu;
+import com.huateng.wxmgr.web.hystrix.MenuFeignClientHystrix;
 
 import net.sf.json.JSONObject;
 
-@FeignClient(name="CHINASOFTI-WXMGR-MENUSERVICE" )
+@FeignClient(name="CHINASOFTI-WXMGR-MENUSERVICE" ,fallback=MenuFeignClientHystrix.class)
 public interface MenuFeign {
 	
 	@RequestMapping("/menu/select/{id}")
@@ -18,8 +19,5 @@ public interface MenuFeign {
 	
 	@RequestMapping(value="/wxmenu/grouplist",method=RequestMethod.POST )
 	public JSONObject findGroupByPage(@RequestBody(required=false)WxMenu wxMenu);
-	
-	
-	
 
 }

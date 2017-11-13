@@ -26,8 +26,8 @@ public class MenuApplicationtests {
 	public void findGroupByPage(){
 		
 		WxMenu wxMenu=new WxMenu();
-		wxMenu.setPageNumber(1);
-		wxMenu.setPageSize(10);
+		wxMenu.setPage(1);
+		wxMenu.setRows(10);
 		JSONObject object = controller.findGroupByPage(wxMenu);
 		
 		logger.info(object.toString());
