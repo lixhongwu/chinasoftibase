@@ -45,7 +45,6 @@ public class MaterialServiceImpl implements MaterialService {
 	 */
 	public String uploadTemporaryMedia(String accessToken, File file, String title, String introduction) {
 		try {
-			// File file = new File("C:/Users/chen/Desktop/kobe.jpg");
 			// 这块是用来处理如果上传的类型是video的类型的
 			JSONObject j = new JSONObject();
 			j.put("title", title);
@@ -60,12 +59,6 @@ public class MaterialServiceImpl implements MaterialService {
 			String result = null;
 			long filelength = file.length();
 			String fileName = file.getName();
-			// String
-			// suffix=fileName.substring(fileName.lastIndexOf("."),fileName.length());
-
-			/**
-			 * 你们需要在这里根据文件后缀suffix将type的值设置成对应的mime类型的值
-			 */
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("POST"); // 以Post方式提交表单，默认get方式
 			con.setDoInput(true);
@@ -190,7 +183,6 @@ public class MaterialServiceImpl implements MaterialService {
 	@Override
 	public String uploadPermanentMedia(String accessToken, File file, String title, String introduction) {
 		try {
-			// File file = new File("C:/Users/chen/Desktop/kobe.jpg");
 			// 这块是用来处理如果上传的类型是video的类型的
 			JSONObject j = new JSONObject();
 			j.put("title", title);
@@ -205,12 +197,6 @@ public class MaterialServiceImpl implements MaterialService {
 			String result = null;
 			long filelength = file.length();
 			String fileName = file.getName();
-			// String
-			// suffix=fileName.substring(fileName.lastIndexOf("."),fileName.length());
-
-			/**
-			 * 你们需要在这里根据文件后缀suffix将type的值设置成对应的mime类型的值
-			 */
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("POST"); // 以Post方式提交表单，默认get方式
 			con.setDoInput(true);

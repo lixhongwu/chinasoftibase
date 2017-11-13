@@ -1,7 +1,5 @@
 package com.huateng.weixin.user.test;
 
-import java.io.UnsupportedEncodingException;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -13,7 +13,7 @@ public class WxMaterial {
 
     private Date createTime;
 
-    private Integer flag;
+    private Integer flag;//0代表临时素材 1代表永久素材
 
     private String url;
 
