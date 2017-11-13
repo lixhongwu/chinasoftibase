@@ -12,6 +12,9 @@ public interface MenuFeign {
 	@RequestMapping("/menu/select/{id}")
 	public WxMenu findById(@PathVariable("id") String id);
 	
+	@RequestMapping("/wxmenu/grouplist")
+	public String findGroupByPage();
+	
 	
 	
 

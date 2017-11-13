@@ -1,6 +1,8 @@
 package com.huateng.wxmgr.common.entity;
 
-public class WxMenu {
+import com.huateng.wxmgr.common.utils.PageBean;
+
+public class WxMenu extends PageBean{
     private String ids;
 
     private String urltoken;

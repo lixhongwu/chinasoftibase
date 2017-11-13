@@ -21,11 +21,13 @@ public class MenuController {
 		
 	}
 	
-	@RequestMapping("/select/{id}")
-	public WxMenu selectByPrimaryKey(@PathVariable String id){
+	@RequestMapping("/select/{gid}")
+	public WxMenu selectByPrimaryKey(@PathVariable("gid") String id){
 		
 		return menufeign.findById(id);
 		
 	}
+	
+
 
 }

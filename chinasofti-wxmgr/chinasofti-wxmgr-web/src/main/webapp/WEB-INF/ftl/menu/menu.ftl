@@ -21,7 +21,7 @@
 </div>
 <!-- Begin of easyui-dialog -->
 <div id="wu-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:400px; padding:10px;">
-	<form id="wu-form" method="post">
+	<form id="add-form" method="post">
         <table>
             <tr>
                 <td width="60" align="right">菜单组名:</td>
@@ -61,7 +61,7 @@
 	* Name 添加记录
 	*/
 	function add(){
-		$('#wu-form').form('submit', {
+		$('#add-form').form('submit', {
 			url:'',
 			success:function(data){
 				if(data){
@@ -128,7 +128,7 @@
 	* Name 打开添加窗口
 	*/
 	function openAdd(){
-		$('#wu-form').form('clear');
+		$('#add-form').form('clear');
 		$('#wu-dialog').dialog({
 			closed: false,
 			modal:true,

@@ -403,7 +403,9 @@ public class WeiXinUtil {
         return false;
     }
 
-    /**
+    
+
+	/**
      * 获取证书加密链接
      * 
      * @return
