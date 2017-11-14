@@ -9,6 +9,6 @@ public class MainController {
 
 	@RequestMapping("/index")
 	public ModelAndView getview(){
-		return new ModelAndView("index");
+		return new ModelAndView("index");	
 	}
 }

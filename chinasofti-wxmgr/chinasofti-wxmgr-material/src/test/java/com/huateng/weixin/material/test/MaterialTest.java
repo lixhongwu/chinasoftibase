@@ -14,6 +14,8 @@ import com.huateng.weixin.material.model.MaterialList;
 import com.huateng.weixin.material.service.AccessTokenService;
 import com.huateng.weixin.material.service.MaterialService;
 
+import net.sf.json.JSONObject;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MaterialTest {
@@ -25,7 +27,7 @@ public class MaterialTest {
 	@Autowired
 	private AccessTokenService accessTokenService;
 
-	String at = "QrT4ZkzOzhvlkVlk4sEUWKVE96I5CkS-qJ1WYqp4CzPUdpL96CLOcAnWd3BXTc_XYRp8fRylnY8cGRG73tco70--rw3X4_hjRS_qIT0fY64aTL0GSvlpqvUKIFp4YSMQHDCiABASON";
+	String at = "7AIV2WFsffRwS1pkJL5_dm585pV22SYk9ccz6NnFVS-54JO6YCChB7Vy_HuXWJBpULR9ZwRulVj-D7hlbcP2C_lTTW1XFq99iquG-xSKrouKynTWuE2aCaENvm7BytKVASSeAJAOGG";
 
 	// String at = accessTokenService.getAccessToken();
 	/**
@@ -47,8 +49,10 @@ public class MaterialTest {
 
 	@Test
 	public void getListTest() {
-		String a = materialService.getlist(getlist1(), at);
-		logger.info("获取素材列表为：" + a);
+		JSONObject a = materialService.getlist(getlist1(), at);
+		a.replace("item", "rows");
+		a.replace("total_count", "total");
+		logger.info("获取素材列表为：" + a.replace("item", "rows"));
 	}
 
 	// 新建一个固定的素材列表信息

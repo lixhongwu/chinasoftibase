@@ -11,6 +11,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -165,11 +167,14 @@ public class MaterialServiceImpl implements MaterialService {
 	 * 获取素材列表
 	 */
 	@Override
-	public String getlist(MaterialList materialList, String accessToken) {
+	public JSONObject getlist(MaterialList materialList, String accessToken) {
 		String url = material_getlist_url.replace("ACCESS_TOKEN", accessToken);
 		String json = JSONObject.fromObject(materialList).toString();
 		JSONObject jsonObject = WeixinUtil.httpRequest(url, "POST", json);
-		return String.valueOf(jsonObject);
+		Map map = new HashMap<>();
+		map.put("rows", jsonObject.get("item"));
+		map.put("total", jsonObject.get("total_count"));
+		return jsonObject.fromObject(map);
 	}
 
 	@Override

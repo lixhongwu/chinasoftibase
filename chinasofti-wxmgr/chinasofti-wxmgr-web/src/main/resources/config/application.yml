@@ -18,11 +18,5 @@ eureka:
   instance:
     prefer-ip-address: true
 feign:
-   hystrix:
-      command:
-        default:
-          execution:
-            isolation:
-              thread:
-                timeoutInMillseconds: 10000
-enabled: false 
+  hystrix:
+   enabled: false
