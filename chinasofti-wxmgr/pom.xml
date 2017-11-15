@@ -42,7 +42,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>1.5.4.RELEASE</version>
 			</plugin>
 			<!-- 资源文件拷贝插件 -->
 			<plugin>
@@ -73,5 +72,6 @@
 		<module>chinasofti-wxapi</module>
 		<module>chinasofti-wxmgr-user</module>
 		<module>chinasofti-wxmgr-material</module>
+		<module>chinasofti-wxmgr.webcenter</module>
 	</modules>
 </project>

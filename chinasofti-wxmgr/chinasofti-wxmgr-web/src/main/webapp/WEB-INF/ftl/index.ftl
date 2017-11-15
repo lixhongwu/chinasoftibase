@@ -4,12 +4,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="copyright" content="All Rights Reserved, Copyright (C) 2013, Wuyeguo, Ltd." />
 <title>微信后台管理</title>
-<link rel="stylesheet" type="text/css" href="easyui/1.3.4/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="/css/themes/default/easyui.css" />
 <link rel="stylesheet" type="text/css" href="css/wu.css" />
-<link rel="stylesheet" type="text/css" href="css/icon.css" />
-<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
-<script type="text/javascript" src="easyui/1.3.4/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="easyui/1.3.4/locale/easyui-lang-zh_CN.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/themes/icon.css" />
+<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/easyui/jquery-easyui-1.5.3/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/easyui/jquery-easyui-1.5.3/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body class="easyui-layout">
 	<!-- begin of header -->
