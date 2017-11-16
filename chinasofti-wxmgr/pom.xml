@@ -72,6 +72,5 @@
 		<module>chinasofti-wxapi</module>
 		<module>chinasofti-wxmgr-user</module>
 		<module>chinasofti-wxmgr-material</module>
-		<module>chinasofti-wxmgr.webcenter</module>
 	</modules>
 </project>

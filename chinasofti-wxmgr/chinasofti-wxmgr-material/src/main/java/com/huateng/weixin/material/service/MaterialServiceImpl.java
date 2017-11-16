@@ -10,17 +10,25 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.huateng.weixin.material.mapper.WxMaterialMapper;
 import com.huateng.weixin.material.model.MaterialList;
-import com.huateng.weixin.material.model.TemporaryMaterial;
+import com.huateng.weixin.material.model.WxMaterial;
 import com.huateng.weixin.material.util.WeixinUtil;
 
 import net.sf.json.JSONObject;
 
 @Component("materialService")
 public class MaterialServiceImpl implements MaterialService {
+
+	@Autowired
+	private WxMaterialMapper wxTemporaryMaterialMapper;
 
 	// 新增临时素材
 	private String material_upload_url = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE";
@@ -31,14 +39,14 @@ public class MaterialServiceImpl implements MaterialService {
 	// 获取临时素材
 	private String material_get_url = "https://api.weixin.qq.com/cgi-bin/media/get?access_token=ACCESS_TOKEN&media_id=MEDIA_ID";
 
-	//新增永久素材
-	private String material_add_material_url = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=ACCESS_TOKEN";
+	// 新增永久素材
+	private String material_add_material_url = "https://api.weixin.qq.com/cgi-bin/material/add_material?access_token=ACCESS_TOKEN&type=TYPE";
+
 	/**
 	 * 上传临时素材
 	 */
-	public String uploadTemporaryMedia(String accessToken, String title, String introduction) {
+	public String uploadTemporaryMedia(String accessToken, File file, String title, String introduction) {
 		try {
-			File file = new File("C:/Users/chen/Desktop/kobe.jpg");
 			// 这块是用来处理如果上传的类型是video的类型的
 			JSONObject j = new JSONObject();
 			j.put("title", title);
@@ -53,12 +61,6 @@ public class MaterialServiceImpl implements MaterialService {
 			String result = null;
 			long filelength = file.length();
 			String fileName = file.getName();
-			// String
-			// suffix=fileName.substring(fileName.lastIndexOf("."),fileName.length());
-
-			/**
-			 * 你们需要在这里根据文件后缀suffix将type的值设置成对应的mime类型的值
-			 */
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("POST"); // 以Post方式提交表单，默认get方式
 			con.setDoInput(true);
@@ -142,7 +144,15 @@ public class MaterialServiceImpl implements MaterialService {
 			// 使用JSON-lib解析返回结果
 			JSONObject jsonObject = JSONObject.fromObject(result);
 			if (jsonObject.has("media_id")) {
-				return jsonObject.getString("media_id");
+				String media_id = jsonObject.getString("media_id");
+				WxMaterial wxMaterial = new WxMaterial();
+				wxMaterial.setFlag(0);
+				wxMaterial.setMediaId(media_id);
+				wxMaterial.setFileName(file.getName());
+				wxMaterial.setFilePath(file.getPath());
+				wxMaterial.setCreateTime(new Date());
+				wxTemporaryMaterialMapper.insert(wxMaterial);
+				return media_id;
 			} else {
 				return "逻辑错误，json数组中没media_id";
 			}
@@ -157,25 +167,27 @@ public class MaterialServiceImpl implements MaterialService {
 	 * 获取素材列表
 	 */
 	@Override
-	public String getlist(MaterialList materialList, String accessToken) {
+	public JSONObject getlist(MaterialList materialList, String accessToken) {
 		String url = material_getlist_url.replace("ACCESS_TOKEN", accessToken);
 		String json = JSONObject.fromObject(materialList).toString();
 		JSONObject jsonObject = WeixinUtil.httpRequest(url, "POST", json);
-		return String.valueOf(jsonObject);
+		Map map = new HashMap<>();
+		map.put("rows", jsonObject.get("item"));
+		map.put("total", jsonObject.get("total_count"));
+		return jsonObject.fromObject(map);
 	}
 
 	@Override
-	public String get(TemporaryMaterial temporaryMaterial, String accessToken) {
+	public String get(WxMaterial wxMaterial, String accessToken) {
 		String url = material_get_url.replace("ACCESS_TOKEN", accessToken);
-		String json = JSONObject.fromObject(temporaryMaterial).toString();
+		String json = JSONObject.fromObject(wxMaterial).toString();
 		JSONObject jsonObject = WeixinUtil.httpRequest(url, "GET", json);
 		return String.valueOf(jsonObject);
 	}
 
 	@Override
-	public String uploadPermanentMedia(String accessToken, String title, String introduction) {
+	public String uploadPermanentMedia(String accessToken, File file, String title, String introduction) {
 		try {
-			File file = new File("D:/1.jpeg");
 			// 这块是用来处理如果上传的类型是video的类型的
 			JSONObject j = new JSONObject();
 			j.put("title", title);
@@ -184,18 +196,12 @@ public class MaterialServiceImpl implements MaterialService {
 			// 拼装请求地址(type写死成image)
 			String type = "image"; // 我这里写死
 			String uploadMediaUrl = material_add_material_url;
-			uploadMediaUrl = uploadMediaUrl.replace("ACCESS_TOKEN", accessToken);
+			uploadMediaUrl = uploadMediaUrl.replace("ACCESS_TOKEN", accessToken).replace("type", type);
 
 			URL url = new URL(uploadMediaUrl);
 			String result = null;
 			long filelength = file.length();
 			String fileName = file.getName();
-			// String
-			// suffix=fileName.substring(fileName.lastIndexOf("."),fileName.length());
-
-			/**
-			 * 你们需要在这里根据文件后缀suffix将type的值设置成对应的mime类型的值
-			 */
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("POST"); // 以Post方式提交表单，默认get方式
 			con.setDoInput(true);
@@ -279,6 +285,17 @@ public class MaterialServiceImpl implements MaterialService {
 			// 使用JSON-lib解析返回结果
 			JSONObject jsonObject = JSONObject.fromObject(result);
 			if (jsonObject.has("media_id")) {
+				String media_id = jsonObject.getString("media_id");
+				String url2 = jsonObject.getString("url");
+				WxMaterial wxMaterial = new WxMaterial();
+				wxMaterial.setFlag(1);
+				wxMaterial.setUrl(url2);
+				wxMaterial.setMediaId(media_id);
+				wxMaterial.setFileName(file.getName());
+				wxMaterial.setFilePath(file.getPath());
+				wxMaterial.setCreateTime(new Date());
+				wxTemporaryMaterialMapper.insert(wxMaterial);
+//				System.out.println("======================="+jsonObject.toString());
 				return jsonObject.getString("media_id");
 			} else {
 				return "逻辑错误，json数组中没media_id";
