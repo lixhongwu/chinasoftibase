@@ -1,10 +1,12 @@
 package com.chinasofti.wxmgr.menu.controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +15,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +24,9 @@ import org.springframework.web.client.RestTemplate;
 import com.chinasofti.wxmgr.menu.service.AccessTokenService;
 import com.chinasofti.wxmgr.menu.service.WxMenuservice;
 import com.huateng.wxmgr.common.entity.WxMenu;
+import com.huateng.wxmgr.common.utils.Constant;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
@@ -40,9 +43,6 @@ public class WxMenuController {
 
 	public final static Logger logger = LoggerFactory.getLogger(WxMenuController.class);
 
-	public final String success = "200";
-	public final String error = "130";
-
 	@Autowired
 	private WxMenuservice wxMenuService;
 	@Autowired
@@ -51,12 +51,101 @@ public class WxMenuController {
 	private AccessTokenService accessTokenService;
 
 	/**
-	 * 创建菜单。需要以post的形式将菜单数据发送给微信
+	 * 创建一级菜单
+	 * 
+	 * @param map
+	 * @return
 	 */
-	public final static String CREATE_MENU = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s";
+	@RequestMapping(value = "/createLevelOneMenu", method = RequestMethod.POST)
+	public String createLevelOneMenu(@RequestParam Map<String, String> map) {
+		map.put("level", "1");
+		return addMenu(map);
+
+	}
 
 	/**
-	 * 获取分组列表
+	 * 创建二级菜单
+	 * 
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping(value = "/createLevelTwoMenu", method = RequestMethod.POST)
+	public String createLevelTwoMenu(@RequestParam Map<String, String> map) {
+		// 判断其一级菜单是否已经有二级菜单
+		boolean flag = wxMenuService.findLevelTwoMenuByPid(map.get("pid"));
+		// 获取一级菜单
+		if (!flag) {
+			WxMenu levelOneMenu = wxMenuService.findLevelOneMenuById(map.get("pid"));
+			// 清空一级菜单数据
+			levelOneMenu.setKeyword("");
+			levelOneMenu.setUrl("");
+			wxMenuService.updateMenu(levelOneMenu);
+		}
+
+		map.put("level", "2");
+		return addMenu(map);
+
+	}
+
+	/**
+	 * 创建菜单的方法
+	 * 
+	 * @param map
+	 * @return
+	 */
+	private String addMenu(Map<String, String> map) {
+		WxMenu wxMenu = new WxMenu();
+		try {
+			BeanUtils.populate(wxMenu, map);
+			int i = wxMenuService.createMenu(wxMenu);
+
+			return i == 1 ? Constant.SUCCESS : Constant.ERROR;
+
+		} catch (IllegalAccessException | InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Constant.ERROR;
+		}
+	}
+
+	/**
+	 * 获取菜单
+	 * 
+	 * @param gid
+	 * @return
+	 */
+	@RequestMapping(value = "/menulist/{gid}", method = RequestMethod.GET)
+	public String findMenu(@PathVariable("gid") String gid) {
+		// 获取一级菜单
+		List<WxMenu> levelOne = wxMenuService.findLevelOne(gid);
+		if (levelOne == null || levelOne.isEmpty()) {
+			return "[]";
+		} else {
+			// 遍历获取二级菜单
+			for (int x = 1; x <= levelOne.size(); x++) {
+				WxMenu levelOneMenu = levelOne.get(x - 1);
+				// 封装treegrid属性
+				levelOneMenu.setId(x);
+				// 获取一级菜单下的二级菜单
+				List<WxMenu> levelTwo = wxMenuService.getMenuByPid(levelOneMenu.getIds());
+
+				if (levelTwo != null || levelTwo.size() > 0) {
+					for (int y = 1; y <= levelTwo.size(); y++) {
+						WxMenu levelTwoMenu = levelTwo.get(y - 1);
+
+						levelTwoMenu.setId(10 * x + y);
+					}
+				}
+				levelOneMenu.setChildren(levelTwo);
+			}
+		}
+		JSONArray arr = new JSONArray();
+		JSONArray jsonArray = arr.fromObject(levelOne);
+		return jsonArray.toString();
+	}
+
+	/**
+	 * 获取菜单组列表
 	 * 
 	 * @param wxMenu
 	 * @return
@@ -66,7 +155,18 @@ public class WxMenuController {
 
 		JSONObject object = wxMenuService.findGroupByPage();
 		return object;
+	}
 
+	/**
+	 * 更新菜单组
+	 * 
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping(value = "/updatemenugroup", method = RequestMethod.POST)
+	public String updateMenuGroup(@RequestParam Map<String, String> map) {
+		int i = wxMenuService.updateMenuGroup(map);
+		return i == 1 ? Constant.SUCCESS : Constant.ERROR;
 	}
 
 	/**
@@ -75,30 +175,27 @@ public class WxMenuController {
 	 * @param wxMenu
 	 * @return
 	 */
-	/* @RequestMapping(value = "/savegroup", method = RequestMethod.POST)
-	 public String addMenuGroup(@RequestBody WxMenu wxMenu) {
-	
-	 int i = wxMenuService.addMenuGroup(wxMenu);
-	 if (i == 1) {
-	 return success;// 返回码200成功
-	 } else {
-	 return error;// 返回码130失败
-	 }
-	
-	 }*/
 
 	@RequestMapping(value = "/addmenugroup", method = RequestMethod.POST)
 	public String addMenuGroup(@RequestParam Map<String, String> menuMap) {
-		
 
 		int i = wxMenuService.addMenuGroup(menuMap);
 		if (i == 1) {
-			return success;// 返回码200成功
+			return Constant.SUCCESS;
 		} else {
-			return error;// 返回码130失败
+			return Constant.ERROR;
 		}
-
 	}
+
+	// @RequestMapping(value = "/savegroup", method = RequestMethod.POST)
+	// public String addMenuGroup(@RequestBody WxMenu wxMenu) {
+	// int i = wxMenuService.addMenuGroup(wxMenu);
+	// if (i == 1) {
+	// return Constant.SUCCESS;// 返回码200成功
+	// } else {
+	// return error;// 返回码130失败
+	// }
+	// }
 
 	/**
 	 * 删除菜单组
@@ -111,10 +208,10 @@ public class WxMenuController {
 
 		try {
 			wxMenuService.delMenuGroup(ids);
-			return success;
+			return Constant.SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return error;
+			return Constant.ERROR;
 		}
 	}
 
@@ -179,17 +276,22 @@ public class WxMenuController {
 		} else {
 
 			HttpEntity<String> entity = makeEntity(json.toString());
-			String url = String.format(CREATE_MENU, accessToken);
+			String url = String.format(Constant.CREATE_MENU, accessToken);
 			JSONObject response = restTemplate.postForEntity(url, entity, JSONObject.class).getBody();
 			if (response != null && response.size() > 0) {
 				if (response.has("errcode")) {
-					return response.get("errcode").toString().equals("0")
+					String err = response.get("errcode").toString().equals("0")
 							? "Menu init finish, please wait or re-follow." : response.get("errmsg").toString();
+					logger.info(err);
+					;
+					return Constant.SUCCESS;
 				} else {
-					return "响应数据" + response.toString() + "不合法.";
+					logger.error("响应数据" + response.toString() + "不合法.");
+					return Constant.ERROR;
 				}
 			} else {
-				return "请求响应为空！";
+				logger.error("请求响应为空！");
+				return Constant.ERROR;
 			}
 		}
 
@@ -198,12 +300,12 @@ public class WxMenuController {
 	private HttpEntity<String> makeEntity(String json) {
 		// 封装请求头，设置MediaType为json
 		HttpHeaders headers = new HttpHeaders();
+		headers.set("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 		// MediaType type = MediaType.parseMediaType("application/json;
 		// charset=UTF-8");
 		// headers.setContentType(type);
 		// headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
-		headers.set("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
-		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 		return new HttpEntity<String>(json, headers);
 
 	}

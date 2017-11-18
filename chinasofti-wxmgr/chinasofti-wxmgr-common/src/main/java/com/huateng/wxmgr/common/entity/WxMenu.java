@@ -1,6 +1,7 @@
 package com.huateng.wxmgr.common.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.huateng.wxmgr.common.utils.PageBean;
 
@@ -26,12 +27,36 @@ public class WxMenu extends PageBean implements Serializable{
     private Byte sort;
 
     private String gid;
+    
+    private int id;
+    
+    private List<WxMenu> children;
+    
+    
+    public List<WxMenu> getChildren() {
+		return children;
+	}
 
-    public String getIds() {
+	public void setChildren(List<WxMenu> children) {
+		this.children = children;
+	}
+
+	
+
+    public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getIds() {
         return ids;
-    }
+    }   
+    
 
-    public void setIds(String ids) {
+	public void setIds(String ids) {
         this.ids = ids == null ? null : ids.trim();
     }
 

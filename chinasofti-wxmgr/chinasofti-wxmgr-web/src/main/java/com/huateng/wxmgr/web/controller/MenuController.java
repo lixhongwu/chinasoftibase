@@ -1,11 +1,10 @@
 package com.huateng.wxmgr.web.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,13 +19,29 @@ import net.sf.json.JSONObject;
 @RestController
 @RequestMapping("/wxmenu")
 public class MenuController {
-
+	
 	@Autowired
 	private MenuFeign menufeign;
+	
+	
 
-	@RequestMapping("/menu")
+	/**
+	 * 跳转菜单组页面
+	 * @return
+	 */
+	@RequestMapping("/menugroup")
 	public ModelAndView getView() {
-		return new ModelAndView("menu/menu");
+		return new ModelAndView("menu/menugroup");
+	}
+	/**
+	 * 获取该组菜单
+	 * @param gid
+	 * @return
+	 */
+	@RequestMapping(value = "/menulist/{gid}",method=RequestMethod.GET)
+	public String findMenu(@PathVariable("gid") String gid) {
+		return menufeign.findMenu(gid);
+		
 	}
 
 	/**
@@ -47,7 +62,6 @@ public class MenuController {
 	 */
 	@RequestMapping(value = "/grouplist")
 	public String findGroupByPage() {
-
 		JSONObject object = menufeign.findGroupByPage();
 		return object.toString();
 	}
@@ -66,7 +80,6 @@ public class MenuController {
 	@RequestMapping(value = "/addmenugroup", method = RequestMethod.POST)
 	public String addMenuGroup(@RequestParam Map<String, String> map) {
 		return menufeign.addMenuGroup(map);
-
 	}
 
 	/**
@@ -77,7 +90,16 @@ public class MenuController {
 	@RequestMapping(value = "/deleteMenuGroup/{ids}")
 	public String deleteMenuGroup(@PathVariable("ids") String ids) {
 		return menufeign.deleteMenuGroup(ids);
-
+	}
+	
+	/**
+	 * 更新菜单分组
+	 * @return
+	 */
+	@RequestMapping(value="/updatemenugroup" ,method= RequestMethod.POST)
+	public String updateMenuGroup(@RequestParam Map<String,String> map){
+		return menufeign.updateMenuGroup(map);
+		
 	}
 
 }

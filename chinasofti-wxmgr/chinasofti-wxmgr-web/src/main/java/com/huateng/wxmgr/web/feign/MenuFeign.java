@@ -17,19 +17,53 @@ import net.sf.json.JSONObject;
 @FeignClient(name="CHINASOFTI-WXMGR-MENUSERVICE",url="http://localhost:7801",fallback= MenuFeignClientHystrix.class)
 public interface MenuFeign {
 	
-	@RequestMapping("/menu/select/{id}")
+	/**
+	 * 通过ids获取菜单
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/menu/select/{ids}")
 	public WxMenu findById(@PathVariable("id") String id);
 	
+	/**
+	 * 获取菜单组列表
+	 * @return
+	 */
 	@RequestMapping(value="/wxmenu/grouplist" )
 	public JSONObject findGroupByPage();
 	
 //	@RequestMapping(value="/wxmenu/addmenugroup" ,method=RequestMethod.POST)
 //	public String addMenuGroup(@RequestBody WxMenu wxMenu);
 	
+	/**
+	 * 通过ids删除菜单组
+	 * @param ids
+	 * @return
+	 */
 	@RequestMapping(value="/wxmenu/delgroupmenu/{ids}")
 	public String deleteMenuGroup(@PathVariable("ids")String ids);
 	
+	/**
+	 * 添加菜单组
+	 * @param map
+	 * @return
+	 */
 	@RequestMapping(value="/wxmenu/addmenugroup/",method=RequestMethod.POST)
 	public String addMenuGroup(@RequestParam Map<String,String> map);
+	
+	/**
+	 * 更新菜单组
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping(value="/wxmenu/updatemenugroup",method=RequestMethod.POST)
+	public String updateMenuGroup(@RequestParam Map<String, String> map);
+	/**
+	 * 获取菜单
+	 * @param gid
+	 * @return
+	 */
+	@RequestMapping(value="/wxmenu/menulist/{gid}",method=RequestMethod.GET)
+	public String findMenu(@PathVariable("gid")String gid);
 
 }

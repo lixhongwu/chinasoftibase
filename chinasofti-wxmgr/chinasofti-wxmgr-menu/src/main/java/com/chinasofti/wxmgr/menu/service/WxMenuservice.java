@@ -30,8 +30,8 @@ public interface WxMenuservice {
 	 * @param wxMenu
 	 * @return
 	 */
-//	public int addMenuGroup(WxMenu wxMenu);
-	public int addMenuGroup(Map<String,String> menuMap);
+	// public int addMenuGroup(WxMenu wxMenu);
+	public int addMenuGroup(Map<String, String> menuMap);
 
 	/**
 	 * 删除菜单组
@@ -39,16 +39,38 @@ public interface WxMenuservice {
 	 * @param gid
 	 */
 	public void delMenuGroup(String ids);
+
 	/**
 	 * 获取分组菜单列表
+	 * 
 	 * @param wxMenu
 	 * @return
 	 */
 	public JSONObject findGroupByPage();
-	
-	
-	public JSONObject findAll();
+
+	/**
+	 * 更新菜单组
+	 * 
+	 * @param map
+	 * @return
+	 */
+	public int updateMenuGroup(Map<String, String> map);
+
+	/**
+	 * 获取一级菜单
+	 * 
+	 * @param gid
+	 * @return
+	 */
+	public List<WxMenu> findLevelOne(String gid);
+
+	public int createMenu(WxMenu wxMenu);
+
+	public WxMenu findLevelOneMenuById(String string);
+
+	public boolean findLevelTwoMenuByPid(String string);
+
+	public void updateMenu(WxMenu levelOneMenu);
 
 	
-
 }
