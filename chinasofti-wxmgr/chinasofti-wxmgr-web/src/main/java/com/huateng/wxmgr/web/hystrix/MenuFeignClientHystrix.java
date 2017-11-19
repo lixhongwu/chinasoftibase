@@ -10,10 +10,10 @@ import net.sf.json.JSONObject;
 @Component
 public class MenuFeignClientHystrix implements MenuFeign {
 
-	@Override
-	public WxMenu findById(String id) {
-		return null;
-	}
+//	@Override
+//	public WxMenu findById(String id) {
+//		return null;
+//	}
 	/**
 	 * 获取列表熔断
 	 */
@@ -54,12 +54,36 @@ public class MenuFeignClientHystrix implements MenuFeign {
 		return "call更新失败";
 	}
 	/**
-	 * 
+	 * 通过分组ids获取菜单
 	 */
 	@Override
 	public String findMenu(String gid) {
 		// TODO Auto-generated method stub
 		return "call获取菜单失败";
+	}
+	/**
+	 * 添加一级菜单
+	 */
+	@Override
+	public String addLevelOneMenu(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return "call添加一级菜单失败";
+	}
+	/**
+	 * 添加二级菜单
+	 */
+	@Override
+	public String addLevelTwoMenu(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return "call添加二级菜单失败";
+	}
+	/**
+	 * 删除菜单
+	 */
+	@Override
+	public String deleteMenu(String ids) {
+		// TODO Auto-generated method stub
+		return "call删除菜单失败";
 	}
 
 }

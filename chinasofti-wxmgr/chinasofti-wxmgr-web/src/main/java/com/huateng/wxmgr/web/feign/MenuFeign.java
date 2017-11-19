@@ -4,12 +4,10 @@ import java.util.Map;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.huateng.wxmgr.common.entity.WxMenu;
 import com.huateng.wxmgr.web.hystrix.MenuFeignClientHystrix;
 
 import net.sf.json.JSONObject;
@@ -22,9 +20,9 @@ public interface MenuFeign {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping("/menu/select/{ids}")
-	public WxMenu findById(@PathVariable("id") String id);
-	
+//	@RequestMapping("/menu/select/{ids}")
+//	public WxMenu findById(@PathVariable("id") String id);
+//	
 	/**
 	 * 获取菜单组列表
 	 * @return
@@ -65,5 +63,27 @@ public interface MenuFeign {
 	 */
 	@RequestMapping(value="/wxmenu/menulist/{gid}",method=RequestMethod.GET)
 	public String findMenu(@PathVariable("gid")String gid);
+	/**
+	 * 添加一级菜单
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping(value="/wxmenu/addlevelonemenu",method =RequestMethod.POST)
+	public String addLevelOneMenu(@RequestParam Map<String, String> map);
+	
+	/**
+	 * 添加二级菜单
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping(value="/wxmenu/addleveltwomenu",method =RequestMethod.POST)
+	public String addLevelTwoMenu(@RequestParam Map<String, String> map);
+	/**
+	 * 删除菜单
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping(value="/wxmenu/deletemenu/{ids}",method=RequestMethod.POST)
+	public String deleteMenu(@PathVariable("ids") String ids);
 
 }

@@ -43,6 +43,37 @@ public class MenuController {
 		return menufeign.findMenu(gid);
 		
 	}
+	/**
+	 * 添加一级菜单
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping(value="/addlevelonemenu",method =RequestMethod.POST)
+	public String addLevelOneMenu(@RequestParam Map<String,String> map){
+		return menufeign.addLevelOneMenu(map);
+		
+	}
+	
+	/**
+	 * 添加二级菜单
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping(value="/addleveltwomenu",method =RequestMethod.POST)
+	public String addLevelTwoMenu(@RequestParam Map<String,String> map){
+		return menufeign.addLevelTwoMenu(map);
+		
+	}
+	/**
+	 * 删除菜单
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping(value="/deletemenu/{ids}",method=RequestMethod.POST)
+	public String deleteMenu(@PathVariable("ids") String ids){
+		return menufeign.deleteMenu(ids);
+		
+	}
 
 	/**
 	 * 通过分组id查菜单详情。
@@ -50,10 +81,10 @@ public class MenuController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping("/select/{gid}")
-	public WxMenu selectByPrimaryKey(@PathVariable("gid") String id) {
-		return menufeign.findById(id);
-	}
+//	@RequestMapping("/select/{gid}")
+//	public WxMenu selectByPrimaryKey(@PathVariable("gid") String id) {
+//		return menufeign.findById(id);
+//	}
 
 	/**
 	 * 查询所有的分组菜单
@@ -93,13 +124,12 @@ public class MenuController {
 	}
 	
 	/**
-	 * 更新菜单分组
+	 * 更新菜单组
 	 * @return
 	 */
 	@RequestMapping(value="/updatemenugroup" ,method= RequestMethod.POST)
 	public String updateMenuGroup(@RequestParam Map<String,String> map){
 		return menufeign.updateMenuGroup(map);
-		
 	}
 
 }

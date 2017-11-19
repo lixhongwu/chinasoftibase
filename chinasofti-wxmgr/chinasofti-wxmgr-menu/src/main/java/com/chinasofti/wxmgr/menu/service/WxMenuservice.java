@@ -71,6 +71,8 @@ public interface WxMenuservice {
 	public boolean findLevelTwoMenuByPid(String string);
 
 	public void updateMenu(WxMenu levelOneMenu);
+	
+	public int deleteMenu(String ids);
 
 	
 }

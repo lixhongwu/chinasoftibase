@@ -200,5 +200,19 @@ public class WxMenuServiceImpl implements WxMenuservice {
 	public void updateMenu(WxMenu menu) {
 		wxMenuMapper.updateByPrimaryKey(menu);
 	}
+	/**
+	 * 通过ids删除菜单及其二级菜单
+	 */
+	@Override
+	public int deleteMenu(String ids) {
+		
+		//删除其二级菜单
+		WxMenuExample example = new WxMenuExample();
+		example.createCriteria().andPidEqualTo(ids);
+		wxMenuMapper.deleteByExample(example);
+		//删除该菜单
+		int i = wxMenuMapper.deleteByPrimaryKey(ids);
+		return i;
+	}
 
 }

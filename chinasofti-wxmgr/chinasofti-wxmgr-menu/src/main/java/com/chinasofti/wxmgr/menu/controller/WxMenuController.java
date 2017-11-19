@@ -49,6 +49,18 @@ public class WxMenuController {
 	private RestTemplate restTemplate;
 	@Autowired
 	private AccessTokenService accessTokenService;
+	
+	@RequestMapping(value="/deletemenu/{ids}" ,method=RequestMethod.POST)
+	public String deleteMenu(@PathVariable("ids") String ids){
+		int i = wxMenuService.deleteMenu(ids);
+		if(i>0){
+			return Constant.SUCCESS;
+		}else{
+			return Constant.ERROR;
+		}
+		
+		
+	}
 
 	/**
 	 * 创建一级菜单
@@ -56,7 +68,7 @@ public class WxMenuController {
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping(value = "/createLevelOneMenu", method = RequestMethod.POST)
+	@RequestMapping(value = "/addlevelonemenu", method = RequestMethod.POST)
 	public String createLevelOneMenu(@RequestParam Map<String, String> map) {
 		map.put("level", "1");
 		return addMenu(map);
@@ -69,7 +81,7 @@ public class WxMenuController {
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping(value = "/createLevelTwoMenu", method = RequestMethod.POST)
+	@RequestMapping(value = "/addleveltwomenu", method = RequestMethod.POST)
 	public String createLevelTwoMenu(@RequestParam Map<String, String> map) {
 		// 判断其一级菜单是否已经有二级菜单
 		boolean flag = wxMenuService.findLevelTwoMenuByPid(map.get("pid"));
