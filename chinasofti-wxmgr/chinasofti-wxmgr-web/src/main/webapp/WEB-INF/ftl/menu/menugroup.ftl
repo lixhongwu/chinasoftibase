@@ -93,7 +93,7 @@
 		<table id="addTwo">
 			<tr>
 				<td width="100" align="right">一级菜单名称:</td>
-				<td><input type="text" id="title" name="title" value="" disabled="disabled" /></td>
+				<td><input type="text" id="ptitle" name="ptitle" value="" disabled="disabled" /></td>
 			</tr>
 			<tr>
 				<td width="100" align="right">二级菜单名称:</td>
@@ -269,7 +269,7 @@
 				});
 				//alert(ids);
 				$.ajax({
-					url : '/wxmenu/deleteMenu/' + ids,
+					url : '/wxmenu/deletemenu/' + ids,
 					type : 'POST',
 					success : function(data) {
 						if (data == 200) {
@@ -320,7 +320,7 @@
 	function addLevelOneMenu(){
 		
 		$('#menuAddForm').form('submit', {
-			url : '/wxmenu/addmenu',
+			url : '/wxmenu/addlevelonemenu',
 			type : 'POST',
 			success : function(data) {
 				//alert(data);
@@ -340,17 +340,16 @@
 	function openAddLevelTwoMenu(){
 		
 		var node = $('#menuTable').treegrid('getSelected');
-		//alert(node.id);
-		
-		//alert(JSON.stringify(node));
 		
 		var item= $('#menuTable').treegrid('getChildren',node.id);
-		alert(item.length);
-		if(item.length <4 ){
+		//alert(item.length);
+		//alert(node.ids);
+		if(item.length <5 ){
 			
 			$('#menuTwoAddForm').form('clear');
+			$('#ptitle').val(node.title);
 			$('#addTwoMenuGid').val(menugruopids);
-			$('#addTwoMenuPid').val(menugruopids);
+			$('#addTwoMenuPid').val(node.ids);
 			$('#menuTwoAddDialog').dialog({
 				closed : false,
 				modal : true,
@@ -358,7 +357,7 @@
 				buttons : [ {
 					text : '确定',
 					iconCls : 'icon-ok',
-					handler : addLevelOneMenu
+					handler : addLevelTwoMenu
 				}, {
 					text : '取消',
 					iconCls : 'icon-cancel',
@@ -375,7 +374,20 @@
 	
 	//添加二级菜单
 	function addLevelTwoMenu(){
-		alert("添加二级菜单");
+		
+		$('#menuTwoAddForm').form('submit', {
+			url : '/wxmenu/addleveltwomenu',
+			type : 'POST',
+			success : function(data) {
+				if (data > 0) {
+					$('#menuTable').treegrid('reload');
+					$('#menuTwoAddDialog').dialog('close');
+					$.messager.alert('信息提示', '提交成功！', 'info');
+				} else {
+					$.messager.alert('信息提示', '提交失败！', 'info');
+				}
+			}
+		});
 	}
 
 	/**

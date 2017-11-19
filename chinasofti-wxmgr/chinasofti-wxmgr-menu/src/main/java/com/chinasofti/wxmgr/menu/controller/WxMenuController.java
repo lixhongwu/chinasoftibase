@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -70,7 +71,12 @@ public class WxMenuController {
 	 */
 	@RequestMapping(value = "/addlevelonemenu", method = RequestMethod.POST)
 	public String createLevelOneMenu(@RequestParam Map<String, String> map) {
+		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 		map.put("level", "1");
+		map.put("ids", uuid);
+		map.put("appid","0");
+		map.put("isShow","1");
+		map.put("urltoken", "urltoken");
 		return addMenu(map);
 
 	}
@@ -95,6 +101,11 @@ public class WxMenuController {
 		}
 
 		map.put("level", "2");
+		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+		map.put("ids", uuid);
+		map.put("appid","0");
+		map.put("isShow","1");
+		map.put("urltoken", "urltoken");
 		return addMenu(map);
 
 	}
