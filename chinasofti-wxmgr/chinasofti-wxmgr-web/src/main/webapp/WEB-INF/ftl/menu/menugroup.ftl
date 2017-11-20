@@ -9,11 +9,11 @@
 			<a href="#" class="easyui-linkbutton"iconCls="icon-remove" onclick="remove()" plain="true">删除</a> 
 			<a href="#"class="easyui-linkbutton" iconCls="icon-excel"onclick="submitMenu()" plain="true">将该组菜单刷新至微信服务器</a>
 		</div>
-		<div class="user-toolbar-search">
+		<!-- <div class="user-toolbar-search">
 			<label>用户名：</label> <input type="text" id="name" name="name" /> <a
 				href="#" class="easyui-linkbutton" iconCls="icon-search"
 				onclick="doSearch()">开始检索</a>
-		</div>
+		</div> -->
 	</div>
 
 	<!-- 显示数据,数据表格列对齐 -->
@@ -29,8 +29,8 @@
 			</tr>
 		</thead>
 	</table>
-	<div id="pagination"
-		style="background: #efefef; border: 1px solid #ccc;"></div>
+	<!-- <div id="pagination"
+		style="background: #efefef; border: 1px solid #ccc;"></div> -->
 	<!-- 显示菜单组结束 -->
 		
 	<!-- 显示菜单 -->
@@ -82,6 +82,62 @@
 			</tr>
 			<input type="hidden" id ="addMenuGid" name ="gid" >
 			<input  type="hidden" id ="addMenuPid" name ="pid" >
+		</table>
+	</form>
+</div>
+
+<!-- 菜单编辑表格1 -->
+<div id="menuEditDialog"  class="easyui-dialog"data-options="closed:true,iconCls:'icon-save'"style="width: 500px; heigh:400px; padding: 10px">
+	<form id="menuEditForm" method="post">
+		<table id="editOne">
+			<tr>
+				<td width="100" align="right">一级菜单名称:</td>
+				<td><input type="text" id="edittitle" name="title"  /></td>
+			</tr>
+			<tr>
+			<td width="100" align="right">菜单类型:</td>
+				<td><input type="radio" id="menuediturl" name="menutype" onclick="url.disabled='';keyword.disabled='disabled';" />跳转页面</td>
+			</tr>
+			<tr>
+				<td width="100" align="right"></td>
+				<td><input type="radio" id="menueditclick" name="menutype" onclick="keyword.disabled='';url.disabled='disabled';" />发送消息</td>
+			</tr>
+			<tr>
+			<td width="100" align="right">URL链接：</td>
+				<td><input type="text" id="editurl" name="url" style="width:250px;"/>
+				</td>
+			</tr>
+			<tr>
+				<td width="100" align="right">关键字：</td>
+				<td><input type="text" id="editkeyword"  name="keyword" />
+				</td>
+			</tr>
+			<tr>	
+				<td width="100" align="right">排序:</td>
+				<td><input type="text" id="editsort" name="sort" class="easyui-textbox" /></td>
+			</tr>
+			<input  type="hidden" id ="editMenuIds" name ="ids" >
+			<input type="hidden" id ="editMenuGid" name ="gid" >
+			<input  type="hidden" id ="editMenuPid" name ="pid" >
+		</table>
+	</form>
+</div>
+
+<!-- 菜单编辑表格2 -->
+<div id="menuEditDialog2"  class="easyui-dialog"data-options="closed:true,iconCls:'icon-save'"style="width: 500px; heigh:400px; padding: 10px">
+	<form id="menuEditForm2" method="post">
+		<table id="editOne2">
+			<tr>
+				<td width="100" align="right">一级菜单名称:</td>
+				<td><input type="text" id="edittitle2" name="title"  /></td>
+			</tr>
+			<tr>	
+				<td width="100" align="right">排序:</td>
+				<td><input type="text" id="editsort2" name="sort" class="easyui-textbox" /></td>
+			</tr>
+			<input  type="hidden" id ="editMenuIds2" name ="ids" >
+			<input type="hidden" id ="editMenuGid2" name ="gid" >
+			<input  type="hidden" id ="editMenuPid2" name ="pid" >
 		</table>
 	</form>
 </div>
@@ -247,7 +303,62 @@
 	//编辑菜单
 	
 	function openEditMenu(){
-		alert("editMenu");
+		//判断是否有子菜单
+		var node = $('#menuTable').treegrid('getSelected');
+		var item= $('#menuTable').treegrid('getChildren',node.id);
+		//如果没有子菜单
+		if(item ==0){
+			if (node) {
+				 $('#menuEditForm').form('load', node);
+				if(node.url==""){
+					$('#menueditclick').click();
+				}else{
+					$('#menuediturl').click();
+				} 
+				$('#menuEditDialog').dialog('open').dialog({
+					closed : false,
+					modal : true,
+					title : "修改菜单信息",
+					buttons : [ {
+						text : '确定',
+						iconCls : 'icon-ok',
+						handler : editMenu
+					}, {
+						text : '取消',
+						iconCls : 'icon-cancel',
+						handler : function(){
+							$('#menuEditDialog').dialog('close');
+						}
+					}]
+				});
+			} else {
+				$.messager.alert('信息提示', '请选中要修改的数据');
+			}
+			//如果有子菜单
+		}else{
+			
+			$('#menuEditForm2').form('load', node);
+			$('#menuEditDialog2').dialog('open').dialog({
+				closed : false,
+				modal : true,
+				title : "修改菜单信息",
+				buttons : [ {
+					text : '确定',
+					iconCls : 'icon-ok',
+					handler : editMenu
+				}, {
+					text : '取消',
+					iconCls : 'icon-cancel',
+					handler : function() {
+						$('#menuEditDialog2').dialog('close');
+					}
+				} ]
+			});
+		}
+	}
+	
+	//更新菜单方法
+	function editMenu(){
 		
 	}
 	
@@ -467,7 +578,7 @@
 	}
 
 	/**
-	 * Name 打开修改窗口
+	 * Name 打开菜单组修改窗口
 	 */
 	function openEdit() {
 		var row = $("#tbMenuGroup").datagrid('getSelected');
@@ -496,15 +607,13 @@
 	}
 
 	/*
-	 *修改
+	 *提交编辑菜单组
 	 */
 	function edit() {
 		$('#menuGroupEditForm').form('submit', {
 			url : '/wxmenu/updatemenugroup',
 			type : 'POST',
-			//data:$('#menuEditForm').serialize(),
 			success : function(data) {
-				//alert(data);
 				if (data == 200) {
 					$.messager.alert('信息提示', '提交成功！', 'info');
 					$('#menuGroupEditDialog').dialog('close');
