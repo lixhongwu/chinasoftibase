@@ -7,7 +7,7 @@
 			<a href="#" class="easyui-linkbutton" iconCls="icon-add"onclick="openAdd()" plain="true">添加</a>
 			<a href="#"class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()"plain="true">修改</a>
 			<a href="#" class="easyui-linkbutton"iconCls="icon-remove" onclick="remove()" plain="true">删除</a> 
-			<a href="#"class="easyui-linkbutton" iconCls="icon-excel"onclick="submitMenu()" plain="true">将该组菜单刷新至微信服务器</a>
+			<a href="#"class="easyui-linkbutton" iconCls="icon-excel"onclick="synchroMenu()" plain="true">同步微信菜单至本地服务器</a>
 		</div>
 		<!-- <div class="user-toolbar-search">
 			<label>用户名：</label> <input type="text" id="name" name="name" /> <a
@@ -18,7 +18,7 @@
 
 	<!-- 显示数据,数据表格列对齐 -->
 	<table id="tbMenuGroup" class="easyui-datagrid" title="微信组名称列表"
-		data-options="singleSelect:true,collapsible:true,url:'',method:'get'">
+		data-options="singleSelect:true,collapsible:true,url:'/wxmenu/grouplist',method:'get'">
 		<thead>
 			<tr>
 				<th data-options="field:'ids',width:250,align:'center'">微信组ID</th>
@@ -29,8 +29,8 @@
 			</tr>
 		</thead>
 	</table>
-	<!-- <div id="pagination"
-		style="background: #efefef; border: 1px solid #ccc;"></div> -->
+	 <div id="pagination"
+		style="background: #efefef; border: 1px solid #ccc;"></div> 
 	<!-- 显示菜单组结束 -->
 		
 	<!-- 显示菜单 -->
@@ -68,7 +68,7 @@
 			</tr>
 			<tr>
 			<td width="100" align="right">URL链接：</td>
-				<td><input type="text" id="url" name="url" style="width:250px;"/>
+				<td><input type="text" id="url" name="url"  style="width:250px;"/>
 				</td>
 			</tr>
 			<tr>
@@ -80,8 +80,11 @@
 				<td width="100" align="right">排序:</td>
 				<td><input type="text" id="sort" name="sort" class="easyui-textbox" /></td>
 			</tr>
+			<tr>
+			<td>
 			<input type="hidden" id ="addMenuGid" name ="gid" >
 			<input  type="hidden" id ="addMenuPid" name ="pid" >
+			</td></tr>
 		</table>
 	</form>
 </div>
@@ -116,9 +119,13 @@
 				<td width="100" align="right">排序:</td>
 				<td><input type="text" id="editsort" name="sort" class="easyui-textbox" /></td>
 			</tr>
+			<tr>
+			<td>
 			<input  type="hidden" id ="editMenuIds" name ="ids" >
 			<input type="hidden" id ="editMenuGid" name ="gid" >
 			<input  type="hidden" id ="editMenuPid" name ="pid" >
+			</td>
+			</tr>
 		</table>
 	</form>
 </div>
@@ -135,9 +142,13 @@
 				<td width="100" align="right">排序:</td>
 				<td><input type="text" id="editsort2" name="sort" class="easyui-textbox" /></td>
 			</tr>
+			<tr>
+			<td>
 			<input  type="hidden" id ="editMenuIds2" name ="ids" >
 			<input type="hidden" id ="editMenuGid2" name ="gid" >
 			<input  type="hidden" id ="editMenuPid2" name ="pid" >
+			</td>
+			</tr>
 		</table>
 	</form>
 </div>
@@ -165,7 +176,7 @@
 			</tr>
 			<tr>
 			<td width="100" align="right">URL链接：</td>
-				<td><input type="text" id="url" name="url" style="width:250px;"/>
+				<td><input type="text" id="url" name="url"  style="width:250px;"/>
 				</td>
 			</tr>
 			<tr>
@@ -177,8 +188,11 @@
 				<td width="100" align="right">排序:</td>
 				<td><input type="text" id="sort" name="sort" class="easyui-textbox" /></td>
 			</tr>
+			<tr>
+			<td>
 			<input type="hidden" id ="addTwoMenuGid" name ="gid" >
 			<input  type="hidden" id ="addTwoMenuPid" name ="pid" >
+			</td></tr>
 		</table>
 	</form>
 </div>
@@ -242,11 +256,31 @@
 		//此处设置自己的url地址
 		var url = '/wxmenu/grouplist';
 		tdload(tableID, pageId, url);
-
 	});
-
-
+	
+	
+	//将微信的服务器同步到本地库
+	function synchroMenu(){
+		
+	}
+	
+	//定义全局变量,菜单组的ids;
+	var menugruopids;
+	
+	//将菜单刷新到微信服务器
 	function submitMenu() {
+		
+		$.ajax({
+			url : '/wxmenu/submitmenu/' + menugruopids,
+			type : 'POST',
+			success : function(data) {
+				if (data == 200) {
+					$.messager.alert('信息提示', '更新成功！', 'info');
+				} else {
+					$.messager.alert('信息提示', '更新失败！', 'info');
+				}
+			}
+		});
 
 	}
 	//查看菜单
@@ -256,8 +290,7 @@
 		return lookBtn;
 	}
     
-	//定义全局变量,菜单组的ids;
-	var menugruopids;
+	
 	//查看菜单详情
 	function menuView(ids) {
 		//将菜单组ids赋值为全局变量
@@ -287,11 +320,16 @@
 	  		    	field:'id',
 	  		    	align:'left',
 	  		    	formatter: 
-	  		    	function(value,row,index){
+	  		    	function(value,row){
+	  		    		
+	  		    		var edit='<a href="#"  onclick="openEditMenu('+row.id+')">编辑</a> ';
+	  		    		var del ='&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#" onclick="deleteMenu('+row.id+')">删除</a> ';
+	  		    		var addlevelTwo='&nbsp&nbsp&nbsp&nbsp&nbsp <a href="#" onclick="openAddLevelTwoMenu('+row.id+')">创建二级菜单</a> ';
+	  		    		
 	  					if (value<5){
-	  						return  "<input type='button' value='编辑' onclick='openEditMenu()' >&nbsp&nbsp&nbsp&nbsp<input type='button' value='删除' onclick='deleteMenu()' >&nbsp&nbsp<input type='button' value='添加二级菜单' onclick='openAddLevelTwoMenu()' >" ;
+	  						return edit+del+addlevelTwo;
 	  					} else {
-	  						return "<input type='button' value='编辑' onclick='openEditMenu()' >&nbsp&nbsp&nbsp&nbsp<input type='button' value='删除' onclick='deleteMenu()' >" ;
+	  						return edit+del;
 	  					}
 	  				},width:240 },
 		          ]]   
@@ -301,10 +339,10 @@
 	}
 	
 	//编辑菜单
-	
-	function openEditMenu(){
+	function openEditMenu(id){
 		//判断是否有子菜单
-		var node = $('#menuTable').treegrid('getSelected');
+		var ids=JSON.stringify(id);
+		var node=$('#menuTable').treegrid('find',ids);
 		var item= $('#menuTable').treegrid('getChildren',node.id);
 		//如果没有子菜单
 		if(item ==0){
@@ -345,7 +383,7 @@
 				buttons : [ {
 					text : '确定',
 					iconCls : 'icon-ok',
-					handler : editMenu
+					handler : editMenu2
 				}, {
 					text : '取消',
 					iconCls : 'icon-cancel',
@@ -357,17 +395,49 @@
 		}
 	}
 	
-	//更新菜单方法
-	function editMenu(){
+	
+	
+	//提交更新菜单
+	 function editMenu(){
+		$('#menuEditForm').form('submit',{
+			url:'wxmenu/updatamenu',
+			type:'post',
+			success:
+				function(data){
+				if(data ==200){
+					$.messager.alert('信息提示','更新成功','info');
+					$('#menuTable').treegrid('reload');
+					$('#menuEditDialog').dialog('close');
+				}else{
+					$.messager.alert('信息提示','更新失败','info');
+				}
+			}
+		})
+	} 
+	
+	//提交更新菜单
+	 function editMenu2(){
 		
-	}
+		$('#menuEditForm2').form('submit',{
+			url:'wxmenu/updatamenu',
+			type:'post',
+			success:
+				function(data){
+				if(data ==200){
+					$.messager.alert('信息提示','更新成功','info');
+					$('#menuTable').treegrid('reload');
+					$('#menuEditDialog2').dialog('close');
+				}else{
+					$.messager.alert('信息提示','更新失败','info');
+				}
+			}
+		})
+	} 
 	
 	//删除菜单
-	function deleteMenu(){
+	function deleteMenu(id){
 		
-		//$('#menuTable').treegrid('select');
-		
-		var items = $('#menuTable').treegrid('getSelected');
+		var items=$('#menuTable').treegrid('find',id);
 		var ids = [];
 		 if (items.length < 1) {
 			$.messager.alert('温馨提醒', '请选中要删的数据');
@@ -378,7 +448,6 @@
 				$(items).each(function() {
 					ids.push(this.ids);
 				});
-				//alert(ids);
 				$.ajax({
 					url : '/wxmenu/deletemenu/' + ids,
 					type : 'POST',
@@ -444,17 +513,14 @@
 				}
 			}
 		});
-		
 	}
 	
 	//打开添加二级菜单
-	function openAddLevelTwoMenu(){
+	function openAddLevelTwoMenu(id){
 		
-		var node = $('#menuTable').treegrid('getSelected');
+		var node = $('#menuTable').treegrid('find',id);
 		
 		var item= $('#menuTable').treegrid('getChildren',node.id);
-		//alert(item.length);
-		//alert(node.ids);
 		if(item.length <5 ){
 			
 			$('#menuTwoAddForm').form('clear');
@@ -543,8 +609,8 @@
 					success : function(data) {
 						if (data == 200) {
 							$.messager.alert('信息提示', '删除成功！', 'info');
-							$('#tbMenuGroup').datagrid('reload')
-							$('#pagination').pagination('select');
+							$('#tbMenuGroup').datagrid('reload');
+							//$('#pagination').pagination('select');
 						} else {
 							$.messager.alert('信息提示', '删除失败！', 'info');
 						}
@@ -617,7 +683,8 @@
 				if (data == 200) {
 					$.messager.alert('信息提示', '提交成功！', 'info');
 					$('#menuGroupEditDialog').dialog('close');
-					$('#pagination').pagination('select');
+					$('#tbMenuGroup').datagrid('reload');
+					//$('#pagination').pagination('select');
 				} else {
 					$.messager.alert('信息提示', '提交失败！', 'info');
 				}

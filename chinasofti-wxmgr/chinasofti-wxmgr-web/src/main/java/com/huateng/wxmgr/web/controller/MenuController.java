@@ -23,8 +23,6 @@ public class MenuController {
 	@Autowired
 	private MenuFeign menufeign;
 	
-	
-
 	/**
 	 * 跳转菜单组页面
 	 * @return
@@ -32,6 +30,27 @@ public class MenuController {
 	@RequestMapping("/menugroup")
 	public ModelAndView getView() {
 		return new ModelAndView("menu/menugroup");
+	}
+	/**
+	 * 将菜单更新到微信服务器
+	 * @param gid
+	 * @return
+	 */
+	@RequestMapping(value="/submitmenu/{gid}",method=RequestMethod.POST)
+	public String submitMenu(@PathVariable String gid){
+		return menufeign.submitMenu(gid);
+		
+	}
+	
+	/**
+	 * 更新菜单
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping(value="/updatamenu",method=RequestMethod.POST)
+	public String updataMenu(@RequestParam Map<String,String> map){
+		return menufeign.updataMenu(map);
+		
 	}
 	/**
 	 * 获取该组菜单

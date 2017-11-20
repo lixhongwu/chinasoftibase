@@ -86,4 +86,16 @@ public class MenuFeignClientHystrix implements MenuFeign {
 		return "call删除菜单失败";
 	}
 
+	@Override
+	public String updataMenu(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return "130";
+	}
+
+	@Override
+	public String submitMenu(String gid) {
+		// TODO Auto-generated method stub
+		return "130";
+	}
+
 }

@@ -74,5 +74,7 @@ public interface WxMenuservice {
 	
 	public int deleteMenu(String ids);
 
+	public int updataMenu(Map<String, String> map);
+
 	
 }

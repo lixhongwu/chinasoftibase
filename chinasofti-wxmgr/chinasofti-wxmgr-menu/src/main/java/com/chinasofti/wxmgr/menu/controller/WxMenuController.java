@@ -24,8 +24,10 @@ import org.springframework.web.client.RestTemplate;
 
 import com.chinasofti.wxmgr.menu.service.AccessTokenService;
 import com.chinasofti.wxmgr.menu.service.WxMenuservice;
+import com.huateng.wxmgr.common.entity.SynMenu;
 import com.huateng.wxmgr.common.entity.WxMenu;
 import com.huateng.wxmgr.common.utils.Constant;
+import com.huateng.wxmgr.common.utils.JsonUtils;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -50,17 +52,35 @@ public class WxMenuController {
 	private RestTemplate restTemplate;
 	@Autowired
 	private AccessTokenService accessTokenService;
-	
-	@RequestMapping(value="/deletemenu/{ids}" ,method=RequestMethod.POST)
-	public String deleteMenu(@PathVariable("ids") String ids){
+
+	/**
+	 * 删除菜单服务
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping(value = "/deletemenu/{ids}", method = RequestMethod.POST)
+	public String deleteMenu(@PathVariable("ids") String ids) {
 		int i = wxMenuService.deleteMenu(ids);
-		if(i>0){
+		if (i > 0) {
 			return Constant.SUCCESS;
-		}else{
+		} else {
 			return Constant.ERROR;
 		}
-		
-		
+
+	}
+
+	/**
+	 * 修改菜单服务
+	 * 
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping(value = "/updatamenu", method = RequestMethod.POST)
+	public String updataMenu(@RequestParam Map<String, String> map) {
+		int i = wxMenuService.updataMenu(map);
+		return i == 1 ? Constant.SUCCESS : Constant.ERROR;
+
 	}
 
 	/**
@@ -74,8 +94,8 @@ public class WxMenuController {
 		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 		map.put("level", "1");
 		map.put("ids", uuid);
-		map.put("appid","0");
-		map.put("isShow","1");
+		map.put("appid", "0");
+		map.put("isShow", "1");
 		map.put("urltoken", "urltoken");
 		return addMenu(map);
 
@@ -103,8 +123,8 @@ public class WxMenuController {
 		map.put("level", "2");
 		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 		map.put("ids", uuid);
-		map.put("appid","0");
-		map.put("isShow","1");
+		map.put("appid", "0");
+		map.put("isShow", "1");
 		map.put("urltoken", "urltoken");
 		return addMenu(map);
 
@@ -221,7 +241,7 @@ public class WxMenuController {
 	// }
 
 	/**
-	 * 删除菜单组
+	 * 删除菜单组，并删除该菜单组下的所有菜单。
 	 * 
 	 * @param gid
 	 * @return
@@ -244,12 +264,12 @@ public class WxMenuController {
 	 * @param gid
 	 * @return
 	 */
-	@RequestMapping(value = "/submitmenu/{gid}", method = RequestMethod.GET)
+	@RequestMapping(value = "/submitmenu/{gid}", method = RequestMethod.POST)
 	public String submitMenu(@PathVariable("gid") String gid) {
 
 		List<WxMenu> levelone = wxMenuService.getMenuByGid(gid);
 		if (levelone == null || levelone.isEmpty()) {
-			return "请先创建菜单";
+			return "131";// 131菜单为空,请先创建菜单
 		}
 		// 将数据库的数据转成菜单的json格式。
 		Map<String, Object> menuMap = new HashMap<String, Object>();
@@ -317,7 +337,44 @@ public class WxMenuController {
 				return Constant.ERROR;
 			}
 		}
+	}
 
+	/**
+	 * 获取微信菜单,并更新到本地服务器.
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/synchromenu", method = RequestMethod.POST)
+	public String synchroMenu() {
+		String accessToken = accessTokenService.getAccessToken();
+		if (StringUtils.isEmpty(accessToken)) {
+			logger.error("获取accessToken异常");
+			return "40001";
+		} else {
+			String url = String.format(Constant.GET_MENU, accessToken);
+			JSONObject object = restTemplate.getForObject(url, JSONObject.class);
+			// 判断是否成功获取到菜单
+			String errcode = object.getString("errcode");
+			String errmsg =object.getString("errmsg");
+			//如果获取到菜单
+			if (StringUtils.isNotEmpty(errcode)) {
+				//打印报错信息
+				logger.error(errmsg);
+				//返回报错码
+				return errcode;
+				
+			} else {
+				//没有报错，则获取数据，删除已存在的组，新建一个菜单组，并将菜单都添加都菜单组中。
+				JSONArray jsonArray = object.getJSONObject("menu").getJSONArray("button");
+				List<SynMenu> list = JsonUtils.jsonToList(jsonArray.toString(), SynMenu.class);
+				for (SynMenu getMenu : list) {
+					System.out.println(getMenu.toString());
+
+				}
+				return object.toString();
+			}
+
+		}
 	}
 
 	private HttpEntity<String> makeEntity(String json) {

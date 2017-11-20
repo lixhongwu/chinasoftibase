@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -213,6 +214,34 @@ public class WxMenuServiceImpl implements WxMenuservice {
 		//删除该菜单
 		int i = wxMenuMapper.deleteByPrimaryKey(ids);
 		return i;
+	}
+
+	@Override
+	public int updataMenu(Map<String, String> map) {
+		WxMenu wxMenu=null;
+		//获取ids
+		String ids= map.get("ids");
+		if(StringUtils.isNotEmpty(ids)){
+		 wxMenu = wxMenuMapper.selectByPrimaryKey(ids);
+		}
+		String title= map.get("title");
+		if(StringUtils.isNotEmpty(title)){
+			wxMenu.setTitle(title);
+		}
+		String url =map.get("url");
+		if(StringUtils.isNotEmpty(url)){
+			wxMenu.setUrl(url);
+		}
+		String keyword =map.get("keyword");
+		if(StringUtils.isNotEmpty(keyword)){
+			wxMenu.setKeyword(keyword);
+		}
+		String sort = map.get("sort");
+		if(StringUtils.isNotEmpty(sort)){
+			wxMenu.setSort(Byte.parseByte(sort));
+		}
+		 
+		return wxMenuMapper.updateByPrimaryKey(wxMenu);
 	}
 
 }

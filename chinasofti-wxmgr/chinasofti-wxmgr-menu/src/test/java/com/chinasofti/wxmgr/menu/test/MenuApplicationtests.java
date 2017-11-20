@@ -41,9 +41,15 @@ public class MenuApplicationtests {
 	public void findMenu(){
 		String gid="wx5536aef9f659de24_weixin";
 		String menu = controller.findMenu(gid);
+		logger.info(menu);
+	}
+	
+	@Test
+	public void getMenu(){
+		
+		String menu = controller.synchroMenu();
 		
 		logger.info(menu);
-		
 		
 	}
 
