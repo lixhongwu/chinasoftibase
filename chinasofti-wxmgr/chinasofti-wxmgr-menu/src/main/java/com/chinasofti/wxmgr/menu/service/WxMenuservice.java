@@ -1,6 +1,7 @@
 package com.chinasofti.wxmgr.menu.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.huateng.wxmgr.common.entity.WxMenu;
 
@@ -29,19 +30,25 @@ public interface WxMenuservice {
 	 * @param wxMenu
 	 * @return
 	 */
-	public int addMenu(WxMenu wxMenu);
+//	public int addMenuGroup(WxMenu wxMenu);
+	public int addMenuGroup(Map<String,String> menuMap);
 
 	/**
 	 * 删除菜单组
 	 * 
 	 * @param gid
 	 */
-	public void delMenuGroup(String gid);
+	public void delMenuGroup(String ids);
 	/**
 	 * 获取分组菜单列表
 	 * @param wxMenu
 	 * @return
 	 */
-	public JSONObject findGroupByPage(WxMenu wxMenu);
+	public JSONObject findGroupByPage();
+	
+	
+	public JSONObject findAll();
+
+	
 
 }

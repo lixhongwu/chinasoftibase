@@ -22,16 +22,20 @@ public class MenuApplicationtests {
 	@Autowired
 	private WxMenuController controller;
 	
+	/**
+	 * 测试获取所有菜单
+	 */
 	@Test
 	public void findGroupByPage(){
 		
 		WxMenu wxMenu=new WxMenu();
 		wxMenu.setPage(1);
 		wxMenu.setRows(10);
-		JSONObject object = controller.findGroupByPage(wxMenu);
+		JSONObject object = controller.findGroupByPage();
 		
 		logger.info(object.toString());
 		
 	}
+	
 
 }

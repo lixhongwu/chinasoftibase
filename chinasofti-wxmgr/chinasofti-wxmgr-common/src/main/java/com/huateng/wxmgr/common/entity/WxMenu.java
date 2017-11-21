@@ -1,8 +1,10 @@
 package com.huateng.wxmgr.common.entity;
 
+import java.io.Serializable;
+
 import com.huateng.wxmgr.common.utils.PageBean;
 
-public class WxMenu extends PageBean{
+public class WxMenu extends PageBean implements Serializable{
     private String ids;
 
     private String urltoken;
@@ -112,4 +114,12 @@ public class WxMenu extends PageBean{
     public void setGid(String gid) {
         this.gid = gid == null ? null : gid.trim();
     }
+
+	@Override
+	public String toString() {
+		return "WxMenu [ids=" + ids + ", urltoken=" + urltoken + ", appid=" + appid + ", level=" + level + ", pid="
+				+ pid + ", title=" + title + ", keyword=" + keyword + ", url=" + url + ", isShow=" + isShow + ", sort="
+				+ sort + ", gid=" + gid + "]";
+	}
+    
 }

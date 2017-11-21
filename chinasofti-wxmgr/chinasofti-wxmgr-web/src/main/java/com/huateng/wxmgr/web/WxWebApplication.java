@@ -19,7 +19,7 @@ import cn.org.rapid_framework.freemarker.directive.OverrideDirective;
 
 @SpringBootApplication
 @EnableEurekaClient
-@EnableHystrix
+//@EnableHystrix
 @EnableFeignClients
 public class WxWebApplication {
 

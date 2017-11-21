@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -53,18 +54,19 @@ public class WxMenuController {
 	 * 创建菜单。需要以post的形式将菜单数据发送给微信
 	 */
 	public final static String CREATE_MENU = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s";
+
 	/**
 	 * 获取分组列表
+	 * 
 	 * @param wxMenu
 	 * @return
 	 */
-	@RequestMapping(value="/grouplist", method =RequestMethod.POST)
-	public JSONObject findGroupByPage(@RequestBody(required =false)WxMenu wxMenu){
-		
-		 
-				JSONObject object = wxMenuService.findGroupByPage(wxMenu);
-				return object;
-		
+	@RequestMapping(value = "/grouplist")
+	public JSONObject findGroupByPage() {
+
+		JSONObject object = wxMenuService.findGroupByPage();
+		return object;
+
 	}
 
 	/**
@@ -73,10 +75,23 @@ public class WxMenuController {
 	 * @param wxMenu
 	 * @return
 	 */
-	@RequestMapping(value = "/savegroup", method = RequestMethod.POST)
-	public String addMenuGroup(@RequestBody(required = false) WxMenu wxMenu) {
+	/* @RequestMapping(value = "/savegroup", method = RequestMethod.POST)
+	 public String addMenuGroup(@RequestBody WxMenu wxMenu) {
+	
+	 int i = wxMenuService.addMenuGroup(wxMenu);
+	 if (i == 1) {
+	 return success;// 返回码200成功
+	 } else {
+	 return error;// 返回码130失败
+	 }
+	
+	 }*/
 
-		int i = wxMenuService.addMenu(wxMenu);
+	@RequestMapping(value = "/addmenugroup", method = RequestMethod.POST)
+	public String addMenuGroup(@RequestParam Map<String, String> menuMap) {
+		
+
+		int i = wxMenuService.addMenuGroup(menuMap);
 		if (i == 1) {
 			return success;// 返回码200成功
 		} else {
@@ -91,34 +106,16 @@ public class WxMenuController {
 	 * @param gid
 	 * @return
 	 */
-	@RequestMapping(value = "/delgroup/{gid}", method = RequestMethod.GET)
-	public String delMenuGroup(@PathVariable("gid") String gid) {
+	@RequestMapping(value = "/delgroupmenu/{gid}", method = RequestMethod.GET)
+	public String delMenuGroup(@PathVariable("gid") String ids) {
 
 		try {
-			wxMenuService.delMenuGroup(gid);
+			wxMenuService.delMenuGroup(ids);
 			return success;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return error;
 		}
-	}
-
-	/**
-	 * 添加菜单
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String addMenu(@RequestBody(required = false) WxMenu wxMenu) {
-
-		int i = wxMenuService.addMenu(wxMenu);
-		if (i == 1) {
-			return success;
-		} else {
-			return error;
-		}
-
 	}
 
 	/**
@@ -175,7 +172,7 @@ public class WxMenuController {
 		menuMap.put("button", listOne);
 		JSONObject json = JSONObject.fromObject(menuMap);
 		String accessToken = accessTokenService.getAccessToken();
-		System.out.println("accessToken"+accessToken);
+		System.out.println("accessToken" + accessToken);
 		if (StringUtils.isEmpty(accessToken)) {
 			logger.error("获取AccessToken出现异常!");
 			return "获取AccessToken异常，请求失败!";
