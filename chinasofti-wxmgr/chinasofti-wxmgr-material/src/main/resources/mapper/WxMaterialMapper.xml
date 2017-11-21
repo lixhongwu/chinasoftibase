@@ -77,7 +77,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from wx_material
+    from wx_material 
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
