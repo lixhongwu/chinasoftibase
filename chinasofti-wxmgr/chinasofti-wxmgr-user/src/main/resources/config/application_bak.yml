@@ -29,6 +29,11 @@ access:
   appId: wxdf00b0d9d7771301
   appSecret: f00e28ebffc66d0633333011f61a40cd
   
+  
+#access.token=weixindemo
+#access.appId=wx782cdd6e08df1c9f
+#access.appSecret=73a5c27148591c50b82c8f59e40eb8ae
+  
 custom: 
   connection: 
     retry-time: 3   # 连接失败重试次数为3

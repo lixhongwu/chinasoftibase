@@ -2,7 +2,7 @@ package com.huateng.weixin.user.service;
 
 import java.util.List;
 
-import com.google.gson.JsonObject;
+import net.sf.json.JSONObject;
 
 public interface TagService {
 	/**
@@ -12,7 +12,7 @@ public interface TagService {
 	 * @param name 标签名
 	 * @return
 	 */
-	public JsonObject createTag(String name);
+	public JSONObject createTag(String name);
 
 	/**
 	 * 获取公众号已经创建的标签列表。<br />
@@ -24,7 +24,7 @@ public interface TagService {
 	 * </ol>
 	 * @return
 	 */
-	public JsonObject getTags();
+	public JSONObject getTags();
 	
 	/**
 	 * 修改一个标签的名称。
@@ -32,14 +32,14 @@ public interface TagService {
 	 * @param name	标签的新名称
 	 * @return
 	 */
-	public JsonObject editTag(int id, String name);
+	public JSONObject editTag(int id, String name);
 	
 	/**
 	 * 删除一个标签。
 	 * @param id	标签的id，这个id是服务器返回给我们的id
 	 * @return
 	 */
-	public JsonObject deleteTag(int id);
+	public JSONObject deleteTag(int id);
 	
 	/**
 	 * 获取指定标签下的粉丝列表<br />
@@ -47,7 +47,7 @@ public interface TagService {
 	 * @param nextOpId	下一个openid，如果为空，那么就是从头查
 	 * @return
 	 */
-	public JsonObject getFans(int tagId, String nextOpenId) ;
+	public JSONObject getFans(int tagId, String nextOpenId) ;
 	
 	/**
 	 * 批量为用户添加Tag
@@ -55,7 +55,7 @@ public interface TagService {
 	 * @param tagId		指定的标签的tagId
 	 * @return
 	 */
-	public JsonObject batchTag(List<String> openIds, int tagId);
+	public JSONObject batchTag(List<String> openIds, int tagId);
 	
 	/**
 	 * 批量为用户取消Tag
@@ -63,12 +63,12 @@ public interface TagService {
 	 * @param tagId		指定的标签的tagId
 	 * @return
 	 */
-	public JsonObject batchUntag(List<String> openIds, int tagId);
+	public JSONObject batchUntag(List<String> openIds, int tagId);
 	
 	/**
 	 * 获取用户身上的标签列表
 	 * @param openId
 	 * @return
 	 */
-	public JsonObject getIdList(String openId);
+	public JSONObject getIdList(String openId);
 }

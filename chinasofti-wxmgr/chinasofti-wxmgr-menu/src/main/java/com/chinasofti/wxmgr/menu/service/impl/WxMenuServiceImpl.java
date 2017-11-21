@@ -184,6 +184,7 @@ public class WxMenuServiceImpl implements WxMenuservice {
 
 		return wxMenuMapper.selectByPrimaryKey(pid);
 	}
+
 	/**
 	 * 判断该一级菜单是否有二级菜单
 	 */
@@ -194,6 +195,7 @@ public class WxMenuServiceImpl implements WxMenuservice {
 		int count = wxMenuMapper.countByExample(example);
 		return count > 0 ? true : false;
 	}
+
 	/**
 	 * 根据ids更新菜单
 	 */
@@ -201,47 +203,64 @@ public class WxMenuServiceImpl implements WxMenuservice {
 	public void updateMenu(WxMenu menu) {
 		wxMenuMapper.updateByPrimaryKey(menu);
 	}
+
 	/**
 	 * 通过ids删除菜单及其二级菜单
 	 */
 	@Override
 	public int deleteMenu(String ids) {
-		
-		//删除其二级菜单
+
+		// 删除其二级菜单
 		WxMenuExample example = new WxMenuExample();
 		example.createCriteria().andPidEqualTo(ids);
 		wxMenuMapper.deleteByExample(example);
-		//删除该菜单
+		// 删除该菜单
 		int i = wxMenuMapper.deleteByPrimaryKey(ids);
 		return i;
 	}
-
+	/**
+	 * 更新菜单
+	 * @param map
+	 * @return
+	 */
 	@Override
 	public int updataMenu(Map<String, String> map) {
-		WxMenu wxMenu=null;
-		//获取ids
-		String ids= map.get("ids");
-		if(StringUtils.isNotEmpty(ids)){
-		 wxMenu = wxMenuMapper.selectByPrimaryKey(ids);
+		WxMenu wxMenu = null;
+		// 获取ids
+		String ids = map.get("ids");
+		if (StringUtils.isNotEmpty(ids)) {
+			wxMenu = wxMenuMapper.selectByPrimaryKey(ids);
 		}
-		String title= map.get("title");
-		if(StringUtils.isNotEmpty(title)){
+		String title = map.get("title");
+		if (StringUtils.isNotEmpty(title)) {
 			wxMenu.setTitle(title);
 		}
-		String url =map.get("url");
-		if(StringUtils.isNotEmpty(url)){
+		String url = map.get("url");
+		if (StringUtils.isNotEmpty(url)) {
 			wxMenu.setUrl(url);
 		}
-		String keyword =map.get("keyword");
-		if(StringUtils.isNotEmpty(keyword)){
+		String keyword = map.get("keyword");
+		if (StringUtils.isNotEmpty(keyword)) {
 			wxMenu.setKeyword(keyword);
 		}
 		String sort = map.get("sort");
-		if(StringUtils.isNotEmpty(sort)){
+		if (StringUtils.isNotEmpty(sort)) {
 			wxMenu.setSort(Byte.parseByte(sort));
 		}
-		 
+
 		return wxMenuMapper.updateByPrimaryKey(wxMenu);
+	}
+	/**
+	 * 删除该菜单组下的所有菜单.
+	 * @param gid
+	 */
+	@Override
+	public void deleteMenuByGid(String gid) {
+		
+		WxMenuExample example = new WxMenuExample();
+		example.createCriteria().andGidEqualTo(gid);
+		wxMenuMapper.deleteByExample(example);
+
 	}
 
 }

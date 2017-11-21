@@ -32,7 +32,6 @@ public class MenuApplicationtests {
 		wxMenu.setPage(1);
 		wxMenu.setRows(10);
 		JSONObject object = controller.findGroupByPage();
-		
 		logger.info(object.toString());
 		
 	}

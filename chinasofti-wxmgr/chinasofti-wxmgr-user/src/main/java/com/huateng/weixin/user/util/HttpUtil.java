@@ -4,7 +4,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
-import com.google.gson.Gson;
+import net.sf.json.JSONObject;
+
 
 public class HttpUtil {
 	
@@ -17,9 +18,8 @@ public class HttpUtil {
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-		
-		Gson gson = new Gson();
-		return new HttpEntity<String>(gson.toJson(source), headers);
+		String json = JSONObject.fromObject(source).toString();
+		return new HttpEntity<String>(json, headers);
 	}
 	
 	public final static HttpEntity<String> makeBody(String json) {
