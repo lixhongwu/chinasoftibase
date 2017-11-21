@@ -1,19 +1,23 @@
 package com.huateng.weixin.material.controller;
 
-import java.io.File;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.huateng.weixin.material.model.MaterialList;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.huateng.weixin.material.model.Material;
+import com.huateng.weixin.material.model.WxMaterial;
 import com.huateng.weixin.material.service.AccessTokenService;
 import com.huateng.weixin.material.service.MaterialService;
+import com.huateng.weixin.material.util.JsonUtils;
 
-import net.sf.json.JSONObject;
 @RestController
 @RequestMapping("/material")
 public class MaterialController {
@@ -24,74 +28,129 @@ public class MaterialController {
 	@Autowired
 	private AccessTokenService accessTokenService;
 
-	private static Logger log = LoggerFactory.getLogger(MaterialController.class);
+	private static Logger logger = LoggerFactory.getLogger(MaterialController.class);
 
-	// 上传临时素材
-	@RequestMapping(value = "/addtem", method = RequestMethod.POST)
-	public String add(File file) {
-		// 调用接口获取access_token
-		String at = accessTokenService.getAccessToken();
-		if (at != null) {
-			// 这里只是单纯地用图片image来测试
-//			File file = new File("C:/Users/chen/Desktop/kobe.jpg");
-			String i = materialService.uploadTemporaryMedia(at, file, null, null);
-			log.info("media_id:" + i);
-			return i;
-		} else {
-			log.error("显示失败");
-			return "获取media_id失败";
+	//上传临时素材
+	@RequestMapping("/uploadTempMaterial")
+	public JSONObject uploadTempMaterial(String fileDir){
+		try {
+			String accessToken="pZGAUdWwplY8lMzeokjDwNFSXqQakAMis0_nD_m7Xc8_aURQNasbwLD1EGa2du88D0Xv7CDG3rqTnzUTcNlUOSfw2U6LGtFXdx3f5T0JfAwTXTbAEADHD";
+			String type = "image";
+			JSONObject jsonObject = materialService.uploadTempMaterial(accessToken, type, fileDir);
+			logger.info(jsonObject.toString());
+			return jsonObject;
+		} catch (Exception e) {
+			e.printStackTrace(); 
+			logger.info(">>>>>>>>>>>上传素材失败");
+			return null;
 		}
 	}
-
-	// 上传永久素材
-	@RequestMapping(value = "/addper", method = RequestMethod.POST)
-	public String addper(File file) {
-		// 调用接口获取access_token
-		String at = accessTokenService.getAccessToken();
-		if (at != null) {
-			// 这里只是单纯地用图片image来测试
-//			File file = new File("C:/Users/chen/Desktop/kobe.jpg");
-			String i = materialService.uploadPermanentMedia(at, file, null, null);
-			log.info("media_id:" + i);
-			return i;
-		} else {
-			log.error("显示失败");
-			return "获取media_id失败";
+	//上传永久素材
+	@RequestMapping("/uploadPermanentImg") 
+	public String uploadPermanentImg(String fileDir){
+		try {
+			String accessToken="";
+			String uploadPermanentImg = materialService.uploadPermanentImg(accessToken, fileDir);
+			logger.info(uploadPermanentImg);
+			return uploadPermanentImg;
+		} catch (Exception e) {
+			logger.info(">>>>>>>>>>上传永久素材失败");
+			e.printStackTrace();
+			return null;
 		}
 	}
-
-	// 获取永久素材列表
-	@RequestMapping(value = "/getlist", method = RequestMethod.POST)
-	public JSONObject getlist() {
-		// 调用接口获取access_token
-//		String at = accessTokenService.getAccessToken();
-		String at = "7AIV2WFsffRwS1pkJL5_dm585pV22SYk9ccz6NnFVS-54JO6YCChB7Vy_HuXWJBpULR9ZwRulVj-D7hlbcP2C_lTTW1XFq99iquG-xSKrouKynTWuE2aCaENvm7BytKVASSeAJAOGG";
-		JSONObject a = materialService.getlist(getlist1(), at);
-		log.info("获取素材列表为：" + a);
-		return a;
-		/*if (at != null) {
-			String a = materialService.getlist(getlist1(), at);
-			log.info("获取素材列表为：" + a);
-			return a;
-		} else {
-			log.error("获取失败");
-			return "error";
-		}*/
+	//新增永久素材其他素材
+	@RequestMapping("/uploadPermanentMaterial")
+	public JSONObject uploadPermanentMaterial(String fileDir){
+		try {
+			String accessToken="pZGAUdWwplY8lMzeokjDwNFSXqQakAMis0_nD_m7Xc8_aURQNasbwLD1EGa2du88D0Xv7CDG3rqTnzUTcNlUOSfw2U6LGtFXdx3f5T0JfAwTXTbAEADHD";
+			String type = "image";
+			JSONObject uploadPermanentMaterial = materialService.uploadPermanentMaterial(accessToken, type, fileDir);
+			logger.info(uploadPermanentMaterial.toString());
+			return uploadPermanentMaterial;
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.info(">>>>>>>>>>>>>上传其他永久素材失败");
+			return null; 
+		}
 	}
-
-	// 新建一个固定的素材列表信息
-	public MaterialList getlist1() {
-		MaterialList materialList = new MaterialList();
-		materialList.setType("image");// 返回图片素材
-		materialList.setOffset("0");// 从第一个素材返回
-		materialList.setCount("20");// 返回20个素材
-		return materialList;
+	//获取永久素材列表
+	@RequestMapping("/listPermanentMaterial")
+	public JSONObject listPermanentMaterial(){
+		try {
+			String accessToken="pZGAUdWwplY8lMzeokjDwNFSXqQakAMis0_nD_m7Xc8_aURQNasbwLD1EGa2du88D0Xv7CDG3rqTnzUTcNlUOSfw2U6LGtFXdx3f5T0JfAwTXTbAEADHD";
+			String type = "image";
+			String offset = "0";
+			String count = "20";
+			JSONObject listPermanentMaterial = materialService.listPermanentMaterial(accessToken, type, offset, count);
+			JSONArray jsonArray = listPermanentMaterial.getJSONArray("item");
+			logger.info(">>>>>>>>>>>>item："+ jsonArray);
+			List<Material> list1 = JsonUtils.jsonToList(jsonArray.toString(), Material.class);
+			List<WxMaterial> list2 = findAll();
+			Set<String> set1 = new HashSet<String>();
+			//将数据库中的数据根据media_id来判断是否存在  把mediaId存到set集合中
+			for (WxMaterial wxMaterial : list2) {
+				String mediaId = wxMaterial.getMediaId();
+				set1.add(mediaId);
+			}
+			for (Material material : list1) {
+				String media_id = material.getMedia_id();
+				if(!set1.contains(media_id)){
+					//当查询调用素材列表接口数据库中未有此数据 重新插入数据库中
+					WxMaterial wxMaterial2 = new WxMaterial();
+					wxMaterial2.setFileName(material.getName());
+					wxMaterial2.setFlag(1);
+					wxMaterial2.setCreateTime(material.getUpdate_time());
+					wxMaterial2.setMediaId(material.getMedia_id());
+					wxMaterial2.setUrl(material.getUrl());
+					materialService.insert(wxMaterial2);
+				}
+			}
+			/*for (WxMaterial wxMaterial : list2) {
+				for (Material material : list1) {
+					if(!wxMaterial.getMediaId().equals(material.getMedia_id())){
+						WxMaterial wxMaterial2 = new WxMaterial();
+						wxMaterial2.setFileName(material.getName());
+						wxMaterial2.setFlag(1);
+						wxMaterial2.setCreateTime(material.getUpdate_time());
+						wxMaterial2.setMediaId(material.getMedia_id());
+						wxMaterial2.setUrl(material.getUrl());
+						materialService.insert(wxMaterial2);
+					}
+				}
+			}*/
+			logger.info(listPermanentMaterial.toString());
+			return listPermanentMaterial;
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.info(">>>>>>>>>>>>>获取素材列表失败");
+			return null;
+		}
 	}
-
-	// 根据media_id来获取素材
-	@RequestMapping(value = "/get", method = RequestMethod.GET)
-	public String get() {
-		String at = accessTokenService.getAccessToken();
-		return null;
+	//删除永久素材
+	@RequestMapping("/deletePermanentMaterial")
+	public JSONObject deletePermanentMaterial(String mediaId){
+		try {
+			String accessToken = "pZGAUdWwplY8lMzeokjDwNFSXqQakAMis0_nD_m7Xc8_aURQNasbwLD1EGa2du88D0Xv7CDG3rqTnzUTcNlUOSfw2U6LGtFXdx3f5T0JfAwTXTbAEADHD";
+			JSONObject deletePermanentMaterial = materialService.deletePermanentMaterial(accessToken, mediaId);
+			logger.info(deletePermanentMaterial.toString());
+			return deletePermanentMaterial;
+		} catch (Exception e) {
+			e.printStackTrace(); 
+			logger.info(">>>>>>>>>>>>>>>删除永久素材失败");
+			return null;
+		}
+	} 
+	
+	@RequestMapping("/findAll")
+	public List<WxMaterial> findAll(){
+		try {
+			List<WxMaterial> list = materialService.findAll();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.info(">>>>>>>>>>>>>>从数据库中获取素材列表失败");
+			return null;
+		}
 	}
 }

@@ -13,17 +13,10 @@ import com.google.gson.Gson;
 @MapperScan("com.huateng.weixin.material.mapper")
 @EnableEurekaClient
 public class MaterialApplication {
-
 	@Bean
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
-	
-/*	@Bean
-	public Gson gson() {
-		return new Gson();
-	}*/
-	
 	public static void main(String[] args) {
 		SpringApplication.run(MaterialApplication.class, args);
 	}
