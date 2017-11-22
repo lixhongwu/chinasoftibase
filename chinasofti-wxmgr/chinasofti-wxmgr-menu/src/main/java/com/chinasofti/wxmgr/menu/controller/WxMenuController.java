@@ -13,6 +13,7 @@ import org.apache.logging.log4j.core.util.SystemNanoClock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -53,6 +54,7 @@ public class WxMenuController {
 	private RestTemplate restTemplate;
 	@Autowired
 	private AccessTokenService accessTokenService;
+	
 
 	/**
 	 * 删除菜单服务

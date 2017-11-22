@@ -1,7 +1,7 @@
 package com.huateng.weixin.user.test;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.huateng.weixin.user.service.TagModalService;
 import com.huateng.weixin.user.service.TagService;
+import com.huateng.wxmgr.common.entity.WxUserTags;
+import com.huateng.wxmgr.common.entity.WxUserTagsExample;
 import com.huateng.wxmgr.common.utils.JsonUtils;
 
 import net.sf.json.JSONArray;
@@ -27,6 +30,22 @@ public class TagServiceTests {
 
 	@Autowired
 	private TagService tagService;
+	@Autowired
+	private TagModalService tagModalService;
+	
+	@Test
+	public void test(){
+		
+		//Map<String,String> map =new HashMap<String, String>();
+		
+		WxUserTags map =new WxUserTags();
+		map.setPage(1);
+		map.setRows(2);
+		String  list = tagModalService.findTagsByPage(map);
+		
+		logger.info("test>>>>>>>>>>>>>>>+"+list.toString());
+	}
+	
 
 	/**
 	 * 测试创建一个用户标签

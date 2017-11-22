@@ -5,7 +5,7 @@ public class Constant {
 	public static final String IS_PARENT = "true";
 	public static final String SUCCESS = "200";
 	public static final String ERROR = "130";
-	
+	public static final String CALLBACK="777";//熔断后返回callback
 	
 	
 	/**
