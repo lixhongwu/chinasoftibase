@@ -363,6 +363,66 @@ public class WxUserTagsExample {
             addCriterion("description not between", value1, value2, "description");
             return (Criteria) this;
         }
+
+        public Criteria andSynchroIsNull() {
+            addCriterion("synchro is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynchroIsNotNull() {
+            addCriterion("synchro is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynchroEqualTo(Integer value) {
+            addCriterion("synchro =", value, "synchro");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynchroNotEqualTo(Integer value) {
+            addCriterion("synchro <>", value, "synchro");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynchroGreaterThan(Integer value) {
+            addCriterion("synchro >", value, "synchro");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynchroGreaterThanOrEqualTo(Integer value) {
+            addCriterion("synchro >=", value, "synchro");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynchroLessThan(Integer value) {
+            addCriterion("synchro <", value, "synchro");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynchroLessThanOrEqualTo(Integer value) {
+            addCriterion("synchro <=", value, "synchro");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynchroIn(List<Integer> values) {
+            addCriterion("synchro in", values, "synchro");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynchroNotIn(List<Integer> values) {
+            addCriterion("synchro not in", values, "synchro");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynchroBetween(Integer value1, Integer value2) {
+            addCriterion("synchro between", value1, value2, "synchro");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynchroNotBetween(Integer value1, Integer value2) {
+            addCriterion("synchro not between", value1, value2, "synchro");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

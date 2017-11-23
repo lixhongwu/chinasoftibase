@@ -6,6 +6,7 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="fansNum" property="fansnum" jdbcType="INTEGER" />
     <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="synchro" property="synchro" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    ids, name, fansNum, description
+    ids, name, fansNum, description, synchro
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.huateng.wxmgr.common.entity.WxUserTagsExample" >
     select
@@ -100,9 +101,9 @@
   </delete>
   <insert id="insert" parameterType="com.huateng.wxmgr.common.entity.WxUserTags" >
     insert into wx_user_tags (ids, name, fansNum, 
-      description)
+      description, synchro)
     values (#{ids,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{fansnum,jdbcType=INTEGER}, 
-      #{description,jdbcType=VARCHAR})
+      #{description,jdbcType=VARCHAR}, #{synchro,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.huateng.wxmgr.common.entity.WxUserTags" >
     insert into wx_user_tags
@@ -119,6 +120,9 @@
       <if test="description != null" >
         description,
       </if>
+      <if test="synchro != null" >
+        synchro,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="ids != null" >
@@ -132,6 +136,9 @@
       </if>
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="synchro != null" >
+        #{synchro,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -156,6 +163,9 @@
       <if test="record.description != null" >
         description = #{record.description,jdbcType=VARCHAR},
       </if>
+      <if test="record.synchro != null" >
+        synchro = #{record.synchro,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -166,7 +176,8 @@
     set ids = #{record.ids,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       fansNum = #{record.fansnum,jdbcType=INTEGER},
-      description = #{record.description,jdbcType=VARCHAR}
+      description = #{record.description,jdbcType=VARCHAR},
+      synchro = #{record.synchro,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,6 +194,9 @@
       <if test="description != null" >
         description = #{description,jdbcType=VARCHAR},
       </if>
+      <if test="synchro != null" >
+        synchro = #{synchro,jdbcType=INTEGER},
+      </if>
     </set>
     where ids = #{ids,jdbcType=INTEGER}
   </update>
@@ -190,7 +204,8 @@
     update wx_user_tags
     set name = #{name,jdbcType=VARCHAR},
       fansNum = #{fansnum,jdbcType=INTEGER},
-      description = #{description,jdbcType=VARCHAR}
+      description = #{description,jdbcType=VARCHAR},
+      synchro = #{synchro,jdbcType=INTEGER}
     where ids = #{ids,jdbcType=INTEGER}
   </update>
 </mapper>

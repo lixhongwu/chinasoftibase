@@ -2,7 +2,7 @@ package com.huateng.wxmgr.common.entity;
 
 import com.huateng.wxmgr.common.utils.PageBean;
 
-public class WxUserTags extends PageBean{
+public class WxUserTags extends PageBean {
     private Integer ids;
 
     private String name;
@@ -10,6 +10,8 @@ public class WxUserTags extends PageBean{
     private Integer fansnum;
 
     private String description;
+
+    private Integer synchro;
 
     public Integer getIds() {
         return ids;
@@ -43,10 +45,11 @@ public class WxUserTags extends PageBean{
         this.description = description == null ? null : description.trim();
     }
 
-	@Override
-	public String toString() {
-		return "WxUserTags [ids=" + ids + ", name=" + name + ", fansnum=" + fansnum + ", description=" + description
-				+ "]";
-	}
-    
+    public Integer getSynchro() {
+        return synchro;
+    }
+
+    public void setSynchro(Integer synchro) {
+        this.synchro = synchro;
+    }
 }

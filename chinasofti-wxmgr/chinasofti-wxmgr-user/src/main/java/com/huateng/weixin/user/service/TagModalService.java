@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.huateng.wxmgr.common.entity.WxUserTags;
 
+import net.sf.json.JSONObject;
+
 /**
  * 标签跟本地数据库交互的接口
  * @ClassName: TagModalService.java
@@ -34,5 +36,33 @@ public interface TagModalService {
 	 * @return
 	 */
 	public WxUserTags findTagById(int id);
+	/**
+	 * 添加标签
+	 * @param userTags
+	 * @return
+	 */
+	public int addTag(WxUserTags userTags);
+	/**
+	 * 查询标签fans数
+	 * @param ids
+	 * @return
+	 */
+	public int findCount(String ids);
+	/**
+	 * 编辑本地标签
+	 * @param userTags
+	 * @return
+	 */
+	public int updataTag(WxUserTags userTags);
+	/**
+	 * 获取所有的标签
+	 * @return
+	 */
+	public List<WxUserTags> findAll();
+	/**
+	 * 删除所有标签
+	 */
+	public void deleteAll();
+
 
 }

@@ -32,20 +32,19 @@ public class TagServiceTests {
 	private TagService tagService;
 	@Autowired
 	private TagModalService tagModalService;
-	
+
 	@Test
-	public void test(){
-		
-		//Map<String,String> map =new HashMap<String, String>();
-		
-		WxUserTags map =new WxUserTags();
+	public void test() {
+
+		// Map<String,String> map =new HashMap<String, String>();
+
+		WxUserTags map = new WxUserTags();
 		map.setPage(1);
 		map.setRows(2);
-		String  list = tagModalService.findTagsByPage(map);
-		
-		logger.info("test>>>>>>>>>>>>>>>+"+list.toString());
+		String list = tagModalService.findTagsByPage(map);
+
+		logger.info("test>>>>>>>>>>>>>>>+" + list.toString());
 	}
-	
 
 	/**
 	 * 测试创建一个用户标签
@@ -53,25 +52,27 @@ public class TagServiceTests {
 	@Test
 	public void createTest() {
 		JSONObject result = tagService.createTag("奥特曼");
-		logger.info(result.toString());
-		if (result == null || result.size() == 0) {
-			logger.error("响应失败！");
-		} else {
-			if (result.has("errcode")) {
-				logger.error(
-						"服务器响应了异常：" + result.get("errmsg").toString() + ",错误码为：" + result.get("errcode").toString());
-			} else if (result.has("tag")) {
-				JSONObject tag = result.getJSONObject("tag");
-				logger.info("tagId : " + tag.get("id").toString());
-				logger.info("tagName : " + tag.get("name").toString());
-			} else {
-				logger.error("获取到非法响应：" + result.toString());
-			}
-		}
+		tagsResult(result);
 	}
 	/*
 	 * 15999622130 075526600024
 	 */
+
+	private boolean tagsResult(JSONObject result) {
+		logger.info(result.toString());
+		if (result == null || result.size() == 0) {
+			logger.error("响应失败！");
+			return false;
+		} else {
+			if (result.has("errcode")) {
+				logger.error(
+						"服务器响应了异常：" + result.get("errmsg").toString() + ",错误码为：" + result.get("errcode").toString());
+				return false;
+			} else {
+				return true;
+			}
+		}
+	}
 
 	/**
 	 * 测试获取用户创建的所有标签
@@ -80,7 +81,7 @@ public class TagServiceTests {
 	@SuppressWarnings({ "rawtypes" })
 	public void getTest() {
 		JSONObject result = tagService.getTags();
-		logger.info(">>>>>>>>>>>>>>>>>>>"+result.toString());
+		logger.info(">>>>>>>>>>>>>>>>>>>" + result.toString());
 		if (result == null || result.size() == 0) {
 			logger.error("响应失败！");
 		} else {
@@ -89,9 +90,9 @@ public class TagServiceTests {
 						"服务器响应了异常：" + result.get("errmsg").toString() + ",错误码为：" + result.get("errcode").toString());
 			} else if (result.has("tags")) {
 				JSONArray object = result.getJSONArray("tags");
-				
+
 				List<Object> tags = JsonUtils.jsonToList(object.toString(), Object.class);
-				logger.info(">>>>>>>>>>>>>>>>>>>"+object.toString());	
+				logger.info(">>>>>>>>>>>>>>>>>>>" + object.toString());
 				for (Object tag : tags) {
 					StringBuilder sb = new StringBuilder();
 					Map map = (Map) tag;
@@ -109,7 +110,7 @@ public class TagServiceTests {
 	@Test
 	public void deleteTest() {
 		JSONObject result = tagService.deleteTag(100);
-		//Gson gson = new Gson();
+		// Gson gson = new Gson();
 		logger.info(result.toString());
 	}
 
