@@ -1,15 +1,12 @@
 // 搜索
 function tags_search() {
 	$("#tags-datagrid").datagrid("load", {
-		'title' : $('#tags_search_title').val(),
-		'positionId' : $('#_positionId').val(),
-		'type' : $('#tags_search_type').val()
+		'name' : $('#tags_search_name').val()
 	});
 }
 
 // 将微信服务器的标签同步到本地数据库
 function synchroTags(){
-	alert("同步到本地数据库成功");
 	
 	$.messager.confirm('操作确认', '确定要同步标签吗？', function(r) {
 		if(r){
@@ -28,7 +25,7 @@ function synchroTags(){
 
 // 清空搜索框
 function tags_clear() {
-	$("#searchForm").form('reset');
+	$("#tags_search").form('reset');
 	$('#tags-datagrid').datagrid('load', {});
 }
 

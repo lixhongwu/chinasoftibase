@@ -16,7 +16,7 @@
 			<td width="45%">
 			<span class="wu-toolbar-search">
 				<label >标签名称：</label> 
-				<input id="tags_search_title" name="title" class="easyui-textbox" style="width: 120px" /> 
+				<input id="tags_search_name" name="name" class="easyui-textbox" style="width: 120px" /> 
 				<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="tags_search()">搜索</a> 
 				<a href="#" class="easyui-linkbutton" iconCls="icon-edit-clear" onclick="tags_clear()" >清除</a>
 				</span>

@@ -3,6 +3,7 @@ package com.huateng.weixin.user.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +36,22 @@ public class TagModalServiceImpl implements TagModalService {
 	 */
 	@Override
 	public String findTagsByPage(WxUserTags tags) {
+		//设置分页条件
 		WxUserTagsExample example = new WxUserTagsExample();
-		JSONObject json = new JSONObject();
-		// 分页查询
+		if(StringUtils.isNotEmpty(tags.getName())){
+			example.createCriteria().andNameLike("%"+tags.getName()+"%");
+		}
+		if(StringUtils.isNotEmpty(tags.getOrder())&&tags.getOrder().equals("desc")){
+			example.setOrderByClause("ids desc");
+		}else{
+			example.setOrderByClause("ids asc");
+		}
+		
+		//分页查询
 		PageHelper.startPage(tags.getPage(), tags.getRows());
 		List<WxUserTags> list = mapper.selectByExample(example);
+		
+		JSONObject json = new JSONObject();
 		json.put("rows", list);
 		json.put("total", ((Page<WxUserTags>) list).getTotal());
 		logger.info("findTagsByPage+分页查询后参数>>>>>>>>>>>>>>" + json.toString());
@@ -95,7 +107,7 @@ public class TagModalServiceImpl implements TagModalService {
 		return i;
 	}
 	/**
-	 * 获取所有的订单
+	 * 获取所有的标签
 	 */
 	@Override
 	public List<WxUserTags> findAll() {

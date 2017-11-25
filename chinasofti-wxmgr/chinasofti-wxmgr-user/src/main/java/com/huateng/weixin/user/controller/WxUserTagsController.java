@@ -2,10 +2,8 @@ package com.huateng.weixin.user.controller;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -13,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -90,6 +87,8 @@ public class WxUserTagsController {
 			// 将tag传入tagModal服务,保存到本地数据库中
 			userTags.setName(name);
 			userTags.setIds(ids);
+			userTags.setFansnum(0);
+			userTags.setSynchro(1);
 			userTags.setDescription(map.get("description"));
 			int i = tagsModalService.addTag(userTags);
 			return i == 1 ? Constant.SUCCESS : Constant.ERROR;
@@ -140,16 +139,27 @@ public class WxUserTagsController {
 		String name = map.get("name");
 		Assert.notNull(ids, "updataTag>>>>>>ids不能为空");
 		Assert.notNull(map.get("name"), "updataTag>>>>>>name不能为空");
-		// 先编辑微信服务器端的标签
-		JSONObject object = tagService.editTag(ids, name);
-		// 如果服务端编辑成功
-		if (ResultUtils.Result(object)) {
-			WxUserTags userTags = new WxUserTags();
-			// 编辑本地数据库
-			userTags.setName(name);
-			userTags.setIds(ids);
-			int i = tagsModalService.updataTag(userTags);
+
+		WxUserTags wxUserTags = tagsModalService.findTagById(ids);
+
+		JSONObject object = null;
+		// 如果名字不相同,则先编辑微信服务器端的标签
+		if (!wxUserTags.getName().equals(name)) {
+			object = tagService.editTag(ids, name);
+			// 如果服务端编辑成功
+			if (ResultUtils.Result(object)) {
+				// 编辑本地数据库
+				wxUserTags.setName(name);
+				wxUserTags.setDescription(map.get("description"));
+				int i = tagsModalService.updataTag(wxUserTags);
+				return i == 1 ? Constant.SUCCESS : Constant.ERROR;
+			}
+			//名字相同,则直接编辑本地库.
+		} else {
+			wxUserTags.setDescription(map.get("description"));
+			int i = tagsModalService.updataTag(wxUserTags);
 			return i == 1 ? Constant.SUCCESS : Constant.ERROR;
+
 		}
 		return Constant.ERROR;
 
@@ -162,50 +172,50 @@ public class WxUserTagsController {
 	 */
 	@RequestMapping(value = "/synchrotags", method = RequestMethod.POST)
 	public String synchroTags() {
-		List<SynTag> synList=null;
-		int y =0;
+		List<SynTag> synList = null;
+		int y = 0;
 		// 从服务器获取标签
 		JSONObject tags = tagService.getTags();
 		if (ResultUtils.Result(tags)) {
 			JSONArray jsonArray = tags.getJSONArray("tags");
 			synList = JsonUtils.jsonToList(jsonArray.toString(), SynTag.class);
-			
+
 			List<WxUserTags> modalList = tagsModalService.findAll();
-			Map<Integer,String> modalMap =new HashMap<>();
-			//封装map；
+			Map<Integer, String> modalMap = new HashMap<>();
+			// 封装map；
 			for (WxUserTags wxUserTags : modalList) {
 				Integer ids = wxUserTags.getIds();
 				String description = wxUserTags.getDescription();
 				modalMap.put(ids, description);
 			}
-			
-			//删除本地库所有标签
+
+			// 删除本地库所有标签
 			tagsModalService.deleteAll();
-			
-			
+
 			for (SynTag synTag : synList) {
 				int id = synTag.getId();
 				String name = synTag.getName();
 				int count = synTag.getCount();
-				
-				WxUserTags tag=new WxUserTags();
+
+				WxUserTags tag = new WxUserTags();
 				tag.setIds(id);
 				tag.setName(name);
 				tag.setFansnum(count);
+				tag.setSynchro(1);
 				String desc = modalMap.get(id);
-				if(StringUtils.isNotEmpty(desc)){
+				if (StringUtils.isNotEmpty(desc)) {
 					tag.setDescription(desc);
 				}
 				int i = tagsModalService.addTag(tag);
-				y+=i;
+				y += i;
 			}
 		}
-		if(y==synList.size()){
+		if (y == synList.size()) {
 			return Constant.SUCCESS;
-		}else{
+		} else {
 			return Constant.ERROR;
 		}
-		
+
 	}
 	/**
 	 * 同步标签2
