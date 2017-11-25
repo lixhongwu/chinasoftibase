@@ -2,6 +2,7 @@ package com.huateng.weixin.user.service.impl;
 
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.huateng.weixin.user.service.AccessTokenService;
 import com.huateng.weixin.user.service.UserService;
+import com.huateng.wxmgr.common.entity.WxUserFans;
 import com.huateng.wxmgr.common.entity.WxUserOpenId;
 import com.huateng.wxmgr.common.utils.Constant;
 import com.huateng.wxmgr.common.utils.ResultUtils;
@@ -49,6 +51,7 @@ public class UserServiceImpl implements UserService {
 			int count = result.getInt("count");
 			String next_openid = result.getString("next_openid");
 			JSONArray jsonArray = result.getJSONObject("data").getJSONArray("openid");
+			@SuppressWarnings("unchecked")
 			List<String> list = (List<String>) JSONArray.toCollection(jsonArray, String.class);
 			userOpenId.setCount(count);
 			userOpenId.setTotal(total);
@@ -92,6 +95,26 @@ public class UserServiceImpl implements UserService {
 			getAllUsersOpenId(next_openid);
 		}
 		return usersAllOpenId;
+	}
+
+	/**
+	 * 获取单个用户的用户信息。
+	 */
+	@Override
+	public WxUserFans getUserInfo(String nextOpenId) {
+
+		String access_token = accessTokenService.getAccessToken();
+		Assert.notNull(access_token, "access_token获取异常");
+		Assert.notNull(nextOpenId, "getUserInfo>>>>>>>>>>nextOpenId不能为空" + nextOpenId);
+		String url = String.format(Constant.USER_GET_INFO, access_token, nextOpenId);
+		JSONObject result = restTemplate.getForObject(url, JSONObject.class);
+		if (ResultUtils.Result(result)) {
+			logger.info(result.toString());
+			WxUserFans wxUserFans = (WxUserFans) result.toBean(result, WxUserFans.class);
+			return wxUserFans;
+		}
+
+		return null;
 	}
 
 }

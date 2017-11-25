@@ -1,5 +1,7 @@
 package com.huateng.wxmgr.common.entity;
 
+import java.util.List;
+
 public class WxUserFans {
     private String ids;
 
@@ -36,10 +38,17 @@ public class WxUserFans {
     private String black;
 
     private String remark;
+    
+    //接收返回的数据，封装入tagidList
+    public void setTagid_list(List tagid_list) {
+		this.tagidList = tagid_list.toString();
+	}
 
-    public String getIds() {
+
+	public String getIds() {
         return ids;
     }
+    
 
     public void setIds(String ids) {
         this.ids = ids == null ? null : ids.trim();
