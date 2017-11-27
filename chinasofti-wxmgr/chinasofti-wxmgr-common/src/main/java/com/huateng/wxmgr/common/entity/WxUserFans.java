@@ -2,193 +2,199 @@ package com.huateng.wxmgr.common.entity;
 
 import java.util.List;
 
-public class WxUserFans {
-    private String ids;
+import com.huateng.wxmgr.common.utils.PageBean;
 
-    private String urltoken;
+public class WxUserFans extends PageBean {
+	private String ids;
 
-    private String appid;
+	private String urltoken;
 
-    private String openid;
+	private String appid;
 
-    private String subscribe;
+	private String openid;
 
-    private String subscribeTime;
+	private String subscribe;
 
-    private String nickname;
+	private String subscribeTime;
 
-    private String sex;
+	private String nickname;
 
-    private String country;
+	private String sex;
 
-    private String province;
+	private String country;
 
-    private String city;
+	private String province;
 
-    private String language;
+	private String city;
 
-    private String headimgurl;
+	private String language;
 
-    private String groupid;
+	private String headimgurl;
 
-    private String unionid;
+	private String groupid;
 
-    private String tagidList;
+	private String unionid;
 
-    private String black;
+	private String tagidList;
 
-    private String remark;
-    
-    //接收返回的数据，封装入tagidList
-    public void setTagid_list(List<?> tagidList) {
+	private String black;
+
+	private String remark;
+
+	// 接收服务器返回的数据tagid_list，封装入tagidList
+	public void setTagid_list(List<?> tagidList) {
 		this.tagidList = tagidList.toString();
 	}
 
-
 	public String getIds() {
-        return ids;
-    }
-    
+		return ids;
+	}
 
-    public void setIds(String ids) {
-        this.ids = ids == null ? null : ids.trim();
-    }
+	public void setIds(String ids) {
+		this.ids = ids;
+	}
 
-    public String getUrltoken() {
-        return urltoken;
-    }
+	public String getUrltoken() {
+		return urltoken;
+	}
 
-    public void setUrltoken(String urltoken) {
-        this.urltoken = urltoken == null ? null : urltoken.trim();
-    }
+	public void setUrltoken(String urltoken) {
+		this.urltoken = urltoken == null ? null : urltoken.trim();
+	}
 
-    public String getAppid() {
-        return appid;
-    }
+	public String getAppid() {
+		return appid;
+	}
 
-    public void setAppid(String appid) {
-        this.appid = appid == null ? null : appid.trim();
-    }
+	public void setAppid(String appid) {
+		this.appid = appid == null ? null : appid.trim();
+	}
 
-    public String getOpenid() {
-        return openid;
-    }
+	public String getOpenid() {
+		return openid;
+	}
 
-    public void setOpenid(String openid) {
-        this.openid = openid == null ? null : openid.trim();
-    }
+	// 将openid也作为ids注入.
+	public void setOpenid(String openid) {
+		this.ids = this.openid = openid == null ? null : openid.trim();
+	}
 
-    public String getSubscribe() {
-        return subscribe;
-    }
+	public String getSubscribe() {
+		return subscribe;
+	}
 
-    public void setSubscribe(String subscribe) {
-        this.subscribe = subscribe == null ? null : subscribe.trim();
-    }
+	public void setSubscribe(String subscribe) {
+		this.subscribe = subscribe == null ? null : subscribe.trim();
+	}
 
-    public String getSubscribeTime() {
-        return subscribeTime;
-    }
+	public String getSubscribeTime() {
+		return subscribeTime;
+	}
 
-    public void setSubscribeTime(String subscribeTime) {
-        this.subscribeTime = subscribeTime == null ? null : subscribeTime.trim();
-    }
+	public void setSubscribeTime(String subscribeTime) {
+		this.subscribeTime = subscribeTime == null ? null : subscribeTime.trim();
+	}
 
-    public String getNickname() {
-        return nickname;
-    }
+	// 微信返回字段为Subscribe_Time,封装入subscribeTime,
+	public void setSubscribe_time(String subscribe_time) {
+		this.subscribeTime = subscribe_time == null ? null : subscribe_time.trim();
+	}
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname == null ? null : nickname.trim();
-    }
+	public String getNickname() {
+		return nickname;
+	}
 
-    public String getSex() {
-        return sex;
-    }
+	public void setNickname(String nickname) {
+		this.nickname = nickname == null ? null : nickname.trim();
+	}
 
-    public void setSex(String sex) {
-        this.sex = sex == null ? null : sex.trim();
-    }
+	public String getSex() {
+		return sex;
+	}
 
-    public String getCountry() {
-        return country;
-    }
+	public void setSex(String sex) {
+		this.sex = sex == null ? null : sex.trim();
+	}
 
-    public void setCountry(String country) {
-        this.country = country == null ? null : country.trim();
-    }
+	public String getCountry() {
+		return country;
+	}
 
-    public String getProvince() {
-        return province;
-    }
+	public void setCountry(String country) {
+		this.country = country == null ? null : country.trim();
+	}
 
-    public void setProvince(String province) {
-        this.province = province == null ? null : province.trim();
-    }
+	public String getProvince() {
+		return province;
+	}
 
-    public String getCity() {
-        return city;
-    }
+	public void setProvince(String province) {
+		this.province = province == null ? null : province.trim();
+	}
 
-    public void setCity(String city) {
-        this.city = city == null ? null : city.trim();
-    }
+	public String getCity() {
+		return city;
+	}
 
-    public String getLanguage() {
-        return language;
-    }
+	public void setCity(String city) {
+		this.city = city == null ? null : city.trim();
+	}
 
-    public void setLanguage(String language) {
-        this.language = language == null ? null : language.trim();
-    }
+	public String getLanguage() {
+		return language;
+	}
 
-    public String getHeadimgurl() {
-        return headimgurl;
-    }
+	public void setLanguage(String language) {
+		this.language = language == null ? null : language.trim();
+	}
 
-    public void setHeadimgurl(String headimgurl) {
-        this.headimgurl = headimgurl == null ? null : headimgurl.trim();
-    }
+	public String getHeadimgurl() {
+		return headimgurl;
+	}
 
-    public String getGroupid() {
-        return groupid;
-    }
+	public void setHeadimgurl(String headimgurl) {
+		this.headimgurl = headimgurl == null ? null : headimgurl.trim();
+	}
 
-    public void setGroupid(String groupid) {
-        this.groupid = groupid == null ? null : groupid.trim();
-    }
+	public String getGroupid() {
+		return groupid;
+	}
 
-    public String getUnionid() {
-        return unionid;
-    }
+	public void setGroupid(String groupid) {
+		this.groupid = groupid == null ? null : groupid.trim();
+	}
 
-    public void setUnionid(String unionid) {
-        this.unionid = unionid == null ? null : unionid.trim();
-    }
+	public String getUnionid() {
+		return unionid;
+	}
 
-    public String getTagidList() {
-        return tagidList;
-    }
+	public void setUnionid(String unionid) {
+		this.unionid = unionid == null ? null : unionid.trim();
+	}
 
-    public void setTagidList(String tagidList) {
-        this.tagidList = tagidList == null ? null : tagidList.trim();
-    }
+	public String getTagidList() {
+		return tagidList;
+	}
 
-    public String getBlack() {
-        return black;
-    }
+	public void setTagidList(String tagidList) {
+		this.tagidList = tagidList == null ? null : tagidList.trim();
+	}
 
-    public void setBlack(String black) {
-        this.black = black == null ? null : black.trim();
-    }
+	public String getBlack() {
+		return black;
+	}
 
-    public String getRemark() {
-        return remark;
-    }
+	public void setBlack(String black) {
+		this.black = black == null ? null : black.trim();
+	}
 
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
-    }
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark == null ? null : remark.trim();
+	}
 
 	@Override
 	public String toString() {
@@ -198,5 +204,5 @@ public class WxUserFans {
 				+ ", groupid=" + groupid + ", unionid=" + unionid + ", tagidList=" + tagidList + ", black=" + black
 				+ ", remark=" + remark + "]";
 	}
-    
+
 }

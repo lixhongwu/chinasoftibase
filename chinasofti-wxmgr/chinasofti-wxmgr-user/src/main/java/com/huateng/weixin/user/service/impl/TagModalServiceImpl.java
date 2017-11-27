@@ -124,7 +124,6 @@ public class TagModalServiceImpl implements TagModalService {
 		example.createCriteria().andSynchroEqualTo(1);
 		mapper.deleteByExample(example);
 		
-		
 	}
 	
 

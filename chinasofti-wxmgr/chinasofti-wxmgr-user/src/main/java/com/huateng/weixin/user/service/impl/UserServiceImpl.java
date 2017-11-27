@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
@@ -18,7 +17,6 @@ import com.huateng.weixin.user.util.HttpUtil;
 import com.huateng.wxmgr.common.entity.WxUserFans;
 import com.huateng.wxmgr.common.entity.WxUserOpenId;
 import com.huateng.wxmgr.common.utils.Constant;
-import com.huateng.wxmgr.common.utils.JsonUtils;
 import com.huateng.wxmgr.common.utils.ResultUtils;
 
 import net.sf.json.JSONArray;
@@ -124,7 +122,7 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * 批量获取用户信息,每次最多能获取100个用户信息,如果传入的openidList大于100条，则取前100条.
 	 * 
-	 * @param nextOpenidList
+	 * @param openidList
 	 * @return
 	 */
 	public List<WxUserFans> getUsersInfo(List<String> openidList) {
@@ -138,18 +136,48 @@ public class UserServiceImpl implements UserService {
 			for (int i = 0; i < openidList.size() && i < 100; i++) {
 				JSONObject openid = new JSONObject();
 				openid.accumulate("openid", openidList.get(i));
-				openid.accumulate( "lang","zh_CN");
+				openid.accumulate("lang", "zh_CN");
 				openids.add(openid);
 			}
 			userList.put("user_list", openids);
 			HttpEntity<String> entity = HttpUtil.makeBody(userList.toString());
-			JSONObject result = restTemplate.postForEntity(url, entity,JSONObject.class).getBody();
-			
-			logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>"+result.toString());
-		
+			JSONObject result = restTemplate.postForEntity(url, entity, JSONObject.class).getBody();
+			logger.info("JSONObject result>>>>>>>>>>>>>>>>>>>>>>>>>>>=" + result.toString());
+
+			JSONArray array = result.getJSONArray("user_info_list");
+			@SuppressWarnings("unchecked")
+			List<WxUserFans> list = (List<WxUserFans>) JSONArray.toCollection(array, WxUserFans.class);
+			return list;
 		}
 		return null;
+	}
 
+	/**
+	 * 批量获取所有用户信息.
+	 * 
+	 * @param openidList
+	 * @return
+	 */
+	@Override
+	public List<WxUserFans> getAllUsersInfo(List<String> openidList) {
+
+		if (openidList != null && openidList.size() > 0) {
+			int i = openidList.size();
+			int j = i / 100;
+			List<WxUserFans> allList = new ArrayList<>();
+			for (int x = 0; x < j + 1; x++) {
+				List<WxUserFans> list1 = null;
+				list1 = getUsersInfo(openidList);
+				if (openidList.size() > 100) {
+					openidList = openidList.subList(100, openidList.size());
+				}
+				allList.addAll(list1);
+			}
+			logger.info(">>>>>>>>>>>>>>>" + allList.toString());
+			return allList;
+		}
+
+		return null;
 	}
 
 }

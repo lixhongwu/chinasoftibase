@@ -37,11 +37,17 @@ public interface UserService {
 	 */
 	public WxUserFans getUserInfo(String nextOpenId);
 	/**
-	 * 批量获取用户信息
-	 * @param nextOpenidList
+	 * 批量获取用户信息,一次最多能获取到100个用户信息.
+	 * @param openidList
 	 * @return
 	 */
-	public List<WxUserFans> getUsersInfo(List<String> nextOpenidList);
+	public List<WxUserFans> getUsersInfo(List<String> openidList);
 	
+	/**
+	 * 批量获取所有的用户信息.
+	 * @param openidList
+	 * @return
+	 */
+	public List<WxUserFans> getAllUsersInfo(List<String> openidList);
 
 }

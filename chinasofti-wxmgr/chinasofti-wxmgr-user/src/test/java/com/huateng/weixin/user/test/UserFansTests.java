@@ -54,9 +54,25 @@ public class UserFansTests {
 		openIds.add("ofGuR1Nn6HszF0yehPRMUgAPaXFc");
 		openIds.add("ofGuR1BSon1Ee9WWqCxtRE-BM3d4");
 		openIds.add("ofGuR1DgEw-ZMY8dckfNvOBh7UQU");
-//		openIds.add("ov0ats6YvE_SmEbbo6u54cQIIwSs");
-//		
+		openIds.add("ofGuR1JrCgblDGQEi4TGudLH_x4Y");
 		userService.getUsersInfo(openIds);
+	}
+	
+	@Test
+	public void getAllUsersInfo(){
+//		List<String> list =new ArrayList<>();
+//		for (int i = 0; i < 213; i++) {
+//			list.add(""+i);
+//		}List<String> openIds = new ArrayList<>(4);
+		List<String> openIds = new ArrayList<>(4);
+		openIds.add("ofGuR1Nn6HszF0yehPRMUgAPaXFc");
+		openIds.add("ofGuR1BSon1Ee9WWqCxtRE-BM3d4");
+		openIds.add("ofGuR1DgEw-ZMY8dckfNvOBh7UQU");
+		openIds.add("ofGuR1JrCgblDGQEi4TGudLH_x4Y");
+		
+		userService.getAllUsersInfo(openIds);
 		
 	}
+	
+	
 }
