@@ -1,5 +1,7 @@
 package com.huateng.weixin.user.service;
 
+import java.util.List;
+
 import com.huateng.wxmgr.common.entity.WxUserFans;
 import com.huateng.wxmgr.common.entity.WxUserOpenId;
 
@@ -34,5 +36,12 @@ public interface UserService {
 	 * @return
 	 */
 	public WxUserFans getUserInfo(String nextOpenId);
+	/**
+	 * 批量获取用户信息
+	 * @param nextOpenidList
+	 * @return
+	 */
+	public List<WxUserFans> getUsersInfo(List<String> nextOpenidList);
+	
 
 }

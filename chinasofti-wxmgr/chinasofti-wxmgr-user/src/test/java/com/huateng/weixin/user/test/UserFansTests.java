@@ -1,5 +1,8 @@
 package com.huateng.weixin.user.test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +44,19 @@ public class UserFansTests {
 	public void getUserInfo(){
 		String nextOpenId ="ofGuR1Nn6HszF0yehPRMUgAPaXFc";
 		userService.getUserInfo(nextOpenId);
+		
+	}
+	
+	@Test
+	public void getUsersInfo(){
+		
+		List<String> openIds = new ArrayList<>(4);
+		openIds.add("ofGuR1Nn6HszF0yehPRMUgAPaXFc");
+		openIds.add("ofGuR1BSon1Ee9WWqCxtRE-BM3d4");
+		openIds.add("ofGuR1DgEw-ZMY8dckfNvOBh7UQU");
+//		openIds.add("ov0ats6YvE_SmEbbo6u54cQIIwSs");
+//		
+		userService.getUsersInfo(openIds);
 		
 	}
 }

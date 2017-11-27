@@ -40,8 +40,8 @@ public class WxUserFans {
     private String remark;
     
     //接收返回的数据，封装入tagidList
-    public void setTagid_list(List tagid_list) {
-		this.tagidList = tagid_list.toString();
+    public void setTagid_list(List<?> tagidList) {
+		this.tagidList = tagidList.toString();
 	}
 
 

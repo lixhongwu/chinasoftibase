@@ -1,20 +1,24 @@
 package com.huateng.weixin.user.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 
 import com.huateng.weixin.user.service.AccessTokenService;
 import com.huateng.weixin.user.service.UserService;
+import com.huateng.weixin.user.util.HttpUtil;
 import com.huateng.wxmgr.common.entity.WxUserFans;
 import com.huateng.wxmgr.common.entity.WxUserOpenId;
 import com.huateng.wxmgr.common.utils.Constant;
+import com.huateng.wxmgr.common.utils.JsonUtils;
 import com.huateng.wxmgr.common.utils.ResultUtils;
 
 import net.sf.json.JSONArray;
@@ -104,17 +108,48 @@ public class UserServiceImpl implements UserService {
 	public WxUserFans getUserInfo(String nextOpenId) {
 
 		String access_token = accessTokenService.getAccessToken();
-		Assert.notNull(access_token, "access_token获取异常");
+		Assert.notNull(access_token, "access_token>>>>>>>>>>>>获取异常");
 		Assert.notNull(nextOpenId, "getUserInfo>>>>>>>>>>nextOpenId不能为空" + nextOpenId);
 		String url = String.format(Constant.USER_GET_INFO, access_token, nextOpenId);
 		JSONObject result = restTemplate.getForObject(url, JSONObject.class);
 		if (ResultUtils.Result(result)) {
-			logger.info(result.toString());
+			logger.info("getUserInfo>>>>>>>>>>>>>>>>>>>>>>result=" + result.toString());
+			@SuppressWarnings("static-access")
 			WxUserFans wxUserFans = (WxUserFans) result.toBean(result, WxUserFans.class);
 			return wxUserFans;
 		}
-
 		return null;
+	}
+
+	/**
+	 * 批量获取用户信息,每次最多能获取100个用户信息,如果传入的openidList大于100条，则取前100条.
+	 * 
+	 * @param nextOpenidList
+	 * @return
+	 */
+	public List<WxUserFans> getUsersInfo(List<String> openidList) {
+
+		String access_token = accessTokenService.getAccessToken();
+		Assert.notNull(access_token, "access_token>>>>>>>>>>>>>>>>>获取异常");
+		String url = String.format(Constant.USERS_BATCHGET_INFO, access_token);
+		JSONArray openids = new JSONArray();
+		JSONObject userList = new JSONObject();
+		if (openidList != null && openidList.size() > 0) {
+			for (int i = 0; i < openidList.size() && i < 100; i++) {
+				JSONObject openid = new JSONObject();
+				openid.accumulate("openid", openidList.get(i));
+				openid.accumulate( "lang","zh_CN");
+				openids.add(openid);
+			}
+			userList.put("user_list", openids);
+			HttpEntity<String> entity = HttpUtil.makeBody(userList.toString());
+			JSONObject result = restTemplate.postForEntity(url, entity,JSONObject.class).getBody();
+			
+			logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>"+result.toString());
+		
+		}
+		return null;
+
 	}
 
 }

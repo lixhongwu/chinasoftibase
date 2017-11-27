@@ -117,10 +117,10 @@ public class TagServiceTests {
 	@Test
 	public void batchTagTest() {
 		List<String> openIds = new ArrayList<>(4);
-		openIds.add("ov0ats98_oA98Es1L9Sgdj99A-M8");
-		openIds.add("ov0atsyAOPFdwHBj0y6kAR0Yq6mw");
-		openIds.add("ov0atsxbGXPIhrmmuUYt8iLFbg_4");
-		openIds.add("ov0ats6YvE_SmEbbo6u54cQIIwSs");
+		openIds.add("ofGuR1Nn6HszF0yehPRMUgAPaXFc");
+//		openIds.add("ov0atsyAOPFdwHBj0y6kAR0Yq6mw");
+//		openIds.add("ov0atsxbGXPIhrmmuUYt8iLFbg_4");
+//		openIds.add("ov0ats6YvE_SmEbbo6u54cQIIwSs");
 
 		JSONObject result = tagService.batchTag(openIds, 101);
 		logger.info(result.toString());

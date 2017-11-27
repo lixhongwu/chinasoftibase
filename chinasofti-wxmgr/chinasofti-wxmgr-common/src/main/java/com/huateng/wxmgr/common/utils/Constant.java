@@ -24,10 +24,13 @@ public class Constant {
 	 * 获取用户信息，GET请求方式，需要带有access_token以及用户的openId
 	 */
 	public final static String USER_GET_INFO = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=%s&openid=%s&lang=zh_CN";
-
 	/**
-	 * 设置用户备注名； POST请求方式（请使用https协议）POST数据格式：
-	 * JSON POST数据例子： {"openid":"oDF3iY9ffA-hqb2vVvbr7qxf6A0Q", "remark":"pangzi" }
+	 * 批量获取用户信息，POST请求方式: { "user_list": [ { "openid": "otvxTs4dckWG7imySrJd6jSi0CWE", "lang": "zh_CN" }, { "openid": "otvxTs_JZ6SEiP0imdhpi50fuSZg", "lang": "zh_CN" } ] }
+	 */
+	public final static String USERS_BATCHGET_INFO = "https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token=%s";
+	/**
+	 * 设置用户备注名； POST请求方式（请使用https协议）POST数据格式： JSON POST数据例子：
+	 * {"openid":"oDF3iY9ffA-hqb2vVvbr7qxf6A0Q", "remark":"pangzi" }
 	 */
 	public final static String USER_REMARK_NAME = "https://api.weixin.qq.com/cgi-bin/user/info/updateremark?access_token=%s";
 
