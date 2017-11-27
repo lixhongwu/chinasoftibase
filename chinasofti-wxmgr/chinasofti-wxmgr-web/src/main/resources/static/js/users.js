@@ -1,21 +1,27 @@
 // 搜索
-function Users_search() {
-	$("#Users-datagrid").datagrid("load", {
-		'name' : $('#Users_search_name').val()
+function user_search() {
+	$("#users-datagrid").datagrid("load", {
+		'nickname' : $('#user_search_nickname').val(),
+		'subscribe' : $('#user_search_subscribe').val(),
+		'sex' : $('#user_search_sex').val(),
+		'tagidList' : $('#user_search_tagidList').val(),
+		'subscribeTime' : $('#user_search_subscribeTime').val(),
+		'black' : $('#user_search_black').val()
+		
 	});
 }
 
 // 将微信服务器的标签同步到本地数据库
 function synchroUsers(){
 	
-	$.messager.confirm('操作确认', '确定要同步标签吗？', function(r) {
+	$.messager.confirm('操作确认', '确定要用户到本地数据库吗？', function(r) {
 		if(r){
-			$.post('wxuserUsers/synchroUsers', {}, function(result) {
+			$.post('wxuser/synchrousers', {}, function(result) {
 				if (result == 200) {
-					$.messager.alert('同步消息', '同步成功！', 'info');
+					$.messager.alert('同步用户', '同步成功！', 'info');
 					$('#Users-datagrid').datagrid('reload');
 				} else {
-					$.messager.alert('同步消息', '同步失败！', 'error');
+					$.messager.alert('同步用户', '同步失败！', 'error');
 				}
 			}, 'json');
 			
@@ -23,10 +29,15 @@ function synchroUsers(){
 	});
 }
 
+
+function OperatorFormatter(){
+	
+} 
+
 // 清空搜索框
-function Users_clear() {
-	$("#Users_search").form('reset');
-	$('#Users-datagrid').datagrid('load', {});
+function user_clear() {
+	$("#user_SearchForm").form('reset');
+	$('#users-datagrid').datagrid('load', {});
 }
 
 // 添加
@@ -49,7 +60,7 @@ function editUsers() {
 	}
 }
 // 保存
-function saveUsers() {
+function saveUserRemark() {
 	$('#Users-edit-form').form('submit', {
 		url : url,
 		onSubmit : function() {
@@ -118,6 +129,13 @@ function loadClassName() {
 }
 
 $(function() {
+	
+	$('#selectusertags').combobox({
+	     url:'/advertise/findAdPostionAll',
+	     method:'GET',
+	     valueField:'ids',
+		 textField:'name'
+		});
 
 	// //日期验证
 	// $.extend($.fn.validatebox.defaults.rules, {

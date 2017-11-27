@@ -26,6 +26,6 @@ public interface UserModalService {
 	 * @param userFan
 	 * @return
 	 */
-	public List<WxUserFans> findByPage(WxUserFans userFan);
+	public String findTagsByPage(WxUserFans userFans);
 
 }
