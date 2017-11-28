@@ -54,22 +54,23 @@
         			 title:'微信用户列表',
        				 iconCls:'icon-man',
        				 striped:true,
-       				 singleSelect:true,
        				 collapsible:true,
        				 pageSize:10,
        				 pageList: [10, 20, 30]">
 		<thead>
 			<tr>
+				<th data-options="field:'ck',checkbox:true"></th>
 				<th field="nickname"  width="13%" align="center" data-options="sortable:true">昵称</th>
-				<th field="subscribe"  width="6%" align="center" data-options="sortable:true">关注否</th>
-				<th field="sex"   width="5%" align="center" data-options="sortable:true" >性别</th>
+				
+				<th field="sex"   width="5%" align="center" data-options="formatter:sexFormatter,sortable:true" >性别</th>
 				<th field="country"   width="7%" align="center" >国家</th>
 				<th field="province"   width="10%" align="center"  data-options="sortable:true" >省份</th>
 				<th field="city"   width="10%" align="center"  data-options="sortable:true" >城市</th>
 				<th field="subscribeTime"width="10%" align="center" data-options="sortable:true">关注时间</th>
-				<th field="tagidList"  width="10%" align="center"  data-options="sortable:true" >所属标签</th>
-				<th field="black"  width="5%" align="center"  data-options="sortable:true" >黑名单</th>
-				<th field="remark"  width="10%" align="center"  data-options="sortable:true" >备注名</th>
+				<th field="tagidList"  width="10%" align="center"  data-options="sortable:true" >标签</th>
+				<th field="subscribe"  width="6%" align="center" data-options="formatter:taggingFormatter,sortable:true">关注否</th>
+				<th field="black"  width="6%" align="center"  data-options="sortable:true" >黑名单</th>
+				<th field="remark"  width="8%" align="center"  data-options="sortable:true" >备注名</th>
 				<th field="_operator"  width="10%" align="center" data-options="formatter:OperatorFormatter">操作</th> 
 			</tr>
 		</thead>

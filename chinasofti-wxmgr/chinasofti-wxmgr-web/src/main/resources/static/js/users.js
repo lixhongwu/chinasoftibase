@@ -28,7 +28,24 @@ function synchroUsers(){
 		}
 	});
 }
-
+//判断性别显示
+function sexFormatter(value) {
+	if (value == 1) {
+		return '<span style="color:#292929">男</span>';
+	} else if (value == 2) {
+		return '<span style="color:#CD5C5C">女</span>';
+	} else {
+		return '<span style="color:gray">未知</span>';
+	}
+}
+//判断关注显示
+function taggingFormatter(value) {
+	if (value == 1) {
+		return '<span style="color:#292929">关注</span>';
+	} else if (value == 0) {
+		return '<span style="color:gray">未关注</span>';
+	}
+}
 
 function OperatorFormatter(){
 	
@@ -40,15 +57,15 @@ function user_clear() {
 	$('#users-datagrid').datagrid('load', {});
 }
 
-// 添加
-function addUsers() {
+// 给用户添加标签
+function  taggingUsers() {
 	$('#Users-edit-dialog').dialog('open').dialog('setTitle', '添加标签');
 	$('#Users-edit-form').form('clear');
 	// 清空预览图片
 	url = '/wxuserUsers/addUsers';
 }
-// 编辑
-function editUsers() {
+// 给用户取消标签
+function untaggingUsers() {
 	$('#Users-edit-form').form('clear');
 	var row = $('#Users-datagrid').datagrid('getSelected');
 	if (row <= 0) {
