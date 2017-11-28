@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huateng.weixin.message.mapper.ReplyMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.huateng.weixin.message.model.ReplyMessage" >
+    <id column="message_id" property="message_id" jdbcType="INTEGER" />
+    <result column="rule_name" property="rule_name" jdbcType="VARCHAR" />
+    <result column="key_words" property="key_words" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
+    <result column="oper_man" property="oper_Man" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="getMessageList"  resultMap="BaseResultMap">
+  		select *from reply_message
+  </select>
+  <insert id="insert" parameterType="com.huateng.weixin.message.mapper.ReplyMessageMapper" >
+  	insert reply_message (rule_name,key_words,content) values(
+  		#{rule_name},#{key_words},#{content}
+  	)
+  </insert>
+  
+   <delete id="delete" parameterType="java.lang.String" >
+    delete from reply_message
+    where message_id = #{message_id,jdbcType=INTEGER}
+  </delete>
+  
+   <update id="edit" parameterType="com.huateng.weixin.message.mapper.ReplyMessageMapper" >
+    update reply_message
+    <set >
+      
+      <if test="rule_name != null" >
+        rule_name = #{rule_name,jdbcType=VARCHAR},
+      </if>
+      <if test="key_words != null" >
+        key_words = #{key_words,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+     
+    </set>
+   
+    where message_id = #{message_id,jdbcType=INTEGER}
+  </update>
+</mapper>

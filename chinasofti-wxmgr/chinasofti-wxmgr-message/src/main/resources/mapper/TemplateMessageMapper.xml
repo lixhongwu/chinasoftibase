@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huateng.weixin.message.mapper.TemplateMessageMapper">
+	<resultMap id="BaseResultMap"
+		type="com.huateng.weixin.message.model.TemplateMessageModel">
+		<id column="template_id" property="template_id" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="primary_industry" property="primary_industry"
+			jdbcType="VARCHAR" />
+		<result column="deputy_industry" property="deputy_industry"
+			jdbcType="VARCHAR" />
+		<result column="example" property="example" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<select id="getTemplateMessageList" resultMap="BaseResultMap">
+		select *from template_message
+	</select>
+
+	<select id="getTemplateMessageContent"
+		resultType="com.huateng.weixin.message.model.TemplateMessageContent"
+		parameterType="java.lang.String">
+		select *from template_detail where templateID=#{template_id}
+	</select>
+
+	<insert id="addTemplateFromWx" parameterType="java.util.List">
+		insert into
+		template_message(template_id,title,primary_industry,deputy_industry,example,content)
+		values
+		<foreach collection="list" item="reddemCode" index="index"
+			separator=","> (
+			#{reddemCode.template_id}, #{reddemCode.title}, 
+			#{reddemCode.primary_industry}, #{reddemCode.deputy_industry},
+			#{reddemCode.example},#{reddemCode.content}
+			)
+		</foreach>
+	</insert>
+
+	<insert id="addContentFromWx"
+		parameterType="java.util.List">
+		insert into template_detail(templateID,templateContent) values
+		<foreach collection="list" item="reddemCode" index="index"
+			separator=","> (
+		#{reddemCode.template_id},#{reddemCode.content}
+		)
+		</foreach>
+	</insert>
+	
+	
+	<insert id="addTemplateFromSend" parameterType="com.huateng.weixin.message.model.TemplateSendModel">
+		insert into template_send(template_id,touser,url,send_body) values(
+		
+		#{template_id},#{touser},#{url},#{send_body}
+		
+		)
+		
+	</insert>
+	<select id="userList" resultType="com.huateng.weixin.message.model.UserModel">
+		select *from user_info
+	</select>
+	<delete id="deleteTemplate" >
+		delete from template_message
+	</delete>
+	
+	<delete id="deleteContent">
+		delete from template_detail
+	</delete>
+	
+	
+</mapper>
