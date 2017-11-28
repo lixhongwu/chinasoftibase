@@ -37,7 +37,7 @@
 								iframe="0"><span>客服账号</span></a></li>
 							<li iconCls="icon-chart-organisation"><a
 								href="javascript:void(0)" data-link="kefu/messager"
-								iframe="0"><span>消息发送</span></li>
+								iframe="0"></a><span>消息发送</span></li>
 						</ul>
 					</li>
                     <li iconCls="icon-chart-organisation" state="closed"><span>用户管理</span>

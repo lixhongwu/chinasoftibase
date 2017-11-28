@@ -18,6 +18,9 @@ import com.huateng.weixin.user.service.UserService;
 import com.huateng.wxmgr.common.entity.WxUserFans;
 import com.huateng.wxmgr.common.entity.WxUserOpenId;
 import com.huateng.wxmgr.common.utils.Constant;
+import com.huateng.wxmgr.common.utils.ResultUtils;
+
+import net.sf.json.JSONObject;
 
 @RestController
 @RequestMapping("/wxuser")
@@ -63,7 +66,6 @@ public class WxUserController {
 		String nextOpenId = null;
 		WxUserOpenId allUsersOpenId = userService.getAllUsersOpenId(nextOpenId);
 		List<WxUserFans> allUsersInfo = userService.getAllUsersInfo(allUsersOpenId.getOpenidList());
-
 		int j = userModalService.insertUsers(allUsersInfo);
 		if (j == allUsersInfo.size()) {
 			logger.info(">>>>>>>>>>>>>>>>>一共添加了" + j + "个用户到本地库");
@@ -76,7 +78,25 @@ public class WxUserController {
 			logger.info(">>>>>>>>>>>>>>>>>添加失败");
 			return Constant.ERROR;
 		}
-
+	}
+	/**
+	 * 给用户添加备注
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping(value="/addremark", method=RequestMethod.POST)
+	public String addRemark(@RequestParam Map<String,String> map){
+		//提交微信服务器
+		JSONObject result = userService.addRemark(map);
+		if(ResultUtils.Result(result)){
+			//更新本地库
+			int i = userModalService.addRemark(map);
+			if(i==1){
+				return Constant.SUCCESS;
+			}
+		}
+		return Constant.ERROR;
+		
 	}
 
 }

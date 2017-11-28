@@ -1,7 +1,9 @@
 package com.huateng.weixin.user.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import com.huateng.weixin.user.mapper.WxUserFansMapper;
 import com.huateng.weixin.user.service.UserModalService;
 import com.huateng.wxmgr.common.entity.WxUserFans;
 import com.huateng.wxmgr.common.entity.WxUserFansExample;
+import com.huateng.wxmgr.common.utils.Constant;
 
 import net.sf.json.JSONObject;
 
@@ -31,8 +34,15 @@ public class UserModalServiceImpl implements UserModalService {
 	public int insertUsers(List<WxUserFans> userList) {
 		int j = 0;
 		for (WxUserFans wxUserFans : userList) {
-			int i = mapper.insert(wxUserFans);
-			j += i;
+			WxUserFans fans = mapper.selectByPrimaryKey(wxUserFans.getIds());
+			if (fans == null) {
+				int i = mapper.insert(wxUserFans);
+				j += i;
+			} else {
+				int i = mapper.updateByPrimaryKey(wxUserFans);
+				j += i;
+			}
+
 		}
 		return j;
 	}
@@ -62,6 +72,27 @@ public class UserModalServiceImpl implements UserModalService {
 		json.put("total", ((Page<WxUserFans>) list).getTotal());
 		logger.info("findTagsByPage+分页查询后参数>>>>>>>>>>>>>>" + json.toString());
 		return json.toString();
+	}
+
+	/**
+	 * 添加用户标签
+	 */
+	@Override
+	public int addRemark(Map<String, String> map) {
+
+		if (map != null && map.size() > 0) {
+			String ids = map.get("ids");
+			String remark = map.get("remark");
+			if (StringUtils.isNotEmpty(ids)) {
+				WxUserFans wxUserFans = mapper.selectByPrimaryKey(ids);
+				if (wxUserFans != null) {
+					wxUserFans.setRemark(remark);
+					int i = mapper.updateByPrimaryKey(wxUserFans);
+					return i;
+				}
+			}
+		}
+		return 0;
 	}
 
 }

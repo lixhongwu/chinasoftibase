@@ -47,6 +47,11 @@ public class UserController {
 		return userFeign.synchroUsers();
 		
 	}
+	@RequestMapping(value="/addremark", method=RequestMethod.POST)
+	public String addRemark(@RequestParam Map<String,String> map){
+		return userFeign.addRemark(map);
+		
+	}
 	
 	
 

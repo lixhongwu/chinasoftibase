@@ -1,6 +1,7 @@
 package com.huateng.weixin.user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.huateng.weixin.user.service.impl.UserServiceImpl;
 import com.huateng.wxmgr.common.entity.WxUserFans;
@@ -27,5 +28,11 @@ public interface UserModalService {
 	 * @return
 	 */
 	public String findTagsByPage(WxUserFans userFans);
+	/**
+	 * 添加用户标签
+	 * @param map
+	 * @return 
+	 */
+	public int addRemark(Map<String, String> map);
 
 }

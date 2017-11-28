@@ -1,9 +1,12 @@
 package com.huateng.weixin.user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.huateng.wxmgr.common.entity.WxUserFans;
 import com.huateng.wxmgr.common.entity.WxUserOpenId;
+
+import net.sf.json.JSONObject;
 
 /**
  * 用来与微信服务器交互的接口
@@ -49,5 +52,12 @@ public interface UserService {
 	 * @return
 	 */
 	public List<WxUserFans> getAllUsersInfo(List<String> openidList);
+	
+	/**
+	 * 给用户添加备注
+	 * @param map
+	 * @return
+	 */
+	public JSONObject addRemark(Map<String,String> map);
 
 }

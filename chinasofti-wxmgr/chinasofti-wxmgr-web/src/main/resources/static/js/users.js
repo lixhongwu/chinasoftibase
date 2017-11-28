@@ -11,6 +11,12 @@ function user_search() {
 	});
 }
 
+//清空搜索框
+function user_clear() {
+	$("#user_SearchForm").form('reset');
+	$('#users-datagrid').datagrid('load', {});
+}
+
 // 将微信服务器的标签同步到本地数据库
 function synchroUsers(){
 	
@@ -19,12 +25,11 @@ function synchroUsers(){
 			$.post('wxuser/synchrousers', {}, function(result) {
 				if (result == 200) {
 					$.messager.alert('同步用户', '同步成功！', 'info');
-					$('#Users-datagrid').datagrid('reload');
+					$('#users-datagrid').datagrid('reload');
 				} else {
 					$.messager.alert('同步用户', '同步失败！', 'error');
 				}
 			}, 'json');
-			
 		}
 	});
 }
@@ -47,15 +52,47 @@ function taggingFormatter(value) {
 	}
 }
 
-function OperatorFormatter(){
-	
+//添加备注按钮
+function remarkFormatter(value, row, index){
+	return '<button id="remarkButton" style="color:gray" onclick="remarkUser(\''
+	+row.remark+ '\',\'' + row.ids+ '\',\'' + row.nickname+ '\')">添加/编辑备注</button>';
 } 
 
-// 清空搜索框
-function user_clear() {
-	$("#user_SearchForm").form('reset');
-	$('#users-datagrid').datagrid('load', {});
+//打开编辑添加框。
+function remarkUser(remark,ids,nickname){
+	$('#Users-edit-form').form('load',{
+		ids:ids,
+		nickname:nickname,
+		remark:remark
+	});
+	$('#Users-edit-dialog').dialog('open').dialog('setTitle', '添加备注');
+	url='/wxuser/addremark';
 }
+
+//添加备注
+function saveUserRemark() {
+	$('#Users-edit-form').form('submit', {
+		url : url,
+		onSubmit : function() {
+			return $(this).form('validate');
+		},
+		success : function(result) {
+			if (result != 200) {
+				$.messager.alert('添加备注', '添加失败！', 'error');
+			} else {
+				$('#Users-edit-dialog').dialog('close'); // close the dialog
+				$('#users-datagrid').datagrid('reload'); // reload the user data
+				$.messager.alert('添加消息', '添加成功！', 'info');
+			}
+		}
+	});
+}
+
+
+
+
+
+
 
 // 给用户添加标签
 function  taggingUsers() {
@@ -76,25 +113,7 @@ function untaggingUsers() {
 		url = '/wxuserUsers/updateUsers';
 	}
 }
-// 保存
-function saveUserRemark() {
-	$('#Users-edit-form').form('submit', {
-		url : url,
-		onSubmit : function() {
-			return $(this).form('validate');
-		},
-		success : function(result) {
-			if (result != 200) {
-				$.messager.alert('添加消息', '添加失败！', 'error');
-			} else {
-				$('#Users-edit-dialog').dialog('close'); // close the dialog
-				$('#Users-datagrid').datagrid('reload'); // reload the user data
-				$.messager.alert('添加消息', '添加成功！', 'info');
 
-			}
-		}
-	});
-}
 // 删除
 function deleteUsers() {
 	var row = $('#Users-datagrid').datagrid('getSelected');

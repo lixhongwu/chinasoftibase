@@ -40,7 +40,7 @@ public class WxUserFans extends PageBean {
 	private String black;
 
 	private String remark;
-
+	
 	// 接收服务器返回的数据tagid_list，封装入tagidList
 	public void setTagid_list(List<?> tagidList) {
 		this.tagidList = tagidList.toString();

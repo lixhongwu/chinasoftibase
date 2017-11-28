@@ -1,8 +1,12 @@
 package com.huateng.weixin.user.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,6 +118,9 @@ public class UserServiceImpl implements UserService {
 			logger.info("getUserInfo>>>>>>>>>>>>>>>>>>>>>>result=" + result.toString());
 			@SuppressWarnings("static-access")
 			WxUserFans wxUserFans = (WxUserFans) result.toBean(result, WxUserFans.class);
+			Long subscribeTime = Long.parseLong(wxUserFans.getSubscribeTime());
+			String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date(subscribeTime * 1000));
+			logger.info("date>>>>>>>>>>>>>>>>>>>" + date);
 			return wxUserFans;
 		}
 		return null;
@@ -143,10 +150,14 @@ public class UserServiceImpl implements UserService {
 			HttpEntity<String> entity = HttpUtil.makeBody(userList.toString());
 			JSONObject result = restTemplate.postForEntity(url, entity, JSONObject.class).getBody();
 			logger.info("JSONObject result>>>>>>>>>>>>>>>>>>>>>>>>>>>=" + result.toString());
-
 			JSONArray array = result.getJSONArray("user_info_list");
 			@SuppressWarnings("unchecked")
 			List<WxUserFans> list = (List<WxUserFans>) JSONArray.toCollection(array, WxUserFans.class);
+			for (WxUserFans wxUserFans : list) {
+				Long subscribeTime = Long.parseLong(wxUserFans.getSubscribeTime());
+				String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date(subscribeTime * 1000));
+				wxUserFans.setSubscribeTime(date);
+			}
 			return list;
 		}
 		return null;
@@ -176,7 +187,33 @@ public class UserServiceImpl implements UserService {
 			logger.info(">>>>>>>>>>>>>>>" + allList.toString());
 			return allList;
 		}
+		return null;
+	}
 
+	/**
+	 * 给用户添加备注
+	 */
+	@Override
+	public JSONObject addRemark(Map<String, String> map) {
+
+		if (map != null && map.size() > 0) {
+			String ids = map.get("ids");
+			String remark = map.get("remark");
+			if (StringUtils.isNotEmpty(ids)) {
+				String access_token = accessTokenService.getAccessToken();
+				if (StringUtils.isNotEmpty(access_token)) {
+					String url = String.format(Constant.USER_REMARK_NAME, access_token);
+					// 封装请求的json
+					JSONObject object = new JSONObject();
+					object.accumulate("openid", ids);
+					object.accumulate("remark", remark);
+					//发送请求
+					HttpEntity<String> entity = HttpUtil.toJsonBody(object);
+					JSONObject result = restTemplate.postForEntity(url, entity, JSONObject.class).getBody();
+					return result;
+				}
+			}
+		}
 		return null;
 	}
 

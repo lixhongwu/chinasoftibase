@@ -25,6 +25,14 @@ public interface UserFeign {
 	@RequestMapping(value="/wxuser/synchrousers",method=RequestMethod.POST)
 	public String synchroUsers();
 	
+	/**
+	 * 添加用户备注
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping(value="/wxuser/addremark",method=RequestMethod.POST)
+	public String addRemark(@RequestParam Map<String, String> map);
+	
 //	/**
 //	 * 添加标签
 //	 * @param map

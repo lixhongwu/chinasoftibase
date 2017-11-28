@@ -71,27 +71,27 @@
 				<th field="subscribe"  width="6%" align="center" data-options="formatter:taggingFormatter,sortable:true">关注否</th>
 				<th field="black"  width="6%" align="center"  data-options="sortable:true" >黑名单</th>
 				<th field="remark"  width="8%" align="center"  data-options="sortable:true" >备注名</th>
-				<th field="_operator"  width="10%" align="center" data-options="formatter:OperatorFormatter">操作</th> 
+				<th field="remarkstates"  width="10%" align="center" data-options="formatter:remarkFormatter">操作</th> 
 			</tr>
 		</thead>
 	</table>
 	<!-- 编辑框 -->
 	<div id="Users-edit-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save',inline:true" style="width: 400px;height: 200px;padding:10px" buttons="#Users-edit-dialog-button">
 		<form id="Users-edit-form" method="post"  >
-			 <input name="ids" type="hidden"> 
-			<table align="center"  >
+			 <input id="user_ids" name="ids" type="hidden"> 
+			<table align="center" >
 				<tr >
 					<th  nowrap="nowrap" >昵称:</th>
 					<td >
-						<input style="width: 180px" type="text" disabled="disabled" name="nickname" class="easyui-textbox" />
+						<input id="user_nickname" style="width: 180px" type="text" disabled="disabled" name="nickname" class="easyui-textbox" />
 						<span style="color:gray"><font size="1">不可编辑</font></span>					
 					</td>
 				</tr>
 				<tr>
 					<th nowrap="nowrap" >备注名:</th>
 					<td >
-						<input style="width: 180px" type="text" required="required"  name="remark" class="easyui-textbox" />
-						<span style="color:gray"><font size="1">1~8个字符</font></span>
+						<input id="user_remark" style="width: 180px" type="text" name="remark" class="easyui-textbox" />
+						<span style="color:gray"><font size="1">0~30个字符</font></span>
 					</td>
 				</tr>
 			</table>

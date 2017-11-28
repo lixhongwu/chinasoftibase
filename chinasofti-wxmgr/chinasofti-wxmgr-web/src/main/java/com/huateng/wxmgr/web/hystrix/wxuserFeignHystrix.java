@@ -17,6 +17,11 @@ public class wxuserFeignHystrix  implements UserFeign{
 		return Constant.CALLBACK;
 	}
 
+	@Override
+	public String addRemark(Map<String, String> map) {
+		return Constant.CALLBACK;
+	}
+
 //	@Override
 //	public String addTags(Map<String, String> map) {
 //		// TODO Auto-generated method stub
