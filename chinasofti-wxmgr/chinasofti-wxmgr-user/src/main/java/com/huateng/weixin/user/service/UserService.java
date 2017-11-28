@@ -32,32 +32,60 @@ public interface UserService {
 	 * @return
 	 */
 	public WxUserOpenId getUsersOpenId(String nextOpenId);
-	
+
 	/**
 	 * 根据用户openid获取用户信息
+	 * 
 	 * @param nextOpenId
 	 * @return
 	 */
 	public WxUserFans getUserInfo(String nextOpenId);
+
 	/**
 	 * 批量获取用户信息,一次最多能获取到100个用户信息.
+	 * 
 	 * @param openidList
 	 * @return
 	 */
 	public List<WxUserFans> getUsersInfo(List<String> openidList);
-	
+
 	/**
 	 * 批量获取所有的用户信息.
+	 * 
 	 * @param openidList
 	 * @return
 	 */
 	public List<WxUserFans> getAllUsersInfo(List<String> openidList);
-	
+
+	/**
+	 * 获取黑名单列表，一次最多能获取到10000个黑名单用户。
+	 * 
+	 * @param nextOpenId
+	 * @return
+	 */
+	public List<String> getBlackUsers(String nextOpenId);
+
+	/**
+	 * 获取所有的黑名单列表。
+	 * 
+	 * @param nextOpenId
+	 * @return
+	 */
+	public List<String> getAllBlackUsers(String nextOpenId);
+
 	/**
 	 * 给用户添加备注
+	 * 
 	 * @param map
 	 * @return
 	 */
-	public JSONObject addRemark(Map<String,String> map);
+	public JSONObject addRemark(Map<String, String> map);
+	
+	/**
+	 * 拉黑用户
+	 * @param openidList
+	 * @return
+	 */
+	public JSONObject setBlackUsers(List<String> openidList);
 
 }

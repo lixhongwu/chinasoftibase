@@ -5,9 +5,9 @@
 	<div id="Users-toolbar" >
 		<div class="wu-toolbar-button">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="taggingUsers()" plain="true">标记标签</a> 
-				<a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="untaggingUsers()" plain="true">取消标签</a>
-				<a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="addBlackUsers()" plain="true">添加黑名单</a>
-				<!-- <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="showUsers()" plain="true">查看用户</a> -->
+				<a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="untaggingUsers()" plain="true">取消标签</a>
+				<a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="addBlackUsers()" plain="true">添加黑名单</a>
+				 <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="unblackUsers()" plain="true">取消黑名单</a> 
 				<a href="#" class="easyui-linkbutton" iconCls="icon-refresh" onclick="synchroUsers()" plain="true">同步用户到本地</a>
 		</div>
 		<form id="user_SearchForm">
