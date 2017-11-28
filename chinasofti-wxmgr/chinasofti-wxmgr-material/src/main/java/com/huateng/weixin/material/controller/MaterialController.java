@@ -34,7 +34,7 @@ public class MaterialController {
 	@RequestMapping("/uploadTempMaterial")
 	public JSONObject uploadTempMaterial(String fileDir){
 		try {
-			String accessToken="pZGAUdWwplY8lMzeokjDwNFSXqQakAMis0_nD_m7Xc8_aURQNasbwLD1EGa2du88D0Xv7CDG3rqTnzUTcNlUOSfw2U6LGtFXdx3f5T0JfAwTXTbAEADHD";
+			String accessToken= accessTokenService.getAccessToken();
 			String type = "image";
 			JSONObject jsonObject = materialService.uploadTempMaterial(accessToken, type, fileDir);
 			logger.info(jsonObject.toString());
@@ -49,7 +49,7 @@ public class MaterialController {
 	@RequestMapping("/uploadPermanentImg") 
 	public String uploadPermanentImg(String fileDir){
 		try {
-			String accessToken="";
+			String accessToken= accessTokenService.getAccessToken();
 			String uploadPermanentImg = materialService.uploadPermanentImg(accessToken, fileDir);
 			logger.info(uploadPermanentImg);
 			return uploadPermanentImg;
@@ -63,7 +63,7 @@ public class MaterialController {
 	@RequestMapping("/uploadPermanentMaterial")
 	public JSONObject uploadPermanentMaterial(String fileDir){
 		try {
-			String accessToken="pZGAUdWwplY8lMzeokjDwNFSXqQakAMis0_nD_m7Xc8_aURQNasbwLD1EGa2du88D0Xv7CDG3rqTnzUTcNlUOSfw2U6LGtFXdx3f5T0JfAwTXTbAEADHD";
+			String accessToken= accessTokenService.getAccessToken();
 			String type = "image";
 			JSONObject uploadPermanentMaterial = materialService.uploadPermanentMaterial(accessToken, type, fileDir);
 			logger.info(uploadPermanentMaterial.toString());
@@ -78,7 +78,7 @@ public class MaterialController {
 	@RequestMapping("/listPermanentMaterial")
 	public JSONObject listPermanentMaterial(){
 		try {
-			String accessToken="pZGAUdWwplY8lMzeokjDwNFSXqQakAMis0_nD_m7Xc8_aURQNasbwLD1EGa2du88D0Xv7CDG3rqTnzUTcNlUOSfw2U6LGtFXdx3f5T0JfAwTXTbAEADHD";
+			String accessToken= accessTokenService.getAccessToken();
 			String type = "image";
 			String offset = "0";
 			String count = "20";
@@ -131,7 +131,7 @@ public class MaterialController {
 	@RequestMapping("/deletePermanentMaterial")
 	public JSONObject deletePermanentMaterial(String mediaId){
 		try {
-			String accessToken = "pZGAUdWwplY8lMzeokjDwNFSXqQakAMis0_nD_m7Xc8_aURQNasbwLD1EGa2du88D0Xv7CDG3rqTnzUTcNlUOSfw2U6LGtFXdx3f5T0JfAwTXTbAEADHD";
+			String accessToken = accessTokenService.getAccessToken();
 			JSONObject deletePermanentMaterial = materialService.deletePermanentMaterial(accessToken, mediaId);
 			logger.info(deletePermanentMaterial.toString());
 			return deletePermanentMaterial;

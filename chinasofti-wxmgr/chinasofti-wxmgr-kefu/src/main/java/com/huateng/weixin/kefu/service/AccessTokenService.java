@@ -1,4 +1,4 @@
-package com.huateng.weixin.material.service;
+package com.huateng.weixin.kefu.service;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -17,9 +17,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import com.huateng.weixin.kefu.util.Constraints;
+
 import net.sf.json.JSONObject;
-
-
 
 /**
  * 
@@ -140,7 +140,7 @@ public class AccessTokenService {
 	private boolean doGetToken() {
 		try {
 			// 首先向微信服务器发送请求
-			JSONObject response = restTemplate.getForEntity(String.format(GET_ACCESS_TOKEN, appId, appSecret), JSONObject.class).getBody();
+			JSONObject response = restTemplate.getForEntity(String.format(Constraints.urls.GET_ACCESS_TOKEN, appId, appSecret), JSONObject.class).getBody();
 			if(response == null || response.size() == 0) {
 				logger.error("获取access_token的响应为空!");
 				return false;
