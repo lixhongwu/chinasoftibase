@@ -29,7 +29,16 @@
         	<div title="快捷菜单" data-options="iconCls:'icon-application-cascade'" style="padding:5px;">  	
     			<ul class="easyui-tree wu-side-tree">
                 	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="wxmenu/menugroup" iframe="0">自定义菜单</a></li>
-                    <li iconCls="icon-users"><a href="javascript:void(0)" data-icon="icon-users" data-link="temp/layout-3.html" iframe="0">消息管理</a></li>
+                    <li iconCls="icon-users"><span>消息管理</span>
+						<ul>
+							<li iconCls="icon-chart-organisation"><a
+								href="javascript:void(0)" data-link="message/tmpMessage"
+								iframe="0"><span>关键字管理</span></a></li>
+							<li iconCls="icon-chart-organisation"><a
+								href="javascript:void(0)" data-link="message/templateMessage"
+								iframe="0"><span>模板消息管理</span></a></li>
+						</ul>
+					</li>
                     <li iconCls="icon-users" state="closed"><span>客服管理</span>
 						<ul>
 							<li iconCls="icon-chart-organisation"><a
@@ -37,7 +46,7 @@
 								iframe="0"><span>客服账号</span></a></li>
 							<li iconCls="icon-chart-organisation"><a
 								href="javascript:void(0)" data-link="kefu/messager"
-								iframe="0"></a><span>消息发送</span></li>
+								iframe="0"><span>消息发送</span></a></li>
 						</ul>
 					</li>
                     <li iconCls="icon-chart-organisation" state="closed"><span>用户管理</span>
