@@ -13,7 +13,7 @@
   <select id="getMessageList"  resultMap="BaseResultMap">
   		select *from reply_message
   </select>
-  <insert id="insert" parameterType="com.huateng.weixin.message.mapper.ReplyMessageMapper" >
+  <insert id="insert" parameterType="com.huateng.weixin.message.model.ReplyMessage" >
   	insert reply_message (rule_name,key_words,content) values(
   		#{rule_name},#{key_words},#{content}
   	)
@@ -24,7 +24,7 @@
     where message_id = #{message_id,jdbcType=INTEGER}
   </delete>
   
-   <update id="edit" parameterType="com.huateng.weixin.message.mapper.ReplyMessageMapper" >
+   <update id="edit" parameterType="com.huateng.weixin.message.model.ReplyMessage" >
     update reply_message
     <set >
       
