@@ -3,7 +3,14 @@ package com.huateng.weixin.user.service;
 import java.util.List;
 
 import net.sf.json.JSONObject;
-
+/**
+ * 内管跟微信服务器交互的接口
+ * @ClassName: TagService.java
+ * @Description: TODO
+ * @author 金林
+ * @Date: 2017年11月22日 上午10:29:28
+ * @parma <T>
+ */
 public interface TagService {
 	/**
 	 * 创建一个标签。<br />

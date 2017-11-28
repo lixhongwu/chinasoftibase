@@ -12,19 +12,19 @@ import com.google.gson.Gson;
 @SpringBootApplication
 @EnableDiscoveryClient
 @MapperScan("com.huateng.weixin.user.mapper")
-public class UserApplication {
+public class WxUserApplication {
 
 	@Bean
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
-	
-	@Bean
-	public Gson gson() {
-		return new Gson();
-	}
-	
+
+	// @Bean
+	// public Gson gson() {
+	// return new Gson();
+	// }
+
 	public static void main(String[] args) {
-		SpringApplication.run(UserApplication.class, args);
+		SpringApplication.run(WxUserApplication.class, args);
 	}
 }
