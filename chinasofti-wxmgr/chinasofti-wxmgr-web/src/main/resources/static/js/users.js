@@ -7,7 +7,6 @@ function user_search() {
 		'tagidList' : $('#user_search_tagidList').val(),
 		'subscribeTime' : $('#user_search_subscribeTime').val(),
 		'black' : $('#user_search_black').val()
-		
 	});
 }
 
@@ -52,6 +51,13 @@ function taggingFormatter(value) {
 	}
 }
 
+//判断黑名单显示
+function blackFormatter(value) {
+	if (value == 1) {
+		return '<span style="color:black">已拉黑</span>';
+	}
+}
+
 //添加备注按钮
 function remarkFormatter(value, row, index){
 	return '<button id="remarkButton" style="color:gray" onclick="remarkUser(\''
@@ -88,19 +94,73 @@ function saveUserRemark() {
 	});
 }
 
-
-
-
-
-
-
-// 给用户添加标签
-function  taggingUsers() {
-	$('#Users-edit-dialog').dialog('open').dialog('setTitle', '添加标签');
-	$('#Users-edit-form').form('clear');
-	// 清空预览图片
-	url = '/wxuserUsers/addUsers';
+// 将用户添加到黑名单
+function addblackusers() {
+	var url = "/wxuser/addblackusers";
+	var name = "拉入黑名单";
+	var row = $('#users-datagrid').datagrid('getChecked');
+	var ids = getCheckedRows(row, 20);
+	if (ids != null) {
+		alert(ids);
+		doUsersPost(url, ids, name);
+	}
 }
+
+//取消用户的黑名单
+function unblackusers() {
+	var url = "/wxuser/unblackusers";
+	var name = "取消黑名单";
+	var row = $('#users-datagrid').datagrid('getChecked');
+	var ids = getCheckedRows(row, 20);
+	if (ids != null) {
+		doUsersPost(url, ids, name);
+	}
+}
+
+//判断选择的行，并拼接所选择行的ids,row行的数据,num:每次做多能操作的行数,如返回null则选择有误.
+function getCheckedRows(row, num) {
+	if (row != '' && row != null) {
+		if (row.length > num) {
+			$.messager.alert('提示', '一次最多能操作' + num + '位用户', 'info');
+			return null;
+		}
+		var ids = '';
+		for (var i = 0; i < row.length - 1; i++) {
+			ids +=row[i].ids + ",";
+		}
+		ids += row[row.length - 1].ids ;
+		return ids;
+	} else {
+		$.messager.alert('提示', '请选择要操作的行', 'info');
+		return null;
+	}
+}
+
+//post提交请求,url:路径,ids:拼接的ids字符串,name:该操作的名称
+function doUsersPost(url, ids, name) {
+	$.messager.confirm('操作确认', '确定要将以上用户' + name + '吗？', function(r) {
+		if (r) {
+			$.post(url, {
+				'ids' : ids
+			}, function(result) {
+				if (result == 200) {
+					$.messager.alert('提示消息', name + '成功！', 'info');
+					$('#users-datagrid').datagrid('reload');
+				} else if (result.errmgs) {
+					$.messager.alert('提示消息', result.errmgs, 'error');
+				} else {
+					$.messager.alert('提示消息', name + '失败！', 'error');
+				}
+			}, 'json');
+		}
+	});
+}
+
+
+
+
+
+
 // 给用户取消标签
 function untaggingUsers() {
 	$('#Users-edit-form').form('clear');

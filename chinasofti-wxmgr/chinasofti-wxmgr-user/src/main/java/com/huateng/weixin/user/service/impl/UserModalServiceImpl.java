@@ -12,11 +12,13 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.huateng.weixin.user.mapper.WxUserFansMapper;
+import com.huateng.weixin.user.service.TagModalService;
 import com.huateng.weixin.user.service.UserModalService;
+import com.huateng.weixin.user.service.UserService;
 import com.huateng.wxmgr.common.entity.WxUserFans;
 import com.huateng.wxmgr.common.entity.WxUserFansExample;
-import com.huateng.wxmgr.common.utils.Constant;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Service
@@ -25,24 +27,50 @@ public class UserModalServiceImpl implements UserModalService {
 	private final static Logger logger = LoggerFactory.getLogger(UserModalService.class);
 
 	@Autowired
+	private UserService userService;
+
+	@Autowired
 	private WxUserFansMapper mapper;
+
+	@Autowired
+	private TagModalService tagModalService;
 
 	/**
 	 * 批量添加客户
 	 */
 	@Override
 	public int insertUsers(List<WxUserFans> userList) {
+		// 获取黑名单列表
+		List<String> allBlackUsers = userService.getAllBlackUsers(null);
 		int j = 0;
 		for (WxUserFans wxUserFans : userList) {
+			// 判断是否有标签，如有，则设置标签名
+			String tagidList = wxUserFans.getTagidList();
+			JSONArray tagsArray = JSONArray.fromObject(tagidList);
+			if (tagsArray.size() > 0) {
+				String tags = "";
+				for (Object obj : tagsArray) {
+					int tagsid = Integer.parseInt(obj.toString());
+					String tagName = tagModalService.findTagById(tagsid).getName();
+					tags += tagName + ",";
+				}
+				logger.info(">>>>>>>>>>>>>>>>>>>>>>>tagsArray.get(0)" + tags);
+				wxUserFans.setTagidList(tags.substring(0, tags.length() - 1));
+			} else {
+				wxUserFans.setTagidList("");
+			}
+			//判断是否是黑名单。
+			if (allBlackUsers.contains(wxUserFans.getIds())) {
+				wxUserFans.setBlack("1");
+			}
 			WxUserFans fans = mapper.selectByPrimaryKey(wxUserFans.getIds());
 			if (fans == null) {
 				int i = mapper.insert(wxUserFans);
 				j += i;
 			} else {
-				int i = mapper.updateByPrimaryKey(wxUserFans);
+				int i = mapper.updateByPrimaryKeySelective(wxUserFans);
 				j += i;
 			}
-
 		}
 		return j;
 	}
@@ -93,6 +121,45 @@ public class UserModalServiceImpl implements UserModalService {
 			}
 		}
 		return 0;
+	}
+
+	/**
+	 * 设置黑名单
+	 */
+	@Override
+	public int addBlackUsers(List<String> idsList) {
+		int j = 0;
+		if (idsList != null && idsList.size() > 0) {
+			for (String string : idsList) {
+				WxUserFans userFans = new WxUserFans();
+				userFans.setIds(string);
+				userFans.setBlack("1");
+				int i = mapper.updateByPrimaryKeySelective(userFans);
+				j += i;
+			}
+		}
+		return j;
+	}
+
+	/**
+	 * 取消黑名单
+	 * 
+	 * @param idsList
+	 * @return
+	 */
+	@Override
+	public int unBlackUsers(List<String> idsList) {
+		int j = 0;
+		if (idsList != null && idsList.size() > 0) {
+			for (String string : idsList) {
+				WxUserFans userFans = new WxUserFans();
+				userFans.setIds(string);
+				userFans.setBlack("0");
+				int i = mapper.updateByPrimaryKeySelective(userFans);
+				j += i;
+			}
+		}
+		return j;
 	}
 
 }

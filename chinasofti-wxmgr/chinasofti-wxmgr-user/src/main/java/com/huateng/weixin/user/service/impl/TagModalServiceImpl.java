@@ -74,8 +74,8 @@ public class TagModalServiceImpl implements TagModalService {
 	 */
 	@Override
 	public WxUserTags findTagById(int id) {
-		WxUserTags userTags = mapper.selectByPrimaryKey(100);
-		logger.info("deleteTagById>>>>>>>>>>>>>>" + userTags.toString());
+		WxUserTags userTags = mapper.selectByPrimaryKey(id);
+		logger.info("findTagById>>>>>>>>>>>>>>" + userTags.toString());
 		return userTags;
 	}
 	/**

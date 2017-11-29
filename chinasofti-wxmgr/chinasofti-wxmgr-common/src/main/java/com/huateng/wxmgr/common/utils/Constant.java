@@ -43,5 +43,8 @@ public class Constant {
 	 */
 	public final static String USER_SET_BLACK="https://api.weixin.qq.com/cgi-bin/tags/members/batchblacklist?access_token=%s";
 	
-	
+	/**
+	 * 解除黑名单，一次最多能解除20个用户，http请求方式：POST（请使用https协议）
+	 */
+	public final static String USER_UN_BLACK="https://api.weixin.qq.com/cgi-bin/tags/members/batchunblacklist?access_token=%s";
 }

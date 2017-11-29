@@ -6,8 +6,8 @@
 		<div class="wu-toolbar-button">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="taggingUsers()" plain="true">标记标签</a> 
 				<a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="untaggingUsers()" plain="true">取消标签</a>
-				<a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="addBlackUsers()" plain="true">添加黑名单</a>
-				 <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="unblackUsers()" plain="true">取消黑名单</a> 
+				<a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="addblackusers()" plain="true">添加黑名单</a>
+				 <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="unblackusers()" plain="true">取消黑名单</a> 
 				<a href="#" class="easyui-linkbutton" iconCls="icon-refresh" onclick="synchroUsers()" plain="true">同步用户到本地</a>
 		</div>
 		<form id="user_SearchForm">
@@ -69,7 +69,7 @@
 				<th field="subscribeTime"width="10%" align="center" data-options="sortable:true">关注时间</th>
 				<th field="tagidList"  width="10%" align="center"  data-options="sortable:true" >标签</th>
 				<th field="subscribe"  width="6%" align="center" data-options="formatter:taggingFormatter,sortable:true">关注否</th>
-				<th field="black"  width="6%" align="center"  data-options="sortable:true" >黑名单</th>
+				<th field="black"  width="6%" align="center"  data-options="formatter:blackFormatter,sortable:true" >黑名单</th>
 				<th field="remark"  width="8%" align="center"  data-options="sortable:true" >备注名</th>
 				<th field="remarkstates"  width="10%" align="center" data-options="formatter:remarkFormatter">操作</th> 
 			</tr>

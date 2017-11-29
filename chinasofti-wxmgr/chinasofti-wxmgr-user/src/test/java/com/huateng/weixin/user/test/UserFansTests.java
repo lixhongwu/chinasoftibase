@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.huateng.weixin.user.controller.WxUserController;
 import com.huateng.weixin.user.service.impl.UserServiceImpl;
 import com.huateng.wxmgr.common.entity.WxUserOpenId;
+import com.huateng.wxmgr.common.utils.ResultUtils;
 
 import net.sf.json.JSONObject;
 
@@ -24,6 +26,36 @@ public class UserFansTests {
 
 	@Autowired
 	private UserServiceImpl userService;
+	
+	@Autowired
+	private WxUserController userController;
+	
+	/**
+	 * 测试设置黑名单.
+	 */
+	@Test
+	public void addBlackUser(){
+		
+		String ids="ofGuR1Nn6HszF0yehPRMUgAPaXFc,ofGuR1DgEw-ZMY8dckfNvOBh7UQU";
+		userController.addBlackUsers(ids);
+		
+		
+	}
+	
+	/**
+	 * 测试取消黑名单.
+	 */
+	@Test
+	public void unBlackUser(){
+		
+		String ids="ofGuR1Nn6HszF0yehPRMUgAPaXFc,ofGuR1DgEw-ZMY8dckfNvOBh7UQU";
+		userController.addBlackUsers(ids);
+		
+		
+	}
+	
+	
+	
 
 	/**
 	 * 测试第一次获取openid ,输入最后一个nextopenid,返回空数组。
@@ -113,6 +145,23 @@ public class UserFansTests {
 		
 		List<String> list = userService.getAllBlackUsers(null);
 		logger.info(list.toString());
+		
+	}
+	
+	/**
+	 * 解除黑名单
+	 */
+	@Test
+	public void unBlackUsers(){
+		
+		List<String> openIds = new ArrayList<>(4);
+		openIds.add("ofGuR1HpeLgXqE7UiMDbsuiQj74k");
+		openIds.add("ofGuR1Nn6HszF0yehPRMUgAPaXFc");
+		openIds.add("ofGuR1BSon1Ee9WWqCxtRE-BM3d4");
+		JSONObject result = userService.unBlackUsers(openIds);
+		logger.info(result.toString());
+		ResultUtils.Result(result);
+		
 		
 	}
 	

@@ -29,7 +29,7 @@
         	<div title="快捷菜单" data-options="iconCls:'icon-application-cascade'" style="padding:5px;">  	
     			<ul class="easyui-tree wu-side-tree">
                 	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="wxmenu/menugroup" iframe="0">自定义菜单</a></li>
-                    <li iconCls="icon-users"><span>消息管理</span>
+                    <li iconCls="icon-users" state="closed"><span>消息管理</span>
 						<ul>
 							<li iconCls="icon-chart-organisation"><a
 								href="javascript:void(0)" data-link="message/tmpMessage"

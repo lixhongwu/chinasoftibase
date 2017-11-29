@@ -46,13 +46,13 @@ public class UserServiceImpl implements UserService {
 	public WxUserOpenId getUsersOpenId(String nextOpenId) {
 		String access_token = accessTokenService.getAccessToken();
 		Assert.notNull(access_token, "access_token获取异常");
-		logger.info(access_token);
+		//logger.info(access_token);
 		if (nextOpenId == null) {
 			nextOpenId = "";
 		}
 		String url = String.format(Constant.USERS_GET, access_token, nextOpenId);
 		JSONObject result = restTemplate.getForObject(url, JSONObject.class);
-		logger.info("getUsers>>result>>>>>>>>>>>>>>>>>" + result);
+		//logger.info("getUsers>>result>>>>>>>>>>>>>>>>>" + result);
 		if (ResultUtils.Result(result)) {
 			WxUserOpenId userOpenId = new WxUserOpenId();
 			int total = result.getInt("total");
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
 			nextOpenId = "";
 		}
 		WxUserOpenId usersOpenId = getUsersOpenId(nextOpenId);
-		if(usersOpenId==null){
+		if (usersOpenId == null) {
 			return null;
 		}
 		int count = usersOpenId.getCount();
@@ -122,12 +122,12 @@ public class UserServiceImpl implements UserService {
 		String url = String.format(Constant.USER_GET_INFO, access_token, nextOpenId);
 		JSONObject result = restTemplate.getForObject(url, JSONObject.class);
 		if (ResultUtils.Result(result)) {
-			logger.info("getUserInfo>>>>>>>>>>>>>>>>>>>>>>result=" + result.toString());
+			//logger.info("getUserInfo>>>>>>>>>>>>>>>>>>>>>>result=" + result.toString());
 			@SuppressWarnings("static-access")
 			WxUserFans wxUserFans = (WxUserFans) result.toBean(result, WxUserFans.class);
 			Long subscribeTime = Long.parseLong(wxUserFans.getSubscribeTime());
 			String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date(subscribeTime * 1000));
-			logger.info("date>>>>>>>>>>>>>>>>>>>" + date);
+			//logger.info("date>>>>>>>>>>>>>>>>>>>" + date);
 			return wxUserFans;
 		}
 		return null;
@@ -156,7 +156,7 @@ public class UserServiceImpl implements UserService {
 			userList.put("user_list", openids);
 			HttpEntity<String> entity = HttpUtil.makeBody(userList.toString());
 			JSONObject result = restTemplate.postForEntity(url, entity, JSONObject.class).getBody();
-			logger.info("JSONObject result>>>>>>>>>>>>>>>>>>>>>>>>>>>=" + result.toString());
+			//logger.info("JSONObject result>>>>>>>>>>>>>>>>>>>>>>>>>>>=" + result.toString());
 			JSONArray array = result.getJSONArray("user_info_list");
 			@SuppressWarnings("unchecked")
 			List<WxUserFans> list = (List<WxUserFans>) JSONArray.toCollection(array, WxUserFans.class);
@@ -191,7 +191,7 @@ public class UserServiceImpl implements UserService {
 				}
 				allList.addAll(list1);
 			}
-			logger.info(">>>>>>>>>>>>>>>" + allList.toString());
+			//logger.info(">>>>>>>>>>>>>>>" + allList.toString());
 			return allList;
 		}
 		return null;
@@ -236,7 +236,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * 获取所有的黑名单openid列表。
+	 * 获取所有的黑名单openid列表。当传入的nextOpenId为null时，获取所有的黑名单列表。
 	 * 
 	 * @param nextOpenId
 	 * @return
@@ -266,6 +266,54 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
+	 * 拉黑用户，一次最多能拉黑20个用户
+	 */
+	@Override
+	public JSONObject setBlackUsers(List<String> openidList) {
+
+		if (openidList != null && openidList.size() > 0) {
+			if (openidList.size() > 20) {
+				openidList.subList(0, 20);
+			}
+			String access_token = accessTokenService.getAccessToken();
+			if (StringUtils.isNotEmpty(access_token)) {
+				String url = String.format(Constant.USER_SET_BLACK, access_token);
+				JSONObject object = new JSONObject();
+				JSONArray array = new JSONArray();
+				array.addAll(openidList);
+				object.put("openid_list", array);
+				HttpEntity<String> entity = HttpUtil.toJsonBody(object);
+				return restTemplate.postForEntity(url, entity, JSONObject.class).getBody();
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * 解除黑名单，一次最多能解除20个用户
+	 */
+	@Override
+	public JSONObject unBlackUsers(List<String> openidList) {
+
+		if (openidList != null && openidList.size() > 0) {
+			if (openidList.size() > 20) {
+				openidList.subList(0, 20);
+			}
+			String access_token = accessTokenService.getAccessToken();
+			if (StringUtils.isNotEmpty(access_token)) {
+				String url = String.format(Constant.USER_UN_BLACK, access_token);
+				JSONObject object = new JSONObject();
+				JSONArray array = new JSONArray();
+				array.addAll(openidList);
+				object.put("openid_list", array);
+				HttpEntity<String> entity = HttpUtil.toJsonBody(object);
+				return restTemplate.postForEntity(url, entity, JSONObject.class).getBody();
+			}
+		}
+		return null;
+	}
+
+	/**
 	 * 给用户添加备注
 	 */
 	@Override
@@ -287,27 +335,6 @@ public class UserServiceImpl implements UserService {
 					JSONObject result = restTemplate.postForEntity(url, entity, JSONObject.class).getBody();
 					return result;
 				}
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * 拉黑用户接口
-	 */
-	@Override
-	public JSONObject setBlackUsers(List<String> openidList) {
-
-		if (openidList != null && openidList.size() > 0) {
-			String access_token = accessTokenService.getAccessToken();
-			if (StringUtils.isNotEmpty(access_token)) {
-				String url = String.format(Constant.USER_SET_BLACK, access_token);
-				JSONObject object = new JSONObject();
-				JSONArray array = new JSONArray();
-				array.addAll(openidList);
-				object.put("openid_list", array);
-				HttpEntity<String> entity = HttpUtil.toJsonBody(object);
-				return restTemplate.postForEntity(url, entity, JSONObject.class).getBody();
 			}
 		}
 		return null;

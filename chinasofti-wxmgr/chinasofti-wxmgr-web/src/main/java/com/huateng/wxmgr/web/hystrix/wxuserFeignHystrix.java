@@ -22,23 +22,24 @@ public class wxuserFeignHystrix  implements UserFeign{
 		return Constant.CALLBACK;
 	}
 
-//	@Override
-//	public String addTags(Map<String, String> map) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public String deleteTagByID(String ids) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public String updataTag(Map<String, String> map) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	@Override
+	public String taggingUsers(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return Constant.CALLBACK;
+	}
+
+	@Override
+	public String addBlackUsers(String ids) {
+		// TODO Auto-generated method stub
+		return Constant.CALLBACK;
+	}
+
+	@Override
+	public String unBlackUsers(String ids) {
+		// TODO Auto-generated method stub
+		return Constant.CALLBACK;
+	}
+
 
 	
 

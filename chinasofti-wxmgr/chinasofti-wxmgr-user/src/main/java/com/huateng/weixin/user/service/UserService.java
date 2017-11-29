@@ -87,5 +87,11 @@ public interface UserService {
 	 * @return
 	 */
 	public JSONObject setBlackUsers(List<String> openidList);
+	/**
+	 * 取消拉黑用户.
+	 * @param idsList
+	 * @return
+	 */
+	public JSONObject unBlackUsers(List<String> idsList);
 
 }
