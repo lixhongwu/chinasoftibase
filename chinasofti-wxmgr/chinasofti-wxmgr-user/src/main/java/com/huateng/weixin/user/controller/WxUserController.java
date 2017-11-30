@@ -1,6 +1,7 @@
 package com.huateng.weixin.user.controller;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +45,7 @@ public class WxUserController {
 	public String findUsersByPage(@RequestParam Map<String, String> map) {
 
 		logger.info("findTagsByPage+传入参数>>>>>>>>>>>>>>+" + map.toString());
-		WxUserFans userFans =new WxUserFans();
+		WxUserFans userFans = new WxUserFans();
 		try {
 			BeanUtils.populate(userFans, map);
 		} catch (IllegalAccessException | InvocationTargetException e) {
@@ -70,33 +71,78 @@ public class WxUserController {
 		if (j == allUsersInfo.size()) {
 			logger.info(">>>>>>>>>>>>>>>>>一共添加了" + j + "个用户到本地库");
 			return Constant.SUCCESS;
-
 		} else if (j > 0 && j < allUsersInfo.size()) {
 			logger.info(">>>>>>>>>>>>>>>>>一共添加了" + j + "个用户到本地库，还有" + (allUsersInfo.size() - j) + "个用户添加失败");
-			return Constant.SUCCESS;
+			return Constant.ERROR;
 		} else {
 			logger.info(">>>>>>>>>>>>>>>>>添加失败");
 			return Constant.ERROR;
 		}
 	}
+
 	/**
 	 * 给用户添加备注
+	 * 
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping(value="/addremark", method=RequestMethod.POST)
-	public String addRemark(@RequestParam Map<String,String> map){
-		//提交微信服务器
+	@RequestMapping(value = "/addremark", method = RequestMethod.POST)
+	public String addRemark(@RequestParam Map<String, String> map) {
+		// 提交微信服务器
 		JSONObject result = userService.addRemark(map);
-		if(ResultUtils.Result(result)){
-			//更新本地库
+		if (ResultUtils.Result(result)) {
+			// 更新本地库
 			int i = userModalService.addRemark(map);
-			if(i==1){
+			if (i == 1) {
 				return Constant.SUCCESS;
 			}
 		}
 		return Constant.ERROR;
-		
+	}
+
+	/**
+	 * 拉黑用户
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping(value = "/addblackusers", method = RequestMethod.POST)
+	public String addBlackUsers(@RequestParam String ids) {
+		List<String> idsList = Arrays.asList(ids.split(","));
+		JSONObject result = userService.setBlackUsers(idsList);
+		if (ResultUtils.Result(result)) {
+			int i = userModalService.addBlackUsers(idsList);
+			if (i == idsList.size()) {
+				return Constant.SUCCESS;
+			} else {
+				return Constant.ERROR;
+			}
+		} else {
+			return Constant.ERROR;
+		}
+	}
+
+	/**
+	 * 用户取消拉黑
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping(value = "/unblackusers", method = RequestMethod.POST)
+	public String unBlackUsers(@RequestParam String ids) {
+		List<String> idsList = Arrays.asList(ids.split(","));
+		JSONObject result = userService.unBlackUsers(idsList);
+		if (ResultUtils.Result(result)) {
+			int i = userModalService.unBlackUsers(idsList);
+			if (i == idsList.size()) {
+				return Constant.SUCCESS;
+			} else {
+				return Constant.ERROR;
+			}
+		} else {
+			return Constant.ERROR;
+		}
+
 	}
 
 }

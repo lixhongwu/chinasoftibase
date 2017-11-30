@@ -5,9 +5,9 @@
 	<div id="Users-toolbar" >
 		<div class="wu-toolbar-button">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="taggingUsers()" plain="true">标记标签</a> 
-				<a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="untaggingUsers()" plain="true">取消标签</a>
-				<a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="addBlackUsers()" plain="true">添加黑名单</a>
-				<!-- <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="showUsers()" plain="true">查看用户</a> -->
+				<a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="untaggingUsers()" plain="true">取消标签</a>
+				<a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="addblackusers()" plain="true">添加黑名单</a>
+				 <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="unblackusers()" plain="true">取消黑名单</a> 
 				<a href="#" class="easyui-linkbutton" iconCls="icon-refresh" onclick="synchroUsers()" plain="true">同步用户到本地</a>
 		</div>
 		<form id="user_SearchForm">
@@ -25,7 +25,7 @@
 					<option value="">选择</option>
 					<option value="1">男</option>
 					<option value="2">女</option>
-					<option value="3">未知</option>
+					<option value="0">未知</option>
 				</select> 
 				<label>用户标签：</label> 
 				<input id="user_search_tagidList" name="tagidList" class="easyui-combobox" style="width: 80px">
@@ -46,11 +46,12 @@
 	<!-- 数据显示datagrid -->
 	<table id="users-datagrid" class="easyui-datagrid" toolbar="#Users-toolbar"
 		data-options="url:'/wxuser/findusersbypage',
-						checkbox:true,
-    				 	 fitColumns:false,
+					 checkbox:true,
+					 fit:true,
+    				 fitColumns:false,
        				 pagination:true,
-       				 sortName:'ids',
-       				 sortOrder:'asc',
+       				 sortName:'subscribeTime',
+       				 sortOrder:'desc',
         			 title:'微信用户列表',
        				 iconCls:'icon-man',
        				 striped:true,
@@ -61,15 +62,14 @@
 			<tr>
 				<th data-options="field:'ck',checkbox:true"></th>
 				<th field="nickname"  width="13%" align="center" data-options="sortable:true">昵称</th>
-				
 				<th field="sex"   width="5%" align="center" data-options="formatter:sexFormatter,sortable:true" >性别</th>
 				<th field="country"   width="7%" align="center" >国家</th>
 				<th field="province"   width="10%" align="center"  data-options="sortable:true" >省份</th>
 				<th field="city"   width="10%" align="center"  data-options="sortable:true" >城市</th>
 				<th field="subscribeTime"width="10%" align="center" data-options="sortable:true">关注时间</th>
-				<th field="tagidList"  width="10%" align="center"  data-options="sortable:true" >标签</th>
+				<th field="tagidList"  width="10%" align="center" >标签</th>
 				<th field="subscribe"  width="6%" align="center" data-options="formatter:taggingFormatter,sortable:true">关注否</th>
-				<th field="black"  width="6%" align="center"  data-options="sortable:true" >黑名单</th>
+				<th field="black"  width="6%" align="center"  data-options="formatter:blackFormatter,sortable:true" >黑名单</th>
 				<th field="remark"  width="8%" align="center"  data-options="sortable:true" >备注名</th>
 				<th field="remarkstates"  width="10%" align="center" data-options="formatter:remarkFormatter">操作</th> 
 			</tr>
@@ -90,8 +90,8 @@
 				<tr>
 					<th nowrap="nowrap" >备注名:</th>
 					<td >
-						<input id="user_remark" style="width: 180px" type="text" name="remark" class="easyui-textbox" />
-						<span style="color:gray"><font size="1">0~30个字符</font></span>
+						<input id="user_remark"  style="width: 180px" type="text" name="remark" class="easyui-validatebox" data-options="validType:'length[0,25]'"/>
+						<span style="color:gray"><font size="1">0~25个字符</font></span>
 					</td>
 				</tr>
 			</table>

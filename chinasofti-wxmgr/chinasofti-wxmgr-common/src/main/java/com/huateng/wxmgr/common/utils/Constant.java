@@ -25,13 +25,26 @@ public class Constant {
 	 */
 	public final static String USER_GET_INFO = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=%s&openid=%s&lang=zh_CN";
 	/**
-	 * 批量获取用户信息，POST请求方式: { "user_list": [ { "openid": "otvxTs4dckWG7imySrJd6jSi0CWE", "lang": "zh_CN" }, { "openid": "otvxTs_JZ6SEiP0imdhpi50fuSZg", "lang": "zh_CN" } ] }
+	 * 批量获取用户信息，POST请求方式:
 	 */
 	public final static String USERS_BATCHGET_INFO = "https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token=%s";
 	/**
-	 * 设置用户备注名； POST请求方式（请使用https协议）POST数据格式： JSON POST数据例子：
-	 * {"openid":"oDF3iY9ffA-hqb2vVvbr7qxf6A0Q", "remark":"pangzi" }
+	 * 设置用户备注名； POST请求方式（请使用https协议）
 	 */
 	public final static String USER_REMARK_NAME = "https://api.weixin.qq.com/cgi-bin/user/info/updateremark?access_token=%s";
 
+	/**
+	 * 获取黑名单用户列表  http请求方式：POST（请使用https协议）
+	 */
+	public final static String USER_GET_BLACK = "https://api.weixin.qq.com/cgi-bin/tags/members/getblacklist?access_token=%s";
+
+	/**
+	 * 拉黑用户，一次最多能拉黑20个用户。http请求方式：POST（请使用https协议）
+	 */
+	public final static String USER_SET_BLACK="https://api.weixin.qq.com/cgi-bin/tags/members/batchblacklist?access_token=%s";
+	
+	/**
+	 * 解除黑名单，一次最多能解除20个用户，http请求方式：POST（请使用https协议）
+	 */
+	public final static String USER_UN_BLACK="https://api.weixin.qq.com/cgi-bin/tags/members/batchunblacklist?access_token=%s";
 }

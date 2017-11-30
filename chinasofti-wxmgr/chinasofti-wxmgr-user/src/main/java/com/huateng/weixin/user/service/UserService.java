@@ -32,7 +32,7 @@ public interface UserService {
 	 * @return
 	 */
 	public WxUserOpenId getUsersOpenId(String nextOpenId);
-	
+
 	/**
 	 * 根据用户openid获取用户信息
 	 * 
@@ -48,7 +48,7 @@ public interface UserService {
 	 * @return
 	 */
 	public List<WxUserFans> getUsersInfo(List<String> openidList);
-	
+
 	/**
 	 * 批量获取所有的用户信息.
 	 * 

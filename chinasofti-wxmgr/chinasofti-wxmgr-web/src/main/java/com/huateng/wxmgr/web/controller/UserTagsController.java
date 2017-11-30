@@ -76,7 +76,6 @@ public class UserTagsController {
 	@RequestMapping(value="/deletetagbyid",method=RequestMethod.POST)
 	public String deleteTagByID(@RequestParam String ids){
 		
-		
 		logger.info("deleteTagByID>>>>>>>>>>>>>>>>ids="+ids);
 		return userTagsFeign.deleteTagByID(ids);
 		

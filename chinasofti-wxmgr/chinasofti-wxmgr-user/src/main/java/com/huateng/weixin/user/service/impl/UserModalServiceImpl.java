@@ -134,7 +134,7 @@ public class UserModalServiceImpl implements UserModalService {
 	}
 
 	/**
-	 * 添加用户标签
+	 * 添加用户备注
 	 */
 	@Override
 	public int addRemark(Map<String, String> map) {
