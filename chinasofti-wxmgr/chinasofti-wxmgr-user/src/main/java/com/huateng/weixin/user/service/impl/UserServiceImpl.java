@@ -127,6 +127,7 @@ public class UserServiceImpl implements UserService {
 			WxUserFans wxUserFans = (WxUserFans) result.toBean(result, WxUserFans.class);
 			Long subscribeTime = Long.parseLong(wxUserFans.getSubscribeTime());
 			String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date(subscribeTime * 1000));
+			wxUserFans.setSubscribeTime(date);
 			//logger.info("date>>>>>>>>>>>>>>>>>>>" + date);
 			return wxUserFans;
 		}
@@ -156,7 +157,7 @@ public class UserServiceImpl implements UserService {
 			userList.put("user_list", openids);
 			HttpEntity<String> entity = HttpUtil.makeBody(userList.toString());
 			JSONObject result = restTemplate.postForEntity(url, entity, JSONObject.class).getBody();
-			//logger.info("JSONObject result>>>>>>>>>>>>>>>>>>>>>>>>>>>=" + result.toString());
+			logger.info("JSONObject result>>>>>>>>>>>>>>>>>>>>>>>>>>>=" + result.toString());
 			JSONArray array = result.getJSONArray("user_info_list");
 			@SuppressWarnings("unchecked")
 			List<WxUserFans> list = (List<WxUserFans>) JSONArray.toCollection(array, WxUserFans.class);

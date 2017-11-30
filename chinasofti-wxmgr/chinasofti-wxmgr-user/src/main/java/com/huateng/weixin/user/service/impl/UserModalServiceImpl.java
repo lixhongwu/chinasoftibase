@@ -17,6 +17,7 @@ import com.huateng.weixin.user.service.UserModalService;
 import com.huateng.weixin.user.service.UserService;
 import com.huateng.wxmgr.common.entity.WxUserFans;
 import com.huateng.wxmgr.common.entity.WxUserFansExample;
+import com.huateng.wxmgr.common.entity.WxUserFansExample.Criteria;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -59,15 +60,18 @@ public class UserModalServiceImpl implements UserModalService {
 			} else {
 				wxUserFans.setTagidList("");
 			}
-			//判断是否是黑名单。
+			// 判断是否是黑名单。
+			wxUserFans.setBlack("0");
 			if (allBlackUsers.contains(wxUserFans.getIds())) {
 				wxUserFans.setBlack("1");
 			}
 			WxUserFans fans = mapper.selectByPrimaryKey(wxUserFans.getIds());
 			if (fans == null) {
+				// 新增值
 				int i = mapper.insert(wxUserFans);
 				j += i;
 			} else {
+				// null值不改变,只改变非null值.
 				int i = mapper.updateByPrimaryKeySelective(wxUserFans);
 				j += i;
 			}
@@ -80,16 +84,43 @@ public class UserModalServiceImpl implements UserModalService {
 	 */
 	@Override
 	public String findTagsByPage(WxUserFans userFans) {
+		String nickname = userFans.getNickname();
+		String sort = userFans.getSort();
+		String order = userFans.getOrder();
+		String subscribe = userFans.getSubscribe();// 关注,
+		String subscribeTime = userFans.getSubscribeTime();
+		String black = userFans.getBlack();
+		String tagidList = userFans.getTagidList();
+		String sex = userFans.getSex();
+
 		// 设置分页条件
 		WxUserFansExample example = new WxUserFansExample();
-		// if(StringUtils.isNotEmpty(tags.getName())){
-		// example.createCriteria().andNameLike("%"+tags.getName()+"%");
-		// }
-		// if(StringUtils.isNotEmpty(tags.getOrder())&&tags.getOrder().equals("desc")){
-		// example.setOrderByClause("ids desc");
-		// }else{
-		// example.setOrderByClause("ids asc");
-		// }
+		Criteria criteria = example.createCriteria();
+		if (StringUtils.isNotEmpty(nickname)) {
+			criteria.andNicknameLike("%" + nickname + "%");
+		}
+		if (StringUtils.isNotEmpty(subscribe)) {
+			criteria.andSubscribeEqualTo(subscribe);
+		}
+
+		if (StringUtils.isNotEmpty(subscribeTime)) {
+			criteria.andAppidGreaterThanOrEqualTo(subscribeTime);
+			//criteria.andSubscribeTimeGreaterThan(subscribeTime);
+		}
+
+		if (StringUtils.isNotEmpty(black)) {
+			criteria.andBlackEqualTo(black);
+		}
+		if (StringUtils.isNotEmpty(sex)) {
+			criteria.andSexEqualTo(sex);
+		}
+		// 排序
+		if (StringUtils.isNotEmpty(sort) && StringUtils.isNotEmpty(order)) {
+			if (sort.equals("subscribeTime")) {
+				sort = "SUBSCRIBE_TIME";
+			}
+			example.setOrderByClause(sort + " " + order);
+		}
 
 		// 分页查询
 		PageHelper.startPage(userFans.getPage(), userFans.getRows());

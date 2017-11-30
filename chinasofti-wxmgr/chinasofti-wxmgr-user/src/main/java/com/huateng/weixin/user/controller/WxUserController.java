@@ -70,14 +70,7 @@ public class WxUserController {
 		int j = userModalService.insertUsers(allUsersInfo);
 		if (j == allUsersInfo.size()) {
 			logger.info(">>>>>>>>>>>>>>>>>一共添加了" + j + "个用户到本地库");
-			// List<String> allBlackList = userService.getAllBlackUsers(null);
-			// 获取黑名单列表
-			// int x = userModalService.addBlackUsers(allBlackList);
-			// if (x == allBlackList.size()) {
-			// logger.info(">>>>>>>>>>>>>>>>>一共设置" + x + "个黑名单用户到本地库");
 			return Constant.SUCCESS;
-			// }
-			// return Constant.ERROR;
 		} else if (j > 0 && j < allUsersInfo.size()) {
 			logger.info(">>>>>>>>>>>>>>>>>一共添加了" + j + "个用户到本地库，还有" + (allUsersInfo.size() - j) + "个用户添加失败");
 			return Constant.ERROR;

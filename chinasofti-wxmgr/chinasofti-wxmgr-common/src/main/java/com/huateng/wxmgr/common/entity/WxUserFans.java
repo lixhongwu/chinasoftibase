@@ -41,6 +41,16 @@ public class WxUserFans extends PageBean {
 
 	private String remark;
 	
+	public String getSort() {
+		return sort;
+	}
+
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
+
+	private String sort;
+	
 	// 接收服务器返回的数据tagid_list，封装入tagidList
 	public void setTagid_list(List<?> tagidList) {
 		this.tagidList = tagidList.toString();
