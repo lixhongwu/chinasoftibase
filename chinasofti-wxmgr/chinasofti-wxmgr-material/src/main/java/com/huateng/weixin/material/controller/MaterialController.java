@@ -132,6 +132,7 @@ public class MaterialController {
 	public JSONObject deletePermanentMaterial(String mediaId){
 		try {
 			String accessToken = accessTokenService.getAccessToken();
+			logger.info("accesstoken>>>>>>>>>>>>>>>>>>>"+accessToken);
 			JSONObject deletePermanentMaterial = materialService.deletePermanentMaterial(accessToken, mediaId);
 			logger.info(deletePermanentMaterial.toString());
 			return deletePermanentMaterial;

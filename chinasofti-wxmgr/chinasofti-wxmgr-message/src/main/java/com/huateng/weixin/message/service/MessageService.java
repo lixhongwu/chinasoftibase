@@ -13,4 +13,6 @@ public interface MessageService {
 	public void delete(String message_id);
 	
 	public void edit(ReplyMessage replyMessage);
+	
+	public List searchByKey(String keyText);
 }

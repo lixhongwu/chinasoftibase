@@ -39,6 +39,11 @@ public class MessageServiceImpl implements MessageService {
 	public void edit(ReplyMessage replyMessage) {
 		replyMessageMapper.edit(replyMessage);
 	}
+	@Override
+	public List searchByKey(String keyText) {
+		// TODO Auto-generated method stub
+		return replyMessageMapper.searchByKey(keyText);
+	}
 	
 
 }

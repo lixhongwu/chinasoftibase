@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.huateng.weixin.message.model.TemplateMessageModel;
+import com.huateng.weixin.message.service.AccessTokenService;
 import com.huateng.weixin.message.service.GetTemplateFromWxService;
 import com.huateng.weixin.message.util.WxUtil;
 
@@ -28,7 +29,6 @@ public class GetTemplateFromWxServiceImpl implements GetTemplateFromWxService{
 	 */
 	@Override
 	public String getTemplateFromWX(String accessToken) {
-		accessToken="YzqPnS0bibQ_OQdyG6ADn_lJI51YScK5To9XQOgxJoFWT2F2nekFRyxBTXb4xeOJsB_iZbiukbR4d7gIkQqEEnrwcGD1zuFhU0Z7nRE1IIZqy4RZxY0Qs0D2kVSOjsa-WXZbACAEFH";
 		String url = TEMPLATE_RUL.replace("ACCESS_TOKEN", accessToken);
 		JSONObject jsObject = wxUtil.doGetStr(url);
 		String result = JSONObject.fromObject(jsObject).toString();

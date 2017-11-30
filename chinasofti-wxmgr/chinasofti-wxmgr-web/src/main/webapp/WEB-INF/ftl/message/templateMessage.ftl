@@ -281,8 +281,7 @@
 				// 自动伸缩
 				fitColumns : true,
 			    columns:[[    
-			        {field:'id',title:'id',width:100,align:'center'},    
-			        {field:'name',title:'Name',width:100,align:'center'},    
+			        {field:'nickname',title:'Name',width:100,align:'center'},    
 			        {field:'openid',title:'openid',width:200,align:'center'}    
 			    ]]
 		});

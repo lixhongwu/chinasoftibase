@@ -10,7 +10,7 @@ import com.huateng.weixin.message.model.TemplateSendModel;
 import com.huateng.weixin.message.model.UserModel;
 
 public interface TemplateMessageSevice {
-	void refresh();
+	void refresh(String accessToken);
 	
 	List<TemplateMessageModel> getTemplateMessageList();
 	

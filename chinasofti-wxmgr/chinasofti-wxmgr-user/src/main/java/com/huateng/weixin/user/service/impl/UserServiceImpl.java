@@ -38,13 +38,15 @@ public class UserServiceImpl implements UserService {
 
 	private WxUserOpenId usersAllOpenId = null;
 
+	private List<String> blackUserList;
+
 	/**
 	 * 获取用户openId列表一次。nextOpenId为空时，表示从头开始获取，一次最多能获取到10000个。
 	 */
 	public WxUserOpenId getUsersOpenId(String nextOpenId) {
 		String access_token = accessTokenService.getAccessToken();
 		Assert.notNull(access_token, "access_token获取异常");
-		logger.info(access_token);
+		//logger.info(access_token);
 		if (nextOpenId == null) {
 			nextOpenId = "";
 		}
@@ -55,6 +57,9 @@ public class UserServiceImpl implements UserService {
 			WxUserOpenId userOpenId = new WxUserOpenId();
 			int total = result.getInt("total");
 			int count = result.getInt("count");
+			if (count == 0) {
+				return null;
+			}
 			String next_openid = result.getString("next_openid");
 			JSONArray jsonArray = result.getJSONObject("data").getJSONArray("openid");
 			@SuppressWarnings("unchecked")
@@ -78,7 +83,9 @@ public class UserServiceImpl implements UserService {
 			nextOpenId = "";
 		}
 		WxUserOpenId usersOpenId = getUsersOpenId(nextOpenId);
-
+		if (usersOpenId == null) {
+			return null;
+		}
 		int count = usersOpenId.getCount();
 		int total = usersOpenId.getTotal();
 		List<String> list = usersOpenId.getOpenidList();
@@ -115,12 +122,13 @@ public class UserServiceImpl implements UserService {
 		String url = String.format(Constant.USER_GET_INFO, access_token, nextOpenId);
 		JSONObject result = restTemplate.getForObject(url, JSONObject.class);
 		if (ResultUtils.Result(result)) {
-			logger.info("getUserInfo>>>>>>>>>>>>>>>>>>>>>>result=" + result.toString());
+			//logger.info("getUserInfo>>>>>>>>>>>>>>>>>>>>>>result=" + result.toString());
 			@SuppressWarnings("static-access")
 			WxUserFans wxUserFans = (WxUserFans) result.toBean(result, WxUserFans.class);
 			Long subscribeTime = Long.parseLong(wxUserFans.getSubscribeTime());
 			String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date(subscribeTime * 1000));
-			logger.info("date>>>>>>>>>>>>>>>>>>>" + date);
+			wxUserFans.setSubscribeTime(date);
+			//logger.info("date>>>>>>>>>>>>>>>>>>>" + date);
 			return wxUserFans;
 		}
 		return null;
@@ -184,8 +192,124 @@ public class UserServiceImpl implements UserService {
 				}
 				allList.addAll(list1);
 			}
-			logger.info(">>>>>>>>>>>>>>>" + allList.toString());
+			//logger.info(">>>>>>>>>>>>>>>" + allList.toString());
 			return allList;
+		}
+		return null;
+	}
+
+	/**
+	 * 获取一次黑名单openid列表，最多能获取10000个。
+	 * 
+	 * @param nextOpenId
+	 * @return
+	 */
+	public List<String> getBlackUsers(String nextOpenId) {
+
+		JSONObject result = getblackUsersObject(nextOpenId);
+		if (ResultUtils.Result(result)) {
+			JSONArray array = result.getJSONObject("data").getJSONArray("openid");
+			@SuppressWarnings("unchecked")
+			List<String> openidList = (List<String>) JSONArray.toCollection(array);
+			return openidList;
+		}
+		return null;
+
+	}
+
+	/**
+	 * 返回黑名单的JSONObject对象
+	 * 
+	 * @param nextOpenId
+	 * @return
+	 */
+	private JSONObject getblackUsersObject(String nextOpenId) {
+		if (nextOpenId == null) {
+			nextOpenId = "";
+		}
+		String access_token = accessTokenService.getAccessToken();
+		Assert.notNull(access_token, "access_token>>>>>>>>>>>>>>>>>获取异常");
+		JSONObject object = new JSONObject();
+		object.accumulate("begin_openid", nextOpenId);
+		String url = String.format(Constant.USER_GET_BLACK, access_token);
+		JSONObject result = restTemplate.postForEntity(url, HttpUtil.toJsonBody(object), JSONObject.class).getBody();
+		return result;
+	}
+
+	/**
+	 * 获取所有的黑名单openid列表。当传入的nextOpenId为null时，获取所有的黑名单列表。
+	 * 
+	 * @param nextOpenId
+	 * @return
+	 */
+	public List<String> getAllBlackUsers(String nextOpenId) {
+		nextOpenId = nextOpenId == null ? "" : nextOpenId;
+		JSONObject result = getblackUsersObject(nextOpenId);
+		if (ResultUtils.Result(result)) {
+			int count = result.getInt("count");
+			String next_openid = result.getString("next_openid");
+			JSONArray array = result.getJSONObject("data").getJSONArray("openid");
+			@SuppressWarnings("unchecked")
+			List<String> openidList = (List<String>) JSONArray.toCollection(array);
+			if (blackUserList == null) {
+				blackUserList = new ArrayList<>();
+				blackUserList.addAll(openidList);
+			} else {
+				blackUserList.addAll(openidList);
+			}
+			if (count < 10000) {
+				return blackUserList;
+			} else {
+				getAllBlackUsers(next_openid);
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * 拉黑用户，一次最多能拉黑20个用户
+	 */
+	@Override
+	public JSONObject setBlackUsers(List<String> openidList) {
+
+		if (openidList != null && openidList.size() > 0) {
+			if (openidList.size() > 20) {
+				openidList.subList(0, 20);
+			}
+			String access_token = accessTokenService.getAccessToken();
+			if (StringUtils.isNotEmpty(access_token)) {
+				String url = String.format(Constant.USER_SET_BLACK, access_token);
+				JSONObject object = new JSONObject();
+				JSONArray array = new JSONArray();
+				array.addAll(openidList);
+				object.put("openid_list", array);
+				HttpEntity<String> entity = HttpUtil.toJsonBody(object);
+				return restTemplate.postForEntity(url, entity, JSONObject.class).getBody();
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * 解除黑名单，一次最多能解除20个用户
+	 */
+	@Override
+	public JSONObject unBlackUsers(List<String> openidList) {
+
+		if (openidList != null && openidList.size() > 0) {
+			if (openidList.size() > 20) {
+				openidList.subList(0, 20);
+			}
+			String access_token = accessTokenService.getAccessToken();
+			if (StringUtils.isNotEmpty(access_token)) {
+				String url = String.format(Constant.USER_UN_BLACK, access_token);
+				JSONObject object = new JSONObject();
+				JSONArray array = new JSONArray();
+				array.addAll(openidList);
+				object.put("openid_list", array);
+				HttpEntity<String> entity = HttpUtil.toJsonBody(object);
+				return restTemplate.postForEntity(url, entity, JSONObject.class).getBody();
+			}
 		}
 		return null;
 	}
@@ -207,7 +331,7 @@ public class UserServiceImpl implements UserService {
 					JSONObject object = new JSONObject();
 					object.accumulate("openid", ids);
 					object.accumulate("remark", remark);
-					//发送请求
+					// 发送请求
 					HttpEntity<String> entity = HttpUtil.toJsonBody(object);
 					JSONObject result = restTemplate.postForEntity(url, entity, JSONObject.class).getBody();
 					return result;

@@ -57,7 +57,7 @@
 		
 	</insert>
 	<select id="userList" resultType="com.huateng.weixin.message.model.UserModel">
-		select *from user_info
+		select openid ,nickname from wx_user_fans
 	</select>
 	<delete id="deleteTemplate" >
 		delete from template_message

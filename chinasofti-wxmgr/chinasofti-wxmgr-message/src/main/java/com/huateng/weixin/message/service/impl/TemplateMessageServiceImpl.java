@@ -10,6 +10,7 @@ import com.huateng.weixin.message.model.TemplateMessageContent;
 import com.huateng.weixin.message.model.TemplateMessageModel;
 import com.huateng.weixin.message.model.TemplateSendModel;
 import com.huateng.weixin.message.model.UserModel;
+import com.huateng.weixin.message.service.AccessTokenService;
 import com.huateng.weixin.message.service.GetTemplateFromWxService;
 import com.huateng.weixin.message.service.TemplateMessageSevice;
 /**
@@ -49,7 +50,6 @@ public class TemplateMessageServiceImpl implements TemplateMessageSevice{
 	public void addTemplateFromWx(List list) {
 		try{
 			tmm.addTemplateFromWx(list);
-			System.out.println("111");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -68,10 +68,9 @@ public class TemplateMessageServiceImpl implements TemplateMessageSevice{
 	 * 同步数据库
 	 */
 	@Override
-	public void refresh() {
+	public void refresh(String accessToken) {
 		// TODO Auto-generated method stub
 		
-		String accessToken ="m2qJ0M_Vx7Dm2bLXb_sIDR-LZl5Ka1-gcjDH6waz7IS93pGPnewMgNXwEt3MPDDnSq6dp62e2X23v_9Q-pP8yrTrrZ6KK4jXWfzFpZN_daWhE2Cp5c5wV6s8uRp1NxSvHBWhAJAOID-Zt-DVMz0Yf_whl1ZZ27mteI6xGGajoKftQKbw17-60JnE9cMRs6Qp6bVaginhUqmFQSszoIy3RBOjAJALVI";
 		//从微信获取模板消息
 		gtfs.getTemplateFromWX(accessToken);
 	}

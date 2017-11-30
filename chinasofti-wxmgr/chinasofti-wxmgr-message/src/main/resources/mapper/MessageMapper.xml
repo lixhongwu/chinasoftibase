@@ -11,7 +11,11 @@
     <result column="oper_man" property="oper_Man" jdbcType="VARCHAR" />
   </resultMap>
   <select id="getMessageList"  resultMap="BaseResultMap">
-  		select *from reply_message
+  		select * from reply_message
+  </select>
+  
+  <select id="searchByKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select * from reply_message where rule_name like '%${value}%'
   </select>
   <insert id="insert" parameterType="com.huateng.weixin.message.model.ReplyMessage" >
   	insert reply_message (rule_name,key_words,content) values(

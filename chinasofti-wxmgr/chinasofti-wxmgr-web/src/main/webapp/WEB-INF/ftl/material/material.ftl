@@ -50,12 +50,13 @@
 				if(data){
 					//console.log(data);
 					$.messager.alert('信息提示','提交成功！','info');
-					//$('#wu-dialog').datagrid('reload');
+					$('#wu-datagrid').datagrid('reload');
 					$('#wu-dialog').dialog('close');
 				}
 				else
 				{
 					$.messager.alert('信息提示','提交失败！','info');
+					$('#wu-dialog').dialog('close');
 				}
 			}
 		}); 
@@ -74,17 +75,16 @@
 					url:'/wxmaterial/deletePermanentMaterial',
 					data:{"mediaId":items[0].mediaId},
 					success:function(data){
-						//console.log(data);
 						if(data){
-							$('#wu-dialog').datagrid('reload');
 							$.messager.alert('信息提示','删除成功！','info');		
 						}
 						else
 						{
 							$.messager.alert('信息提示','删除失败！','info');		
 						}
-					}	
+					}
 				});  
+				 $('#wu-datagrid').datagrid('reload');
 			}	
 		});
 	}
@@ -193,11 +193,25 @@
 						return "永久素材";
 					}
 				}},
-				{ field:'filePath',title:'上传路径',width:100},
+				{ field:'filePath',title:'上传路径',width:100,formatter: function(value,row,index){
+					return value;
+					//return "<div id='preview'>sss <img id='imghead'  style='max-width:235px;max-height:175px;width:135;height:75;' src=''>       </div>  ";
+				}},
 				{ field:'url',title:'文件路径',width:100}
 			]],
 			
 		}); 
 
-	
+	/* $("#preview").hover(
+		function(){
+			alert();
+		 var img = document.getElementById('imghead');
+		 img.onload = function() {
+				var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth,
+						img.offsetHeight);
+				img.width = rect.width;
+				img.height = rect.height;
+			}
+		}
+	); */
 </script>

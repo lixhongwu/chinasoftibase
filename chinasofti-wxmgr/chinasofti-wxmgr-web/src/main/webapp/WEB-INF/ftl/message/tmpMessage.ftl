@@ -14,10 +14,10 @@
 					href="javascript:void(0);" class="easyui-linkbutton"
 					iconCls="icon-remove" plain="true" onclick="message_remove()">删除</a>
 
-				<input type="text" style="position: absolute; right: 120px;" id="rule_name"/> <a
+				<input type="text" style="position: absolute; right: 120px;" id="keyText"/> <a
 					href="javascript:void(0);" class="easyui-linkbutton"
-					iconCls="icon-search" style="position: absolute; right: 25px;"
-					onclick="search_message()">搜索</a>
+					iconCls="icon-search" style="position: absolute; right: 35px;"
+					onclick="search_message()">名称搜索</a>
 			</div>
 		</div>
 		<!-- 表格 -->
@@ -63,17 +63,17 @@
 
 					<tr>
 						<td>规则名称</td>
-						<td><input type="text" name="rulename" /></td>
+						<td><input type="text" name="rulename" id="rulename" /></td>
 					</tr>
 					<tr>
 						<td>关键词</td>
-						<td><input type="text" name="keywords" /></td>
+						<td><input type="text" name="keywords" id="keywords"/></td>
 					</tr>
 
 					<tr>
 						<td>内容</td>
 						<td><textarea type="text" name="content"
-								style="width: 300px; height: 100px;" /></td>
+								style="width: 300px; height: 100px;" id="content"/></td>
 					</tr>
 
 				</table>

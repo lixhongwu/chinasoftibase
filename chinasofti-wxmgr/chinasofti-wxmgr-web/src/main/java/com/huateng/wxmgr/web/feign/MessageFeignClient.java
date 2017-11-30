@@ -32,6 +32,8 @@ public interface MessageFeignClient {
 	@RequestMapping(value="/message/edit",method=RequestMethod.POST)
 	public String edit(@RequestParam(value="message_id") String message_id ,@RequestParam(value="rulename") String rulename,@RequestParam(value="keywords") String keywords,@RequestParam(value="content") String content);
 	
+	@RequestMapping(value="/message/searchByKey",method=RequestMethod.POST)
+	public List searchBykey(@RequestParam(value="keyText")String keyText);
 	
 	/**
 	 * 同步微信服务器上的模板列表到本地数据库
