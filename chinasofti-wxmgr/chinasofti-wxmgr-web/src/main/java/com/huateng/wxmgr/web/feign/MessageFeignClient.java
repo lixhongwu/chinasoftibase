@@ -62,4 +62,7 @@ public interface MessageFeignClient {
 	
 	@RequestMapping(value="/message/userList",method=RequestMethod.POST)
 	public List userList();
+	
+	@RequestMapping(value="/message/searchByTitle",method=RequestMethod.POST)
+	public List searchByTitle(@RequestParam(value="titleText") String titleText);
 }

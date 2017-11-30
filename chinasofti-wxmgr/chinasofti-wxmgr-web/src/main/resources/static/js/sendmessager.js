@@ -116,7 +116,7 @@ function sendAll(){
 				onSubmit: function(){    
 			    },    
 			    success:function(data){    
-//			        alert(data)    
+			      $.messager.alert('信息提示','发送成功！','info');  
 			    }    
 			});
 		}

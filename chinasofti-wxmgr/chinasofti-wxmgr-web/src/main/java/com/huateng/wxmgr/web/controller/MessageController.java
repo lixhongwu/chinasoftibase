@@ -113,4 +113,12 @@ public class MessageController {
 		return messageFeignClient.userList();
 		
 	}
+	
+	/**
+	 * 根据标题搜索数据
+	 */
+	@RequestMapping(value="/searchByTitle",method=RequestMethod.POST)
+	public List searchByTitle(@RequestParam(value="titleText") String titleText){
+		return messageFeignClient.searchByTitle(titleText);
+	}
 }

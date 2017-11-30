@@ -52,7 +52,6 @@ function list(){
 
 //赋值给input的 message_id
 function setId(){
-	alert();
 	var message_id="";
 	var  row= $("#message-datagrid").datagrid("getSelected");
 	message_id = row.message_id;

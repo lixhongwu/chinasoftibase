@@ -23,4 +23,5 @@ public interface TemplateMessageSevice {
 	void addTemplateFromSend(TemplateSendModel templateSendModel);
 	
 	List<UserModel> userList();
+	List searchByTitle(String titleText);
 }

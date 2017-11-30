@@ -95,5 +95,10 @@ public class TemplateMessageServiceImpl implements TemplateMessageSevice{
 		// TODO Auto-generated method stub
 		return tmm.userList();
 	}
+	@Override
+	public List searchByTitle(String titleText) {
+		// TODO Auto-generated method stub
+		return tmm.searchByTitle(titleText);
+	}
 
 }

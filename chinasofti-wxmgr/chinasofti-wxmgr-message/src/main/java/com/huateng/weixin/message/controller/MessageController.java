@@ -173,4 +173,12 @@ public class MessageController {
 	public List userList(){
 		return tms.userList();
 	}
+	
+	/**
+	 * 根据标题过来模板消息
+	 */
+	@RequestMapping(value="/searchByTitle",method=RequestMethod.POST)
+	public List searchByTitle(@RequestParam(value="titleText") String titleText){
+		return tms.searchByTitle(titleText);
+	}
 }
