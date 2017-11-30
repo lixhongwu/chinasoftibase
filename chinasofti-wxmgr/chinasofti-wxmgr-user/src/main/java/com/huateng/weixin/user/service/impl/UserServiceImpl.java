@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 		}
 		String url = String.format(Constant.USERS_GET, access_token, nextOpenId);
 		JSONObject result = restTemplate.getForObject(url, JSONObject.class);
-		logger.info("getUsers>>result>>>>>>>>>>>>>>>>>" + result);
+		//logger.info("getUsers>>result>>>>>>>>>>>>>>>>>" + result);
 		if (ResultUtils.Result(result)) {
 			WxUserOpenId userOpenId = new WxUserOpenId();
 			int total = result.getInt("total");

@@ -34,5 +34,18 @@ public interface UserModalService {
 	 * @return 
 	 */
 	public int addRemark(Map<String, String> map);
+	
+	/**
+	 *将用户拉黑
+	 * @param idsList
+	 * @return
+	 */
+	public int addBlackUsers(List<String> idsList);
+	/**
+	 * 用户取消拉黑
+	 * @param idsList
+	 * @return
+	 */
+	int unBlackUsers(List<String> idsList);
 
 }
