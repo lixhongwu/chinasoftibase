@@ -2,6 +2,7 @@ package com.huateng.wxmgr.web.controller;
 
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.huateng.wxmgr.common.utils.Constant;
 import com.huateng.wxmgr.web.feign.UserTagsFeign;
 
 /**
@@ -42,6 +44,20 @@ public class UserTagsController {
 
 		return new ModelAndView("user/tags");
 
+	}
+	
+	/**
+	 * 检查标签名是否重复
+	 * @param name
+	 * @return
+	 */
+	@RequestMapping(value="/checktagname",method=RequestMethod.POST)
+	public String checkTagName(@RequestParam String name){
+		if(StringUtils.isEmpty(name)){
+			return Constant.ERROR;
+		}
+		return userTagsFeign.checkTagName(name);
+		
 	}
 	
 	/**

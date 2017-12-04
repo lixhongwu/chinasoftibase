@@ -1,7 +1,6 @@
 package com.huateng.weixin.user.service.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -15,6 +14,7 @@ import com.huateng.weixin.user.mapper.WxUserTagsMapper;
 import com.huateng.weixin.user.service.TagModalService;
 import com.huateng.wxmgr.common.entity.WxUserTags;
 import com.huateng.wxmgr.common.entity.WxUserTagsExample;
+import com.huateng.wxmgr.common.utils.Constant;
 
 import net.sf.json.JSONObject;
 /**
@@ -41,10 +41,11 @@ public class TagModalServiceImpl implements TagModalService {
 		if(StringUtils.isNotEmpty(tags.getName())){
 			example.createCriteria().andNameLike("%"+tags.getName()+"%");
 		}
-		if(StringUtils.isNotEmpty(tags.getOrder())&&tags.getOrder().equals("desc")){
-			example.setOrderByClause("ids desc");
-		}else{
-			example.setOrderByClause("ids asc");
+		
+		String sort = tags.getSort();
+		String order = tags.getOrder();
+		if(StringUtils.isNotEmpty(sort)&&StringUtils.isNotEmpty(order)){
+			example.setOrderByClause(sort+" "+order);
 		}
 		
 		//分页查询
@@ -124,6 +125,20 @@ public class TagModalServiceImpl implements TagModalService {
 		example.createCriteria().andSynchroEqualTo(1);
 		mapper.deleteByExample(example);
 		
+	}
+	/**
+	 * 检查标签重名
+	 */
+	@Override
+	public String checkTagName(String name) {
+		WxUserTagsExample example = new WxUserTagsExample();
+		example.createCriteria().andNameEqualTo(name);
+		List<WxUserTags> list = mapper.selectByExample(example);
+		if(list ==null ||list.size()==0){
+			return Constant.ERROR;
+		}else{
+			return Constant.SUCCESS;
+		}
 	}
 	
 

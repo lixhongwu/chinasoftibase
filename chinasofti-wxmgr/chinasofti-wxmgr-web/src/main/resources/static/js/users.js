@@ -101,7 +101,7 @@ function addblackusers() {
 	var row = $('#users-datagrid').datagrid('getChecked');
 	var ids = getCheckedRows(row, 20);
 	if (ids != null) {
-		alert(ids);
+		//alert(ids);
 		doUsersPost(url, ids, name);
 	}
 }
@@ -224,7 +224,10 @@ function loadClassName() {
 	});
 }
 
+
 $(function() {
+	//先加载页面后,再显示页面
+	//$('#user_easyui-layout').attr('hidden',false)
 	
 	$('#selectusertags').combobox({
 	     url:'/advertise/findAdPostionAll',

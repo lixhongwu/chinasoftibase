@@ -46,13 +46,13 @@ public class UserServiceImpl implements UserService {
 	public WxUserOpenId getUsersOpenId(String nextOpenId) {
 		String access_token = accessTokenService.getAccessToken();
 		Assert.notNull(access_token, "access_token获取异常");
-		//logger.info(access_token);
+		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>access_token=" + access_token);
 		if (nextOpenId == null) {
 			nextOpenId = "";
 		}
 		String url = String.format(Constant.USERS_GET, access_token, nextOpenId);
 		JSONObject result = restTemplate.getForObject(url, JSONObject.class);
-		//logger.info("getUsers>>result>>>>>>>>>>>>>>>>>" + result);
+		// logger.info("getUsers>>result>>>>>>>>>>>>>>>>>" + result);
 		if (ResultUtils.Result(result)) {
 			WxUserOpenId userOpenId = new WxUserOpenId();
 			int total = result.getInt("total");
@@ -117,18 +117,20 @@ public class UserServiceImpl implements UserService {
 	public WxUserFans getUserInfo(String nextOpenId) {
 
 		String access_token = accessTokenService.getAccessToken();
-		Assert.notNull(access_token, "access_token>>>>>>>>>>>>获取异常");
-		Assert.notNull(nextOpenId, "getUserInfo>>>>>>>>>>nextOpenId不能为空" + nextOpenId);
+		// Assert.notNull(access_token, "access_token>>>>>>>>>>>>获取异常");
+		// Assert.notNull(nextOpenId, "getUserInfo>>>>>>>>>>nextOpenId不能为空" +
+		// nextOpenId);
 		String url = String.format(Constant.USER_GET_INFO, access_token, nextOpenId);
 		JSONObject result = restTemplate.getForObject(url, JSONObject.class);
 		if (ResultUtils.Result(result)) {
-			//logger.info("getUserInfo>>>>>>>>>>>>>>>>>>>>>>result=" + result.toString());
+			// logger.info("getUserInfo>>>>>>>>>>>>>>>>>>>>>>result=" +
+			// result.toString());
 			@SuppressWarnings("static-access")
 			WxUserFans wxUserFans = (WxUserFans) result.toBean(result, WxUserFans.class);
 			Long subscribeTime = Long.parseLong(wxUserFans.getSubscribeTime());
 			String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date(subscribeTime * 1000));
 			wxUserFans.setSubscribeTime(date);
-			//logger.info("date>>>>>>>>>>>>>>>>>>>" + date);
+			// logger.info("date>>>>>>>>>>>>>>>>>>>" + date);
 			return wxUserFans;
 		}
 		return null;
@@ -143,7 +145,7 @@ public class UserServiceImpl implements UserService {
 	public List<WxUserFans> getUsersInfo(List<String> openidList) {
 
 		String access_token = accessTokenService.getAccessToken();
-		Assert.notNull(access_token, "access_token>>>>>>>>>>>>>>>>>获取异常");
+		// Assert.notNull(access_token, "access_token>>>>>>>>>>>>>>>>>获取异常");
 		String url = String.format(Constant.USERS_BATCHGET_INFO, access_token);
 		JSONArray openids = new JSONArray();
 		JSONObject userList = new JSONObject();
@@ -192,7 +194,7 @@ public class UserServiceImpl implements UserService {
 				}
 				allList.addAll(list1);
 			}
-			//logger.info(">>>>>>>>>>>>>>>" + allList.toString());
+			// logger.info(">>>>>>>>>>>>>>>" + allList.toString());
 			return allList;
 		}
 		return null;

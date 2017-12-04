@@ -18,7 +18,6 @@ function synchroTags(){
 					$.messager.alert('同步消息', '同步失败！', 'error');
 				}
 			}, 'json');
-			
 		}
 	});
 }
@@ -32,14 +31,25 @@ function tags_clear() {
 // 添加
 function addTags() {
 	$('#tags-edit-dialog').dialog('open').dialog('setTitle', '添加标签');
+	$('#tagsid_tr').prop("hidden",'hidden');
 	$('#tags-edit-form').form('clear');
+	//重名
+	$('#tag_name_check_font').attr('hidden',true);
+	$('#tags_add_button').linkbutton('enable');
 	// 清空预览图片
+	tagName="";
 	url = '/wxusertags/addtags';
 }
 // 编辑
 function editTags() {
 	$('#tags-edit-form').form('clear');
+	$('#tagsid_tr').prop("hidden",false);
+	//重名提示
+	$('#tags_add_button').linkbutton('enable');
+	$('#tag_name_check_font').attr('hidden',true);
 	var row = $('#tags-datagrid').datagrid('getSelected');
+	tagName=row.name;
+	//alert(tagName);
 	if (row <= 0) {
 		$.messager.alert('提示', '请选择要编辑的标签!');
 	} else {
@@ -62,7 +72,6 @@ function saveTags() {
 				$('#tags-edit-dialog').dialog('close'); // close the dialog
 				$('#tags-datagrid').datagrid('reload'); // reload the user data
 				$.messager.alert('添加消息', '添加成功！', 'info');
-
 			}
 		}
 	});
@@ -97,27 +106,28 @@ function deleteTags() {
 			}, 'json');
 		}
 	});
-
 }
 
-
-// 加载分类名称
-function loadClassName() {
-	$.ajax({
-		url : '/goodsCheck/reqGoodsClassName',
-		type : "GET",
-		success : function(data) {
-			data = eval("(" + data + ")");
-			$('#_className').combobox({
-				valueField : 'name',
-				textField : 'name',
-				data : data.rows,
-			})
-		}
-	});
-}
 
 $(function() {
+	//绑定防止同名校验
+	$('#tag_name_id').blur(function(){
+		var url='wxusertags/checktagname';
+		var name = $('#tag_name_id').val();
+		$.post(url,{'name':name},function(r){
+			if(r==200){
+				$('#tag_name_check_font').attr('hidden',false);
+				$('#tags_add_button').linkbutton('disable');
+			}else{
+				$('#tag_name_check_font').attr('hidden',true);
+				$('#tags_add_button').linkbutton('enable');
+			}
+		},'json');
+	});
+	
+	
+	//加载完毕后,显示div
+	//$('#tags_easyui-layout').attr('hidden',false)
 
 	// //日期验证
 	// $.extend($.fn.validatebox.defaults.rules, {
@@ -129,5 +139,6 @@ $(function() {
 	// message: '结束日期应大于开始日期!' //匹配失败消息
 	// }
 	// });
+	
 
 });

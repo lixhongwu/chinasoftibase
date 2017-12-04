@@ -46,5 +46,13 @@ public interface UserTagsFeign {
 	 */
 	@RequestMapping(value="/usertags/synchrotags",method=RequestMethod.POST)
 	public String synchroTags();
+	
+	/**
+	 * 检查同名
+	 * @param name
+	 * @return
+	 */
+	@RequestMapping(value="/usertags/checktagname",method=RequestMethod.POST)
+	public String checkTagName(@RequestParam("name")String name);
 
 }

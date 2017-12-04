@@ -1,6 +1,6 @@
 <script type="text/javascript" src="js/users.js">
 </script>
-<div class="easyui-layout" data-options="fit:true">
+<div class="easyui-layout" id="user_easyui-layout" data-options="fit:true" >
 	<!-- Begin of toolbar -->
 	<div id="Users-toolbar" >
 		<div class="wu-toolbar-button">
@@ -56,7 +56,7 @@
        				 iconCls:'icon-man',
        				 striped:true,
        				 collapsible:true,
-       				 pageSize:10,
+       				 pageSize:20,
        				 pageList: [10, 20, 30]">
 		<thead>
 			<tr>

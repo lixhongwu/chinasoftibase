@@ -1,11 +1,8 @@
 package com.huateng.weixin.user.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.huateng.wxmgr.common.entity.WxUserTags;
-
-import net.sf.json.JSONObject;
 
 /**
  * 标签跟本地数据库交互的接口
@@ -63,6 +60,12 @@ public interface TagModalService {
 	 * 删除所有标签
 	 */
 	public void deleteAll();
+	/**
+	 * 检查重名
+	 * @param name 
+	 * @return
+	 */
+	public String checkTagName(String name);
 
 
 }

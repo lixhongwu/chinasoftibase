@@ -44,4 +44,10 @@ public class UserTagsFeignHystrix implements UserTagsFeign{
 		return Constant.CALLBACK;
 	}
 
+	@Override
+	public String checkTagName(String name) {
+		logger.error(">>>>>>>>>>>>>>checkTagName调用服务出错，调用Hystrix!");
+		return Constant.CALLBACK;
+	}
+
 }

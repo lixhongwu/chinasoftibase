@@ -12,8 +12,18 @@ public class WxUserTags extends PageBean {
     private String description;
 
     private Integer synchro;
+    
+    private String sort;
 
-    public Integer getIds() {
+    public String getSort() {
+		return sort;
+	}
+
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
+
+	public Integer getIds() {
         return ids;
     }
 

@@ -50,6 +50,17 @@ public class WxUserTagsController {
 	private TagModalService tagsModalService;
 
 	/**
+	 * 检查标签名是否重复
+	 * 
+	 * @param name
+	 * @return
+	 */
+	@RequestMapping(value = "/checktagname", method = RequestMethod.POST)
+	public String checkTagName(@RequestParam String name) {
+		return tagsModalService.checkTagName(name);
+	}
+
+	/**
 	 * 分页查询服务
 	 * 
 	 * @param map
@@ -135,34 +146,34 @@ public class WxUserTagsController {
 	@RequestMapping(value = "/updatetags", method = RequestMethod.POST)
 	public String updataTag(@RequestParam Map<String, String> map) {
 
-		int ids = Integer.parseInt(map.get("ids"));
+		String idstr = map.get("ids");
 		String name = map.get("name");
-		Assert.notNull(ids, "updataTag>>>>>>ids不能为空");
-		Assert.notNull(map.get("name"), "updataTag>>>>>>name不能为空");
+		if (StringUtils.isNotEmpty(name) && StringUtils.isNotEmpty(idstr)) {
+			int ids = Integer.parseInt(idstr);
+			WxUserTags wxUserTags = tagsModalService.findTagById(ids);
 
-		WxUserTags wxUserTags = tagsModalService.findTagById(ids);
-
-		JSONObject object = null;
-		// 如果名字不相同,则先编辑微信服务器端的标签
-		if (!wxUserTags.getName().equals(name)) {
-			object = tagService.editTag(ids, name);
-			// 如果服务端编辑成功
-			if (ResultUtils.Result(object)) {
-				// 编辑本地数据库
-				wxUserTags.setName(name);
+			JSONObject object = null;
+			// 如果名字不相同,则先编辑微信服务器端的标签
+			if (!wxUserTags.getName().equals(name)) {
+				object = tagService.editTag(ids, name);
+				// 如果服务端编辑成功
+				if (ResultUtils.Result(object)) {
+					// 编辑本地数据库
+					wxUserTags.setName(name);
+					wxUserTags.setDescription(map.get("description"));
+					int i = tagsModalService.updataTag(wxUserTags);
+					return i == 1 ? Constant.SUCCESS : Constant.ERROR;
+				}
+				// 名字相同,则直接编辑本地库.
+			} else {
 				wxUserTags.setDescription(map.get("description"));
 				int i = tagsModalService.updataTag(wxUserTags);
 				return i == 1 ? Constant.SUCCESS : Constant.ERROR;
+
 			}
-			//名字相同,则直接编辑本地库.
-		} else {
-			wxUserTags.setDescription(map.get("description"));
-			int i = tagsModalService.updataTag(wxUserTags);
-			return i == 1 ? Constant.SUCCESS : Constant.ERROR;
 
 		}
 		return Constant.ERROR;
-
 	}
 
 	/**
