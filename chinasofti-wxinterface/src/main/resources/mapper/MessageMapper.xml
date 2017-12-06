@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huateng.weixin.mapper.ReplyMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.huateng.weixin.msg.ReplyMessage" >
+    <id column="message_id" property="message_id" jdbcType="INTEGER" />
+    <result column="rule_name" property="rule_name" jdbcType="VARCHAR" />
+    <result column="key_words" property="key_words" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
+    <result column="oper_man" property="oper_Man" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="getMessageByKey"  resultMap="BaseResultMap" parameterType="java.lang.String">
+  		select *from reply_message where key_words = #{key_words}
+  </select>
+  
+ 
+</mapper>

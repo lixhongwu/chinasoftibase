@@ -104,6 +104,7 @@
 						success:function(data){
 						//这里刷新当前页面。window.location.href="当前页";window.location.reload(),强制刷新页面，重新向服务端发送请求
 							//window.location.reload();
+							$.messager.alert('信息提示','同步数据成功！','info');
 							$('#wu-datagrid').datagrid('reload');
 						}
 				});

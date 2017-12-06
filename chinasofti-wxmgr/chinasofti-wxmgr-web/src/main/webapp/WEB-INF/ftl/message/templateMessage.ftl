@@ -9,7 +9,7 @@
 				<a href="#" class="easyui-linkbutton" iconCls="icon-add"
 					plain="true" id="send">发送</a> <a href="#" class="easyui-linkbutton"
 					iconCls="icon-refresh" id="synchr" plain="true">同步</a> <a href="#"
-					class="easyui-linkbutton" iconCls="icon-add1" id="userSelect"
+					class="easyui-linkbutton" iconCls="icon-add1" id="userSelected"
 					plain="true">用户选择</a> <input type="text"
 					style="position: absolute; right: 120px;" id="titleText" /> <a href="#"
 					class="easyui-linkbutton" iconCls="icon-search"
@@ -252,7 +252,7 @@
 	});
 	
 	//获取用户列表
-	$("#userSelect").click(function(){
+	$("#userSelected").click(function(){
 		//弹个窗
 		 $('#userWin').dialog({    
 		    title: '用户选择',    
@@ -282,8 +282,7 @@
 				// 自动伸缩
 				fitColumns : true,
 			    columns:[[    
-			        {field:'id',title:'id',width:100,align:'center'},    
-			        {field:'name',title:'Name',width:100,align:'center'},    
+			        {field:'nickname',title:'Name',width:100,align:'center'},    
 			        {field:'openid',title:'openid',width:200,align:'center'}    
 			    ]]
 		});
@@ -299,7 +298,7 @@
 	}else{
 	 	openid = row.openid;
 	 	$("#openid").val(openid);
-	 	$("#username").val(row.name);
+	 	$("#username").val(row.nickname);
 	}
 	$("#userWin").dialog("close");
 }

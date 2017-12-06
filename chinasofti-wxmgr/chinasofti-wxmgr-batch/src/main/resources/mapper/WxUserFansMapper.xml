@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huateng.weixin.batch.mapper.WxUserFansMapper">
+	<resultMap type="com.huateng.weixin.batch.bean.WxUserFans"
+		id="BaseResultMap">
+		<id column="IDS" property="ids" jdbcType="VARCHAR" />
+		<result column="URLTOKEN" property="urltoken" jdbcType="VARCHAR" />
+		<result column="APPID" property="appid" jdbcType="VARCHAR" />
+		<result column="OPENID" property="openid" jdbcType="VARCHAR" />
+		<result column="SUBSCRIBE" property="subscribe" jdbcType="CHAR" />
+		<result column="SUBSCRIBE_TIME" property="subscribeTime"
+			jdbcType="VARCHAR" />
+		<result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
+		<result column="SEX" property="sex" jdbcType="CHAR" />
+		<result column="COUNTRY" property="country" jdbcType="VARCHAR" />
+		<result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+		<result column="CITY" property="city" jdbcType="VARCHAR" />
+		<result column="LANGUAGE" property="language" jdbcType="VARCHAR" />
+		<result column="HEADIMGURL" property="headimgurl" jdbcType="VARCHAR" />
+		<result column="GROUPID" property="groupid" jdbcType="VARCHAR" />
+		<result column="UNIONID" property="unionid" jdbcType="VARCHAR" />
+		<result column="TAGID_LIST" property="tagidList" jdbcType="VARCHAR" />
+		<result column="BLACK" property="black" jdbcType="CHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		IDS, URLTOKEN, APPID, OPENID, 
+		SUBSCRIBE, SUBSCRIBE_TIME, NICKNAME, 
+		SEX, COUNTRY, PROVINCE, CITY, LANGUAGE, HEADIMGURL, 
+		GROUPID, UNIONID, TAGID_LIST, BLACK, REMARK 
+	</sql>
+	<select id="selectUser" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM wx_user_fans
+	</select>
+</mapper>

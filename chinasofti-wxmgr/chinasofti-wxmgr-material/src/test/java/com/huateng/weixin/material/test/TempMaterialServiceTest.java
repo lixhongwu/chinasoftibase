@@ -140,7 +140,23 @@ public class TempMaterialServiceTest {
 
 	}
 	
-	
+	@Test
+	public static void insertSort(int[] datas){
+		//外层循坏
+		for (int i = 0; i < datas.length; i++) {
+			int temp = datas[i];
+			//里层循环
+			for (int j = i-1; j >= 0; j--) {
+				//如果前一个元素大于后一个元素（temp）前面的元素要顺序往后移动
+				if(datas[j] > temp){
+					datas[j+1] = datas[j];
+				}else{
+					//否则，插入到第一个比该元素要小的元素后面
+					datas[j+1] = temp;
+				}
+			}
+		}
+	}
 	
 
 }
