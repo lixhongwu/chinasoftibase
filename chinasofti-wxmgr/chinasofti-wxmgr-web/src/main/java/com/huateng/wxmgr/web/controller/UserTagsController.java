@@ -27,13 +27,12 @@ import com.huateng.wxmgr.web.feign.UserTagsFeign;
 @RequestMapping("/wxusertags")
 @RestController
 public class UserTagsController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(UserTagsController.class);
-	
+
 	@Autowired
 	private UserTagsFeign userTagsFeign;
-	
-	
+
 	/**
 	 * 跳转页面
 	 * 
@@ -45,80 +44,88 @@ public class UserTagsController {
 		return new ModelAndView("user/tags");
 
 	}
-	
+
 	/**
 	 * 检查标签名是否重复
+	 * 
 	 * @param name
 	 * @return
 	 */
-	@RequestMapping(value="/checktagname",method=RequestMethod.POST)
-	public String checkTagName(@RequestParam String name){
-		if(StringUtils.isEmpty(name)){
+	@RequestMapping(value = "/checktagname", method = RequestMethod.POST)
+	public String checkTagName(@RequestParam String name) {
+		if (StringUtils.isEmpty(name)) {
 			return Constant.ERROR;
 		}
 		return userTagsFeign.checkTagName(name);
-		
+
 	}
-	
+
 	/**
 	 * 分页查询
+	 * 
 	 * @return
 	 */
-	@RequestMapping(value="/findTagsByPage",method=RequestMethod.POST)
-	public String findTagsByPage(@RequestParam Map<String,String> map){
-		
-		logger.info("findTagsByPage>>>>>>>>>>>>>>>>map="+map.toString());
+	@RequestMapping(value = "/findTagsByPage", method = RequestMethod.POST)
+	public String findTagsByPage(@RequestParam Map<String, String> map) {
+
+		logger.info("findTagsByPage>>>>>>>>>>>>>>>>map=" + map.toString());
 		return userTagsFeign.findTagsByPage(map);
-		
+
 	}
-	
+
 	/**
 	 * 添加标签
+	 * 
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping(value="/addtags",method=RequestMethod.POST)
-	public String addTags(@RequestParam Map<String,String> map){
-		
-		logger.info("addtags>>>>>>>>>>>>>>>>map="+map.toString());
-		return userTagsFeign.addTags(map);
-		
+	@RequestMapping(value = "/addtags", method = RequestMethod.POST)
+	public String addTags(@RequestParam Map<String, String> map) {
+
+		logger.info("addtags>>>>>>>>>>>>>>>>map=" + map.toString());
+		Boolean flag = userTagsFeign.addTags(map);
+		return flag ? Constant.SUCCESS : Constant.ERROR;
+
 	}
+
 	/**
 	 * 删除标签
+	 * 
 	 * @param ids
 	 * @return
 	 */
-	@RequestMapping(value="/deletetagbyid",method=RequestMethod.POST)
-	public String deleteTagByID(@RequestParam String ids){
-		
-		logger.info("deleteTagByID>>>>>>>>>>>>>>>>ids="+ids);
+	@RequestMapping(value = "/deletetagbyid", method = RequestMethod.POST)
+	public String deleteTagByID(@RequestParam String ids) {
+
+		logger.info("deleteTagByID>>>>>>>>>>>>>>>>ids=" + ids);
 		return userTagsFeign.deleteTagByID(ids);
-		
+
 	}
+
 	/**
 	 * 编辑标签
+	 * 
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping(value="/updatetags",method=RequestMethod.POST)
-	public String updataTag(@RequestParam Map<String,String> map){
-		
-		logger.info("updataTag>>>>>>>>>>>>>>>>map="+map.toString());
+	@RequestMapping(value = "/updatetags", method = RequestMethod.POST)
+	public String updataTag(@RequestParam Map<String, String> map) {
+
+		logger.info("updataTag>>>>>>>>>>>>>>>>map=" + map.toString());
 		return userTagsFeign.updataTag(map);
-		
+
 	}
-	
+
 	/**
 	 * 同步标签
+	 * 
 	 * @return
 	 */
-	@RequestMapping(value="/synchrotags",method=RequestMethod.POST)
-	public String synchroTags(){
-		
+	@RequestMapping(value = "/synchrotags", method = RequestMethod.POST)
+	public String synchroTags() {
+
 		return userTagsFeign.synchroTags();
-		
+
 	}
-	
 
 }

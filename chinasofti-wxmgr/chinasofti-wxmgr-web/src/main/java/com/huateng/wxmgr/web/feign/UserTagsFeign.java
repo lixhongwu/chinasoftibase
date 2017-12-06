@@ -24,7 +24,7 @@ public interface UserTagsFeign {
 	 * @return
 	 */
 	@RequestMapping(value="/usertags/addtags",method=RequestMethod.POST)
-	public String addTags(@RequestParam Map<String, String> map);
+	public Boolean addTags(@RequestParam Map<String, String> map);
 	/**
 	 * 删除标签
 	 * @param ids

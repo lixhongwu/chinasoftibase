@@ -6,6 +6,11 @@ public class Constant {
 	public static final String SUCCESS = "200";
 	public static final String ERROR = "130";
 	public static final String CALLBACK = "777";// 熔断后返回callback
+	
+	/**
+	 * 获取access_token的地址，需要传入appId以及appSecret两个参数
+	 */
+	public final static String GET_ACCESS_TOKEN = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s";
 
 	/**
 	 * 创建菜单。post请求方式，需要以post的形式将菜单数据发送给微信

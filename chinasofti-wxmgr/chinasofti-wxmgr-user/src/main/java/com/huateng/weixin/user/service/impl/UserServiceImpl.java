@@ -60,6 +60,7 @@ public class UserServiceImpl implements UserService {
 			if (count == 0) {
 				return null;
 			}
+			logger.info(">>>>>>>>>getUsersOpenId {}",total);
 			String next_openid = result.getString("next_openid");
 			JSONArray jsonArray = result.getJSONObject("data").getJSONArray("openid");
 			@SuppressWarnings("unchecked")

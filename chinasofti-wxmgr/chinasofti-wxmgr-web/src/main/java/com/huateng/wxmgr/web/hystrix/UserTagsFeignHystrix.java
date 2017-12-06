@@ -21,9 +21,9 @@ public class UserTagsFeignHystrix implements UserTagsFeign{
 	}
 
 	@Override
-	public String addTags(Map<String, String> map) {
+	public Boolean addTags(Map<String, String> map) {
 		logger.error(">>>>>>>>>>>>>>addTags调用服务出错，调用Hystrix!");
-		return Constant.CALLBACK;
+		return false;
 	}
 
 	@Override
