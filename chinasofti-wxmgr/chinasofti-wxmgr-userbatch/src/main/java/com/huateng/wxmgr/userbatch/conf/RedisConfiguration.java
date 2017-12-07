@@ -1,4 +1,4 @@
-/*package com.huateng.weixin.user.conf;
+package com.huateng.wxmgr.userbatch.conf;
 
 import java.lang.reflect.Method;
 import java.nio.charset.Charset;
@@ -48,11 +48,11 @@ public class RedisConfiguration extends CachingConfigurerSupport {
 	public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory) {
 		StringRedisTemplate template = new StringRedisTemplate(factory);
 
-		*//**
+		/**
 		 * 直接将value以String的形式存入redis
-		 *//*
+		 */
 		template.setDefaultSerializer(new StringRedisSerializer(Charset.forName("UTF-8")));
 		template.afterPropertiesSet();
 		return template;
 	}
-}*/
+}

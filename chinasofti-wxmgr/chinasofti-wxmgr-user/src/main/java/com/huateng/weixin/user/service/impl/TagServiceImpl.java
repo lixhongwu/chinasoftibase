@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import com.huateng.weixin.user.service.AccessTokenService;
 import com.huateng.weixin.user.service.TagService;
 import com.huateng.weixin.user.util.Constraints;
-import com.huateng.weixin.user.util.HttpUtil;
+import com.huateng.wxmgr.common.utils.HttpUtil;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;

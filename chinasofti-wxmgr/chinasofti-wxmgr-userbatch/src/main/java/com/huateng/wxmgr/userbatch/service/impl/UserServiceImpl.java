@@ -1,4 +1,4 @@
-package com.huateng.weixin.user.service.impl;
+package com.huateng.wxmgr.userbatch.service.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,13 +15,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 
-import com.huateng.weixin.user.service.AccessTokenService;
-import com.huateng.weixin.user.service.UserService;
 import com.huateng.wxmgr.common.entity.WxUserFans;
 import com.huateng.wxmgr.common.entity.WxUserOpenId;
 import com.huateng.wxmgr.common.utils.Constant;
 import com.huateng.wxmgr.common.utils.HttpUtil;
 import com.huateng.wxmgr.common.utils.ResultUtils;
+import com.huateng.wxmgr.userbatch.service.AccessTokenService;
+import com.huateng.wxmgr.userbatch.service.UserService;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -29,7 +29,7 @@ import net.sf.json.JSONObject;
 @Service
 public class UserServiceImpl implements UserService {
 
-	private static final Logger logger = LoggerFactory.getLogger(UserModalServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Autowired
 	private AccessTokenService accessTokenService;
@@ -175,7 +175,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * 批量获取所有用户信息.
+	 * 批量获取集合中所有用户信息.
 	 * 
 	 * @param openidList
 	 * @return
