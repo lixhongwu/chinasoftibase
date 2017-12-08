@@ -1,25 +1,25 @@
 package com.huateng.weixin.message.model;
 
 public class UserModel {
-private int id;
+private int ids;
 private String openid;
-private String name;
-public int getId() {
-	return id;
-}
-public void setId(int id) {
-	this.id = id;
-}
+private String nickname;
 public String getOpenid() {
 	return openid;
+}
+public int getIds() {
+	return ids;
+}
+public void setIds(int ids) {
+	this.ids = ids;
 }
 public void setOpenid(String openid) {
 	this.openid = openid;
 }
-public String getName() {
-	return name;
+public String getNickname() {
+	return nickname;
 }
-public void setName(String name) {
-	this.name = name;
+public void setNickname(String nickname) {
+	this.nickname = nickname;
 }
 }

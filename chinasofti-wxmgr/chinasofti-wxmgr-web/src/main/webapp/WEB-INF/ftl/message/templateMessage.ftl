@@ -9,11 +9,11 @@
 				<a href="#" class="easyui-linkbutton" iconCls="icon-add"
 					plain="true" id="send">发送</a> <a href="#" class="easyui-linkbutton"
 					iconCls="icon-refresh" id="synchr" plain="true">同步</a> <a href="#"
-					class="easyui-linkbutton" iconCls="icon-add1" id="userSelect"
+					class="easyui-linkbutton" iconCls="icon-add1" id="userSelected"
 					plain="true">用户选择</a> <input type="text"
-					style="position: absolute; right: 120px;" /> <a href="#"
+					style="position: absolute; right: 120px;" id="titleText" /> <a href="#"
 					class="easyui-linkbutton" iconCls="icon-search"
-					style="position: absolute; right: 25px;">搜索</a>
+					style="position: absolute; right: 25px;" onclick="searchByTitle()" >标题搜索</a>
 
 			</div>
 		</div>
@@ -36,10 +36,6 @@
 							style="width: 350px; height: 180px;"></textarea></td>
 				</tr>
 			</table>
-			<div style="position: absolute; right: 25px;">
-				<a id="save" href="#" class="easyui-linkbutton"
-					data-options="iconCls:'icon-save'" plain="true">保存</a>
-			</div>
 		</div>
 
 		<!-- 发送列表 -->
@@ -77,6 +73,7 @@
 					{
 						url : "message/getTemplateList",
 						height : 400,
+						width:1000,
 						rownumbers : true,
 						singleSelect : true,
 						pageSize : 20,
@@ -84,30 +81,30 @@
 						// 允许多列排序
 						multiSort : true,
 						// 自动伸缩
-						fitColumns : true,
+						//fitColumns : true,
 						columns : [ [
 								{
 									field : 'rowNum',
 									title : '序号',
-									width : 50,
+									width : 100,
 									sortable : true,
 									align : 'center'
 								},
 								{
 									field : 'template_id',
 									title : '模板ID',
-									width : 150,
+									width : 400,
 									sortable : true,
 									align : 'center'
 								},
 								{
 									field : 'title',
 									title : '标题',
-									width : 100,
+									width : 350,
 									sortable : true,
 									align : 'center'
 								},
-								{
+								/* {
 									field : 'industry1',
 									title : '一级行业',
 									width : 100,
@@ -118,11 +115,11 @@
 									title : '二级行业',
 									width : 100,
 									align : 'center'
-								},
+								}, */
 								{
 									field : 'opertion',
 									title : '操作',
-									width : 50,
+									width : 100,
 									align : 'center',
 									formatter : function(value, row, index) {
 										var id = row.template_id;
@@ -246,12 +243,16 @@
 			success:function(){
 				//重载表格
 				$('#tmpMessage-datagrid').datagrid('reload');   
+			},
+			error:function(){
+				//重载表格
+				$('#tmpMessage-datagrid').datagrid('reload');
 			}
 		});
 	});
 	
 	//获取用户列表
-	$("#userSelect").click(function(){
+	$("#userSelected").click(function(){
 		//弹个窗
 		 $('#userWin').dialog({    
 		    title: '用户选择',    
@@ -281,8 +282,7 @@
 				// 自动伸缩
 				fitColumns : true,
 			    columns:[[    
-			        {field:'id',title:'id',width:100,align:'center'},    
-			        {field:'name',title:'Name',width:100,align:'center'},    
+			        {field:'nickname',title:'Name',width:100,align:'center'},    
 			        {field:'openid',title:'openid',width:200,align:'center'}    
 			    ]]
 		});
@@ -298,9 +298,81 @@
 	}else{
 	 	openid = row.openid;
 	 	$("#openid").val(openid);
-	 	$("#username").val(row.name);
+	 	$("#username").val(row.nickname);
 	}
 	$("#userWin").dialog("close");
 }
+	
+	function searchByTitle(){
+		var titleText = $("#titleText").val();
+		$("#tmpMessage-datagrid")
+		.datagrid(
+				{
+					url : "message/searchByTitle",
+					height : 400,
+					rownumbers : true,
+					singleSelect : true,
+					pageSize : 20,
+					queryParams:{titleText:titleText},
+					pagination : true,//底部显示分页栏
+					// 允许多列排序
+					multiSort : true,
+					// 自动伸缩
+					fitColumns : true,
+					columns : [ [
+							{
+								field : 'rowNum',
+								title : '序号',
+								width : 50,
+								sortable : true,
+								align : 'center'
+							},
+							{
+								field : 'template_id',
+								title : '模板ID',
+								width : 100,
+								sortable : true,
+								align : 'center'
+							},
+							{
+								field : 'title',
+								title : '标题',
+								width : 100,
+								sortable : true,
+								align : 'center'
+							},
+							/* {
+								field : 'industry1',
+								title : '一级行业',
+								width : 100,
+								align : 'center'
+							},
+							{
+								field : 'deputy_industry',
+								title : '二级行业',
+								width : 100,
+								align : 'center'
+							}, */
+							{
+								field : 'opertion',
+								title : '操作',
+								width : 50,
+								align : 'center',
+								formatter : function(value, row, index) {
+									var id = row.template_id;
+									if (value == "" || value == undefined) {
+										return "<a href='javascript:void(0);'><span style='color:blue' onclick="
+												+ "openDetail('"
+												+ id
+												+ "') >详情</span></a>";
+									} else {
+										return value;
+									}
+								}
+							}
+
+					] ]
+				});
+	}
 </script>
 

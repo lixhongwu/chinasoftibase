@@ -13,20 +13,24 @@ import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.huateng.weixin.msgrsp.Article;
 import com.huateng.weixin.msgrsp.NewsMessageRsp;
 import com.huateng.weixin.msgrsp.TextMessageRsp;
 import com.huateng.weixin.service.MsgService;
+import com.huateng.weixin.service.TextMessgaeReplyService;
 import com.huateng.weixin.util.MessageUtil;
 import com.huateng.weixin.util.RedisTokenHelper;
 
@@ -39,6 +43,9 @@ import com.huateng.weixin.util.RedisTokenHelper;
 public class MsgServiceImpl implements MsgService {
 
 	private static Logger log = LoggerFactory.getLogger(MsgServiceImpl.class);
+	
+	@Autowired
+ 	TextMessgaeReplyService  tmrs;
 
 	/**
 	 * 处理微信发来的请求（包括事件的推送）
@@ -75,7 +82,6 @@ public class MsgServiceImpl implements MsgService {
 			newsMessage.setCreateTime(new Date().getTime());
 			newsMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
 			newsMessage.setFuncFlag(0);
-
 			List<Article> articleList = new ArrayList<Article>();
 			// 接收文本消息内容
 			String content = requestMap.get("Content");
@@ -89,9 +95,11 @@ public class MsgServiceImpl implements MsgService {
 					// 将文本消息对象转换成xml字符串
 					respMessage = MessageUtil.textMessageToXml(textMessage);
 				} else {
-					// 回复固定消息
+					respContent = tmrs.textMessgageReply(content);
+					textMessage.setContent(respContent);
+					respMessage = MessageUtil.textMessageToXml(textMessage);
+					/*// 回复固定消息
 					switch (content) {
-
 					case "1": {
 						StringBuffer buffer = new StringBuffer();
 						buffer.append("您好,我是客服机器人,请回复数字选择服务：").append("\n\n");
@@ -167,7 +175,7 @@ public class MsgServiceImpl implements MsgService {
 						// 将文本消息对象转换成xml字符串
 						respMessage = MessageUtil.textMessageToXml(textMessage);
 					}
-					}
+					}*/
 				}
 			}
 			// 图片消息

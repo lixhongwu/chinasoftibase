@@ -9,4 +9,5 @@ public interface ReplyMessageMapper {
 	void insert(ReplyMessage replyMessage);
 	void delete(String message_id);
 	void edit(ReplyMessage replyMessage);
+	List searchByKey(String keyText);
 }

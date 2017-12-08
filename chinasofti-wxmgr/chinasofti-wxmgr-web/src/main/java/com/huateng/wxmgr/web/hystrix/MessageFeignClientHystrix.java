@@ -65,7 +65,17 @@ public class MessageFeignClientHystrix implements MessageFeignClient {
 		return null;
 	}
 
+	@Override
+	public List searchBykey(String keyText) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
+	@Override
+	public List searchByTitle(@RequestParam(value="titleText") String titleText) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	
 }

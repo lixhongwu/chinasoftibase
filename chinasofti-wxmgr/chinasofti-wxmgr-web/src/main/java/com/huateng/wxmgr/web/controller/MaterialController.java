@@ -85,6 +85,7 @@ public class MaterialController {
 	@RequestMapping(value="/deletePermanentMaterial", method = RequestMethod.POST)
 	public JSONObject deletePermanentMaterial(@RequestParam(value="mediaId") String mediaId){
 			JSONObject deletePermanentMaterial = materialFeignClient.deletePermanentMaterial(mediaId);
+			log.info("deletePermanentMaterial" + deletePermanentMaterial);
 			return deletePermanentMaterial;
 	}
 

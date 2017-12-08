@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.huateng.weixin.user.service.AccessTokenService;
 import com.huateng.weixin.user.service.TagService;
-import com.huateng.weixin.user.util.Constraints;
+import com.huateng.wxmgr.common.utils.Constant;
 import com.huateng.wxmgr.common.utils.HttpUtil;
 
 import net.sf.json.JSONArray;
@@ -52,7 +52,7 @@ public class TagServiceImpl implements TagService {
 		map.put("tag", params);
 		HttpEntity<String> entity = HttpUtil.toJsonBody(map);
 		return restTemplate
-				.postForEntity(String.format(Constraints.urls.TAG_CREATE, accessToken), entity, JSONObject.class)
+				.postForEntity(String.format(Constant.urls.TAG_CREATE, accessToken), entity, JSONObject.class)
 				.getBody();
 	}
 	/**
@@ -62,7 +62,7 @@ public class TagServiceImpl implements TagService {
 	public JSONObject getTags() {
 		String accessToken = accessTokenService.getAccessToken();
 		Assert.notNull(accessToken, "access_token获取失败!");
-		return restTemplate.postForEntity(String.format(Constraints.urls.TAG_GET, accessToken), null, JSONObject.class)
+		return restTemplate.postForEntity(String.format(Constant.urls.TAG_GET, accessToken), null, JSONObject.class)
 				.getBody();
 	}
 	/**
@@ -79,7 +79,7 @@ public class TagServiceImpl implements TagService {
 		map.put("tag", params);
 		HttpEntity<String> entity = HttpUtil.toJsonBody(map);
 		return restTemplate
-				.postForEntity(String.format(Constraints.urls.TAG_UPDATE, accessToken), entity, JSONObject.class)
+				.postForEntity(String.format(Constant.urls.TAG_UPDATE, accessToken), entity, JSONObject.class)
 				.getBody();
 	}
 	/**
@@ -94,7 +94,7 @@ public class TagServiceImpl implements TagService {
 		JSONObject object = tag.accumulate("tag", param.accumulate("id", id));
 		HttpEntity<String> entity = HttpUtil.makeBody(object.toString());
 		return restTemplate
-				.postForEntity(String.format(Constraints.urls.TAG_DELETE, accessToken), entity, JSONObject.class)
+				.postForEntity(String.format(Constant.urls.TAG_DELETE, accessToken), entity, JSONObject.class)
 				.getBody();
 	}
 	/**
@@ -109,7 +109,7 @@ public class TagServiceImpl implements TagService {
 		param.accumulate("next_openid", StringUtils.isEmpty(nextOpenId) ? "" : nextOpenId);
 		HttpEntity<String> entity = HttpUtil.makeBody(param.toString());
 		return restTemplate
-				.postForEntity(String.format(Constraints.urls.TAG_FANS, accessToken), entity, JSONObject.class)
+				.postForEntity(String.format(Constant.urls.TAG_FANS, accessToken), entity, JSONObject.class)
 				.getBody();
 	}
 	/**
@@ -129,7 +129,7 @@ public class TagServiceImpl implements TagService {
 		param.accumulate("openid_list", jsonArray);
 		HttpEntity<String> entity = HttpUtil.makeBody(param.toString());
 		return restTemplate
-				.postForEntity(String.format(Constraints.urls.TAG_BATCH_TAG, accessToken), entity, JSONObject.class)
+				.postForEntity(String.format(Constant.urls.TAG_BATCH_TAG, accessToken), entity, JSONObject.class)
 				.getBody();
 	}
 	/**
@@ -149,7 +149,7 @@ public class TagServiceImpl implements TagService {
 
 		HttpEntity<String> entity = HttpUtil.makeBody(param.toString());
 		return restTemplate
-				.postForEntity(String.format(Constraints.urls.TAG_BATCH_UNTAG, accessToken), entity, JSONObject.class)
+				.postForEntity(String.format(Constant.urls.TAG_BATCH_UNTAG, accessToken), entity, JSONObject.class)
 				.getBody();
 	}
 	
@@ -161,7 +161,7 @@ public class TagServiceImpl implements TagService {
 		param.accumulate("openid", openId);
 		HttpEntity<String> entity = HttpUtil.makeBody(param.toString());
 		return restTemplate
-				.postForEntity(String.format(Constraints.urls.TAG_GET_LIST, accessToken), entity, JSONObject.class)
+				.postForEntity(String.format(Constant.urls.TAG_GET_LIST, accessToken), entity, JSONObject.class)
 				.getBody();
 	}
 

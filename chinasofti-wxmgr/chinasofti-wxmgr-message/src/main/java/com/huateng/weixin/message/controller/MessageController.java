@@ -16,6 +16,7 @@ import com.huateng.weixin.message.model.ReplyMessage;
 import com.huateng.weixin.message.model.TemplateMessageContent;
 import com.huateng.weixin.message.model.TemplateMessageModel;
 import com.huateng.weixin.message.model.TemplateSendModel;
+import com.huateng.weixin.message.service.AccessTokenService;
 import com.huateng.weixin.message.service.MessageService;
 import com.huateng.weixin.message.service.TemplateMessageSevice;
 import com.huateng.weixin.message.util.WxUtil;
@@ -29,6 +30,8 @@ public class MessageController {
 	@Autowired
 	private MessageService messageService;
 	
+	@Autowired
+	private AccessTokenService accessTokenService;
 	@Autowired
 	private TemplateMessageSevice tms;
 	
@@ -71,12 +74,19 @@ public class MessageController {
 		messageService.edit(replyMessage);
 	}
 	
+	@RequestMapping(value="/searchByKey",method=RequestMethod.POST)
+	public List searchByKey(@RequestParam(value="keyText")String keyText){
+		@SuppressWarnings("unchecked")
+		List<ReplyMessage> list =messageService.searchByKey(keyText);
+		return list;
+	}
 	/**
 	 * 同步模板消息到本地数据库
 	 */
 	@RequestMapping(value="/refresh",method=RequestMethod.POST)
 	public void refresh(){
-		tms.refresh();
+		String accessToken = accessTokenService.getAccessToken();
+		tms.refresh(accessToken);
 	}
 	
 	
@@ -115,7 +125,8 @@ public class MessageController {
 	 */
 	@RequestMapping(value="/sendTemplateInfo",method=RequestMethod.POST)
 	public Map sendTemplateInfo(@RequestParam Map<String, String> map){
-		String token="m2qJ0M_Vx7Dm2bLXb_sIDR-LZl5Ka1-gcjDH6waz7IS93pGPnewMgNXwEt3MPDDnSq6dp62e2X23v_9Q-pP8yrTrrZ6KK4jXWfzFpZN_daWhE2Cp5c5wV6s8uRp1NxSvHBWhAJAOID";
+		String token = accessTokenService.getAccessToken();
+		System.out.println("获取到的accessToken："+token);
 		String url = TMP_URL.replace("ACCESS_TOKEN", token);
 		Map sendMap = new HashMap();
 		Map<Object,Object> keyMap = new HashMap();
@@ -161,5 +172,13 @@ public class MessageController {
 	@RequestMapping(value="/userList",method=RequestMethod.POST)
 	public List userList(){
 		return tms.userList();
+	}
+	
+	/**
+	 * 根据标题过来模板消息
+	 */
+	@RequestMapping(value="/searchByTitle",method=RequestMethod.POST)
+	public List searchByTitle(@RequestParam(value="titleText") String titleText){
+		return tms.searchByTitle(titleText);
 	}
 }

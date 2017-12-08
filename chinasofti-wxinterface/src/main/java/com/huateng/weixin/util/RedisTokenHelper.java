@@ -13,7 +13,7 @@ public class RedisTokenHelper {
 	      static {
 	           
 	     }
-	    protected RedisTokenHelper(){
+	    public RedisTokenHelper(){
 	       System. out.println( " init Redis ");
 	    }
 	    public static RedisTokenHelper getInstance()

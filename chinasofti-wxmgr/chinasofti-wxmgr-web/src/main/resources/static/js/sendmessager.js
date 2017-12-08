@@ -23,13 +23,15 @@ $("#userSelect").click(function(){
 	    		var openId = data.openid;
 	    		//alert(openId);
 	    		$("#openid").val(openId);
+	    		$("#usertext").val(data.nickname);
+
 	    		//关闭
 	    		$("#userlist").dialog("close");
 	    	}
 	    }]
 	}); 
 	$('#usertable').datagrid({    
-	    url:'kefu/findUserByPage',
+	    url:'wxuser/findusersbypage',
 		rownumbers:true,
 		singleSelect:true,
 		pageSize:20,           
@@ -38,7 +40,7 @@ $("#userSelect").click(function(){
 		fitColumns:true,
 		fit:true,
 	    columns:[[    
-	        {field:'id',title:'序号',width:50},    
+	        {field:'ids',title:'序号',width:50},    
 	        {field:'nickname',title:'昵称',width:100},    
 	        {field:'openid',title:'用户id',width:150,align:'right'}    
 	    ]]    
@@ -114,7 +116,7 @@ function sendAll(){
 				onSubmit: function(){    
 			    },    
 			    success:function(data){    
-//			        alert(data)    
+			      $.messager.alert('信息提示','发送成功！','info');  
 			    }    
 			});
 		}
@@ -139,8 +141,8 @@ function sendAll(){
 				url: 'kefu/sendMessager',    
 				onSubmit: function(){    
 			    },    
-			    success:function(data){    
-//			        alert(data)    
+			    success:function(data){   
+			    	$.messager.alert('信息提示','发送成功！','info');	
 			    }    
 			});
 		}

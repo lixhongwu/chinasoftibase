@@ -19,6 +19,7 @@ public class WxUserApplication {
 	}
 
 
+
 	public static void main(String[] args) {
 		SpringApplication.run(WxUserApplication.class, args);
 	}

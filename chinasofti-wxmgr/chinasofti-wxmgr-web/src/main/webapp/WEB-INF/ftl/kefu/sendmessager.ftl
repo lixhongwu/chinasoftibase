@@ -10,6 +10,7 @@
 					<option value="0">图片</option>
 				 </select>
 					<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add1'" id="userSelect" plain='true' >用户选择</a>
+					<input class="textbox" id="usertext" readonly="true" style="width:30px,height:10px,align:'center'" />
 			</div>
 			<div>
 				<label>文本内容：</label>

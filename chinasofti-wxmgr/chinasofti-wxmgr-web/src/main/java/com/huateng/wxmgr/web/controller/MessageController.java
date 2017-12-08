@@ -61,6 +61,14 @@ public class MessageController {
 	}
 	
 	/**
+	 * 关键字过滤
+	 */
+	@RequestMapping(value="/searchBykey",method=RequestMethod.POST)
+	public List searchBykey(@RequestParam String keyText){
+		return messageFeignClient.searchBykey(keyText);
+	}
+	
+	/**
 	 * 同步微信服务端上的模板消息到本地数据库
 	 */
 	@RequestMapping(value="/refresh",method=RequestMethod.POST)
@@ -104,5 +112,13 @@ public class MessageController {
 	public List userList(){
 		return messageFeignClient.userList();
 		
+	}
+	
+	/**
+	 * 根据标题搜索数据
+	 */
+	@RequestMapping(value="/searchByTitle",method=RequestMethod.POST)
+	public List searchByTitle(@RequestParam(value="titleText") String titleText){
+		return messageFeignClient.searchByTitle(titleText);
 	}
 }

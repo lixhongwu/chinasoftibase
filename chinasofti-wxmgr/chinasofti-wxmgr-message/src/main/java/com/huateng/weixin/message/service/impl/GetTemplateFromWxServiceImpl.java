@@ -9,8 +9,11 @@ import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.huateng.weixin.message.model.TemplateMessageModel;
+import com.huateng.weixin.message.service.AccessTokenService;
 import com.huateng.weixin.message.service.GetTemplateFromWxService;
 import com.huateng.weixin.message.util.WxUtil;
 
@@ -27,11 +30,15 @@ public class GetTemplateFromWxServiceImpl implements GetTemplateFromWxService{
 	 * 获取微信服务器消息模板列表
 	 */
 	@Override
+	@Transactional
 	public String getTemplateFromWX(String accessToken) {
-		accessToken="YzqPnS0bibQ_OQdyG6ADn_lJI51YScK5To9XQOgxJoFWT2F2nekFRyxBTXb4xeOJsB_iZbiukbR4d7gIkQqEEnrwcGD1zuFhU0Z7nRE1IIZqy4RZxY0Qs0D2kVSOjsa-WXZbACAEFH";
+		String result = null;
 		String url = TEMPLATE_RUL.replace("ACCESS_TOKEN", accessToken);
 		JSONObject jsObject = wxUtil.doGetStr(url);
-		String result = JSONObject.fromObject(jsObject).toString();
+		if(jsObject.get("errcode")!=null){
+			return result;
+		}
+	    result = JSONObject.fromObject(jsObject).toString();
 		result = result.substring(result.indexOf("[")+1, result.indexOf("]"));
 		String str[] = result.split("},");
 		List list = new ArrayList<>();
@@ -41,14 +48,18 @@ public class GetTemplateFromWxServiceImpl implements GetTemplateFromWxService{
 			TemplateMessageModel templateMessageModel = (TemplateMessageModel) JSONObject.toBean(jo, TemplateMessageModel.class);
 			list.add(templateMessageModel);
 		}
-		//先删除
+		try{
+			//先删除
+			templateMessageSevice.deleteTemplate();
+			templateMessageSevice.deleteContent();
+			//再添加
+			templateMessageSevice.addTemplateFromWx(list);
+			templateMessageSevice.addContentFromWx(list);
+		}catch(Exception e){
+			//异常则回滚
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
 		
-		templateMessageSevice.deleteTemplate();
-		templateMessageSevice.deleteContent();
-		
-		//再添加
-		templateMessageSevice.addTemplateFromWx(list);
-		templateMessageSevice.addContentFromWx(list);
 		return result;
 	}
 

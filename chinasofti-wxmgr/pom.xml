@@ -73,5 +73,6 @@
 		<module>chinasofti-wxmgr-user</module>
 		<module>chinasofti-wxmgr-material</module>
 		<module>chinasofti-wxmgr-userbatch</module>
+		<module>chinasofti-wxmgr-batch</module>
 	</modules>
 </project>
