@@ -25,17 +25,17 @@ public class WxUserOpenidProcessor implements ItemProcessor<List<WxUserFans>, Li
 		logger.info(">>>>>>>>>>>WxUserOpenidProcessor {}", item.toString());
 
 		// 获取黑名单列表
-		//List<String> allBlackUsers = userService.getAllBlackUsers(null);
-		//
+		List<String> allBlackUsers = userService.getAllBlackUsers(null);
+		
 		for (WxUserFans wxUserFans : item) {
 			//设置更新时间。
 			String currentTime = DateUtils.getCurrentTime();
 			wxUserFans.setAppid(currentTime);
 			// 判断是否是黑名单。
 			wxUserFans.setBlack("0");
-//			if (allBlackUsers.contains(wxUserFans.getIds())) {
-//				wxUserFans.setBlack("1");
-//			}
+			if (allBlackUsers.contains(wxUserFans.getIds())) {
+				wxUserFans.setBlack("1");
+			}
 		}
 		return item;
 	}

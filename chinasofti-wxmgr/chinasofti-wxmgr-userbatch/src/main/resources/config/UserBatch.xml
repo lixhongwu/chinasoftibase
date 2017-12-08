@@ -16,7 +16,7 @@
         <step id="getUsersOpenid"><!--next="archiveFileStep"-->
             <tasklet>
                 <chunk reader="wxUserOpenidReader" processor="wxUserOpenidProcessor" writer="wxUsersOpenidWriter"
-                       commit-interval="2"/>
+                       commit-interval="1"/>
             </tasklet>
         </step>
     </job>

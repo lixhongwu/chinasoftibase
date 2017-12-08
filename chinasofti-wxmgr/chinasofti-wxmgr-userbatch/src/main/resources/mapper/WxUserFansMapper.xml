@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huateng.wxmgr.userbatch.mapper.WxUserFansMapper" >
+  <resultMap id="BaseResultMap" type="com.huateng.wxmgr.common.entity.WxUserFans" >
+    <id column="IDS" property="ids" jdbcType="VARCHAR" />
+    <result column="URLTOKEN" property="urltoken" jdbcType="VARCHAR" />
+    <result column="APPID" property="appid" jdbcType="VARCHAR" />
+    <result column="OPENID" property="openid" jdbcType="VARCHAR" />
+    <result column="SUBSCRIBE" property="subscribe" jdbcType="CHAR" />
+    <result column="SUBSCRIBE_TIME" property="subscribeTime" jdbcType="VARCHAR" />
+    <result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="CHAR" />
+    <result column="COUNTRY" property="country" jdbcType="VARCHAR" />
+    <result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+    <result column="CITY" property="city" jdbcType="VARCHAR" />
+    <result column="LANGUAGE" property="language" jdbcType="VARCHAR" />
+    <result column="HEADIMGURL" property="headimgurl" jdbcType="VARCHAR" />
+    <result column="GROUPID" property="groupid" jdbcType="VARCHAR" />
+    <result column="UNIONID" property="unionid" jdbcType="VARCHAR" />
+    <result column="TAGID_LIST" property="tagidList" jdbcType="VARCHAR" />
+    <result column="BLACK" property="black" jdbcType="CHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    IDS, URLTOKEN, APPID, OPENID, SUBSCRIBE, SUBSCRIBE_TIME, NICKNAME, SEX, COUNTRY, 
+    PROVINCE, CITY, LANGUAGE, HEADIMGURL, GROUPID, UNIONID, TAGID_LIST, BLACK, REMARK
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.huateng.wxmgr.common.entity.WxUserFansExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wx_user_fans
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wx_user_fans
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from wx_user_fans
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.huateng.wxmgr.common.entity.WxUserFansExample" >
+    delete from wx_user_fans
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.huateng.wxmgr.common.entity.WxUserFans" >
+    insert into wx_user_fans (IDS, URLTOKEN, APPID, 
+      OPENID, SUBSCRIBE, SUBSCRIBE_TIME, 
+      NICKNAME, SEX, COUNTRY, 
+      PROVINCE, CITY, LANGUAGE, 
+      HEADIMGURL, GROUPID, UNIONID, 
+      TAGID_LIST, BLACK, REMARK
+      )
+    values (#{ids,jdbcType=VARCHAR}, #{urltoken,jdbcType=VARCHAR}, #{appid,jdbcType=VARCHAR}, 
+      #{openid,jdbcType=VARCHAR}, #{subscribe,jdbcType=CHAR}, #{subscribeTime,jdbcType=VARCHAR}, 
+      #{nickname,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, #{country,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, 
+      #{headimgurl,jdbcType=VARCHAR}, #{groupid,jdbcType=VARCHAR}, #{unionid,jdbcType=VARCHAR}, 
+      #{tagidList,jdbcType=VARCHAR}, #{black,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.huateng.wxmgr.common.entity.WxUserFans" >
+    insert into wx_user_fans
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        IDS,
+      </if>
+      <if test="urltoken != null" >
+        URLTOKEN,
+      </if>
+      <if test="appid != null" >
+        APPID,
+      </if>
+      <if test="openid != null" >
+        OPENID,
+      </if>
+      <if test="subscribe != null" >
+        SUBSCRIBE,
+      </if>
+      <if test="subscribeTime != null" >
+        SUBSCRIBE_TIME,
+      </if>
+      <if test="nickname != null" >
+        NICKNAME,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="country != null" >
+        COUNTRY,
+      </if>
+      <if test="province != null" >
+        PROVINCE,
+      </if>
+      <if test="city != null" >
+        CITY,
+      </if>
+      <if test="language != null" >
+        LANGUAGE,
+      </if>
+      <if test="headimgurl != null" >
+        HEADIMGURL,
+      </if>
+      <if test="groupid != null" >
+        GROUPID,
+      </if>
+      <if test="unionid != null" >
+        UNIONID,
+      </if>
+      <if test="tagidList != null" >
+        TAGID_LIST,
+      </if>
+      <if test="black != null" >
+        BLACK,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        #{ids,jdbcType=VARCHAR},
+      </if>
+      <if test="urltoken != null" >
+        #{urltoken,jdbcType=VARCHAR},
+      </if>
+      <if test="appid != null" >
+        #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribe != null" >
+        #{subscribe,jdbcType=CHAR},
+      </if>
+      <if test="subscribeTime != null" >
+        #{subscribeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null" >
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null" >
+        #{groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null" >
+        #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="tagidList != null" >
+        #{tagidList,jdbcType=VARCHAR},
+      </if>
+      <if test="black != null" >
+        #{black,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.huateng.wxmgr.common.entity.WxUserFansExample" resultType="java.lang.Integer" >
+    select count(*) from wx_user_fans
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wx_user_fans
+    <set >
+      <if test="record.ids != null" >
+        IDS = #{record.ids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.urltoken != null" >
+        URLTOKEN = #{record.urltoken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appid != null" >
+        APPID = #{record.appid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openid != null" >
+        OPENID = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subscribe != null" >
+        SUBSCRIBE = #{record.subscribe,jdbcType=CHAR},
+      </if>
+      <if test="record.subscribeTime != null" >
+        SUBSCRIBE_TIME = #{record.subscribeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickname != null" >
+        NICKNAME = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        SEX = #{record.sex,jdbcType=CHAR},
+      </if>
+      <if test="record.country != null" >
+        COUNTRY = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null" >
+        PROVINCE = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        CITY = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.language != null" >
+        LANGUAGE = #{record.language,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headimgurl != null" >
+        HEADIMGURL = #{record.headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupid != null" >
+        GROUPID = #{record.groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unionid != null" >
+        UNIONID = #{record.unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tagidList != null" >
+        TAGID_LIST = #{record.tagidList,jdbcType=VARCHAR},
+      </if>
+      <if test="record.black != null" >
+        BLACK = #{record.black,jdbcType=CHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wx_user_fans
+    set IDS = #{record.ids,jdbcType=VARCHAR},
+      URLTOKEN = #{record.urltoken,jdbcType=VARCHAR},
+      APPID = #{record.appid,jdbcType=VARCHAR},
+      OPENID = #{record.openid,jdbcType=VARCHAR},
+      SUBSCRIBE = #{record.subscribe,jdbcType=CHAR},
+      SUBSCRIBE_TIME = #{record.subscribeTime,jdbcType=VARCHAR},
+      NICKNAME = #{record.nickname,jdbcType=VARCHAR},
+      SEX = #{record.sex,jdbcType=CHAR},
+      COUNTRY = #{record.country,jdbcType=VARCHAR},
+      PROVINCE = #{record.province,jdbcType=VARCHAR},
+      CITY = #{record.city,jdbcType=VARCHAR},
+      LANGUAGE = #{record.language,jdbcType=VARCHAR},
+      HEADIMGURL = #{record.headimgurl,jdbcType=VARCHAR},
+      GROUPID = #{record.groupid,jdbcType=VARCHAR},
+      UNIONID = #{record.unionid,jdbcType=VARCHAR},
+      TAGID_LIST = #{record.tagidList,jdbcType=VARCHAR},
+      BLACK = #{record.black,jdbcType=CHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huateng.wxmgr.common.entity.WxUserFans" >
+    update wx_user_fans
+    <set >
+      <if test="urltoken != null" >
+        URLTOKEN = #{urltoken,jdbcType=VARCHAR},
+      </if>
+      <if test="appid != null" >
+        APPID = #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        OPENID = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribe != null" >
+        SUBSCRIBE = #{subscribe,jdbcType=CHAR},
+      </if>
+      <if test="subscribeTime != null" >
+        SUBSCRIBE_TIME = #{subscribeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        NICKNAME = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="country != null" >
+        COUNTRY = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        PROVINCE = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        CITY = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null" >
+        LANGUAGE = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        HEADIMGURL = #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null" >
+        GROUPID = #{groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null" >
+        UNIONID = #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="tagidList != null" >
+        TAGID_LIST = #{tagidList,jdbcType=VARCHAR},
+      </if>
+      <if test="black != null" >
+        BLACK = #{black,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huateng.wxmgr.common.entity.WxUserFans" >
+    update wx_user_fans
+    set URLTOKEN = #{urltoken,jdbcType=VARCHAR},
+      APPID = #{appid,jdbcType=VARCHAR},
+      OPENID = #{openid,jdbcType=VARCHAR},
+      SUBSCRIBE = #{subscribe,jdbcType=CHAR},
+      SUBSCRIBE_TIME = #{subscribeTime,jdbcType=VARCHAR},
+      NICKNAME = #{nickname,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=CHAR},
+      COUNTRY = #{country,jdbcType=VARCHAR},
+      PROVINCE = #{province,jdbcType=VARCHAR},
+      CITY = #{city,jdbcType=VARCHAR},
+      LANGUAGE = #{language,jdbcType=VARCHAR},
+      HEADIMGURL = #{headimgurl,jdbcType=VARCHAR},
+      GROUPID = #{groupid,jdbcType=VARCHAR},
+      UNIONID = #{unionid,jdbcType=VARCHAR},
+      TAGID_LIST = #{tagidList,jdbcType=VARCHAR},
+      BLACK = #{black,jdbcType=CHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+  
+  <delete id="deleteUserfansByList" parameterType="java.util.List">
+  	delete from wx_user_fans where ids in
+  	<foreach item="item" collection="list" open="(" separator="," close=")">
+  		 #{item.ids}
+  	</foreach>
+  
+  </delete>
+  
+  <insert id="insertUserfansByList" parameterType="java.util.List">
+  	insert into wx_user_fans (IDS, URLTOKEN, APPID, 
+      OPENID, SUBSCRIBE, SUBSCRIBE_TIME, 
+      NICKNAME, SEX, COUNTRY, 
+      PROVINCE, CITY, LANGUAGE, 
+      HEADIMGURL, GROUPID, UNIONID, 
+      TAGID_LIST, BLACK, REMARK
+      )
+    values
+    <foreach item="item" collection="list" separator="," index="index" >
+	    (#{item.ids,jdbcType=VARCHAR}, #{item.urltoken,jdbcType=VARCHAR}, #{item.appid,jdbcType=VARCHAR}, 
+	      #{item.openid,jdbcType=VARCHAR}, #{item.subscribe,jdbcType=CHAR}, #{item.subscribeTime,jdbcType=VARCHAR}, 
+	      #{item.nickname,jdbcType=VARCHAR}, #{item.sex,jdbcType=CHAR}, #{item.country,jdbcType=VARCHAR}, 
+	      #{item.province,jdbcType=VARCHAR}, #{item.city,jdbcType=VARCHAR}, #{item.language,jdbcType=VARCHAR}, 
+	      #{item.headimgurl,jdbcType=VARCHAR}, #{item.groupid,jdbcType=VARCHAR}, #{item.unionid,jdbcType=VARCHAR}, 
+	      #{item.tagidList,jdbcType=VARCHAR}, #{item.black,jdbcType=CHAR}, #{item.remark,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  
+  
+</mapper>

@@ -37,7 +37,6 @@ public class GetUsersInfoJob {
 			
 		} catch (JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException
 				| JobParametersInvalidException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

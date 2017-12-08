@@ -1,6 +1,5 @@
 package com.huateng.wxmgr.userbatch.reader;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -33,28 +32,18 @@ public class WxUserOpenidReader implements ItemReader<List<WxUserFans>> {
 	@Override
 	public List<WxUserFans> read()
 			throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
+		
 		logger.info("WxUserOpenidReader>>>>>>>>> {}", nextOpenid);
 		if (nextOpenid.equals("begin")){
 			nextOpenid = "";
 		}
-		//WxUserOpenId usersOpenId = userService.getUsersOpenId(nextOpenid);
-		//logger.info("WxUserOpenidReader>>>>>>>>> {}", usersOpenId.toString());
-		
-		//List<WxUserFans> usersInfoList = userService.getAllUsersInfo(usersOpenId.getOpenidList());
-		
-		//this.nextOpenid = usersOpenId.getNext_openid();
-		//一下为测试代码,无用
-		List<WxUserFans> usersInfoList = new ArrayList<>();
-		WxUserFans wxUser =new WxUserFans();
-		
-		wxUser.setNickname("我是测试一号");
-		wxUser.setIds("test01");
-		usersInfoList.add(wxUser);
-		
-		if (i>2){
-			usersInfoList=null;
+		WxUserOpenId usersOpenId = userService.getUsersOpenId(nextOpenid);
+		List<WxUserFans> usersInfoList = null;
+		if(usersOpenId!=null){
+			logger.info("WxUserOpenidReader>>>>>>>>> {}", usersOpenId.toString());
+		 usersInfoList = userService.getAllUsersInfo(usersOpenId.getOpenidList());
+		this.nextOpenid = usersOpenId.getNext_openid();
 		}
-		i++;
 		return usersInfoList;
 	}
 
