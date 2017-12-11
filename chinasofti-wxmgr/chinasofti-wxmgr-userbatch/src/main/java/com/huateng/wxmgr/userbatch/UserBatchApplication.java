@@ -1,6 +1,8 @@
 package com.huateng.wxmgr.userbatch;
 
-//@SpringBootApplication
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
 public class UserBatchApplication {
 	
 	
