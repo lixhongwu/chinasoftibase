@@ -14,7 +14,7 @@ eureka:
     healthcheck:
       enabled: true
     serviceUrl:
-      defaultZone: http://user:weixin@localhost:8761/eureka
+      defaultZone: http://user:weixin@127.0.0.1:8761/eureka
   instance:
     prefer-ip-address: true
 

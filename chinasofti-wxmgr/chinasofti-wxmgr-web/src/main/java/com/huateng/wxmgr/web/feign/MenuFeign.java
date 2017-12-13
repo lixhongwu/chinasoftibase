@@ -12,7 +12,7 @@ import com.huateng.wxmgr.web.hystrix.MenuFeignClientHystrix;
 
 import net.sf.json.JSONObject;
 
-@FeignClient(name="CHINASOFTI-WXMGR-MENUSERVICE",url="http://localhost:7801",fallback= MenuFeignClientHystrix.class)
+@FeignClient(name="chinasofti-wxmgr-materialservice",fallback= MenuFeignClientHystrix.class)
 public interface MenuFeign {
 	
 	/**

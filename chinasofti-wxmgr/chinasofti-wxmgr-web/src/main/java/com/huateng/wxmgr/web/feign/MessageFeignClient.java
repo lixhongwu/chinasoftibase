@@ -4,14 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.huateng.wxmgr.web.hystrix.MessageFeignClientHystrix;
 
-@FeignClient(name="messageService",fallback=MessageFeignClientHystrix.class)
+@FeignClient(name="chinasofti-wxmgr-materialservice",fallback=MessageFeignClientHystrix.class)
 public interface MessageFeignClient {
 	/**
 	 * 获取消息列表

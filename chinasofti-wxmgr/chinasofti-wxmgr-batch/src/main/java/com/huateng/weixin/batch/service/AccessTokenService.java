@@ -17,8 +17,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import com.huateng.wxmgr.common.utils.Constant;
-
 import net.sf.json.JSONObject;
 
 /**

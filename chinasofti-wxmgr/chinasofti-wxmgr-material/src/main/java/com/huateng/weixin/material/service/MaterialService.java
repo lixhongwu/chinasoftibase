@@ -3,7 +3,7 @@ package com.huateng.weixin.material.service;
 import java.io.File;
 import java.util.List;
 
-import com.huateng.weixin.material.model.WxMaterial;
+import com.huateng.wxmgr.common.entity.WxMaterial;
 
 
 

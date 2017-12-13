@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.huateng.weixin.material.model.Material;
-import com.huateng.weixin.material.model.WxMaterial;
 import com.huateng.weixin.material.service.AccessTokenService;
 import com.huateng.weixin.material.service.MaterialService;
 import com.huateng.weixin.material.util.JsonUtils;
+import com.huateng.wxmgr.common.entity.Material;
+import com.huateng.wxmgr.common.entity.WxMaterial;
 
 @RestController
 @RequestMapping("/material")

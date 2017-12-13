@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.huateng.wxmgr.web.hystrix.UserTagsFeignHystrix;
 
-@FeignClient(name="chinasofti-wxmgr-userservice",url="http://localhost:7802",fallback=UserTagsFeignHystrix.class)
+@FeignClient(name="chinasofti-wxmgr-materialservice",fallback=UserTagsFeignHystrix.class)
 public interface UserTagsFeign {
 	/**
 	 * 分页查询

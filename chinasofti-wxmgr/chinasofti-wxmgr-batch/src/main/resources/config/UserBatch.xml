@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:batch="http://www.springframework.org/schema/batch"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd">
+    
+    <context:property-placeholder location="classpath:/config/*.properties"/>
+    <!-- Import our beans -->
+    <import resource="classpath:/config/UserBase.xml"/>
+    
+    
+    <job id="getUserInfoJob" xmlns="http://www.springframework.org/schema/batch">
+        <step id="getUsersOpenid"><!--next="archiveFileStep"-->
+            <tasklet transaction-manager="transactionManager" >
+                <chunk reader="wxUserOpenidReader" processor="wxUserOpenidProcessor" writer="wxUsersOpenidWriter"
+                       commit-interval="1"/>
+            </tasklet>
+        </step>
+    </job>
+    <!--从微信服务器中获取到数据。-->
+    <bean id="wxUserOpenidReader" class="com.huateng.weixin.batch.reader.WxUserOpenidReader" scope="step">
+		<property name="nextOpenid" value="#{jobParameters['nextOpenid']}"/>
+    </bean>
+    
+    <!-- 目标数据源配置  新库 -->
+    <bean id="newdataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url"
+                  value="jdbc:mysql://localhost/baseshop"/>
+        <property name="username" value="zhongxin"/>
+        <property name="password" value="zhongxin"/>
+    </bean>
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="newdataSource"/>
+    </bean>
+    <!--JDBCTemplates配置，注意是newjdbcTemplate，自动装载的时候也是这个-->
+    <bean id="newjdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="newdataSource"/>
+    </bean>
+
+</beans>

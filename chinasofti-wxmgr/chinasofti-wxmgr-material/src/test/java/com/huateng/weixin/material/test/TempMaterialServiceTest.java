@@ -14,10 +14,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huateng.weixin.material.controller.MaterialController;
-import com.huateng.weixin.material.model.Material;
 import com.huateng.weixin.material.service.AccessTokenService;
 import com.huateng.weixin.material.service.MaterialService;
 import com.huateng.weixin.material.util.JsonUtils;
+import com.huateng.wxmgr.common.entity.Material;
 
 
 

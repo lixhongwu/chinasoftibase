@@ -19,10 +19,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.huateng.weixin.material.controller.MaterialController;
 import com.huateng.weixin.material.mapper.WxMaterialMapper;
-import com.huateng.weixin.material.model.WxMaterial;
-import com.huateng.weixin.material.model.WxMaterialExample;
-import com.huateng.weixin.material.model.WxMaterialExample.Criteria;
+
 import com.huateng.weixin.material.util.HttpHelper;
+import com.huateng.wxmgr.common.entity.WxMaterial;
+import com.huateng.wxmgr.common.entity.WxMaterialExample;
+import com.huateng.wxmgr.common.entity.WxMaterialExample.Criteria;
 
 @Component("materialService")
 public class MaterialServiceImpl implements MaterialService {

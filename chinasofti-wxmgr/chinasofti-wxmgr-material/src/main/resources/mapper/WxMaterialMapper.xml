@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.huateng.weixin.material.mapper.WxMaterialMapper" >
-  <resultMap id="BaseResultMap" type="com.huateng.weixin.material.model.WxMaterial" >
+  <resultMap id="BaseResultMap" type="com.huateng.wxmgr.common.entity.WxMaterial" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="file_name" property="fileName" jdbcType="VARCHAR" />
     <result column="file_path" property="filePath" jdbcType="VARCHAR" />
@@ -71,7 +71,7 @@
   <sql id="Base_Column_List" >
     id, file_name, file_path, media_id, create_time, flag, url
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.huateng.weixin.material.model.WxMaterialExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.huateng.wxmgr.common.entity.WxMaterialExample" >
     select
     <if test="distinct" >
       distinct
@@ -95,13 +95,13 @@
     delete from wx_material
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.huateng.weixin.material.model.WxMaterialExample" >
+  <delete id="deleteByExample" parameterType="com.huateng.wxmgr.common.entity.WxMaterialExample" >
     delete from wx_material
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.huateng.weixin.material.model.WxMaterial" >
+  <insert id="insert" parameterType="com.huateng.wxmgr.common.entity.WxMaterial" >
     insert into wx_material (id, file_name, file_path, 
       media_id, create_time, flag, 
       url)
@@ -109,7 +109,7 @@
       #{mediaId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{flag,jdbcType=INTEGER}, 
       #{url,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.huateng.weixin.material.model.WxMaterial" >
+  <insert id="insertSelective" parameterType="com.huateng.wxmgr.common.entity.WxMaterial" >
     insert into wx_material
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -158,7 +158,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.huateng.weixin.material.model.WxMaterialExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.huateng.wxmgr.common.entity.WxMaterialExample" resultType="java.lang.Integer" >
     select count(*) from wx_material
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -206,7 +206,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.huateng.weixin.material.model.WxMaterial" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.huateng.wxmgr.common.entity.WxMaterial" >
     update wx_material
     <set >
       <if test="fileName != null" >
@@ -230,7 +230,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.huateng.weixin.material.model.WxMaterial" >
+  <update id="updateByPrimaryKey" parameterType="com.huateng.wxmgr.common.entity.WxMaterial" >
     update wx_material
     set file_name = #{fileName,jdbcType=VARCHAR},
       file_path = #{filePath,jdbcType=VARCHAR},

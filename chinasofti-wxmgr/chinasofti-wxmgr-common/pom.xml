@@ -4,12 +4,10 @@
 	<parent>
 		<groupId>com.chinasofti</groupId>
 		<artifactId>chinasofti-wxmgr</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</parent>
 	<artifactId>chinasofti-wxmgr-common</artifactId>
 	<dependencies>
-
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
@@ -28,14 +26,10 @@
 			<version>2.4</version>
 			<classifier>jdk15</classifier>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
-
-		<!-- <dependency> <groupId>mysql</groupId> <artifactId>mysql-connector-java</artifactId> 
-			<scope>runtime</scope> </dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -49,11 +43,7 @@
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 		</dependency>
-
-
 	</dependencies>
-
-
 	<build>
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
@@ -83,4 +73,5 @@
 		</plugins>
 	</build>
 
+	<version>0.0.1</version>
 </project>

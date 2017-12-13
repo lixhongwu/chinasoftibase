@@ -1,9 +1,11 @@
 package com.huateng.weixin.material.mapper;
 
-import com.huateng.weixin.material.model.WxMaterial;
-import com.huateng.weixin.material.model.WxMaterialExample;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
+
+import com.huateng.wxmgr.common.entity.WxMaterial;
+import com.huateng.wxmgr.common.entity.WxMaterialExample;
 
 public interface WxMaterialMapper {
     int countByExample(WxMaterialExample example);

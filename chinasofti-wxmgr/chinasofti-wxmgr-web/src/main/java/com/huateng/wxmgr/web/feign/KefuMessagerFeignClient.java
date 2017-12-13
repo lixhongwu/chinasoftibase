@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-@FeignClient(name="chinasofti-wxmgr-kefuservice",fallback=KefuMessagerFeignClient.class)
+@FeignClient(name="chinasofti-wxmgr-materialservice",fallback=KefuMessagerFeignClient.class)
 public interface KefuMessagerFeignClient {
 
 	@RequestMapping(value="/kefu/sendText",method=RequestMethod.POST)
