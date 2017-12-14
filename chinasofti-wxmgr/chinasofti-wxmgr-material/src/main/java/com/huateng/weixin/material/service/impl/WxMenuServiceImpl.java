@@ -9,11 +9,15 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.huateng.weixin.material.mapper.WxMenuMapper;
 import com.huateng.weixin.material.service.WxMenuservice;
 import com.huateng.wxmgr.common.entity.WxMenu;
 import com.huateng.wxmgr.common.entity.WxMenuExample;
+import com.huateng.wxmgr.common.entity.WxMenuExample.Criteria;
 
 import net.sf.json.JSONObject;
 
@@ -84,17 +88,22 @@ public class WxMenuServiceImpl implements WxMenuservice {
 	 * @param wxMenu
 	 * @return
 	 */
-	public JSONObject findGroupByPage() {
+	public JSONObject findGroupByPage(@RequestParam Map<String,String> map) {
 
 		WxMenuExample example = new WxMenuExample();
-		example.createCriteria().andLevelEqualTo((byte) 0);
-
-		// PageHelper.startPage(wxMenu.getPage(), wxMenu.getRows());
+		Criteria criteria = example.createCriteria();
+		String page =map.get("page");
+		String rows = map.get("rows");
+		String sort = map.get("sort");
+		example.setOrderByClause(sort+" desc");
+		criteria.andLevelEqualTo((byte) 0);
+		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(rows));
+		
 		List<WxMenu> list = wxMenuMapper.selectByExample(example);
-
+		
 		JSONObject json = new JSONObject();
 		json.put("rows", list);
-		json.put("total", list.size());
+		json.put("total", ((Page<WxMenu>)list).getTotal());
 		return json;
 	}
 

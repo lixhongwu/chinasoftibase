@@ -2,7 +2,6 @@ package com.huateng.wxmgr.web.controller;
 
 import java.util.Map;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.huateng.wxmgr.common.entity.WxMenu;
 import com.huateng.wxmgr.common.utils.Constant;
 import com.huateng.wxmgr.web.feign.MenuFeign;
 
@@ -32,6 +30,7 @@ public class MenuController {
 	public ModelAndView getView() {
 		return new ModelAndView("menu/menugroup");
 	}
+	
 	/**
 	 * 将菜单更新到微信服务器
 	 * @param gid
@@ -113,9 +112,9 @@ public class MenuController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/grouplist")
-	public String findGroupByPage() {
-		JSONObject object = menufeign.findGroupByPage();
+	@RequestMapping(value = "/grouplist", method=RequestMethod.POST)
+	public String findGroupByPage(@RequestParam Map<String,String> map) {
+		JSONObject object = menufeign.findGroupByPage(map);
 		return object.toString();
 	}
 

@@ -3,6 +3,8 @@ package com.huateng.weixin.material.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.huateng.wxmgr.common.entity.WxMenu;
 
 import net.sf.json.JSONObject;
@@ -46,7 +48,7 @@ public interface WxMenuservice {
 	 * @param wxMenu
 	 * @return
 	 */
-	public JSONObject findGroupByPage();
+	public JSONObject findGroupByPage(@RequestParam Map<String,String> map);
 
 	/**
 	 * 更新菜单组

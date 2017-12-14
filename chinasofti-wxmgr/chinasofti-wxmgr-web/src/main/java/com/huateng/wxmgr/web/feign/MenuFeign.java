@@ -27,8 +27,8 @@ public interface MenuFeign {
 	 * 获取菜单组列表
 	 * @return
 	 */
-	@RequestMapping(value="/wxmenu/grouplist" )
-	public JSONObject findGroupByPage();
+	@RequestMapping(value="/wxmenu/grouplist",method=RequestMethod.POST )
+	public JSONObject findGroupByPage(@RequestParam Map<String,String> map);
 	
 //	@RequestMapping(value="/wxmenu/addmenugroup" ,method=RequestMethod.POST)
 //	public String addMenuGroup(@RequestBody WxMenu wxMenu);

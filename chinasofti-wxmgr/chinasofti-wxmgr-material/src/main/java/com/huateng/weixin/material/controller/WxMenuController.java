@@ -203,10 +203,10 @@ public class WxMenuController {
 	 * @param wxMenu
 	 * @return
 	 */
-	@RequestMapping(value = "/grouplist")
-	public JSONObject findGroupByPage() {
+	@RequestMapping(value = "/grouplist",method=RequestMethod.POST )
+	public JSONObject findGroupByPage(@RequestParam Map<String,String> map) {
 
-		JSONObject object = wxMenuService.findGroupByPage();
+		JSONObject object = wxMenuService.findGroupByPage(map);
 		return object;
 	}
 

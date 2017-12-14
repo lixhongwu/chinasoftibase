@@ -1,4 +1,4 @@
-package com.huateng.weixin.batch;
+/*package com.huateng.weixin.batch;
 
 
 import com.huateng.weixin.batch.job.KefuMessageJob;
@@ -13,3 +13,4 @@ public class MybatchApplication {
     
     
 }
+*/
