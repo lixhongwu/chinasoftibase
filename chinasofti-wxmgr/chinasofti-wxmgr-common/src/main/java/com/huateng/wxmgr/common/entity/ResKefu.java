@@ -1,4 +1,4 @@
-package com.huateng.weixin.material.model;
+package com.huateng.wxmgr.common.entity;
 
 /**
  * 客服回复消息

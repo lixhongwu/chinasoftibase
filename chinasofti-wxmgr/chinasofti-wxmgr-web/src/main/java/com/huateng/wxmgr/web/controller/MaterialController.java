@@ -16,8 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.huateng.wxmgr.common.entity.WxMaterial;
 import com.huateng.wxmgr.web.feign.MaterialFeignClient;
-import com.huateng.wxmgr.web.model.WxMaterial;
 
 @RestController
 @RequestMapping("wxmaterial")

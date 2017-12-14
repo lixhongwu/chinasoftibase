@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.huateng.weixin.material.mapper.TemplateMessageMapper">
 	<resultMap id="BaseResultMap"
-		type="com.huateng.weixin.material.model.TemplateMessageModel">
+		type="com.huateng.wxmgr.common.entity.TemplateMessageModel">
 		<id column="template_id" property="template_id" jdbcType="VARCHAR" />
 		<result column="title" property="title" jdbcType="VARCHAR" />
 		<result column="primary_industry" property="primary_industry"
@@ -22,7 +22,7 @@
 		select *from template_message where title like '%${value}%'
 	</select>
 	<select id="getTemplateMessageContent"
-		resultType="com.huateng.weixin.material.model.TemplateMessageContent"
+		resultType="com.huateng.wxmgr.common.entity.TemplateMessageContent"
 		parameterType="java.lang.String">
 		select *from template_detail where templateID=#{template_id}
 	</select>
@@ -51,7 +51,7 @@
 	</insert>
 	
 	
-	<insert id="addTemplateFromSend" parameterType="com.huateng.weixin.material.model.TemplateSendModel">
+	<insert id="addTemplateFromSend" parameterType="com.huateng.wxmgr.common.entity.TemplateSendModel">
 		insert into template_send(template_id,touser,url,send_body) values(
 		
 		#{template_id},#{touser},#{url},#{send_body}
@@ -59,7 +59,7 @@
 		)
 		
 	</insert>
-	<select id="userList" resultType="com.huateng.weixin.material.model.UserModel">
+	<select id="userList" resultType="com.huateng.wxmgr.common.entity.UserModel">
 		select openid ,nickname from wx_user_fans
 	</select>
 	<delete id="deleteTemplate" >

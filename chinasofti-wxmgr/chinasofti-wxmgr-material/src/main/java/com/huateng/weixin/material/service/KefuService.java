@@ -1,7 +1,7 @@
 package com.huateng.weixin.material.service;
 
 
-import com.huateng.weixin.material.model.Kefu;
+import com.huateng.wxmgr.common.entity.Kefu;
 
 import net.sf.json.JSONObject;
 

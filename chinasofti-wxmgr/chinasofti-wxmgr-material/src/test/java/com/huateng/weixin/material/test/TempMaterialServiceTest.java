@@ -16,7 +16,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.huateng.weixin.material.controller.MaterialController;
 import com.huateng.weixin.material.service.AccessTokenService;
 import com.huateng.weixin.material.service.MaterialService;
-import com.huateng.weixin.material.util.JsonUtils;
 import com.huateng.wxmgr.common.entity.Material;
 
 
@@ -106,7 +105,7 @@ public class TempMaterialServiceTest {
 		JSONObject listPermanentMaterial = materialService.listPermanentMaterial(accessToken, type, offset, count);
 		JSONArray jsonArray = listPermanentMaterial.getJSONArray("item");
 		System.out.println(jsonArray);
-		List<Material> list = JsonUtils.jsonToList(jsonArray.toString(), Material.class);
+		List<Material> list = com.huateng.wxmgr.common.utils.JsonUtils.jsonToList(jsonArray.toString(), Material.class);
 		
 		for (Material material : list) {
 //			if((material.getMedia_id()))

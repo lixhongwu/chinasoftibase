@@ -16,21 +16,6 @@ public class WxMaterial {
     private Integer flag;//0代表临时素材 1代表永久素材
 
     private String url;
-    
-   /* private String flagStr;
-    
-
-    public String getFlagStr() {
-    	if(flag == 1){
-			this.flagStr = "永久素材";
-		}
-    	this.flagStr = "临时素材";
-    	return flagStr;
-	}
-
-	public void setFlagStr(String flagStr) {
-		this.flagStr = flagStr;
-	}*/
 
 	public Integer getId() {
         return id;

@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.huateng.weixin.material.mapper.TemplateMessageMapper;
-import com.huateng.weixin.material.model.TemplateMessageContent;
-import com.huateng.weixin.material.model.TemplateMessageModel;
-import com.huateng.weixin.material.model.TemplateSendModel;
-import com.huateng.weixin.material.model.UserModel;
 import com.huateng.weixin.material.service.GetTemplateFromWxService;
 import com.huateng.weixin.material.service.TemplateMessageSevice;
+import com.huateng.wxmgr.common.entity.TemplateMessageContent;
+import com.huateng.wxmgr.common.entity.TemplateMessageModel;
+import com.huateng.wxmgr.common.entity.TemplateSendModel;
+import com.huateng.wxmgr.common.entity.UserModel;
 /**
  * 操作数据库
  * @author Memoa

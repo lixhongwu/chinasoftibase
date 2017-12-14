@@ -5,9 +5,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.huateng.weixin.material.model.Kefu;
 import com.huateng.weixin.material.service.KefuService;
-import com.huateng.weixin.material.util.WeixinUtil;
+import com.huateng.wxmgr.common.entity.Kefu;
+import com.huateng.wxmgr.common.utils.WeixinUtil;
 
 import net.sf.json.JSONObject;
 

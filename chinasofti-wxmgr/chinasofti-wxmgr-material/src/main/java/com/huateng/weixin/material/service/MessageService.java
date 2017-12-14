@@ -2,7 +2,7 @@ package com.huateng.weixin.material.service;
 
 import java.util.List;
 
-import com.huateng.weixin.material.model.ReplyMessage;
+import com.huateng.wxmgr.common.entity.ReplyMessage;
 
 public interface MessageService {
 

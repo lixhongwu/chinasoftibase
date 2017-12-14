@@ -1,4 +1,4 @@
-package com.huateng.weixin.material.model;
+package com.huateng.wxmgr.common.entity;
 
 import java.sql.Timestamp;
 

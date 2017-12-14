@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.alibaba.fastjson.JSONObject;
+import com.huateng.wxmgr.common.entity.WxMaterial;
 import com.huateng.wxmgr.web.hystrix.MaterialFeignClientHystrix;
-import com.huateng.wxmgr.web.model.WxMaterial;
 
 
 @FeignClient(name="chinasofti-wxmgr-materialservice",fallback=MaterialFeignClientHystrix.class)

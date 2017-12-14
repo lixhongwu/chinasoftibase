@@ -1,4 +1,4 @@
-package com.huateng.wxmgr.web.model;
+package com.huateng.wxmgr.common.entity;
 
 public class WxUser {
     private String id;

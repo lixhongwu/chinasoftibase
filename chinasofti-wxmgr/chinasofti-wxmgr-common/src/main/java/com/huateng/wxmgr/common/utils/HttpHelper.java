@@ -1,4 +1,4 @@
-package com.huateng.weixin.material.util;
+package com.huateng.wxmgr.common.utils;
 
 import java.io.File;
 import java.io.FileOutputStream;

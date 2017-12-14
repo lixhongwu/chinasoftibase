@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import com.huateng.weixin.material.model.TemplateMessageModel;
 import com.huateng.weixin.material.service.GetTemplateFromWxService;
-import com.huateng.weixin.material.util.WxUtil;
+import com.huateng.wxmgr.common.entity.TemplateMessageModel;
+import com.huateng.wxmgr.common.utils.WeixinUtil;
 
 import net.sf.json.JSONObject;
 
@@ -21,8 +21,6 @@ public class GetTemplateFromWxServiceImpl implements GetTemplateFromWxService{
 	
 	@Autowired
 	private TemplateMessageServiceImpl templateMessageSevice = new TemplateMessageServiceImpl();
-	@Autowired
-	private WxUtil wxUtil;
 	/**
 	 * 获取微信服务器消息模板列表
 	 */
@@ -31,7 +29,8 @@ public class GetTemplateFromWxServiceImpl implements GetTemplateFromWxService{
 	public String getTemplateFromWX(String accessToken) {
 		String result = null;
 		String url = TEMPLATE_RUL.replace("ACCESS_TOKEN", accessToken);
-		JSONObject jsObject = wxUtil.doGetStr(url);
+		JSONObject jsObject = WeixinUtil.doGetStr(url);
+		//JSONObject jsObject = wxUtil.doGetStr(url);
 		if(jsObject.get("errcode")!=null){
 			return result;
 		}

@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.huateng.weixin.material.model.ReplyMessage;
-import com.huateng.weixin.material.model.TemplateMessageContent;
-import com.huateng.weixin.material.model.TemplateMessageModel;
-import com.huateng.weixin.material.model.TemplateSendModel;
 import com.huateng.weixin.material.service.AccessTokenService;
 import com.huateng.weixin.material.service.MessageService;
 import com.huateng.weixin.material.service.TemplateMessageSevice;
-import com.huateng.weixin.material.util.WxUtil;
+import com.huateng.wxmgr.common.entity.ReplyMessage;
+import com.huateng.wxmgr.common.entity.TemplateMessageContent;
+import com.huateng.wxmgr.common.entity.TemplateMessageModel;
+import com.huateng.wxmgr.common.entity.TemplateSendModel;
+import com.huateng.wxmgr.common.utils.WeixinUtil;
 
 import net.sf.json.JSONObject;
 
@@ -35,9 +35,6 @@ public class MessageController {
 	private AccessTokenService accessTokenService;
 	@Autowired
 	private TemplateMessageSevice tms;
-	
-	@Autowired
-	private WxUtil wxUtil;
 	
 	/**
 	 * 查询消息列表
@@ -153,7 +150,8 @@ public class MessageController {
 		JSONObject json = JSONObject.fromObject(sendMap);
 		String outStr =json.toString();
 
-		JSONObject jsonObject = wxUtil.doPostStr(url, outStr);
+		//JSONObject jsonObject = wxUtil.doPostStr(url, outStr);
+		JSONObject jsonObject = WeixinUtil.doPostStr(url, outStr);
 		if(jsonObject!=null){
 			TemplateSendModel templateSendModel = new TemplateSendModel();
 			templateSendModel.setSend_body(JSONObject.fromObject(keyMap).toString());

@@ -14,9 +14,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huateng.weixin.material.service.AccessTokenService;
 import com.huateng.weixin.material.service.MaterialService;
-import com.huateng.weixin.material.util.JsonUtils;
 import com.huateng.wxmgr.common.entity.Material;
 import com.huateng.wxmgr.common.entity.WxMaterial;
+import com.huateng.wxmgr.common.utils.JsonUtils;
 
 @RestController
 @RequestMapping("/material")

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.huateng.weixin.material.mapper.ReplyMessageMapper" >
-  <resultMap id="BaseResultMap" type="com.huateng.weixin.material.model.ReplyMessage" >
+  <resultMap id="BaseResultMap" type="com.huateng.wxmgr.common.entity.ReplyMessage" >
     <id column="message_id" property="message_id" jdbcType="INTEGER" />
     <result column="rule_name" property="rule_name" jdbcType="VARCHAR" />
     <result column="key_words" property="key_words" jdbcType="VARCHAR" />
@@ -17,7 +17,7 @@
   <select id="searchByKey" parameterType="java.lang.String" resultMap="BaseResultMap">
   	select * from reply_message where rule_name like '%${value}%'
   </select>
-  <insert id="insert" parameterType="com.huateng.weixin.material.model.ReplyMessage" >
+  <insert id="insert" parameterType="com.huateng.wxmgr.common.entity.ReplyMessage" >
   	insert reply_message (rule_name,key_words,content) values(
   		#{rule_name},#{key_words},#{content}
   	)
@@ -28,7 +28,7 @@
     where message_id = #{message_id,jdbcType=INTEGER}
   </delete>
   
-   <update id="edit" parameterType="com.huateng.weixin.material.model.ReplyMessage" >
+   <update id="edit" parameterType="com.huateng.wxmgr.common.entity.ReplyMessage" >
     update reply_message
     <set >
       

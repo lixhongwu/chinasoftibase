@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.huateng.wxmgr.common.entity.WxUser;
 import com.huateng.wxmgr.web.feign.KefuMessagerFeignClient;
-import com.huateng.wxmgr.web.model.WxUser;
 
 
 @RestController

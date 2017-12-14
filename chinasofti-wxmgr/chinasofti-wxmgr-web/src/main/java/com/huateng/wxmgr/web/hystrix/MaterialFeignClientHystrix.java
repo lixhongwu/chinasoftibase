@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
+import com.huateng.wxmgr.common.entity.WxMaterial;
 import com.huateng.wxmgr.web.feign.MaterialFeignClient;
-import com.huateng.wxmgr.web.model.WxMaterial;
 
 @Component
 public class MaterialFeignClientHystrix implements MaterialFeignClient {

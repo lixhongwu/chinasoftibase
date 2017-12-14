@@ -1,7 +1,6 @@
-package com.huateng.weixin.material.service;
+package com.huateng.weixin.material.service.impl;
 
 import java.io.File;
-import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -19,11 +18,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.huateng.weixin.material.controller.MaterialController;
 import com.huateng.weixin.material.mapper.WxMaterialMapper;
-
-import com.huateng.weixin.material.util.HttpHelper;
+import com.huateng.weixin.material.service.MaterialService;
 import com.huateng.wxmgr.common.entity.WxMaterial;
 import com.huateng.wxmgr.common.entity.WxMaterialExample;
 import com.huateng.wxmgr.common.entity.WxMaterialExample.Criteria;
+import com.huateng.wxmgr.common.utils.HttpHelper;
 
 @Component("materialService")
 public class MaterialServiceImpl implements MaterialService {

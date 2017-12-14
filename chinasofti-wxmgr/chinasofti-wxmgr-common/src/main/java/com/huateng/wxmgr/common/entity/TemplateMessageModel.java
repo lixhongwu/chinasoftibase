@@ -1,4 +1,4 @@
-package com.huateng.weixin.material.model;
+package com.huateng.wxmgr.common.entity;
 
 public class TemplateMessageModel extends TimeModel{
 	private String template_id;

@@ -1,17 +1,29 @@
-package com.huateng.weixin.material.util;
+package com.huateng.wxmgr.common.utils;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ConnectException;
 import java.net.URL;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -88,38 +100,72 @@ public class WeixinUtil {
 		}
 		return jsonObject;
 	}
-
-	// 获取access_token的接口地址（GET） 限200（次/天）
-//	public final static String access_token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
-
+	
 	/**
-	 * 获取access_token
-	 *
-	 * @param appid
-	 *            凭证
-	 * @param appsecret
-	 *            密钥
+	 * get请求
+	 * @param url
 	 * @return
 	 */
-/*	public static AccessToken getAccessToken(String appid, String appsecret) {
-		AccessToken accessToken = null;
-
-		String requestUrl = access_token_url.replace("APPID", "wxdf00b0d9d7771301").replace("APPSECRET", "f00e28ebffc66d0633333011f61a40cd");
-		JSONObject jsonObject = httpRequest(requestUrl, "GET", null);
-		// 如果请求成功
-		if (null != jsonObject) {
-			try {
-				accessToken = new AccessToken();
-				accessToken.setToken(jsonObject.getString("access_token"));
-				accessToken.setExpiresIn(jsonObject.getInt("expires_in"));
-			} catch (JSONException e) {
-				accessToken = null;
-				// 获取token失败
-				log.error("获取token失败 errcode:{} errmsg:{}", jsonObject.getInt("errcode"),
-						jsonObject.getString("errmsg"));
+	public static JSONObject doGetStr(String url){
+		DefaultHttpClient httpClient = new DefaultHttpClient();
+		HttpGet httpGet = new HttpGet(url);
+		JSONObject jsonObject = null;
+		try {
+			HttpResponse httpResponse = httpClient.execute(httpGet);
+			HttpEntity hEntity = httpResponse.getEntity();
+			if(hEntity!=null){
+				String result = EntityUtils.toString(hEntity,"utf-8");
+				jsonObject = JSONObject.fromObject(result);
 			}
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return accessToken;
-	}*/
+		return jsonObject;
+	}
+	/**
+	 * post请求
+	 * @param url
+	 * @param outStr
+	 * @return
+	 */
+	public static JSONObject doPostStr(String url ,String outStr){
+		HttpPost httpPost = new HttpPost(url);
+		DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
+		JSONObject jsonObject = null;
+		try {
+			httpPost.setEntity(new StringEntity(outStr,"utf-8"));
+			HttpResponse httpResponse = defaultHttpClient.execute(httpPost);
+			HttpEntity httpEntity = httpResponse.getEntity();
+			String result = EntityUtils.toString(httpEntity,"utf-8");
+			jsonObject = JSONObject.fromObject(result);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jsonObject;
+	}
+	
+}
+
+class MyX509TrustManager implements X509TrustManager {
+
+	@Override
+	public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+
+	}
+
+	@Override
+	public void checkServerTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+
+	}
+
+	@Override
+	public X509Certificate[] getAcceptedIssuers() {
+		return null;
+	}
 
 }

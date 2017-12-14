@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.huateng.weixin.material.model.WxKefu;
-import com.huateng.weixin.material.model.WxKefuExample;
+import com.huateng.wxmgr.common.entity.WxKefu;
+import com.huateng.wxmgr.common.entity.WxKefuExample;
 
 public interface WxKefuMapper {
     int countByExample(WxKefuExample example);

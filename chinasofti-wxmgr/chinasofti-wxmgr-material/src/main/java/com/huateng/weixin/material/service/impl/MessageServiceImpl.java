@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.huateng.weixin.material.mapper.ReplyMessageMapper;
-import com.huateng.weixin.material.model.ReplyMessage;
 import com.huateng.weixin.material.service.MessageService;
+import com.huateng.wxmgr.common.entity.ReplyMessage;
 
 @Service
 public class MessageServiceImpl implements MessageService {

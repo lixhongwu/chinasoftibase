@@ -2,10 +2,10 @@ package com.huateng.weixin.material.mapper;
 
 import java.util.List;
 
-import com.huateng.weixin.material.model.TemplateMessageContent;
-import com.huateng.weixin.material.model.TemplateMessageModel;
-import com.huateng.weixin.material.model.TemplateSendModel;
-import com.huateng.weixin.material.model.UserModel;
+import com.huateng.wxmgr.common.entity.TemplateMessageContent;
+import com.huateng.wxmgr.common.entity.TemplateMessageModel;
+import com.huateng.wxmgr.common.entity.TemplateSendModel;
+import com.huateng.wxmgr.common.entity.UserModel;
 
 
 public interface TemplateMessageMapper {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.huateng.weixin.material.mapper.WxKefuMapper" >
-  <resultMap id="BaseResultMap" type="com.huateng.weixin.material.model.WxKefu" >
+  <resultMap id="BaseResultMap" type="com.huateng.wxmgr.common.entity.WxKefu" >
     <result column="kf_account" property="kfAccount" jdbcType="VARCHAR" />
     <result column="kf_id" property="kfId" jdbcType="VARCHAR" />
     <result column="kf_nick" property="kfNick" jdbcType="VARCHAR" />
@@ -68,7 +68,7 @@
   <sql id="Base_Column_List" >
     kf_account, kf_id, kf_nick, password
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.huateng.weixin.material.model.WxKefuExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.huateng.wxmgr.common.entity.WxKefuExample" >
     select
     <if test="distinct" >
       distinct
@@ -82,19 +82,19 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.huateng.weixin.material.model.WxKefuExample" >
+  <delete id="deleteByExample" parameterType="com.huateng.wxmgr.common.entity.WxKefuExample" >
     delete from wx_kefu
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.huateng.weixin.material.model.WxKefu" >
+  <insert id="insert" parameterType="com.huateng.wxmgr.common.entity.WxKefu" >
     insert into wx_kefu (kf_account, kf_id, kf_nick, 
       password)
     values (#{kfAccount,jdbcType=VARCHAR}, #{kfId,jdbcType=VARCHAR}, #{kfNick,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.huateng.weixin.material.model.WxKefu" >
+  <insert id="insertSelective" parameterType="com.huateng.wxmgr.common.entity.WxKefu" >
     insert into wx_kefu
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="kfAccount != null" >
@@ -125,7 +125,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.huateng.weixin.material.model.WxKefuExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.huateng.wxmgr.common.entity.WxKefuExample" resultType="java.lang.Integer" >
     select count(*) from wx_kefu
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
