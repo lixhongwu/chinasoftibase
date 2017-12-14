@@ -29,9 +29,9 @@ public class Scheduler {
 	@Resource
 	private RedisTokenHelper redisTokenHelper;// redis帮助类定义redis的端口ip等信息
 
-	public static String APPID = "wx46a11776c72d6875";
+	public static String APPID = "wx782cdd6e08df1c9f";
 
-	public static String APPSERCERT = "e01f1123edbdfad66a8a28a94c634c89";
+	public static String APPSERCERT = "73a5c27148591c50b82c8f59e40eb8ae";
 
 	/**
 	 * 定时获取access_token
