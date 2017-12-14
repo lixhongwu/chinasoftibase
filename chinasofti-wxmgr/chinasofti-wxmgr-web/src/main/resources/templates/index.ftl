@@ -59,7 +59,6 @@
 								<span>用户标签管理</span></a></li>
 						</ul>
 					</li>
-                    <li iconCls="icon-book"><a href="javascript:void(0)" data-icon="icon-book" data-link="temp/layout-3.html" iframe="0">卡券管理</a></li>
                     <li iconCls="icon-cog"><a href="javascript:void(0)" data-icon="icon-cog" data-link="wxmaterial/material" iframe="0">素材管理</a></li>
                     <li iconCls="icon-application-osx-error"><a href="javascript:void(0)" data-icon="icon-application-osx-error" data-link="temp/layout-3.html" iframe="0">批量功能</a></li>
                 </ul>

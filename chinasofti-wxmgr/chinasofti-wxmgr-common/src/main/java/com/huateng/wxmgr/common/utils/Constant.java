@@ -6,7 +6,7 @@ public class Constant {
 	public static final String SUCCESS = "200";
 	public static final String ERROR = "130";
 	public static final String CALLBACK = "777";// 熔断后返回callback
-	
+	public static final int CALLBACK_INT = 777;// 熔断后返回callback
 	/**
 	 * 获取access_token的地址，需要传入appId以及appSecret两个参数
 	 */
@@ -39,19 +39,19 @@ public class Constant {
 	public final static String USER_REMARK_NAME = "https://api.weixin.qq.com/cgi-bin/user/info/updateremark?access_token=%s";
 
 	/**
-	 * 获取黑名单用户列表  http请求方式：POST（请使用https协议）
+	 * 获取黑名单用户列表 http请求方式：POST（请使用https协议）
 	 */
 	public final static String USER_GET_BLACK = "https://api.weixin.qq.com/cgi-bin/tags/members/getblacklist?access_token=%s";
 
 	/**
 	 * 拉黑用户，一次最多能拉黑20个用户。http请求方式：POST（请使用https协议）
 	 */
-	public final static String USER_SET_BLACK="https://api.weixin.qq.com/cgi-bin/tags/members/batchblacklist?access_token=%s";
-	
+	public final static String USER_SET_BLACK = "https://api.weixin.qq.com/cgi-bin/tags/members/batchblacklist?access_token=%s";
+
 	/**
 	 * 解除黑名单，一次最多能解除20个用户，http请求方式：POST（请使用https协议）
 	 */
-	public final static String USER_UN_BLACK="https://api.weixin.qq.com/cgi-bin/tags/members/batchunblacklist?access_token=%s";
+	public final static String USER_UN_BLACK = "https://api.weixin.qq.com/cgi-bin/tags/members/batchunblacklist?access_token=%s";
 
 	public static class urls {
 		/**
@@ -64,7 +64,6 @@ public class Constant {
 		 */
 		public final static String CREATE_MENU = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s";
 
-	
 		// 下面的是标签相关
 
 		/**

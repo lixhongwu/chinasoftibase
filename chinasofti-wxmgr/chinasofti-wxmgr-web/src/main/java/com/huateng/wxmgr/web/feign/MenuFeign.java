@@ -84,14 +84,14 @@ public interface MenuFeign {
 	 * @return
 	 */
 	@RequestMapping(value="/wxmenu/deletemenu/{ids}",method=RequestMethod.POST)
-	public String deleteMenu(@PathVariable("ids") String ids);
+	public int deleteMenu(@PathVariable("ids") String ids);
 	/**
 	 * 更新菜单
 	 * @param map
 	 * @return
 	 */
 	@RequestMapping(value="/wxmenu/updatamenu",method=RequestMethod.POST)
-	public String updataMenu(@RequestParam Map<String, String> map);
+	public int updataMenu(@RequestParam Map<String, String> map);
 	/**
 	 * 将菜单更新到微信服务器
 	 * @param gid

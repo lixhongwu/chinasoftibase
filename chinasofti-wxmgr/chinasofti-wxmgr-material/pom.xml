@@ -7,6 +7,7 @@
 		<version>1.0.0</version>
 	</parent>
 	<artifactId>chinasofti-wxmgr-material</artifactId>
+	<version>0.0.1</version>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,12 +19,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		
 		<!-- 6.common codec -->
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-			</dependency>
+		</dependency>
 
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -68,7 +68,6 @@
 			<artifactId>pagehelper-spring-boot-starter</artifactId>
 			<version>1.2.3</version>
 		</dependency>
-
 		<!-- jedis依赖 -->
 		<dependency>
 			<groupId>redis.clients</groupId>
@@ -80,11 +79,15 @@
 			<artifactId>spring-cloud-starter-eureka</artifactId>
 		</dependency>
 		<dependency>
-		<groupId>com.chinasofti</groupId>
-		<artifactId>chinasofti-wxmgr-common</artifactId>
-		<version>0.0.1</version>
+			<groupId>com.chinasofti</groupId>
+			<artifactId>chinasofti-wxmgr-common</artifactId>
+			<version>0.0.1</version>
 		</dependency>
-
+		<!-- 开发者模式 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}</finalName>
@@ -114,5 +117,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<version>0.0.1</version>
 </project>

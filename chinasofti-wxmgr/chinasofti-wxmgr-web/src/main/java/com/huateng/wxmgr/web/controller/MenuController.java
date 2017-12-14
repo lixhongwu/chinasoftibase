@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.huateng.wxmgr.common.entity.WxMenu;
+import com.huateng.wxmgr.common.utils.Constant;
 import com.huateng.wxmgr.web.feign.MenuFeign;
 
 import net.sf.json.JSONObject;
@@ -49,7 +50,8 @@ public class MenuController {
 	 */
 	@RequestMapping(value="/updatamenu",method=RequestMethod.POST)
 	public String updataMenu(@RequestParam Map<String,String> map){
-		return menufeign.updataMenu(map);
+		int i= menufeign.updataMenu(map);
+		return i == 1 ? Constant.SUCCESS : Constant.ERROR;
 		
 	}
 	/**
@@ -90,7 +92,8 @@ public class MenuController {
 	 */
 	@RequestMapping(value="/deletemenu/{ids}",method=RequestMethod.POST)
 	public String deleteMenu(@PathVariable("ids") String ids){
-		return menufeign.deleteMenu(ids);
+		int i= menufeign.deleteMenu(ids);
+		return i==1?Constant.SUCCESS:Constant.ERROR;
 		
 	}
 

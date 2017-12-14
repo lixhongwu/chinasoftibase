@@ -220,6 +220,16 @@ public class WxMenuServiceImpl implements WxMenuservice {
 	 */
 	@Override
 	public int updataMenu(Map<String, String> map) {
+		//封装菜单对象
+		WxMenu wxMenu = propWxMenu(map);
+		return wxMenuMapper.updateByPrimaryKey(wxMenu);
+	}
+	/**
+	 * 封装菜单对象的方法
+	 * @param map
+	 * @return
+	 */
+	private WxMenu propWxMenu(Map<String, String> map) {
 		WxMenu wxMenu = null;
 		// 获取ids
 		String ids = map.get("ids");
@@ -242,8 +252,7 @@ public class WxMenuServiceImpl implements WxMenuservice {
 		if (StringUtils.isNotEmpty(sort)) {
 			wxMenu.setSort(Byte.parseByte(sort));
 		}
-
-		return wxMenuMapper.updateByPrimaryKey(wxMenu);
+		return wxMenu;
 	}
 	/**
 	 * 删除该菜单组下的所有菜单.

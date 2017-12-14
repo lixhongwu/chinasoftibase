@@ -692,39 +692,7 @@
 		});
 	}
 
-	/* 
-	 *查询
-	 */
-	function doSearch() {
-		$.ajax({
-			type : 'POST',
-			url : '/user/list', //用户请求数据的URL
-			data : {
-				'usernames' : $('#usernames').val(),
-				'departmentnames' : $('#departmentnames').val(),
-				'pageNumber' : 1,
-				'pageSize' : 10
-			},
-			error : function(XMLHttpRequest, textStatus, errorThrown) {
-				alert(textStatus);
-			},
-			success : function(data) {
-				data = eval("(" + data + ")");
-				$('#tbMenuGroup').datagrid('loadData', data.rows);
-				$('#pagination').pagination({
-					total : data.total
-				});
-			}
-		});
-	}
 
-	/*
-	 *清除搜索框内容
-	 */
-	function doClear() {
-		document.getElementById("departmentnames").value = "";
-		document.getElementById("usernames").value = "";
-	}
 </script>
 
 

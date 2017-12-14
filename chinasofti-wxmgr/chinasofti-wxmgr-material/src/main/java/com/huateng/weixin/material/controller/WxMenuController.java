@@ -52,7 +52,6 @@ public class WxMenuController {
 	private RestTemplate restTemplate;
 	@Autowired
 	private AccessTokenService accessTokenService;
-	
 
 	/**
 	 * 删除菜单服务
@@ -61,14 +60,9 @@ public class WxMenuController {
 	 * @return
 	 */
 	@RequestMapping(value = "/deletemenu/{ids}", method = RequestMethod.POST)
-	public String deleteMenu(@PathVariable("ids") String ids) {
-		int i = wxMenuService.deleteMenu(ids);
-		if (i > 0) {
-			return Constant.SUCCESS;
-		} else {
-			return Constant.ERROR;
-		}
-
+	public int deleteMenu(@PathVariable("ids") String ids) {
+		
+		return wxMenuService.deleteMenu(ids);
 	}
 
 	/**
@@ -78,10 +72,10 @@ public class WxMenuController {
 	 * @return
 	 */
 	@RequestMapping(value = "/updatamenu", method = RequestMethod.POST)
-	public String updataMenu(@RequestParam Map<String, String> map) {
-		int i = wxMenuService.updataMenu(map);
-		return i == 1 ? Constant.SUCCESS : Constant.ERROR;
-
+	public int updataMenu(@RequestParam Map<String, String> map) {
+		
+		return wxMenuService.updataMenu(map);
+		
 	}
 
 	/**
@@ -92,11 +86,17 @@ public class WxMenuController {
 	 */
 	@RequestMapping(value = "/addlevelonemenu", method = RequestMethod.POST)
 	public String createLevelOneMenu(@RequestParam Map<String, String> map) {
+		
+		//封装一级菜单数据
 		levelOneMap(map);
+		//添加一级菜单
 		return addMenu(map);
 
 	}
-
+	/**
+	 * 封装一级菜单数据
+	 * @param map
+	 */
 	private void levelOneMap(Map<String, String> map) {
 		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 		map.put("level", "1");
@@ -124,13 +124,16 @@ public class WxMenuController {
 			levelOneMenu.setUrl("");
 			wxMenuService.updateMenu(levelOneMenu);
 		}
-
+		//封装二级菜单的数据
 		levelTwoMap(map);
-		
+
 		return addMenu(map);
 
 	}
-
+	/**
+	 * 封装二级菜单数据的方法
+	 * @param map
+	 */
 	private void levelTwoMap(Map<String, String> map) {
 		map.put("level", "2");
 		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
@@ -151,7 +154,6 @@ public class WxMenuController {
 		try {
 			BeanUtils.populate(wxMenu, map);
 			int i = wxMenuService.createMenu(wxMenu);
-
 			return i == 1 ? Constant.SUCCESS : Constant.ERROR;
 
 		} catch (IllegalAccessException | InvocationTargetException e) {
@@ -181,11 +183,9 @@ public class WxMenuController {
 				levelOneMenu.setId(x);
 				// 获取一级菜单下的二级菜单
 				List<WxMenu> levelTwo = wxMenuService.getMenuByPid(levelOneMenu.getIds());
-
 				if (levelTwo != null || levelTwo.size() > 0) {
 					for (int y = 1; y <= levelTwo.size(); y++) {
 						WxMenu levelTwoMenu = levelTwo.get(y - 1);
-
 						levelTwoMenu.setId(10 * x + y);
 					}
 				}
@@ -261,7 +261,7 @@ public class WxMenuController {
 
 		try {
 			wxMenuService.delMenuGroup(ids);
-			//删除gid为组ids的所有菜单.
+			// 删除gid为组ids的所有菜单.
 			wxMenuService.deleteMenuByGid(ids);
 			return Constant.SUCCESS;
 		} catch (Exception e) {
@@ -359,7 +359,7 @@ public class WxMenuController {
 	@RequestMapping(value = "/synchromenu", method = RequestMethod.POST)
 	public String synchroMenu() {
 		String accessToken = accessTokenService.getAccessToken();
-		logger.info(">>>>>>>>>>>>>>>>>>>>>>>"+accessToken);
+		logger.info(">>>>>>>>>>>>>>>>>>>>>>>" + accessToken);
 		if (StringUtils.isEmpty(accessToken)) {
 			logger.error("获取accessToken异常");
 			return "40001";
@@ -367,50 +367,49 @@ public class WxMenuController {
 			String menuUrl = String.format(Constant.GET_MENU, accessToken);
 			JSONObject object = restTemplate.getForObject(menuUrl, JSONObject.class);
 			// 判断是否成功获取到菜单
-			String errcode="";
-			String errmsg ="";
-			if(object.containsKey("errcode")){
-			errcode = object.getString("errcode");
+			String errcode = "";
+			String errmsg = "";
+			if (object.containsKey("errcode")) {
+				errcode = object.getString("errcode");
 			}
-			if(object.containsKey("errmsg")){
-			 errmsg =object.getString("errmsg");
+			if (object.containsKey("errmsg")) {
+				errmsg = object.getString("errmsg");
 			}
-			//如果获取到菜单
+			// 如果获取到菜单
 			if (StringUtils.isNotEmpty(errcode)) {
-				//打印报错信息
+				// 打印报错信息
 				logger.error(errmsg);
-				//返回报错码
+				// 返回报错码
 				return errcode;
-				
+
 			} else {
-				//菜单map
-				Map<String,String> map1= new HashMap<>();
+				// 菜单map
+				Map<String, String> map1 = new HashMap<>();
 				levelOneMap(map1);
-				Map<String,String> map2=new HashMap<>();
+				Map<String, String> map2 = new HashMap<>();
 				levelTwoMap(map2);
-				//没有报错，则获取数据，删除已存在的组，新建一个菜单组，并将菜单都添加都菜单组中。
+				// 没有报错，则获取数据，删除已存在的组，新建一个菜单组，并将菜单都添加都菜单组中。
 				JSONArray jsonArray = object.getJSONObject("menu").getJSONArray("button");
 				List<SynMenu> list = JsonUtils.jsonToList(jsonArray.toString(), SynMenu.class);
-				logger.info(">>>>>>>>>>>>>>>>>>>>>"+list.toString());
+				logger.info(">>>>>>>>>>>>>>>>>>>>>" + list.toString());
 				for (SynMenu synMenu : list) {
-					//System.out.println(getMenu.toString());
-					String name = synMenu.getName();//一级菜单的title
-					//String type = synMenu.getType();//菜单类型
-					String url = synMenu.getUrl();//菜单链接
-					String key = synMenu.getKey();//菜单关键字
-					
+					// System.out.println(getMenu.toString());
+					String name = synMenu.getName();// 一级菜单的title
+					// String type = synMenu.getType();//菜单类型
+					String url = synMenu.getUrl();// 菜单链接
+					String key = synMenu.getKey();// 菜单关键字
+
 					map1.put("title", name);
 					map1.put("url", url);
 					map1.put("keyword", key);
-					
-					List<SynMenu> sub_button = synMenu.getSub_button();//获取二级菜单
+
+					List<SynMenu> sub_button = synMenu.getSub_button();// 获取二级菜单
 					for (SynMenu synMenu2 : sub_button) {
-						String name2 = synMenu2.getName();//一级菜单的title
-						String type2 = synMenu2.getType();//菜单类型
-						String url2 = synMenu2.getUrl();//菜单链接
-						String key2 = synMenu2.getKey();//菜单关键字
+						String name2 = synMenu2.getName();// 一级菜单的title
+						String type2 = synMenu2.getType();// 菜单类型
+						String url2 = synMenu2.getUrl();// 菜单链接
+						String key2 = synMenu2.getKey();// 菜单关键字
 					}
-					
 
 				}
 				return object.toString();

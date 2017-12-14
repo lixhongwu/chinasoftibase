@@ -12,14 +12,12 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.huateng.weixin.material.mapper.WxUserFansMapper;
-import com.huateng.weixin.material.service.TagModalService;
 import com.huateng.weixin.material.service.UserModalService;
 import com.huateng.weixin.material.service.UserService;
 import com.huateng.wxmgr.common.entity.WxUserFans;
 import com.huateng.wxmgr.common.entity.WxUserFansExample;
 import com.huateng.wxmgr.common.entity.WxUserFansExample.Criteria;
 
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Service
@@ -33,8 +31,8 @@ public class UserModalServiceImpl implements UserModalService {
 	@Autowired
 	private WxUserFansMapper mapper;
 
-	@Autowired
-	private TagModalService tagModalService;
+//	@Autowired
+//	private TagModalService tagModalService;
 
 	/**
 	 * 批量添加客户
@@ -45,21 +43,18 @@ public class UserModalServiceImpl implements UserModalService {
 		List<String> allBlackUsers = userService.getAllBlackUsers(null);
 		int j = 0;
 		for (WxUserFans wxUserFans : userList) {
-			// 判断是否有标签，如有，则设置标签名
-			String tagidList = wxUserFans.getTagidList();
-			JSONArray tagsArray = JSONArray.fromObject(tagidList);
-			if (tagsArray.size() > 0) {
-				String tags = "";
-				for (Object obj : tagsArray) {
-					int tagsid = Integer.parseInt(obj.toString());
-					String tagName = tagModalService.findTagById(tagsid).getName();
-					tags += tagName + ",";
-				}
-				logger.info(">>>>>>>>>>>>>>>>>>>>>>>tagsArray.get(0)" + tags);
-				wxUserFans.setTagidList(tags.substring(0, tags.length() - 1));
-			} else {
-				wxUserFans.setTagidList("");
-			}
+			/*
+			 * // 判断是否有标签，如有，则设置标签名 String tagidList =
+			 * wxUserFans.getTagidList(); JSONArray tagsArray =
+			 * JSONArray.fromObject(tagidList); if (tagsArray.size() > 0) {
+			 * String tags = ""; for (Object obj : tagsArray) { int tagsid =
+			 * Integer.parseInt(obj.toString()); String tagName =
+			 * tagModalService.findTagById(tagsid).getName(); tags += tagName +
+			 * ","; } logger.info(">>>>>>>>>>>>>>>>>>>>>>>tagsArray.get(0)" +
+			 * tags); wxUserFans.setTagidList(tags.substring(0, tags.length() -
+			 * 1)); } else { wxUserFans.setTagidList(""); }
+			 */
+			// 标签直接存储[1,2]格式即可
 			// 判断是否是黑名单。
 			wxUserFans.setBlack("0");
 			if (allBlackUsers.contains(wxUserFans.getIds())) {
@@ -84,6 +79,26 @@ public class UserModalServiceImpl implements UserModalService {
 	 */
 	@Override
 	public String findTagsByPage(WxUserFans userFans) {
+		// 设置分页条件
+		WxUserFansExample example = setPageExample(userFans);
+		// 分页查询
+		PageHelper.startPage(userFans.getPage(), userFans.getRows());
+		List<WxUserFans> list = mapper.selectByExample(example);
+
+		JSONObject json = new JSONObject();
+		json.put("rows", list);
+		json.put("total", ((Page<WxUserFans>) list).getTotal());
+		logger.info("findTagsByPage+分页查询后参数>>>>>>>>>>>>>>" + json.toString());
+		return json.toString();
+	}
+
+	/**
+	 * 设置分页条件的方法.
+	 * 
+	 * @param userFans
+	 * @return
+	 */
+	private WxUserFansExample setPageExample(WxUserFans userFans) {
 		String nickname = userFans.getNickname();
 		String sort = userFans.getSort();
 		String order = userFans.getOrder();
@@ -104,8 +119,8 @@ public class UserModalServiceImpl implements UserModalService {
 		}
 
 		if (StringUtils.isNotEmpty(subscribeTime)) {
-			criteria.andAppidGreaterThanOrEqualTo(subscribeTime);
-			//criteria.andSubscribeTimeGreaterThan(subscribeTime);
+			// criteria.andAppidGreaterThanOrEqualTo(subscribeTime);
+			criteria.andSubscribeTimeGreaterThan(subscribeTime);
 		}
 
 		if (StringUtils.isNotEmpty(black)) {
@@ -121,16 +136,7 @@ public class UserModalServiceImpl implements UserModalService {
 			}
 			example.setOrderByClause(sort + " " + order);
 		}
-
-		// 分页查询
-		PageHelper.startPage(userFans.getPage(), userFans.getRows());
-		List<WxUserFans> list = mapper.selectByExample(example);
-
-		JSONObject json = new JSONObject();
-		json.put("rows", list);
-		json.put("total", ((Page<WxUserFans>) list).getTotal());
-		logger.info("findTagsByPage+分页查询后参数>>>>>>>>>>>>>>" + json.toString());
-		return json.toString();
+		return example;
 	}
 
 	/**
@@ -139,16 +145,17 @@ public class UserModalServiceImpl implements UserModalService {
 	@Override
 	public int addRemark(Map<String, String> map) {
 
-		if (map != null && map.size() > 0) {
-			String ids = map.get("ids");
-			String remark = map.get("remark");
-			if (StringUtils.isNotEmpty(ids)) {
-				WxUserFans wxUserFans = mapper.selectByPrimaryKey(ids);
-				if (wxUserFans != null) {
-					wxUserFans.setRemark(remark);
-					int i = mapper.updateByPrimaryKey(wxUserFans);
-					return i;
-				}
+		if (map == null || map.size() == 0) {
+			return 0;
+		}
+		String ids = map.get("ids");
+		String remark = map.get("remark");
+		if (StringUtils.isNotEmpty(ids)) {
+			WxUserFans wxUserFans = mapper.selectByPrimaryKey(ids);
+			if (wxUserFans != null) {
+				wxUserFans.setRemark(remark);
+				int i = mapper.updateByPrimaryKey(wxUserFans);
+				return i;
 			}
 		}
 		return 0;
@@ -160,14 +167,15 @@ public class UserModalServiceImpl implements UserModalService {
 	@Override
 	public int addBlackUsers(List<String> idsList) {
 		int j = 0;
-		if (idsList != null && idsList.size() > 0) {
-			for (String string : idsList) {
-				WxUserFans userFans = new WxUserFans();
-				userFans.setIds(string);
-				userFans.setBlack("1");
-				int i = mapper.updateByPrimaryKeySelective(userFans);
-				j += i;
-			}
+		if (idsList == null || idsList.size() == 0) {
+			return j;
+		}
+		for (String string : idsList) {
+			WxUserFans userFans = new WxUserFans();
+			userFans.setIds(string);
+			userFans.setBlack("1");
+			int i = mapper.updateByPrimaryKeySelective(userFans);
+			j += i;
 		}
 		return j;
 	}
@@ -181,14 +189,15 @@ public class UserModalServiceImpl implements UserModalService {
 	@Override
 	public int unBlackUsers(List<String> idsList) {
 		int j = 0;
-		if (idsList != null && idsList.size() > 0) {
-			for (String string : idsList) {
-				WxUserFans userFans = new WxUserFans();
-				userFans.setIds(string);
-				userFans.setBlack("0");
-				int i = mapper.updateByPrimaryKeySelective(userFans);
-				j += i;
-			}
+		if (idsList == null || idsList.size() == 0) {
+			return j;
+		}
+		for (String string : idsList) {
+			WxUserFans userFans = new WxUserFans();
+			userFans.setIds(string);
+			userFans.setBlack("0");
+			int i = mapper.updateByPrimaryKeySelective(userFans);
+			j += i;
 		}
 		return j;
 	}

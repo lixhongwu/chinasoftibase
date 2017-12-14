@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 import com.huateng.wxmgr.common.entity.WxMenu;
+import com.huateng.wxmgr.common.utils.Constant;
 import com.huateng.wxmgr.web.feign.MenuFeign;
 import net.sf.json.JSONObject;
 
@@ -81,20 +82,17 @@ public class MenuFeignClientHystrix implements MenuFeign {
 	 * 删除菜单
 	 */
 	@Override
-	public String deleteMenu(String ids) {
-		// TODO Auto-generated method stub
-		return "call删除菜单失败";
+	public int deleteMenu(String ids) {
+		return Constant.CALLBACK_INT;
 	}
 
 	@Override
-	public String updataMenu(Map<String, String> map) {
-		// TODO Auto-generated method stub
-		return "130";
+	public int updataMenu(Map<String, String> map) {
+		return Constant.CALLBACK_INT;
 	}
 
 	@Override
 	public String submitMenu(String gid) {
-		// TODO Auto-generated method stub
 		return "130";
 	}
 
