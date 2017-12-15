@@ -60,6 +60,7 @@ function setId(){
 //增加
 $("#save").click(function(){
 	flag = "0";
+	
 	var url="message/add";
 	 $("#editform").form("submit",{
 		url:url,
@@ -87,6 +88,7 @@ $("#save").click(function(){
 			
 		}
 	}); 
+	 $("#editform").form("clear");
 });
 //修改
 $("#updatesave").click(function(){
@@ -123,6 +125,7 @@ $("#updatesave").click(function(){
  * 消息新增，打开窗口编辑框
  */
 function message_add() {
+	
 	$("#editwin").window("open");
 }
 
