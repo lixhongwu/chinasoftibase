@@ -128,7 +128,6 @@ public class AccessTokenService {
 					}
 				}
 			}
-			
 		} finally {
 			writeLock.unlock();
 		}

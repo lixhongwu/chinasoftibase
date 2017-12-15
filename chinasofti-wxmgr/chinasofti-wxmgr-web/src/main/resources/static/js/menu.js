@@ -4,14 +4,21 @@
 	});
 	
 	
+	
 	//将微信的服务器同步到本地库
 	function synchroMenu(){
 		
 	}
-	
-	//定义全局变量,菜单组的ids;
-	var menugruopids;
-	
+	var datafun={
+			submitmenu:function(){
+				
+			},
+			datafun=function(){
+				
+			}
+			
+	}
+
 	//将菜单刷新到微信服务器
 	function submitMenu() {
 		
@@ -140,9 +147,12 @@
 	}
 	
 	
+	//定义全局变量,菜单组的ids;
+	var menugruopids;
 	
 	//提交更新菜单
 	 function editMenu(){
+		 
 		$('#menuEditForm').form('submit',{
 			url:'wxmenu/updatamenu',
 			type:'post',
@@ -199,7 +209,6 @@
 						if (data == 200) {
 							$.messager.alert('信息提示', '删除成功！', 'info');
 							$('#menuTable').treegrid('reload')
-							//$('#pagination').pagination('select');
 						} else {
 							$.messager.alert('信息提示', '删除失败！', 'info');
 						}
@@ -213,9 +222,7 @@
 	function openAddLevelOneMenu(){
 		
 		var item= $('#menuTable').treegrid('getRoots');
-		
 		if(item.length < 3){
-			
 			$('#menuAddForm').form('clear');
 			$('#addMenuGid').val(menugruopids);
 			$('#addMenuPid').val(menugruopids);
@@ -263,10 +270,8 @@
 	function openAddLevelTwoMenu(id){
 		
 		var node = $('#menuTable').treegrid('find',id);
-		
 		var item= $('#menuTable').treegrid('getChildren',node.id);
 		if(item.length <5 ){
-			
 			$('#menuTwoAddForm').form('clear');
 			$('#ptitle').val(node.title);
 			$('#addTwoMenuGid').val(menugruopids);
@@ -320,7 +325,6 @@
 			url : '/wxmenu/addmenugroup',
 			type : 'POST',
 			success : function(data) {
-				//alert(data);
 				if (data > 0) {
 					$('#pagination').pagination('select');
 					$('#menuGroupAddDialog').dialog('close');
@@ -354,7 +358,6 @@
 						if (data == 200) {
 							$.messager.alert('信息提示', '删除成功！', 'info');
 							$('#menu-datagrid').datagrid('reload');
-							//$('#pagination').pagination('select');
 						} else {
 							$.messager.alert('信息提示', '删除失败！', 'info');
 						}
@@ -428,7 +431,6 @@
 					$.messager.alert('信息提示', '提交成功！', 'info');
 					$('#menuGroupEditDialog').dialog('close');
 					$('#menu-datagrid').datagrid('reload');
-					//$('#pagination').pagination('select');
 				} else {
 					$.messager.alert('信息提示', '提交失败！', 'info');
 				}
