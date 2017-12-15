@@ -15,10 +15,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 
-import com.huateng.weixin.material.service.AccessTokenService;
 import com.huateng.weixin.material.service.UserService;
 import com.huateng.wxmgr.common.entity.WxUserFans;
 import com.huateng.wxmgr.common.entity.WxUserOpenId;
+import com.huateng.wxmgr.common.service.AccessTokenService;
 import com.huateng.wxmgr.common.utils.Constant;
 import com.huateng.wxmgr.common.utils.HttpUtil;
 import com.huateng.wxmgr.common.utils.ResultUtils;

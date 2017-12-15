@@ -1,4 +1,4 @@
-package com.huateng.weixin.material.conf;
+package com.huateng.wxmgr.common.conf;
 
 import java.lang.reflect.Method;
 import java.nio.charset.Charset;

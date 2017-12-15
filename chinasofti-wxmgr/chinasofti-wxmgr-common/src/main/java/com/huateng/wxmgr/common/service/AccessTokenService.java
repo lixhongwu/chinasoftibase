@@ -1,4 +1,4 @@
-package com.huateng.weixin.material.service;
+package com.huateng.wxmgr.common.service;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;

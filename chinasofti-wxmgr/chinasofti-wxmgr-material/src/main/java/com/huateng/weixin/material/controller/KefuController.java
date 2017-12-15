@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.huateng.weixin.material.service.AccessTokenService;
 import com.huateng.weixin.material.service.KefuService;
 import com.huateng.wxmgr.common.entity.Kefu;
+import com.huateng.wxmgr.common.service.AccessTokenService;
 
 import net.sf.json.JSONObject;
 

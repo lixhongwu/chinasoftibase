@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.huateng.weixin.material.service.AccessTokenService;
 import com.huateng.weixin.material.service.MessageService;
 import com.huateng.weixin.material.service.TemplateMessageSevice;
 import com.huateng.wxmgr.common.entity.ReplyMessage;
 import com.huateng.wxmgr.common.entity.TemplateMessageContent;
 import com.huateng.wxmgr.common.entity.TemplateMessageModel;
 import com.huateng.wxmgr.common.entity.TemplateSendModel;
+import com.huateng.wxmgr.common.service.AccessTokenService;
 import com.huateng.wxmgr.common.utils.WeixinUtil;
 
 import net.sf.json.JSONObject;

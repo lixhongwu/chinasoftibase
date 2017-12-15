@@ -13,8 +13,8 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
-import com.huateng.weixin.material.service.AccessTokenService;
 import com.huateng.weixin.material.service.TagService;
+import com.huateng.wxmgr.common.service.AccessTokenService;
 import com.huateng.wxmgr.common.utils.Constant;
 import com.huateng.wxmgr.common.utils.HttpUtil;
 

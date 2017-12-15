@@ -7,6 +7,8 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
+import com.huateng.wxmgr.common.service.AccessTokenService;
+
 
 @SpringBootApplication
 @MapperScan("com.huateng.weixin.material.mapper")
@@ -16,6 +18,12 @@ public class MaterialApplication {
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
+	
+	@Bean
+	public AccessTokenService accessTokenService(){
+		return new AccessTokenService();
+	}
+	
 	public static void main(String[] args) {
 		SpringApplication.run(MaterialApplication.class, args);
 	}

@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.huateng.weixin.material.service.AccessTokenService;
 import com.huateng.weixin.material.service.WxMenuservice;
 import com.huateng.wxmgr.common.entity.SynMenu;
 import com.huateng.wxmgr.common.entity.WxMenu;
+import com.huateng.wxmgr.common.service.AccessTokenService;
 import com.huateng.wxmgr.common.utils.Constant;
 import com.huateng.wxmgr.common.utils.JsonUtils;
 
