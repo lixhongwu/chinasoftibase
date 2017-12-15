@@ -9,15 +9,15 @@
 	function synchroMenu(){
 		
 	}
-	var datafun={
-			submitmenu:function(){
-				
-			},
-			datafun=function(){
-				
-			}
-			
-	}
+//	var datafun={
+//			submitmenu:function(){
+//				
+//			},
+//			datafun=function(){
+//				
+//			}
+//			
+//	}
 
 	//将菜单刷新到微信服务器
 	function submitMenu() {
@@ -86,7 +86,6 @@
 		          ]]   
 		});  
 		$('#menuDialog').dialog("open");
-
 	}
 	
 	//编辑菜单

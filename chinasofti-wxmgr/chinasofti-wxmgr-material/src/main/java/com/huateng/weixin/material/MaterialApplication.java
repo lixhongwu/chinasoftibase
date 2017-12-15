@@ -5,18 +5,23 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
+
+import com.huateng.wxmgr.common.service.AccessTokenService;
 
 
 @SpringBootApplication
 @MapperScan("com.huateng.weixin.material.mapper")
 @EnableEurekaClient
-@ComponentScan("com.huateng.wxmgr.common.service")
 public class MaterialApplication {
 	@Bean
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
+	}
+	
+	@Bean
+	public AccessTokenService accessTokenService(){
+		return new AccessTokenService();
 	}
 	
 	public static void main(String[] args) {
